@@ -1,0 +1,13 @@
+# macOS system files
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Temporary test & debug directories
+.chrome_tmp/
+scratch/
+chrome_user_data/
+
+# Log files
+*.log

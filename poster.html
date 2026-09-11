@@ -1,0 +1,1850 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Personal Universe | Everything You Became Part Of</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-space: #050814;
+      --gold-primary: #E5C378;
+      --gold-accent: #C9973B;
+      --gold-glow: rgba(229, 195, 120, 0.4);
+      --earth-glow: #38BDF8;
+      --planet-people: #E08A3C;
+      --planet-learning: #2563EB;
+      --planet-projects: #8B5CF6;
+      --planet-memories: #06B6D4;
+      --planet-achieve: #E11D48;
+      --planet-values: #22C55E;
+      --glass-pill-bg: rgba(15, 23, 42, 0.72);
+      --glass-pill-border: rgba(255, 255, 255, 0.18);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    h1, h2, h3, h4 { font-family: 'DM Serif Display', Georgia, serif; }
+    html, body {
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      background-color: var(--bg-space);
+      color: #FFFFFF;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      position: relative;
+    }
+
+    /* Background Canvas: Stars, Dust, Meteors */
+    #cosmicCanvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* Ambient Space Gradients */
+    .cosmic-nebula {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(120px);
+      pointer-events: none;
+      z-index: 2;
+      opacity: 0.15;
+    }
+    .nebula-top-left {
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle, #D97706, transparent 70%);
+      top: -200px;
+      left: -150px;
+    }
+    .nebula-top-right {
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle, #2563EB, transparent 70%);
+      top: -250px;
+      right: -200px;
+    }
+    .nebula-center {
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, #E5C378, transparent 70%);
+      top: 30%;
+      left: 35%;
+      opacity: 0.08;
+    }
+
+    /* EARTH CURVATURE AT BOTTOM */
+    .earth-horizon {
+      position: absolute;
+      bottom: -480px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 170vw;
+      height: 700px;
+      border-radius: 50% / 100% 100% 0 0;
+      background: radial-gradient(ellipse at 50% 0%, #0c2340 0%, #050e1a 45%, #02050b 80%);
+      box-shadow: 
+        0 -20px 80px rgba(56, 189, 248, 0.45),
+        0 -60px 140px rgba(2, 132, 199, 0.3),
+        0 -120px 220px rgba(14, 165, 233, 0.18),
+        inset 0 10px 40px rgba(255, 255, 255, 0.35);
+      z-index: 5;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .earth-atmosphere-line {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, transparent 5%, #BAE6FD 30%, #FFFFFF 50%, #BAE6FD 70%, transparent 95%);
+      filter: blur(1px);
+      box-shadow: 0 0 25px #38BDF8, 0 0 50px #0284C7;
+    }
+
+    /* SVG ORBITAL LINES LAYER */
+    .orbital-svg-layer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 4;
+      pointer-events: none;
+    }
+    .orbit-ellipse {
+      fill: none;
+      stroke: rgba(229, 195, 120, 0.22);
+      stroke-width: 1.2;
+      stroke-dasharray: 4 4;
+    }
+    .orbit-glow-line {
+      fill: none;
+      stroke: rgba(56, 189, 248, 0.16);
+      stroke-width: 1.5;
+    }
+    .satellite-moon {
+      fill: #CBD5E1;
+      filter: drop-shadow(0 0 4px #FFFFFF);
+    }
+
+    /* =========================================================================
+       HEADER TYPOGRAPHY (Exact replica of reference poster)
+       ========================================================================= */
+    .header-top-left {
+      position: absolute;
+      top: 42px;
+      left: 48px;
+      z-index: 50;
+      display: flex;
+      flex-direction: column;
+    }
+    .header-title-group {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.15;
+    }
+    .header-word-your {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.45rem;
+      font-weight: 300;
+      letter-spacing: 5px;
+      color: #FFFFFF;
+      text-transform: uppercase;
+    }
+    .header-word-personal {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.45rem;
+      font-weight: 700;
+      letter-spacing: 5px;
+      color: #FFFFFF;
+      text-transform: uppercase;
+    }
+    .header-word-universe {
+      font-family: 'DM Serif Display', Georgia, serif;
+      font-size: 1.55rem;
+      font-weight: 700;
+      letter-spacing: 5px;
+      color: var(--gold-primary);
+      text-transform: uppercase;
+      text-shadow: 0 0 15px rgba(229, 195, 120, 0.4);
+    }
+    .header-gold-divider {
+      width: 60px;
+      height: 1.5px;
+      background: var(--gold-accent);
+      margin: 10px 0 8px 0;
+      opacity: 0.85;
+    }
+    .header-tagline {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.85rem;
+      color: #94A3B8;
+      font-weight: 400;
+      letter-spacing: 1px;
+      line-height: 1.4;
+    }
+
+    .header-top-right {
+      position: absolute;
+      top: 42px;
+      right: 48px;
+      z-index: 50;
+      text-align: right;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+    .right-quote-lines {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 3px;
+      color: #E2E8F0;
+      text-transform: uppercase;
+      line-height: 1.6;
+    }
+    .right-quote-divider {
+      width: 35px;
+      height: 1.5px;
+      background: var(--gold-accent);
+      margin-top: 6px;
+    }
+
+    /* UTILITY CONTROLS BAR (Top Right) */
+    .utility-bar {
+      position: absolute;
+      top: 105px;
+      right: 48px;
+      z-index: 60;
+      display: flex;
+      gap: 12px;
+    }
+    .btn-icon-pill {
+      background: rgba(15, 23, 42, 0.65);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(12px);
+      color: #F8FAFC;
+      padding: 6px 14px;
+      border-radius: 30px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      transition: all 0.3s ease;
+    }
+    .btn-icon-pill:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: var(--gold-primary);
+      box-shadow: 0 0 15px rgba(229, 195, 120, 0.3);
+      transform: translateY(-1px);
+    }
+    .sound-bars {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      height: 10px;
+    }
+    .sound-bar {
+      width: 2px;
+      height: 100%;
+      background: var(--gold-primary);
+      border-radius: 2px;
+      animation: soundDance 1s ease infinite alternate;
+    }
+    .sound-bar:nth-child(2) { animation-delay: 0.2s; height: 50%; }
+    .sound-bar:nth-child(3) { animation-delay: 0.4s; height: 80%; }
+    .sound-bars.muted .sound-bar { animation: none; height: 2px; background: #64748B; }
+    @keyframes soundDance { 0% { height: 20%; } 100% { height: 100%; } }
+
+    /* =========================================================================
+       FOOTER TYPOGRAPHY & CLIMAX SECTION (Exact replica of reference poster)
+       ========================================================================= */
+    .footer-left {
+      position: absolute;
+      bottom: 40px;
+      left: 48px;
+      z-index: 50;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.75rem;
+      color: #94A3B8;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      line-height: 1.6;
+    }
+
+    .footer-right {
+      position: absolute;
+      bottom: 40px;
+      right: 48px;
+      z-index: 50;
+      text-align: right;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.72rem;
+      color: #94A3B8;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      line-height: 1.6;
+    }
+
+    .footer-center {
+      position: absolute;
+      bottom: 35px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 50;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .footer-milestone-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.35rem;
+      font-weight: 700;
+      letter-spacing: 6px;
+      color: #FFFFFF;
+      text-transform: uppercase;
+      text-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+    }
+    .footer-milestone-sub {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 4px;
+      color: #94A3B8;
+      text-transform: uppercase;
+      margin-top: 6px;
+      margin-bottom: 16px;
+    }
+    .btn-explore-journey {
+      background: rgba(12, 18, 38, 0.85);
+      border: 1px solid var(--gold-accent);
+      color: var(--gold-primary);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 3.5px;
+      text-transform: uppercase;
+      padding: 12px 28px;
+      border-radius: 40px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 0 25px rgba(201, 151, 59, 0.35);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .btn-explore-journey:hover {
+      background: var(--gold-primary);
+      color: #050814;
+      border-color: #FFFFFF;
+      box-shadow: 0 0 40px rgba(229, 195, 120, 0.8);
+      transform: translateY(-2px) scale(1.03);
+    }
+
+    /* =========================================================================
+       STAGE CONTAINER & RELATIVE COORDINATE SYSTEM
+       ========================================================================= */
+    #universeStage {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 10;
+      perspective: 1200px;
+    }
+
+    /* =========================================================================
+       CENTER EMPLOYEE SPHERE: MANUSHI (With Holographic Saturn Rings)
+       ========================================================================= */
+    .center-sphere-wrapper {
+      position: absolute;
+      top: 48%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 25;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+      transition: transform 0.5s ease;
+    }
+    .center-sphere-wrapper:hover {
+      transform: translate(-50%, -50%) scale(1.04);
+    }
+
+    .center-sphere-core {
+      position: relative;
+      width: 250px;
+      height: 250px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Glowing Atmosphere Halo */
+    .center-halo-glow {
+      position: absolute;
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(229, 195, 120, 0.45) 0%, rgba(201, 151, 59, 0.2) 40%, transparent 72%);
+      pointer-events: none;
+      animation: pulseCenterHalo 4s ease-in-out infinite alternate;
+    }
+    @keyframes pulseCenterHalo {
+      0% { transform: scale(0.96); opacity: 0.7; }
+      100% { transform: scale(1.08); opacity: 1; }
+    }
+
+    /* SATURN TILTED RINGS (Front and Back Layers) */
+    .center-ring-back {
+      position: absolute;
+      width: 440px;
+      height: 150px;
+      border-radius: 50%;
+      border: 2px solid rgba(229, 195, 120, 0.6);
+      box-shadow: 0 0 25px rgba(229, 195, 120, 0.4), inset 0 0 15px rgba(229, 195, 120, 0.3);
+      transform: rotate(-16deg) rotateX(72deg);
+      z-index: 1;
+      pointer-events: none;
+    }
+    .center-ring-outer-back {
+      position: absolute;
+      width: 480px;
+      height: 170px;
+      border-radius: 50%;
+      border: 1px dashed rgba(229, 195, 120, 0.4);
+      transform: rotate(-16deg) rotateX(72deg);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .center-avatar-img {
+      width: 215px;
+      height: 215px;
+      border-radius: 50%;
+      object-fit: cover;
+      position: relative;
+      z-index: 2;
+      box-shadow: 
+        inset 0 0 40px rgba(0, 0, 0, 0.8),
+        0 0 45px rgba(229, 195, 120, 0.7),
+        0 0 80px rgba(201, 151, 59, 0.3);
+      border: 2px solid rgba(229, 195, 120, 0.85);
+    }
+
+    .center-ring-front {
+      position: absolute;
+      width: 440px;
+      height: 150px;
+      border-radius: 50%;
+      border-bottom: 3px solid rgba(229, 195, 120, 0.85);
+      border-left: 2px solid rgba(229, 195, 120, 0.5);
+      border-right: 2px solid rgba(229, 195, 120, 0.5);
+      border-top: none;
+      box-shadow: 0 15px 35px rgba(229, 195, 120, 0.6);
+      transform: rotate(-16deg) rotateX(72deg);
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    /* Name & Title Label underneath Manushi */
+    .center-identity {
+      margin-top: 18px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      z-index: 5;
+    }
+    .center-name {
+      font-family: 'DM Serif Display', Georgia, serif;
+      font-size: 1.85rem;
+      font-weight: 700;
+      letter-spacing: 9px;
+      color: #FFFFFF;
+      text-transform: uppercase;
+      text-shadow: 0 0 20px rgba(229, 195, 120, 0.6);
+    }
+    .center-sub-role {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 3.5px;
+      color: #94A3B8;
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+
+    /* =========================================================================
+       THE 6 PLANETS (Configured by Exact Layout Coordinates)
+       ========================================================================= */
+    .planet-node {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .planet-node:hover {
+      z-index: 45;
+      transform: translate(-50%, -50%) scale(1.06);
+    }
+
+    /* Planetary Sphere Body */
+    .planet-globe {
+      position: relative;
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 12px;
+      transition: all 0.4s ease;
+      box-shadow: 
+        inset -8px -8px 20px rgba(0, 0, 0, 0.85),
+        inset 4px 4px 15px rgba(255, 255, 255, 0.35);
+    }
+    .planet-globe:hover {
+      filter: brightness(1.15);
+    }
+
+    .planet-icon {
+      font-size: 1.45rem;
+      line-height: 1;
+      margin-bottom: 4px;
+      filter: drop-shadow(0 2px 5px rgba(0,0,0,0.5));
+    }
+    .planet-title-text {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: #FFFFFF;
+      text-transform: uppercase;
+    }
+    .planet-desc-text {
+      font-size: 0.62rem;
+      color: #E2E8F0;
+      font-weight: 400;
+      line-height: 1.25;
+      max-width: 105px;
+      margin-top: 3px;
+      opacity: 0.9;
+    }
+
+    /* GLASSMORPHIC CAPSULE PILLS (Stacked Beside Planets) */
+    .planet-pills-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+    .pill-tag {
+      background: var(--glass-pill-bg);
+      border: 1px solid var(--glass-pill-border);
+      backdrop-filter: blur(14px);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.8px;
+      color: #E2E8F0;
+      white-space: nowrap;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.35);
+      transition: all 0.3s ease;
+    }
+    .pill-tag:hover {
+      background: rgba(255, 255, 255, 0.18);
+      border-color: #FFFFFF;
+      color: #FFFFFF;
+      transform: translateX(3px);
+      box-shadow: 0 6px 20px rgba(255, 255, 255, 0.25);
+    }
+
+    /* Circular Glowing Plus Button */
+    .btn-plus {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      backdrop-filter: blur(8px);
+      color: #FFFFFF;
+      font-size: 0.75rem;
+      font-weight: 700;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      margin-top: 4px;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+    }
+    .btn-plus:hover {
+      background: #FFFFFF;
+      color: #050814;
+      border-color: #FFFFFF;
+      box-shadow: 0 0 16px #FFFFFF;
+      transform: scale(1.18);
+    }
+
+    /* FLOATING POLAROID CARDS (For People & Memories) */
+    .polaroid-fan-stack {
+      position: relative;
+      width: 140px;
+      height: 120px;
+    }
+    .mini-polaroid {
+      position: absolute;
+      background: #FFFFFF;
+      padding: 5px 5px 14px 5px;
+      border-radius: 3px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .mini-polaroid img {
+      width: 80px;
+      height: 60px;
+      object-fit: cover;
+      display: block;
+      border-radius: 2px;
+    }
+    .mini-polaroid:hover {
+      transform: scale(1.4) rotate(0deg) !important;
+      z-index: 50;
+      box-shadow: 0 14px 35px rgba(229, 195, 120, 0.5);
+    }
+
+    /* Sticky Note: "Great Team" */
+    .sticky-note-great-team {
+      position: absolute;
+      top: -12px;
+      right: -25px;
+      background: #E2E8F0;
+      color: #1E293B;
+      padding: 6px 12px;
+      border-radius: 2px;
+      font-family: 'DM Serif Display', Georgia, serif;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+      transform: rotate(8deg);
+      border-left: 3px solid #CBD5E1;
+      pointer-events: none;
+    }
+
+    /* =========================================================================
+       CIRCULAR ORBIT TRACKS & DYNAMIC PLANET PLACEMENTS
+       ========================================================================= */
+    .orbit-circle-track {
+      fill: none;
+      stroke: rgba(229, 195, 120, 0.22);
+      stroke-width: 1.2;
+      stroke-dasharray: 6 6;
+      transition: stroke 0.3s ease, filter 0.3s ease;
+      pointer-events: none;
+    }
+    .orbit-circle-track.highlight-track {
+      stroke: rgba(255, 255, 255, 0.65);
+      filter: drop-shadow(0 0 10px rgba(229, 195, 120, 0.8));
+    }
+
+    /* 1. PEOPLE */
+    #node-people {
+      flex-direction: column;
+      align-items: center;
+    }
+    #node-people .planet-globe {
+      width: 135px;
+      height: 135px;
+      background: radial-gradient(circle at 35% 30%, #F59E0B 0%, #B45309 60%, #451A03 100%);
+      box-shadow: 0 0 35px rgba(245, 158, 11, 0.5);
+      z-index: 2;
+    }
+    #node-people .polaroid-fan-stack {
+      position: absolute;
+      top: -65px;
+      left: -50px;
+      z-index: 1;
+    }
+
+    /* 2. LEARNING */
+    #node-learning {
+      flex-direction: row;
+      gap: 16px;
+    }
+    #node-learning .planet-globe {
+      width: 135px;
+      height: 135px;
+      background: radial-gradient(circle at 35% 30%, #60A5FA 0%, #2563EB 55%, #1E3A8A 100%);
+      box-shadow: 0 0 40px rgba(37, 99, 235, 0.6);
+    }
+
+    /* 3. PROJECTS */
+    #node-projects {
+      flex-direction: row;
+      gap: 16px;
+    }
+    #node-projects .planet-globe {
+      width: 140px;
+      height: 140px;
+      background: radial-gradient(circle at 35% 30%, #C084FC 0%, #7E22CE 55%, #3B0764 100%);
+      box-shadow: 0 0 40px rgba(147, 51, 234, 0.6);
+    }
+
+    /* 4. MEMORIES */
+    #node-memories {
+      flex-direction: row;
+      gap: 16px;
+    }
+    #node-memories .planet-globe {
+      width: 135px;
+      height: 135px;
+      background: radial-gradient(circle at 35% 30%, #38BDF8 0%, #0284C7 55%, #082F49 100%);
+      box-shadow: 0 0 35px rgba(2, 132, 199, 0.6);
+    }
+    #node-memories .polaroid-fan-stack {
+      margin-left: 8px;
+    }
+
+    /* 5. ACHIEVEMENTS */
+    #node-achieve {
+      flex-direction: row-reverse;
+      gap: 16px;
+    }
+    #node-achieve .planet-globe {
+      width: 140px;
+      height: 140px;
+      background: radial-gradient(circle at 35% 30%, #F87171 0%, #DC2626 55%, #450A0A 100%);
+      box-shadow: 0 0 40px rgba(220, 38, 38, 0.6);
+    }
+    #node-achieve .planet-pills-stack {
+      align-items: flex-end;
+    }
+
+    /* 6. VALUES */
+    #node-values {
+      flex-direction: row-reverse;
+      gap: 16px;
+    }
+    #node-values .planet-globe {
+      width: 135px;
+      height: 135px;
+      background: radial-gradient(circle at 35% 30%, #4ADE80 0%, #16A34A 55%, #052E16 100%);
+      box-shadow: 0 0 35px rgba(22, 163, 74, 0.55);
+    }
+    #node-values .planet-pills-stack {
+      align-items: flex-end;
+    }
+
+    /* =========================================================================
+       MODALS: STORY DRAWER & CUSTOMIZATION
+       ========================================================================= */
+    #storyDrawerModal {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(3, 7, 20, 0.88);
+      backdrop-filter: blur(20px);
+      z-index: 200;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+    #storyDrawerModal.active {
+      display: flex;
+      opacity: 1;
+    }
+    .drawer-card {
+      background: #0B1229;
+      border: 1px solid rgba(229, 195, 120, 0.35);
+      border-radius: 24px;
+      padding: 36px 44px;
+      width: 680px;
+      max-width: 90vw;
+      box-shadow: 0 25px 80px rgba(0, 0, 0, 0.8);
+      position: relative;
+    }
+    .drawer-badge {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 4px 14px;
+      border-radius: 30px;
+      margin-bottom: 12px;
+    }
+    .drawer-title {
+      font-family: 'DM Serif Display', Georgia, serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #FFFFFF;
+      margin-bottom: 8px;
+    }
+    .drawer-subtitle {
+      font-size: 0.95rem;
+      color: #94A3B8;
+      font-style: italic;
+      margin-bottom: 24px;
+    }
+    .drawer-items-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      max-height: 380px;
+      overflow-y: auto;
+      padding-right: 8px;
+    }
+    .drawer-item-box {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      transition: all 0.3s ease;
+    }
+    .drawer-item-box:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: var(--gold-primary);
+    }
+    .drawer-close-btn {
+      position: absolute;
+      top: 24px;
+      right: 28px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #FFF;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .drawer-close-btn:hover {
+      background: var(--gold-primary);
+      color: #050814;
+    }
+
+    /* CUSTOMIZE PROFILE MODAL */
+    #editProfileModal {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(15px);
+      z-index: 300;
+      display: none;
+      justify-content: center;
+      align-items: center;
+    }
+    .edit-box {
+      background: #0B112C;
+      border: 1px solid rgba(229, 195, 120, 0.35);
+      border-radius: 20px;
+      padding: 30px 36px;
+      width: 480px;
+      max-width: 90vw;
+    }
+    .edit-title {
+      font-family: 'DM Serif Display', Georgia, serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--gold-primary);
+      margin-bottom: 16px;
+    }
+    .field-group {
+      margin-bottom: 14px;
+    }
+    .field-label {
+      font-size: 0.75rem;
+      color: #94A3B8;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+      display: block;
+    }
+    .field-input {
+      width: 100%;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.15);
+      padding: 10px 14px;
+      border-radius: 8px;
+      color: #FFF;
+      font-size: 0.9rem;
+      outline: none;
+    }
+    .field-input:focus {
+      border-color: var(--gold-primary);
+    }
+    .modal-btns {
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    /* SUPERNOVA RESOLUTION OVERLAY */
+    #supernovaOverlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 500;
+      pointer-events: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      background: radial-gradient(circle at center, rgba(15, 23, 50, 0.96) 0%, rgba(2, 4, 12, 0.99) 100%);
+      transition: opacity 1s ease;
+    }
+    #supernovaOverlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .supernova-flash {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: #FFFFFF;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 550;
+      transition: opacity 0.15s ease-out;
+    }
+    .supernova-flash.boom {
+      opacity: 1;
+    }
+
+    /* RESPONSIVE SCALING */
+    @media (max-width: 1200px) {
+      .header-word-your, .header-word-personal { font-size: 1.2rem; }
+      .header-word-universe { font-size: 1.3rem; }
+      .center-sphere-core { width: 200px; height: 200px; }
+      .center-avatar-img { width: 175px; height: 175px; }
+      .center-ring-back, .center-ring-front { width: 360px; height: 120px; }
+      .planet-globe { width: 110px !important; height: 110px !important; }
+      .planet-title-text { font-size: 0.72rem; }
+      .planet-desc-text { display: none; }
+      .pill-tag { font-size: 0.65rem; padding: 4px 10px; }
+    }
+    @media (max-width: 800px) {
+      .header-top-right, .footer-left, .footer-right { display: none; }
+      .footer-milestone-title { font-size: 1rem; }
+      .btn-explore-journey { font-size: 0.72rem; padding: 10px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background Space Canvas -->
+  <canvas id="cosmicCanvas"></canvas>
+
+  <!-- Ambient Nebulae -->
+  <div class="cosmic-nebula nebula-top-left"></div>
+  <div class="cosmic-nebula nebula-top-right"></div>
+  <div class="cosmic-nebula nebula-center"></div>
+
+  <!-- SVG Orbital Paths (Circular Tracks for all 6 planets) -->
+  <svg class="orbital-svg-layer" id="orbitalSvg">
+    <!-- Concentric Circular Orbits dynamically updated by JS -->
+    <circle id="ring-people" class="orbit-circle-track" />
+    <circle id="ring-learning" class="orbit-circle-track" />
+    <circle id="ring-values" class="orbit-circle-track" />
+    <circle id="ring-projects" class="orbit-circle-track" />
+    <circle id="ring-achieve" class="orbit-circle-track" />
+    <circle id="ring-memories" class="orbit-circle-track" />
+    
+    <!-- Orbiting tiny cosmic satellites/moons -->
+    <circle id="moon-1" r="5" class="satellite-moon" />
+    <circle id="moon-2" r="4" class="satellite-moon" />
+    <circle id="moon-3" r="6" class="satellite-moon" />
+    <circle id="moon-4" r="4.5" class="satellite-moon" />
+  </svg>
+
+  <!-- Flash for Supernova Finale -->
+  <div id="flashBoom" class="supernova-flash"></div>
+
+  <!-- TOP LEFT HEADER -->
+  <header class="header-top-left">
+    <div class="header-title-group">
+      <div class="header-word-your">YOUR</div>
+      <div class="header-word-personal">PERSONAL</div>
+      <div class="header-word-universe">UNIVERSE</div>
+    </div>
+    <div class="header-gold-divider"></div>
+    <div class="header-tagline">Everything<br>You Became<br>Part Of</div>
+  </header>
+
+  <!-- TOP RIGHT SUBTITLE -->
+  <div class="header-top-right">
+    <div class="right-quote-lines">
+      ONE PEOPLE<br>
+      MANY STORIES<br>
+      A BRIGHTER TOMORROW
+    </div>
+    <div class="right-quote-divider"></div>
+  </div>
+
+  <!-- UTILITY CONTROLS BAR -->
+  <div class="utility-bar">
+    <a href="game.html" class="btn-icon-pill" style="text-decoration: none; border-color: rgba(0,240,255,0.6); color: #00F0FF; background: rgba(0,240,255,0.12);" title="Play The Journey Game">
+      <span>🎮</span>
+      <span>Journey Game</span>
+    </a>
+
+    <a href="index.html" class="btn-icon-pill" style="text-decoration: none; border-color: rgba(245,192,101,0.7); color: #f5c065; background: rgba(245,192,101,0.15);" title="Enter Digital Memory Palace">
+      <span>🏛️</span>
+      <span>Memory Palace</span>
+    </a>
+
+    <a href="universe_orbit.html" class="btn-icon-pill" style="text-decoration: none; border-color: rgba(229,195,120,0.6); color: #FFD166;" title="Switch to 3D Solar Universe Experience">
+      <span>🌌</span>
+      <span>3D Universe</span>
+    </a>
+
+    <button class="btn-icon-pill" id="orbitToggleBtn" title="Play or Pause Circular Orbits">
+      <span id="orbitIcon">⏸</span>
+      <span id="orbitText">Orbit: Active</span>
+    </button>
+
+    <button class="btn-icon-pill" id="speedToggleBtn" title="Change Orbit Rotation Speed">
+      <span id="speedText">Speed: 1x</span>
+    </button>
+
+    <button class="btn-icon-pill" id="soundBtn" title="Toggle Cosmic Sound FX">
+      <div class="sound-bars" id="soundEqualizer">
+        <div class="sound-bar"></div>
+        <div class="sound-bar"></div>
+        <div class="sound-bar"></div>
+      </div>
+      <span id="soundText">Sound On</span>
+    </button>
+
+    <button class="btn-icon-pill" id="editBtn" title="Customize Name & Photo">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+      <span>Edit Profile</span>
+    </button>
+  </div>
+
+  <!-- EARTH HORIZON CURVATURE (Atmospheric Bottom Limb) -->
+  <div class="earth-horizon">
+    <div class="earth-atmosphere-line"></div>
+  </div>
+
+  <!-- BOTTOM LEFT ARCHIVE TAG -->
+  <div class="footer-left">
+    ARCHIVE NO. 001<br>
+    2025 — 2026
+  </div>
+
+  <!-- BOTTOM RIGHT QUOTE -->
+  <div class="footer-right">
+    SAME PEOPLE<br>
+    BIGGER STORIES<br>
+    A BRIGHTER TOMORROW
+  </div>
+
+  <!-- BOTTOM CENTER CLIMAX & CTA -->
+  <div class="footer-center">
+    <div class="footer-milestone-title" id="footerMilestoneText">ONE YEAR. ONE JOURNEY.</div>
+    <div class="footer-milestone-sub">AND A UNIVERSE OF POSSIBILITIES AHEAD.</div>
+    <button class="btn-explore-journey" id="btnExploreJourney">
+      <span>EXPLORE THE JOURNEY</span>
+      <span>→</span>
+    </button>
+  </div>
+
+  <!-- =========================================================================
+       STAGE: CENTER CORE + THE 6 SURROUNDING PLANETS
+       ========================================================================= -->
+  <main id="universeStage">
+
+    <!-- ☀️ 1. CENTER EMPLOYEE: MANUSHI -->
+    <div class="center-sphere-wrapper" id="centerCore">
+      <div class="center-sphere-core">
+        <div class="center-halo-glow"></div>
+        <div class="center-ring-outer-back"></div>
+        <div class="center-ring-back"></div>
+        
+        <!-- Portrait of Manushi -->
+        <img src="manushi_portrait.jpg" 
+             alt="Manushi Portrait" 
+             class="center-avatar-img" 
+             id="avatarImg">
+
+        <div class="center-ring-front"></div>
+      </div>
+
+      <div class="center-identity">
+        <h1 class="center-name" id="employeeName">MANUSHI</h1>
+        <div class="center-sub-role">
+          AT THE CENTRE OF<br>A BRIGHTER TOMORROW
+        </div>
+      </div>
+    </div>
+
+    <!-- 🪐 2. PEOPLE (Top-Left, Amber) -->
+    <div class="planet-node" id="node-people" data-planet="people">
+      <!-- Attached Polaroid Fan Stack with Great Team Note -->
+      <div class="polaroid-fan-stack">
+        <div class="mini-polaroid" style="top: -20px; left: -10px; transform: rotate(-10deg);">
+          <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=160&q=80" alt="Team">
+        </div>
+        <div class="mini-polaroid" style="top: -15px; left: 35px; transform: rotate(4deg);">
+          <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=160&q=80" alt="Colleagues">
+        </div>
+        <div class="mini-polaroid" style="top: 25px; left: -40px; transform: rotate(-18deg);">
+          <img src="https://images.unsplash.com/photo-1517457373958-b7bdd4587205?auto=format&fit=crop&w=160&q=80" alt="Retreat">
+        </div>
+        <div class="sticky-note-great-team">Great Team</div>
+      </div>
+
+      <div class="planet-globe">
+        <div class="planet-icon">👥</div>
+        <div class="planet-title-text">PEOPLE</div>
+        <div class="planet-desc-text">The people who made it special</div>
+      </div>
+    </div>
+
+    <!-- 🪐 3. LEARNING (Top-Right, Sapphire Blue) -->
+    <div class="planet-node" id="node-learning" data-planet="learning">
+      <div class="planet-globe">
+        <div class="planet-icon">📖</div>
+        <div class="planet-title-text">LEARNING</div>
+        <div class="planet-desc-text">Skills that shaped you</div>
+      </div>
+
+      <div class="planet-pills-stack">
+        <div class="pill-tag">New Skills</div>
+        <div class="pill-tag">New Perspectives</div>
+        <div class="pill-tag">Greater Confidence</div>
+        <div class="btn-plus" title="View More Skills">+</div>
+      </div>
+    </div>
+
+    <!-- 🪐 4. PROJECTS (Middle-Right, Violet Purple) -->
+    <div class="planet-node" id="node-projects" data-planet="projects">
+      <div class="planet-globe">
+        <div class="planet-icon">📁</div>
+        <div class="planet-title-text">PROJECTS</div>
+        <div class="planet-desc-text">Turning ideas into impact</div>
+      </div>
+
+      <div class="planet-pills-stack">
+        <div class="pill-tag">Better Solutions</div>
+        <div class="pill-tag">Real Impact</div>
+        <div class="pill-tag">Continuous Growth</div>
+        <div class="btn-plus" title="View More Projects">+</div>
+      </div>
+    </div>
+
+    <!-- 🪐 5. MEMORIES (Bottom-Right, Cyan Blue) -->
+    <div class="planet-node" id="node-memories" data-planet="memories">
+      <div class="planet-globe">
+        <div class="planet-icon">📷</div>
+        <div class="planet-title-text">MEMORIES</div>
+        <div class="planet-desc-text">Moments that stay</div>
+      </div>
+
+      <div class="polaroid-fan-stack">
+        <div class="mini-polaroid" style="top: -15px; left: 0px; transform: rotate(-6deg);">
+          <img src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=160&q=80" alt="Dinner">
+        </div>
+        <div class="mini-polaroid" style="top: 25px; left: 10px; transform: rotate(8deg);">
+          <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=160&q=80" alt="Workspace">
+        </div>
+        <div class="btn-plus" style="position: absolute; bottom: -5px; left: -15px;" title="View All Photos">+</div>
+      </div>
+    </div>
+
+    <!-- 🪐 6. ACHIEVEMENTS (Bottom-Left, Terracotta Red) -->
+    <div class="planet-node" id="node-achieve" data-planet="achievements">
+      <div class="planet-globe">
+        <div class="planet-icon">🏆</div>
+        <div class="planet-title-text">ACHIEVEMENTS</div>
+        <div class="planet-desc-text">Milestones that matter</div>
+      </div>
+
+      <div class="planet-pills-stack">
+        <div class="pill-tag">First Contribution</div>
+        <div class="pill-tag">Appreciation</div>
+        <div class="pill-tag">Growing Impact</div>
+        <div class="btn-plus" title="View All Accolades">+</div>
+      </div>
+    </div>
+
+    <!-- 🪐 7. VALUES (Middle-Left, Emerald Green) -->
+    <div class="planet-node" id="node-values" data-planet="values">
+      <div class="planet-globe">
+        <div class="planet-icon">🌱</div>
+        <div class="planet-title-text">VALUES</div>
+        <div class="planet-desc-text">What you bring to the team</div>
+      </div>
+
+      <div class="planet-pills-stack">
+        <div class="pill-tag">Ownership</div>
+        <div class="pill-tag">Teamwork</div>
+        <div class="pill-tag">Customer Focus</div>
+        <div class="pill-tag">Positive Attitude</div>
+        <div class="btn-plus" title="View Value Citations">+</div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- =========================================================================
+       DEEP-DIVE STORY MODAL / DRAWER (Opened on Planet or Plus Click)
+       ========================================================================= -->
+  <div id="storyDrawerModal" role="dialog">
+    <div class="drawer-card">
+      <button class="drawer-close-btn" id="closeDrawerBtn">✕</button>
+      <span class="drawer-badge" id="drawerBadge">PEOPLE</span>
+      <h2 class="drawer-title" id="drawerTitle">The Constellation of Teammates</h2>
+      <p class="drawer-subtitle" id="drawerSubtitle">"The people who made tough days easy and good days memorable."</p>
+
+      <div class="drawer-items-list" id="drawerItemsList">
+        <!-- Injected dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       CUSTOMIZE PROFILE MODAL
+       ========================================================================= */
+  -->
+  <div id="editProfileModal">
+    <div class="edit-box">
+      <h3 class="edit-title">Customize Universe Profile</h3>
+      <div class="field-group">
+        <label class="field-label">Employee Name</label>
+        <input type="text" id="inputName" class="field-input" value="MANUSHI">
+      </div>
+      <div class="field-group">
+        <label class="field-label">Milestone Headline</label>
+        <input type="text" id="inputMilestone" class="field-input" value="ONE YEAR. ONE JOURNEY.">
+      </div>
+      <div class="field-group">
+        <label class="field-label">Archive Year Range</label>
+        <input type="text" id="inputArchive" class="field-input" value="2025 — 2026">
+      </div>
+      <div class="field-group">
+        <label class="field-label">Avatar Image URL (or file path)</label>
+        <input type="text" id="inputAvatar" class="field-input" value="manushi_portrait.jpg">
+      </div>
+      <div class="modal-btns">
+        <button class="btn-icon-pill" id="cancelEditBtn">Cancel</button>
+        <button class="btn-icon-pill" id="saveEditBtn" style="background: var(--gold-primary); color: #050814; font-weight: 700;">Save Changes</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       SUPERNOVA FINALE SCREEN
+       ========================================================================= -->
+  <div id="supernovaOverlay">
+    <div style="text-align: center; max-width: 800px; padding: 40px;">
+      <div style="color: var(--gold-primary); font-family: 'DM Serif Display', Georgia, serif; font-size: 0.9rem; letter-spacing: 4px; margin-bottom: 16px;">✦ MILESTONE CONVERGENCE ✦</div>
+      <h1 style="font-family: 'DM Serif Display', Georgia, serif; font-size: 3.8rem; font-weight: 700; letter-spacing: 6px; color: #FFF; text-shadow: 0 0 30px rgba(229,195,120,0.6); margin-bottom: 20px;">
+        ONE YEAR.<br>ONE JOURNEY.
+      </h1>
+      <p style="font-size: 1.2rem; color: #CBD5E1; line-height: 1.7; margin-bottom: 36px;">
+        In 365 days around our sun, Manushi, your craftsmanship, values, and memories have become an indelible part of this universe.
+      </p>
+      <button class="btn-explore-journey" id="btnRestartUniverse" style="margin: 0 auto;">
+        ↺ REPLAY UNIVERSE
+      </button>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       SCRIPTS: AUDIO SYNTH, CANVAS STARS, INTERACTIVITY & FINALE
+       ========================================================================= -->
+  <script>
+    // 1. DATA REPOSITORY FOR THE 6 PILLARS
+    const pillarData = {
+      people: {
+        badge: "PEOPLE",
+        color: "#F59E0B",
+        title: "The People Who Made It Special",
+        subtitle: "Mentors, late-night debuggers, and champions of our culture.",
+        items: [
+          { title: "Design Systems Team", desc: "Always had your back with components, Figma specs, and laughter." },
+          { title: "Sprint Pod 4", desc: "Delivered 14 major feature iterations side-by-side with zero rollbacks." },
+          { title: "Mentorship Circle", desc: "Guided by veteran leaders who unlocked leadership confidence." }
+        ]
+      },
+      learning: {
+        badge: "LEARNING",
+        color: "#2563EB",
+        title: "Skills That Shaped You",
+        subtitle: "The steep learning curve that turned into mastery.",
+        items: [
+          { title: "Advanced Distributed Architecture", desc: "Mastered high-availability data pipelines and event streaming." },
+          { title: "Next-Gen AI Integrations", desc: "Built modern automated triage agents that saved hours each sprint." },
+          { title: "Empathetic Technical Leadership", desc: "Spearheaded design reviews and code quality standards." }
+        ]
+      },
+      projects: {
+        badge: "PROJECTS",
+        color: "#7E22CE",
+        title: "Turning Ideas Into Impact",
+        subtitle: "The digital footprint of your craftsmanship.",
+        items: [
+          { title: "Global Client Portal 2.0", desc: "Scaled daily active transactions to 150K+ with sub-100ms latency." },
+          { title: "Telemetry Analytics Engine", desc: "Cut incident detection time by 68% across all microservices." },
+          { title: "Enterprise Single Sign-On", desc: "Secured enterprise tenant authentication and SOC2 compliance." }
+        ]
+      },
+      memories: {
+        badge: "MEMORIES",
+        color: "#0284C7",
+        title: "Moments That Stay",
+        subtitle: "Laughter, offsite campfires, and memories beyond the keyboard.",
+        items: [
+          { title: "Annual Retreat 2025", desc: "Campfire songs, team bonding, and stargazing in the hills." },
+          { title: "Midnight Pizza Deployment", desc: "Celebrating successful Q3 release with hot pizza and cheer." },
+          { title: "Diwali & Festival Celebrations", desc: "Office decorations, traditional sweets, and festive smiles." }
+        ]
+      },
+      achievements: {
+        badge: "ACHIEVEMENTS",
+        color: "#DC2626",
+        title: "Milestones That Matter",
+        subtitle: "Moments when your contributions earned standing ovations.",
+        items: [
+          { title: "Annual MVP Recognition 2025", desc: "Honored for extraordinary execution across engineering and design." },
+          { title: "Internal Hackathon 1st Place", desc: "Prototyped revolutionary offline synchronization engine in 36h." },
+          { title: "Excellence in Execution Spot Award", desc: "Awarded by executive leadership for customer critical delivery." }
+        ]
+      },
+      values: {
+        badge: "VALUES",
+        color: "#16A34A",
+        title: "What You Bring to the Team",
+        subtitle: "The principles that define how you elevate everyone around you.",
+        items: [
+          { title: "Radical Ownership", desc: "Taking full pride in every line of code, release, and customer outcome." },
+          { title: "Empathy & Active Listening", desc: "Creating space for every junior and senior team member to be heard." },
+          { title: "Relentless Quality", desc: "Never settling for good enough when exceptional is possible." }
+        ]
+      }
+    };
+
+    // 2. PROCEDURAL CELESTIAL WEB AUDIO ENGINE
+    class CosmicAudio {
+      constructor() {
+        this.ctx = null;
+        this.isMuted = false;
+      }
+      init() {
+        if (!this.ctx) {
+          const AudioContext = window.AudioContext || window.webkitAudioContext;
+          this.ctx = new AudioContext();
+          this.masterGain = this.ctx.createGain();
+          this.masterGain.gain.setValueAtTime(0.25, this.ctx.currentTime);
+          this.masterGain.connect(this.ctx.destination);
+          this.startAmbient();
+        }
+        if (this.ctx.state === 'suspended') {
+          this.ctx.resume();
+        }
+      }
+      startAmbient() {
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(65.41, this.ctx.currentTime); // C2
+        gain.gain.setValueAtTime(0.06, this.ctx.currentTime);
+        osc.connect(gain);
+        gain.connect(this.masterGain);
+        osc.start();
+      }
+      playChime(freq = 523.25) {
+        if (this.isMuted || !this.ctx) return;
+        const now = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, now);
+        osc.frequency.exponentialRampToValueAtTime(freq * 1.5, now + 0.35);
+        gain.gain.setValueAtTime(0.2, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 1.2);
+        osc.connect(gain);
+        gain.connect(this.masterGain);
+        osc.start(now);
+        osc.stop(now + 1.2);
+      }
+      playBoom() {
+        if (this.isMuted || !this.ctx) return;
+        const now = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(140, now);
+        osc.frequency.exponentialRampToValueAtTime(28, now + 2.0);
+        gain.gain.setValueAtTime(0.6, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 2.5);
+        osc.connect(gain);
+        gain.connect(this.masterGain);
+        osc.start(now);
+        osc.stop(now + 2.5);
+      }
+      toggleMute() {
+        this.isMuted = !this.isMuted;
+        if (this.masterGain && this.ctx) {
+          this.masterGain.gain.setValueAtTime(this.isMuted ? 0 : 0.25, this.ctx.currentTime);
+        }
+        return this.isMuted;
+      }
+    }
+    const audio = new CosmicAudio();
+
+    // 3. CANVAS STARRY SKY & METEORS
+    const canvas = document.getElementById('cosmicCanvas');
+    const ctx = canvas.getContext('2d');
+    let stars = [];
+    let meteors = [];
+
+    function initCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      stars = [];
+      const numStars = Math.floor((canvas.width * canvas.height) / 3000);
+      for (let i = 0; i < numStars; i++) {
+        stars.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          radius: Math.random() * 1.5 + 0.3,
+          baseAlpha: Math.random() * 0.7 + 0.3,
+          alpha: Math.random(),
+          speed: Math.random() * 0.02 + 0.005,
+          color: ['#FFFFFF', '#E5C378', '#BAE6FD', '#E2E8F0'][Math.floor(Math.random() * 4)]
+        });
+      }
+    }
+
+    function renderStars() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      stars.forEach(s => {
+        s.alpha += s.speed;
+        const a = s.baseAlpha + Math.sin(s.alpha) * 0.35;
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
+        ctx.fillStyle = s.color;
+        ctx.globalAlpha = Math.max(0.1, Math.min(1, a));
+        ctx.fill();
+      });
+
+      // Meteors
+      if (Math.random() < 0.015 && meteors.length < 3) {
+        meteors.push({
+          x: Math.random() * canvas.width * 0.8,
+          y: 0,
+          len: Math.random() * 80 + 40,
+          speed: Math.random() * 9 + 8,
+          angle: Math.PI / 4,
+          opacity: 1
+        });
+      }
+      for (let i = meteors.length - 1; i >= 0; i--) {
+        const m = meteors[i];
+        m.x += Math.cos(m.angle) * m.speed;
+        m.y += Math.sin(m.angle) * m.speed;
+        m.opacity -= 0.02;
+        if (m.opacity <= 0 || m.x > canvas.width || m.y > canvas.height) {
+          meteors.splice(i, 1);
+          continue;
+        }
+        ctx.beginPath();
+        const tx = m.x - Math.cos(m.angle) * m.len;
+        const ty = m.y - Math.sin(m.angle) * m.len;
+        const grad = ctx.createLinearGradient(m.x, m.y, tx, ty);
+        grad.addColorStop(0, `rgba(255, 255, 255, ${m.opacity})`);
+        grad.addColorStop(0.5, `rgba(229, 195, 120, ${m.opacity * 0.6})`);
+        grad.addColorStop(1, 'rgba(255, 255, 255, 0)');
+        ctx.strokeStyle = grad;
+        ctx.lineWidth = 1.8;
+        ctx.moveTo(m.x, m.y);
+        ctx.lineTo(tx, ty);
+        ctx.stroke();
+      }
+      ctx.globalAlpha = 1;
+      requestAnimationFrame(renderStars);
+    }
+    window.addEventListener('resize', initCanvas);
+    initCanvas();
+    renderStars();
+
+    // 4. INTERACTIVE SOUND TOGGLE
+    const soundBtn = document.getElementById('soundBtn');
+    const soundEqualizer = document.getElementById('soundEqualizer');
+    const soundText = document.getElementById('soundText');
+
+    soundBtn.addEventListener('click', () => {
+      audio.init();
+      const muted = audio.toggleMute();
+      if (muted) {
+        soundEqualizer.classList.add('muted');
+        soundText.innerText = "Muted";
+      } else {
+        soundEqualizer.classList.remove('muted');
+        soundText.innerText = "Sound On";
+        audio.playChime(659.25);
+      }
+    });
+
+    // 5. STORY DRAWER / MODAL HANDLING
+    const storyDrawer = document.getElementById('storyDrawerModal');
+    const closeDrawerBtn = document.getElementById('closeDrawerBtn');
+    const drawerBadge = document.getElementById('drawerBadge');
+    const drawerTitle = document.getElementById('drawerTitle');
+    const drawerSubtitle = document.getElementById('drawerSubtitle');
+    const drawerItemsList = document.getElementById('drawerItemsList');
+
+    function openPillarDrawer(key) {
+      audio.init();
+      const data = pillarData[key];
+      if (!data) return;
+
+      audio.playChime(659.25);
+      drawerBadge.innerText = data.badge;
+      drawerBadge.style.background = `${data.color}25`;
+      drawerBadge.style.color = data.color;
+      drawerBadge.style.border = `1px solid ${data.color}`;
+
+      drawerTitle.innerText = data.title;
+      drawerSubtitle.innerText = `"${data.subtitle}"`;
+
+      drawerItemsList.innerHTML = '';
+      data.items.forEach(item => {
+        const box = document.createElement('div');
+        box.className = 'drawer-item-box';
+        box.innerHTML = `
+          <div style="font-size: 1.4rem; color: ${data.color}">✦</div>
+          <div>
+            <div style="font-weight: 700; font-size: 0.95rem; color: #FFF;">${item.title}</div>
+            <div style="font-size: 0.8rem; color: #94A3B8; margin-top: 3px;">${item.desc}</div>
+          </div>
+        `;
+        drawerItemsList.appendChild(box);
+      });
+
+      storyDrawer.classList.add('active');
+    }
+
+    closeDrawerBtn.addEventListener('click', () => {
+      storyDrawer.classList.remove('active');
+    });
+
+    // Attach click events to planets and plus buttons
+    document.querySelectorAll('.planet-node').forEach(node => {
+      const pKey = node.getAttribute('data-planet');
+      node.addEventListener('click', () => openPillarDrawer(pKey));
+      node.addEventListener('mouseenter', () => {
+        audio.init();
+        audio.playChime(523.25);
+      });
+    });
+
+    document.querySelectorAll('.btn-plus').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const parent = btn.closest('.planet-node');
+        if (parent) {
+          openPillarDrawer(parent.getAttribute('data-planet'));
+        }
+      });
+    });
+
+    // 6. EXPLORE THE JOURNEY -> SUPERNOVA FINALE
+    const btnExploreJourney = document.getElementById('btnExploreJourney');
+    const supernovaOverlay = document.getElementById('supernovaOverlay');
+    const flashBoom = document.getElementById('flashBoom');
+    const btnRestartUniverse = document.getElementById('btnRestartUniverse');
+
+    btnExploreJourney.addEventListener('click', () => {
+      audio.init();
+      audio.playChime(880);
+
+      // Trigger cosmic collapse into center
+      const stage = document.getElementById('universeStage');
+      stage.style.transition = 'all 1.6s cubic-bezier(0.5, 0, 0.2, 1)';
+      stage.style.transform = 'scale(0.85)';
+
+      setTimeout(() => {
+        audio.playBoom();
+        flashBoom.classList.add('boom');
+
+        setTimeout(() => {
+          flashBoom.classList.remove('boom');
+          supernovaOverlay.classList.add('active');
+        }, 200);
+      }, 1200);
+    });
+
+    btnRestartUniverse.addEventListener('click', () => {
+      supernovaOverlay.classList.remove('active');
+      const stage = document.getElementById('universeStage');
+      stage.style.transform = 'scale(1)';
+      audio.playChime(659.25);
+    });
+
+    // 7. EDIT PROFILE MODAL
+    const editBtn = document.getElementById('editBtn');
+    const editProfileModal = document.getElementById('editProfileModal');
+    const cancelEditBtn = document.getElementById('cancelEditBtn');
+    const saveEditBtn = document.getElementById('saveEditBtn');
+
+    const inputName = document.getElementById('inputName');
+    const inputMilestone = document.getElementById('inputMilestone');
+    const inputArchive = document.getElementById('inputArchive');
+    const inputAvatar = document.getElementById('inputAvatar');
+
+    editBtn.addEventListener('click', () => {
+      editProfileModal.style.display = 'flex';
+    });
+    cancelEditBtn.addEventListener('click', () => {
+      editProfileModal.style.display = 'none';
+    });
+    saveEditBtn.addEventListener('click', () => {
+      document.getElementById('employeeName').innerText = inputName.value.trim().toUpperCase() || "MANUSHI";
+      document.getElementById('footerMilestoneText').innerText = inputMilestone.value.trim().toUpperCase() || "ONE YEAR. ONE JOURNEY.";
+      if (inputAvatar.value.trim()) {
+        document.getElementById('avatarImg').src = inputAvatar.value.trim();
+      }
+      editProfileModal.style.display = 'none';
+      audio.init();
+      audio.playChime(880);
+    });
+
+    // =========================================================================
+    // 8. CIRCULAR ORBITAL MECHANICS (બધા ઓર્બિટ્સ વર્તુળાકારમાં ફરે છે)
+    // =========================================================================
+    const centerCore = document.getElementById('centerCore');
+    const planetsConfig = [
+      {
+        id: "node-people",
+        ringId: "ring-people",
+        baseRadius: 180,
+        angle: -2.35, // ~135° top-left (poster position)
+        speed: 0.0012,
+        isHovered: false
+      },
+      {
+        id: "node-learning",
+        ringId: "ring-learning",
+        baseRadius: 250,
+        angle: -0.80, // ~45° top-right (poster position)
+        speed: 0.0018,
+        isHovered: false
+      },
+      {
+        id: "node-values",
+        ringId: "ring-values",
+        baseRadius: 320,
+        angle: 3.10, // ~180° middle-left (poster position)
+        speed: 0.0025,
+        isHovered: false
+      },
+      {
+        id: "node-projects",
+        ringId: "ring-projects",
+        baseRadius: 390,
+        angle: 0.15, // ~8° middle-right (poster position)
+        speed: 0.0032,
+        isHovered: false
+      },
+      {
+        id: "node-achieve",
+        ringId: "ring-achieve",
+        baseRadius: 460,
+        angle: 2.25, // ~130° bottom-left (poster position)
+        speed: 0.0040,
+        isHovered: false
+      },
+      {
+        id: "node-memories",
+        ringId: "ring-memories",
+        baseRadius: 530,
+        angle: 1.05, // ~60° bottom-right (poster position)
+        speed: 0.0050,
+        isHovered: false
+      }
+    ];
+
+    let isOrbitRunning = true;
+    let orbitSpeedMultiplier = 1.0;
+    const speedsList = [1.0, 1.5, 2.0, 0.5];
+    let speedIndex = 0;
+
+    // Tiny traversing moons data (centered perfectly in between tracks)
+    const moons = [
+      { id: "moon-1", radius: 215, angle: 0.5, speed: 0.005 },
+      { id: "moon-2", radius: 285, angle: 2.4, speed: -0.004 },
+      { id: "moon-3", radius: 355, angle: 4.1, speed: 0.0035 },
+      { id: "moon-4", radius: 425, angle: 1.8, speed: -0.003 }
+    ];
+
+    // Orbit elements cache
+    planetsConfig.forEach(p => {
+      p.el = document.getElementById(p.id);
+      p.ringEl = document.getElementById(p.ringId);
+
+      if (p.el) {
+        p.el.addEventListener('mouseenter', () => {
+          p.isHovered = true;
+          if (p.ringEl) p.ringEl.classList.add('highlight-track');
+        });
+        p.el.addEventListener('mouseleave', () => {
+          p.isHovered = false;
+          if (p.ringEl) p.ringEl.classList.remove('highlight-track');
+        });
+      }
+    });
+
+    moons.forEach(m => {
+      m.el = document.getElementById(m.id);
+    });
+
+    let posterLastTime = 0;
+    function updateCircularOrbits(currentTime) {
+      if (!posterLastTime) posterLastTime = currentTime || performance.now();
+      const deltaTime = ((currentTime || performance.now()) - posterLastTime) / 1000;
+      posterLastTime = currentTime || performance.now();
+      const timeFactor = Math.min(deltaTime / 0.01667, 2.0);
+
+      // Calculate current center point of Manushi
+      const rect = centerCore.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+
+      // Dynamic scale factor based on screen size (ensures it fits all displays)
+      const scale = Math.max(0.55, Math.min(window.innerWidth / 1500, window.innerHeight / 950));
+
+      // Update Circular Orbit Rings in SVG
+      planetsConfig.forEach(p => {
+        const r = p.baseRadius * scale;
+        if (p.ringEl) {
+          p.ringEl.setAttribute('cx', cx);
+          p.ringEl.setAttribute('cy', cy);
+          p.ringEl.setAttribute('r', r);
+        }
+
+        // Advance planet angle along the circle if running and not hovered
+        if (isOrbitRunning) {
+          const currentSpeed = (p.isHovered ? p.speed * 0.15 : p.speed * orbitSpeedMultiplier) * timeFactor;
+          p.angle += currentSpeed;
+        }
+
+        // Circular coordinates: x = cx + cos(angle)*r, y = cy + sin(angle)*r
+        const px = cx + Math.cos(p.angle) * r;
+        const py = cy + Math.sin(p.angle) * r;
+
+        if (p.el) {
+          p.el.style.left = `${px}px`;
+          p.el.style.top = `${py}px`;
+        }
+      });
+
+      // Update Moons along circular orbits
+      moons.forEach(m => {
+        if (isOrbitRunning) {
+          m.angle += m.speed * orbitSpeedMultiplier * timeFactor;
+        }
+        const mr = m.radius * scale;
+        const mx = cx + Math.cos(m.angle) * mr;
+        const my = cy + Math.sin(m.angle) * mr;
+        if (m.el) {
+          m.el.setAttribute('cx', mx);
+          m.el.setAttribute('cy', my);
+        }
+      });
+
+      requestAnimationFrame(updateCircularOrbits);
+    }
+
+    // Start Circular Orbits
+    requestAnimationFrame(updateCircularOrbits);
+
+    // Orbit Controls: Pause / Play Toggle
+    const orbitToggleBtn = document.getElementById('orbitToggleBtn');
+    const orbitIcon = document.getElementById('orbitIcon');
+    const orbitText = document.getElementById('orbitText');
+
+    orbitToggleBtn.addEventListener('click', () => {
+      isOrbitRunning = !isOrbitRunning;
+      if (isOrbitRunning) {
+        orbitIcon.innerText = "⏸";
+        orbitText.innerText = "Orbit: Active";
+      } else {
+        orbitIcon.innerText = "▶";
+        orbitText.innerText = "Orbit: Paused";
+      }
+      audio.init();
+      audio.playChime(783.99);
+    });
+
+    // Speed Control Toggle
+    const speedToggleBtn = document.getElementById('speedToggleBtn');
+    const speedText = document.getElementById('speedText');
+
+    speedToggleBtn.addEventListener('click', () => {
+      speedIndex = (speedIndex + 1) % speedsList.length;
+      orbitSpeedMultiplier = speedsList[speedIndex];
+      speedText.innerText = `Speed: ${orbitSpeedMultiplier}x`;
+      audio.init();
+      audio.playChime(659.25 * orbitSpeedMultiplier);
+    });
+
+    // ESC to close modal
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        storyDrawer.classList.remove('active');
+        editProfileModal.style.display = 'none';
+      }
+    });
+  </script>
+</body>
+</html>

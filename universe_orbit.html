@@ -1,0 +1,3426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Personal Universe | Everything You Became Part Of</title>
+  <!-- Google Fonts for cinematic celestial typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-space: #030612;
+      --gold-primary: #FFD166;
+      --gold-glow: rgba(255, 209, 102, 0.4);
+      --planet-people: #06D6A0;
+      --planet-projects: #118AB2;
+      --planet-learning: #9D4EDD;
+      --planet-values: #FF9E00;
+      --planet-achieve: #EF476F;
+      --planet-memories: #48CAE4;
+      --glass-bg: rgba(13, 20, 44, 0.65);
+      --glass-border: rgba(255, 255, 255, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    body {
+      background-color: var(--bg-space);
+      color: #E2E8F0;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      overflow: hidden;
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+    }
+
+    /* Background Canvas */
+    #spaceCanvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* Cosmic Ambient Nebulae */
+    .nebula {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(90px);
+      opacity: 0.18;
+      pointer-events: none;
+      z-index: 1;
+      animation: floatNebula 20s ease-in-out infinite alternate;
+    }
+    .nebula-1 {
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, #7209b7, transparent 70%);
+      top: -100px;
+      left: -100px;
+    }
+    .nebula-2 {
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle, #0077b6, transparent 70%);
+      bottom: -150px;
+      right: -100px;
+      animation-delay: -10s;
+    }
+    .nebula-3 {
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, #ff007f, transparent 70%);
+      top: 40%;
+      left: 60%;
+      opacity: 0.08;
+    }
+
+    @keyframes floatNebula {
+      0% { transform: scale(1) translate(0, 0); }
+      100% { transform: scale(1.15) translate(40px, 30px); }
+    }
+
+    /* Top Navigation & Status Bar */
+    header {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 24px 36px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+      pointer-events: auto;
+    }
+
+    .brand-container {
+      display: flex;
+      flex-direction: column;
+    }
+    .brand-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      background: linear-gradient(90deg, #FFFFFF, #FFD166);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .brand-subtitle {
+      font-size: 0.8rem;
+      letter-spacing: 1.5px;
+      color: #94A3B8;
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+
+    .top-controls {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .btn-pill {
+      background: var(--glass-bg);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--glass-border);
+      color: #F8FAFC;
+      padding: 8px 18px;
+      border-radius: 40px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      text-decoration: none;
+    }
+    .btn-pill:hover {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: rgba(255, 209, 102, 0.5);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(255, 209, 102, 0.2);
+    }
+    .btn-pill.highlight-view {
+      border-color: rgba(255, 209, 102, 0.55);
+      background: rgba(255, 209, 102, 0.12);
+      color: #FFD166;
+    }
+
+    .sound-wave {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      height: 12px;
+    }
+    .sound-bar {
+      width: 2px;
+      height: 100%;
+      background: #FFD166;
+      border-radius: 2px;
+      animation: soundDance 1.2s ease infinite alternate;
+    }
+    .sound-bar:nth-child(2) { animation-delay: 0.2s; height: 60%; }
+    .sound-bar:nth-child(3) { animation-delay: 0.4s; height: 80%; }
+    .sound-bar:nth-child(4) { animation-delay: 0.1s; height: 40%; }
+    .sound-wave.muted .sound-bar {
+      animation: none;
+      height: 2px;
+      background: #64748B;
+    }
+
+    @keyframes soundDance {
+      0% { height: 20%; }
+      100% { height: 100%; }
+    }
+
+    /* Universe Stage (Eye-Level 3D Viewport with Cinematic Depth) */
+    #universeContainer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 10;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: visible; /* Prevents hard-edge boundary clipping of 3D orbital rings & glows */
+      perspective: 1400px;
+      perspective-origin: 50% 48%;
+      transition: perspective 0.8s ease, transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+      pointer-events: none;
+    }
+
+    .solar-system {
+      position: relative;
+      width: 1240px;
+      height: 1240px;
+      transform-style: preserve-3d;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      will-change: transform;
+      transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s ease;
+      pointer-events: auto;
+    }
+
+    /* Orbital Circles */
+    .orbit-ring {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      pointer-events: none;
+      transform-style: preserve-3d;
+      transition: border-color 0.4s ease, box-shadow 0.4s ease, border-style 0.3s ease, opacity 0.5s ease, border-width 0.3s ease;
+      will-change: transform, opacity;
+      box-sizing: border-box;
+      aspect-ratio: 1 / 1;
+      box-shadow: 0 0 14px rgba(255, 255, 255, 0.05), inset 0 0 14px rgba(255, 255, 255, 0.03);
+    }
+    .orbit-ring.dimmed-orbit {
+      opacity: 0.32;
+      border-color: rgba(255, 255, 255, 0.16);
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.04);
+    }
+    .orbit-ring.active-orbit {
+      border: 2px solid rgba(255, 209, 102, 0.9);
+      box-shadow: 0 0 26px rgba(255, 209, 102, 0.75), 0 0 55px rgba(255, 209, 102, 0.4), inset 0 0 16px rgba(255, 209, 102, 0.25);
+      opacity: 1 !important;
+    }
+
+    /* Earth Atmosphere Horizon (Grounded cosmic depth at eye level) */
+    .earth-horizon {
+      position: absolute;
+      bottom: -470px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 170vw;
+      height: 660px;
+      border-radius: 50% / 100% 100% 0 0;
+      background: radial-gradient(ellipse at 50% 0%, #0c2340 0%, #050e1a 45%, #02050b 80%);
+      box-shadow: 
+        0 -20px 80px rgba(56, 189, 248, 0.4),
+        0 -60px 140px rgba(2, 132, 199, 0.25),
+        0 -120px 220px rgba(14, 165, 233, 0.15),
+        inset 0 10px 40px rgba(255, 255, 255, 0.3);
+      z-index: 5;
+      pointer-events: none;
+      overflow: hidden;
+      transition: opacity 0.8s ease;
+    }
+    .earth-atmosphere-line {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, transparent 5%, #BAE6FD 30%, #FFFFFF 50%, #BAE6FD 70%, transparent 95%);
+      filter: blur(1px);
+      box-shadow: 0 0 25px #38BDF8, 0 0 50px #0284C7;
+    }
+
+    /* Floating Eye-Level Navigation Arrows */
+    .orbit-nav-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 70;
+      background: rgba(10, 15, 30, 0.78);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      backdrop-filter: blur(14px);
+      color: #FFFFFF;
+      padding: 12px 18px;
+      border-radius: 40px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+    }
+    .orbit-nav-prev {
+      left: 28px;
+    }
+    .orbit-nav-next {
+      right: 28px;
+      flex-direction: row-reverse;
+    }
+    .orbit-nav-arrow:hover {
+      background: rgba(255, 209, 102, 0.2);
+      border-color: #FFD166;
+      color: #FFD166;
+      box-shadow: 0 0 25px rgba(255, 209, 102, 0.45);
+      transform: translateY(-50%) scale(1.06);
+    }
+    .orbit-nav-arrow:disabled,
+    .orbit-nav-arrow.disabled {
+      opacity: 0.28;
+      pointer-events: none;
+      filter: grayscale(1);
+    }
+    .nav-arrow-text-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      line-height: 1.1;
+    }
+    .orbit-nav-next .nav-arrow-text-wrap {
+      align-items: flex-end;
+    }
+    .nav-arrow-label {
+      font-weight: 700;
+      color: #FFFFFF;
+      letter-spacing: 1.8px;
+    }
+    .nav-arrow-hint {
+      font-size: 0.62rem;
+      color: #94A3B8;
+      letter-spacing: 0.8px;
+      margin-top: 2px;
+      font-weight: 400;
+    }
+
+    /* Floating Orbit Showcase HUD at Eye Level (Right-docked Mission Dossier on Desktop) */
+    .orbit-showcase-hud {
+      position: absolute;
+      top: 50%;
+      right: 32px;
+      bottom: auto;
+      left: auto;
+      transform: translateY(-50%) translateX(0);
+      z-index: 85;
+      width: 360px;
+      max-width: 92vw;
+      max-height: calc(100vh - 160px);
+      background: rgba(10, 15, 32, 0.90);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 20px;
+      backdrop-filter: blur(20px);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 35px rgba(255, 209, 102, 0.12);
+      padding: 18px 20px;
+      color: #FFFFFF;
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .orbit-showcase-hud.minimized {
+      transform: translateY(-50%) translateX(125%);
+      opacity: 0;
+      pointer-events: none;
+    }
+    .hud-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding-bottom: 8px;
+    }
+    .hud-title-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .hud-planet-badge {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 3px 12px;
+      border-radius: 20px;
+      background: rgba(255, 209, 102, 0.18);
+      color: #FFD166;
+      border: 1px solid #FFD166;
+    }
+    .hud-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin: 0;
+      color: #FFFFFF;
+    }
+    .hud-subtitle {
+      font-size: 0.82rem;
+      color: #94A3B8;
+      margin: 0;
+    }
+    .hud-btn-deep-dive {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #F1F5F9;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      padding: 5px 12px;
+      border-radius: 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.25s ease;
+    }
+    .hud-btn-deep-dive:hover {
+      background: rgba(255, 209, 102, 0.2);
+      border-color: #FFD166;
+      color: #FFD166;
+    }
+    .hud-quote {
+      font-style: italic;
+      font-size: 0.82rem;
+      color: #CBD5E1;
+      margin: 0;
+      line-height: 1.35;
+      opacity: 0.92;
+    }
+    .hud-items-row {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      overflow-y: auto;
+      max-height: 48vh;
+      padding: 4px 4px 6px 2px;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255, 209, 102, 0.4) transparent;
+    }
+    .hud-items-row::-webkit-scrollbar {
+      width: 4px;
+    }
+    .hud-items-row::-webkit-scrollbar-thumb {
+      background: rgba(255, 209, 102, 0.4);
+      border-radius: 4px;
+    }
+    .hud-card {
+      width: 100%;
+      box-sizing: border-box;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 12px;
+      padding: 10px 12px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      transition: all 0.25s ease;
+      cursor: pointer;
+    }
+    .hud-card:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: currentColor;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+    }
+    .hud-card-avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1.5px solid currentColor;
+      flex-shrink: 0;
+    }
+    .hud-card-icon {
+      font-size: 1.5rem;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+    .hud-card-body {
+      flex: 1;
+      min-width: 0;
+    }
+    .hud-card-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #FFFFFF;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .hud-card-role {
+      font-size: 0.7rem;
+      color: #94A3B8;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-bottom: 2px;
+    }
+    .hud-card-note {
+      font-size: 0.68rem;
+      color: #CBD5E1;
+      line-height: 1.25;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    /* Polaroids in HUD for Memories */
+    .hud-polaroid-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      width: 100%;
+    }
+    .hud-polaroid-card {
+      width: 100%;
+      box-sizing: border-box;
+      background: #FFFFFF;
+      color: #0F172A;
+      border-radius: 8px;
+      padding: 6px 6px 8px 6px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .hud-polaroid-card:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 8px 22px rgba(0, 0, 0, 0.7);
+    }
+    .hud-polaroid-img {
+      width: 100%;
+      height: 88px;
+      object-fit: cover;
+      border-radius: 4px;
+      display: block;
+    }
+    .hud-polaroid-cap {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 700;
+      margin-top: 5px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .hud-polaroid-date {
+      font-size: 0.6rem;
+      color: #64748B;
+      margin-top: 1px;
+    }
+
+    .hud-footer-controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 4px;
+      font-size: 0.75rem;
+    }
+    .hud-nav-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      color: #F8FAFC;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      padding: 6px 14px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .hud-nav-btn:hover {
+      background: rgba(255, 209, 102, 0.2);
+      border-color: #FFD166;
+      color: #FFD166;
+    }
+    .hud-step-dots {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .hud-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.25);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .hud-dot.active {
+      width: 22px;
+      border-radius: 10px;
+      background: #FFD166;
+      box-shadow: 0 0 10px #FFD166;
+    }
+
+    /* Central Employee Star (Locked at dead center of all orbits) */
+    .employee-sun {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      z-index: 50;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      transform-style: preserve-3d;
+      will-change: transform;
+      transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .employee-sun:hover {
+      transform: translate(-50%, -50%) scale(1.08);
+    }
+
+    .sun-corona {
+      position: absolute;
+      width: 165px;
+      height: 165px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 209, 102, 0.45) 0%, rgba(255, 107, 107, 0.2) 50%, transparent 75%);
+      animation: pulseCorona 4s ease-in-out infinite alternate;
+      pointer-events: none;
+    }
+    .sun-ring {
+      position: absolute;
+      width: 145px;
+      height: 145px;
+      border-radius: 50%;
+      border: 2px solid rgba(255, 209, 102, 0.65);
+      box-shadow: 0 0 35px rgba(255, 209, 102, 0.55), inset 0 0 20px rgba(255, 209, 102, 0.3);
+      animation: rotateSunRing 25s linear infinite;
+    }
+
+    @keyframes pulseCorona {
+      0% { transform: scale(0.95); opacity: 0.6; }
+      100% { transform: scale(1.15); opacity: 0.9; }
+    }
+    @keyframes rotateSunRing {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .sun-avatar {
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #FFD166;
+      box-shadow: 0 0 25px rgba(255, 209, 102, 0.85);
+      position: relative;
+      z-index: 2;
+    }
+
+    .sun-badge {
+      position: absolute;
+      bottom: -15px;
+      background: linear-gradient(135deg, #FFD166, #FF9E00);
+      color: #050814;
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+      padding: 4px 12px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+      z-index: 10;
+      white-space: nowrap;
+    }
+
+    .sun-label-name {
+      position: absolute;
+      top: -34px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      letter-spacing: 1.5px;
+      color: #FFFFFF;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.8), 0 0 15px rgba(255, 209, 102, 0.6);
+      white-space: nowrap;
+      text-transform: uppercase;
+    }
+
+    /* Orbiting Planet Container (Orbits using continuous JS loop) */
+    .planet-wrapper {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform-style: preserve-3d;
+      cursor: pointer;
+      z-index: 40;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      will-change: transform;
+    }
+
+    .planet-wrapper:hover {
+      z-index: 60;
+    }
+
+    .planet-orb {
+      position: relative;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: inset -6px -6px 14px rgba(0, 0, 0, 0.7), 0 0 25px currentColor;
+      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .planet-wrapper:hover .planet-orb,
+    .planet-wrapper.hovered .planet-orb,
+    .planet-wrapper.focused-orbit-planet .planet-orb {
+      transform: scale(1.3);
+      box-shadow: inset -6px -6px 14px rgba(0, 0, 0, 0.7), 0 0 40px currentColor, 0 0 65px currentColor;
+    }
+
+    .planet-ring-hologram {
+      position: absolute;
+      width: 170%;
+      height: 50%;
+      border-radius: 50%;
+      border: 2px solid currentColor;
+      opacity: 0.45;
+      transform: rotateX(65deg) rotateY(15deg);
+      pointer-events: none;
+    }
+
+    .planet-info-tag {
+      position: absolute;
+      top: 100%;
+      margin-top: 5px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      pointer-events: none;
+      transition: all 0.25s ease;
+      white-space: nowrap;
+    }
+
+    .planet-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      color: #FFFFFF;
+      text-transform: uppercase;
+      background: rgba(8, 12, 28, 0.82);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      backdrop-filter: blur(8px);
+      padding: 2px 8px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+      transition: all 0.25s ease;
+    }
+    .planet-wrapper:hover .planet-title,
+    .planet-wrapper.hovered .planet-title,
+    .planet-wrapper.focused-orbit-planet .planet-title {
+      border-color: currentColor;
+      box-shadow: 0 0 20px currentColor;
+      transform: scale(1.12);
+      background: rgba(8, 12, 28, 0.94);
+    }
+
+    .planet-subtitle {
+      font-size: 0.62rem;
+      color: #CBD5E1;
+      white-space: nowrap;
+      margin-top: 2px;
+      background: rgba(15, 23, 42, 0.85);
+      padding: 1px 6px;
+      border-radius: 4px;
+      opacity: 0;
+      max-height: 0;
+      overflow: hidden;
+      transform: translateY(-4px);
+      transition: all 0.25s ease;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .planet-wrapper:hover .planet-subtitle,
+    .planet-wrapper.hovered .planet-subtitle,
+    .planet-wrapper.focused-orbit-planet .planet-subtitle {
+      opacity: 1;
+      max-height: 24px;
+      transform: translateY(0);
+      margin-top: 3px;
+    }
+    .planet-mini-satellites {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      pointer-events: none;
+      animation: spinSatellites 20s linear infinite;
+    }
+    .mini-satellite-photo {
+      position: absolute;
+      width: 28px;
+      height: 22px;
+      background-size: cover;
+      background-position: center;
+      border: 1.5px solid #FFFFFF;
+      border-radius: 2px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.7), 0 0 12px rgba(72, 202, 228, 0.5);
+    }
+    .mini-sat-1 { top: -14px; left: 36px; transform: rotate(-8deg); }
+    .mini-sat-2 { bottom: -12px; right: -10px; transform: rotate(12deg); }
+    .mini-sat-3 { bottom: 18px; left: -20px; transform: rotate(-15deg); }
+    @keyframes spinSatellites {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Interactive Sub-Orbit Modal / Story Mode */
+    #planetStoryView {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 200;
+      background: radial-gradient(circle at center, rgba(10, 16, 40, 0.94) 0%, rgba(3, 6, 18, 0.98) 100%);
+      backdrop-filter: blur(25px);
+      display: none;
+      opacity: 0;
+      transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+    #planetStoryView.active {
+      display: flex;
+      opacity: 1;
+    }
+
+    .story-header {
+      position: absolute;
+      top: 36px;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      z-index: 220;
+    }
+    .story-badge {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 4px 14px;
+      border-radius: 30px;
+      display: inline-block;
+      margin-bottom: 8px;
+    }
+    .story-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #FFFFFF;
+    }
+    .story-quote {
+      font-size: 0.95rem;
+      color: #94A3B8;
+      font-style: italic;
+      margin-top: 6px;
+      max-width: 600px;
+    }
+
+    .close-story-btn {
+      position: absolute;
+      top: 36px;
+      right: 48px;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      color: #FFF;
+      padding: 10px 22px;
+      border-radius: 40px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s ease;
+      z-index: 230;
+    }
+    .close-story-btn:hover {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: #FFD166;
+      transform: scale(1.05);
+    }
+
+    /* Sub-Orbit Arena */
+    .sub-orbit-stage {
+      position: relative;
+      width: 750px;
+      height: 750px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transform-style: preserve-3d;
+    }
+
+    .sub-center-planet {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      position: relative;
+      z-index: 30;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 0 50px currentColor;
+    }
+
+    .sub-orbit-ring {
+      position: absolute;
+      border-radius: 50%;
+      border: 1px dashed rgba(255, 255, 255, 0.15);
+      pointer-events: none;
+    }
+    .sub-orbit-ring-1 { width: 440px; height: 440px; }
+    .sub-orbit-ring-2 { width: 680px; height: 680px; }
+
+    /* Orbiting Items inside Planet View */
+    .sub-item-card {
+      position: absolute;
+      background: rgba(16, 24, 52, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      backdrop-filter: blur(16px);
+      border-radius: 16px;
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 40;
+      transform-style: preserve-3d;
+    }
+    .sub-item-card:hover {
+      transform: translate(-50%, -50%) scale(1.18) translateZ(30px) !important;
+      border-color: var(--gold-primary);
+      box-shadow: 0 12px 40px rgba(255, 209, 102, 0.35);
+      z-index: 100;
+    }
+
+    .sub-item-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid currentColor;
+      flex-shrink: 0;
+    }
+
+    .sub-item-details {
+      display: flex;
+      flex-direction: column;
+      max-width: 220px;
+    }
+    .sub-item-name {
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: #FFF;
+    }
+    .sub-item-role {
+      font-size: 0.72rem;
+      color: #94A3B8;
+      margin-top: 2px;
+    }
+    .sub-item-note {
+      font-size: 0.75rem;
+      color: #CBD5E1;
+      margin-top: 4px;
+      line-height: 1.3;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding-top: 4px;
+    }
+
+    /* Polaroids for Memories */
+    .polaroid-card {
+      background: #FFFFFF;
+      padding: 10px 10px 18px 10px;
+      border-radius: 6px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+      transition: box-shadow 0.3s ease, border-color 0.3s ease;
+      color: #1E293B;
+      transform-style: preserve-3d;
+      max-width: 170px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    .polaroid-card img {
+      width: 150px;
+      height: 110px;
+      object-fit: cover;
+      border-radius: 3px;
+      background: #0B1026;
+    }
+    .polaroid-card:hover {
+      transform: translate(-50%, -50%) scale(1.22) rotate(0deg) !important;
+      z-index: 120;
+      box-shadow: 0 15px 45px rgba(72, 202, 228, 0.6), 0 0 25px rgba(255, 209, 102, 0.4);
+      border-color: #FFD166;
+    }
+    .polaroid-caption {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 600;
+      font-size: 0.75rem;
+      margin-top: 8px;
+      text-align: center;
+    }
+    .polaroid-date {
+      font-size: 0.65rem;
+      color: #64748B;
+    }
+    .polaroid-hint {
+      font-size: 0.62rem;
+      color: #0284C7;
+      font-weight: 700;
+      margin-top: 5px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      opacity: 0.85;
+      background: rgba(2, 132, 199, 0.08);
+      padding: 2px 8px;
+      border-radius: 10px;
+      transition: all 0.2s ease;
+    }
+    .polaroid-card:hover .polaroid-hint {
+      opacity: 1;
+      background: #0284C7;
+      color: #FFFFFF;
+    }
+
+    /* Circular orbit track for memories */
+    .sub-orbit-ring-memories {
+      width: 540px !important;
+      height: 540px !important;
+      border: 2px dashed rgba(72, 202, 228, 0.55) !important;
+      box-shadow: 0 0 35px rgba(72, 202, 228, 0.25), inset 0 0 35px rgba(72, 202, 228, 0.1) !important;
+      animation: spinClockwise 90s linear infinite !important;
+    }
+
+    /* Mini satellites around Memories planet on main universe view */
+    .memories-mini-orbit {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 86px;
+      height: 86px;
+      margin-top: -43px;
+      margin-left: -43px;
+      border: 1px dashed rgba(72, 202, 228, 0.5);
+      border-radius: 50%;
+      animation: spinClockwise 12s linear infinite;
+      pointer-events: none;
+    }
+    .memories-mini-sat {
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      background: #FFFFFF;
+      border-radius: 3px;
+      box-shadow: 0 0 8px rgba(72, 202, 228, 0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+    }
+    .memories-mini-sat:nth-child(1) { top: -9px; left: 50%; margin-left: -9px; }
+    .memories-mini-sat:nth-child(2) { bottom: -9px; left: 50%; margin-left: -9px; }
+    .memories-mini-sat:nth-child(3) { left: -9px; top: 50%; margin-top: -9px; }
+    .memories-mini-sat:nth-child(4) { right: -9px; top: 50%; margin-top: -9px; }
+
+    /* =========================================================================
+       PHOTO FULL-VIEW LIGHTBOX MODAL
+       ========================================================================= */
+    #photoLightboxModal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: radial-gradient(circle at center, rgba(10, 18, 44, 0.96) 0%, rgba(2, 4, 12, 0.98) 100%);
+      backdrop-filter: blur(28px);
+      z-index: 999;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    #photoLightboxModal.active {
+      display: flex;
+      opacity: 1;
+    }
+
+    .lightbox-container {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      max-width: 900px;
+      width: 90vw;
+      transform: scale(0.92);
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    #photoLightboxModal.active .lightbox-container {
+      transform: scale(1);
+    }
+
+    .lightbox-frame {
+      background: #FFFFFF;
+      padding: 16px 16px 26px 16px;
+      border-radius: 12px;
+      box-shadow: 0 25px 80px rgba(0, 0, 0, 0.85), 0 0 50px rgba(72, 202, 228, 0.3);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: #0F172A;
+      max-width: 100%;
+    }
+
+    .lightbox-image {
+      width: 100%;
+      max-height: 60vh;
+      object-fit: cover;
+      border-radius: 6px;
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .lightbox-details {
+      margin-top: 18px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      padding: 0 16px;
+    }
+
+    .lightbox-badge {
+      background: rgba(14, 165, 233, 0.1);
+      color: #0284C7;
+      border: 1px solid rgba(14, 165, 233, 0.25);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      padding: 4px 14px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .lightbox-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #0F172A;
+      margin-bottom: 6px;
+    }
+
+    .lightbox-story {
+      font-size: 0.92rem;
+      color: #475569;
+      line-height: 1.5;
+      max-width: 650px;
+    }
+
+    .lightbox-counter {
+      margin-top: 10px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      color: #94A3B8;
+      text-transform: uppercase;
+    }
+
+    .lightbox-close-btn {
+      position: absolute;
+      top: -46px;
+      right: 0;
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: #FFFFFF;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: all 0.25s ease;
+      backdrop-filter: blur(10px);
+    }
+    .lightbox-close-btn:hover {
+      background: #FFD166;
+      color: #050814;
+      transform: scale(1.1);
+    }
+
+    .lightbox-nav-btn {
+      position: absolute;
+      top: 45%;
+      transform: translateY(-50%);
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: #FFFFFF;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      font-size: 1.8rem;
+      line-height: 1;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(12px);
+      z-index: 1010;
+    }
+    .lightbox-nav-btn:hover {
+      background: #FFD166;
+      color: #050814;
+      border-color: #FFD166;
+      transform: translateY(-50%) scale(1.12);
+      box-shadow: 0 0 25px rgba(255, 209, 102, 0.6);
+    }
+    .lightbox-prev-btn { left: -60px; }
+    .lightbox-next-btn { right: -60px; }
+
+    @media (max-width: 768px) {
+      .lightbox-prev-btn { left: 8px; }
+      .lightbox-next-btn { right: 8px; }
+      .lightbox-title { font-size: 1.2rem; }
+      .lightbox-story { font-size: 0.82rem; }
+    }
+
+    /* Bottom Finale & Navigation Hub */
+    footer {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      padding: 24px 36px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      z-index: 100;
+      pointer-events: none;
+    }
+
+    .planet-selector-bar {
+      pointer-events: auto;
+      background: var(--glass-bg);
+      backdrop-filter: blur(14px);
+      border: 1px solid var(--glass-border);
+      border-radius: 40px;
+      padding: 6px 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .planet-btn {
+      background: transparent;
+      border: none;
+      color: #94A3B8;
+      padding: 8px 14px;
+      border-radius: 30px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.25s ease;
+    }
+    .planet-btn:hover {
+      color: #FFF;
+      background: rgba(255, 255, 255, 0.1);
+    }
+    .planet-btn.active {
+      color: #030612;
+      background: var(--gold-primary);
+      font-weight: 700;
+    }
+    .planet-btn-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+
+    /* GRAND FINALE BUTTON */
+    .finale-cta-wrapper {
+      pointer-events: auto;
+      position: relative;
+    }
+
+    .btn-unite {
+      position: relative;
+      background: linear-gradient(135deg, #FFD166 0%, #FF9E00 50%, #EF476F 100%);
+      color: #050814;
+      border: none;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 800;
+      font-size: 0.95rem;
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
+      padding: 16px 36px;
+      border-radius: 50px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 0 35px rgba(255, 209, 102, 0.5), 0 4px 20px rgba(0, 0, 0, 0.4);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      overflow: hidden;
+    }
+    .btn-unite::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+      transform: rotate(45deg);
+      animation: shineButton 3.5s infinite;
+    }
+    .btn-unite:hover {
+      transform: translateY(-3px) scale(1.04);
+      box-shadow: 0 0 50px rgba(255, 209, 102, 0.85);
+    }
+
+    @keyframes shineButton {
+      0% { transform: translateX(-100%) rotate(45deg); }
+      100% { transform: translateX(100%) rotate(45deg); }
+    }
+
+    /* FINALE COLLAPSE & SUPERNOVA RESOLUTION OVERLAY */
+    #finaleScreen {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 500;
+      pointer-events: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      background: rgba(3, 6, 18, 0);
+      transition: opacity 1s ease, background 1.5s ease;
+    }
+    #finaleScreen.active {
+      opacity: 1;
+      pointer-events: auto;
+      background: radial-gradient(circle at center, rgba(15, 23, 50, 0.95) 0%, rgba(2, 4, 12, 0.99) 100%);
+    }
+
+    .supernova-flash {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: #FFFFFF;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 550;
+      transition: opacity 0.15s ease-out;
+    }
+    .supernova-flash.flash-boom {
+      opacity: 1;
+    }
+
+    .milestone-container {
+      text-align: center;
+      max-width: 780px;
+      padding: 40px;
+      transform: scale(0.85) translateY(30px);
+      opacity: 0;
+      transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.5s;
+      z-index: 600;
+    }
+    #finaleScreen.active .milestone-container {
+      transform: scale(1) translateY(0);
+      opacity: 1;
+    }
+
+    .milestone-golden-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 209, 102, 0.15);
+      border: 1px solid #FFD166;
+      color: #FFD166;
+      padding: 8px 24px;
+      border-radius: 50px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+      box-shadow: 0 0 25px rgba(255, 209, 102, 0.3);
+    }
+
+    .milestone-headline {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 4rem;
+      font-weight: 800;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      background: linear-gradient(135deg, #FFFFFF 0%, #FFD166 45%, #FF9E00 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 10px 40px rgba(255, 209, 102, 0.4);
+      line-height: 1.1;
+      margin-bottom: 18px;
+    }
+
+    .milestone-tagline {
+      font-size: 1.25rem;
+      color: #CBD5E1;
+      font-weight: 400;
+      line-height: 1.6;
+      margin-bottom: 36px;
+    }
+
+    .milestone-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-bottom: 40px;
+    }
+
+    .stat-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 18px;
+      padding: 20px 16px;
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+    }
+    .stat-card:hover {
+      border-color: #FFD166;
+      transform: translateY(-4px);
+    }
+    .stat-number {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2rem;
+      font-weight: 800;
+      color: #FFD166;
+    }
+    .stat-label {
+      font-size: 0.78rem;
+      color: #94A3B8;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 4px;
+    }
+
+    .finale-actions {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .btn-replay {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: #FFF;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: 1px;
+      padding: 14px 32px;
+      border-radius: 40px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .btn-replay:hover {
+      background: rgba(255, 255, 255, 0.2);
+      border-color: #FFF;
+    }
+
+    .btn-certificate {
+      background: linear-gradient(135deg, #FFD166, #FF9E00);
+      border: none;
+      color: #030612;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 800;
+      font-size: 0.9rem;
+      letter-spacing: 1px;
+      padding: 14px 36px;
+      border-radius: 40px;
+      cursor: pointer;
+      box-shadow: 0 4px 25px rgba(255, 209, 102, 0.5);
+      transition: all 0.3s ease;
+    }
+    .btn-certificate:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 35px rgba(255, 209, 102, 0.8);
+    }
+
+    /* Gravitational Collapse Animation Modifier */
+    .solar-system.collapsing .planet-wrapper {
+      transition: all 1.8s cubic-bezier(0.5, 0, 0.2, 1) !important;
+      left: 50% !important;
+      top: 50% !important;
+      transform: translate(-50%, -50%) scale(0.1) !important;
+      opacity: 0.8;
+    }
+    .solar-system.collapsing .orbit-ring {
+      transform: scale(0.01) !important;
+      opacity: 0 !important;
+      transition: all 1.6s ease-in !important;
+    }
+    .solar-system.collapsing .employee-sun {
+      transform: scale(2.2) !important;
+      filter: brightness(2.5) contrast(1.5);
+      transition: all 1.8s cubic-bezier(0.5, 0, 0.2, 1) !important;
+    }
+
+    /* Modal for Quick Customization of Employee Data */
+    #editDataModal {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.82);
+      backdrop-filter: blur(14px);
+      z-index: 700;
+      display: none;
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-box {
+      background: #0B112C;
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      padding: 30px 36px;
+      width: 500px;
+      max-width: 90vw;
+      color: #FFF;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+    }
+    .modal-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: #FFD166;
+    }
+    .quick-preset-row {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+    .preset-btn {
+      flex: 1;
+      padding: 7px 10px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 8px;
+      color: #FFF;
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .preset-btn:hover {
+      border-color: #FFD166;
+      background: rgba(255, 209, 102, 0.15);
+      color: #FFD166;
+    }
+    .input-group {
+      margin-bottom: 14px;
+    }
+    .input-label {
+      font-size: 0.78rem;
+      color: #94A3B8;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+      display: block;
+    }
+    .input-control {
+      width: 100%;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.15);
+      padding: 10px 14px;
+      border-radius: 8px;
+      color: #FFF;
+      font-size: 0.9rem;
+      outline: none;
+    }
+    .input-control:focus {
+      border-color: #FFD166;
+    }
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    /* Responsiveness */
+    @media (max-width: 1079px) {
+      .orbit-showcase-hud {
+        top: auto;
+        right: auto;
+        bottom: 84px;
+        left: 50%;
+        transform: translateX(-50%) translateY(0);
+        width: 94%;
+        max-width: 480px;
+        max-height: 220px;
+        padding: 12px 14px;
+        gap: 8px;
+      }
+      .orbit-showcase-hud.minimized {
+        transform: translateX(-50%) translateY(140%);
+        opacity: 0;
+      }
+      .hud-items-row {
+        flex-direction: row;
+        overflow-x: auto;
+        overflow-y: hidden;
+        max-height: none;
+      }
+      .hud-card {
+        flex: 0 0 auto;
+        width: 200px;
+      }
+      .hud-polaroid-grid {
+        display: flex;
+        flex-direction: row;
+        overflow-x: auto;
+      }
+      .hud-polaroid-card {
+        flex: 0 0 auto;
+        width: 130px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .brand-subtitle, .planet-selector-bar { display: none; }
+      .milestone-headline { font-size: 2.6rem; }
+      .milestone-stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .btn-unite { padding: 12px 24px; font-size: 0.85rem; }
+      .sub-orbit-stage { width: 95vw; height: 95vw; }
+      .sub-orbit-ring-1 { width: 280px; height: 280px; }
+      .sub-orbit-ring-2 { width: 380px; height: 380px; }
+      .close-story-btn { top: 20px; right: 20px; }
+      .orbit-nav-arrow { padding: 8px 12px; font-size: 0.7rem; }
+      .orbit-nav-prev { left: 10px; }
+      .orbit-nav-next { right: 10px; }
+      .nav-arrow-hint { display: none; }
+      .orbit-showcase-hud { bottom: 80px; width: 95%; padding: 12px 14px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background Canvas for Starfield, Dust & Meteors -->
+  <canvas id="spaceCanvas"></canvas>
+
+  <!-- Ambient Nebulae -->
+  <div class="nebula nebula-1"></div>
+  <div class="nebula nebula-2"></div>
+  <div class="nebula nebula-3"></div>
+
+  <!-- Flash overlay for Supernova -->
+  <div id="supernovaFlash" class="supernova-flash"></div>
+
+  <!-- Top Header Navigation -->
+  <header>
+    <div class="brand-container">
+      <div class="brand-title">
+        <span>✦</span> Your Personal Universe
+      </div>
+      <div class="brand-subtitle">Everything You Became Part Of</div>
+    </div>
+
+    <div class="top-controls">
+      <!-- 3D Eye-Level vs 2D Top-Down View Toggle -->
+      <button class="btn-pill highlight-view" id="viewPerspectiveToggleBtn" title="Toggle between Eye-Level 3D and Top-Down View">
+        <span id="viewPerspectiveIcon">👁️</span>
+        <span id="viewPerspectiveText">Eye-Level 3D</span>
+      </button>
+
+      <!-- Direct View Switcher to Digital Memory Palace -->
+      <a href="index.html" class="btn-pill" style="border-color: #f5c065; color: #f5c065; background: rgba(245, 192, 101, 0.15); box-shadow: 0 0 14px rgba(245, 192, 101, 0.35);" title="Enter Digital Memory Palace">
+        <span>🏛️</span>
+        <span>Memory Palace</span>
+      </a>
+
+      <!-- Direct View Switcher to Poster View -->
+      <a href="poster.html" class="btn-pill" title="Switch to Editorial Poster View">
+        <span>🪐</span>
+        <span>View Poster Mode</span>
+      </a>
+
+      <button class="btn-pill" id="soundToggleBtn" title="Toggle Cosmic Sound FX">
+        <div class="sound-wave" id="soundVisualizer">
+          <div class="sound-bar"></div>
+          <div class="sound-bar"></div>
+          <div class="sound-bar"></div>
+          <div class="sound-bar"></div>
+        </div>
+        <span id="soundLabel">Sound On</span>
+      </button>
+
+      <button class="btn-pill" id="editDataBtn" title="Customize Employee Profile">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+        <span>Customize</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Earth Atmosphere Horizon (Eye-level celestial depth) -->
+  <div class="earth-horizon" id="earthHorizon">
+    <div class="earth-atmosphere-line"></div>
+  </div>
+
+  <!-- 3D Universe Viewport Container -->
+  <main id="universeContainer">
+    <div class="solar-system" id="solarSystem">
+      
+      <!-- Central Core: EMPLOYEE SUN -->
+      <div class="employee-sun" id="employeeSun" title="Click to view core gravitational info">
+        <div class="sun-corona"></div>
+        <div class="sun-ring"></div>
+        <div class="sun-label-name" id="sunNameLabel">Hinesh Patel</div>
+        <img src="manushi_portrait.jpg" 
+             alt="Employee Portrait" 
+             class="sun-avatar" 
+             id="sunAvatarImg">
+        <div class="sun-badge" id="sunTenureBadge">1 Year Orbit</div>
+      </div>
+
+      <!-- Orbital Rings & Planets will be injected and positioned via JS -->
+
+    </div>
+  </main>
+
+  <!-- Floating Eye-Level Navigation Arrows -->
+  <button class="orbit-nav-arrow orbit-nav-prev" id="orbitNavPrevBtn" title="Previous Orbit (Scroll Up or Left Arrow)">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
+    <div class="nav-arrow-text-wrap">
+      <span class="nav-arrow-label" id="navPrevLabel">BACK</span>
+      <span class="nav-arrow-hint">Scroll Up ‹</span>
+    </div>
+  </button>
+
+  <button class="orbit-nav-arrow orbit-nav-next" id="orbitNavNextBtn" title="Next Orbit (Scroll Down or Right Arrow)">
+    <div class="nav-arrow-text-wrap">
+      <span class="nav-arrow-label" id="navNextLabel">NEXT</span>
+      <span class="nav-arrow-hint">Scroll Down ›</span>
+    </div>
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+  </button>
+
+  <!-- Eye-Level Orbit Showcase HUD Card -->
+  <aside class="orbit-showcase-hud minimized" id="orbitShowcaseHud" aria-live="polite">
+    <div class="hud-header">
+      <div class="hud-title-group">
+        <span class="hud-planet-badge" id="hudPlanetBadge">ORBIT 01 / 06</span>
+        <h3 class="hud-title" id="hudTitle">People</h3>
+        <span class="hud-subtitle" id="hudSubtitle">Teammates & Mentors</span>
+      </div>
+      <div class="hud-header-actions">
+        <button class="hud-btn-deep-dive" id="hudBtnDeepDive" title="Open 360° Sub-Orbit Deep Dive">🪐 Sub-Orbit View</button>
+      </div>
+    </div>
+    <p class="hud-quote" id="hudQuote">"The teammates and mentors who made tough days easy and good days memorable."</p>
+    
+    <div class="hud-items-row" id="hudItemsRow">
+      <!-- Injected per active orbit -->
+    </div>
+
+    <div class="hud-footer-controls">
+      <button class="hud-nav-btn hud-btn-prev" id="hudBtnPrev">‹ Previous</button>
+      <div class="hud-step-dots" id="hudStepDots"></div>
+      <button class="hud-nav-btn hud-btn-next" id="hudBtnNext">Next Orbit ›</button>
+    </div>
+  </aside>
+
+  <!-- Planet Deep-Dive Story View (Modal Overlay) -->
+  <section id="planetStoryView" aria-modal="true" role="dialog">
+    <button class="close-story-btn" id="closeStoryBtn">
+      <span>✕</span> Back to Universe
+    </button>
+
+    <div class="story-header">
+      <span class="story-badge" id="storyBadge">PEOPLE</span>
+      <h2 class="story-title" id="storyTitle">The Constellation of Friends</h2>
+      <p class="story-quote" id="storyQuote">"The teammates and mentors who made tough days easy and good days memorable."</p>
+    </div>
+
+    <div class="sub-orbit-stage" id="subOrbitStage">
+      <!-- Rings for sub-orbital items -->
+      <div class="sub-orbit-ring sub-orbit-ring-1"></div>
+      <div class="sub-orbit-ring sub-orbit-ring-2"></div>
+
+      <!-- Central Highlighted Planet -->
+      <div class="sub-center-planet" id="subCenterPlanet">
+        <!-- Injected via JS -->
+      </div>
+
+      <!-- Orbiting Story Items will be positioned here -->
+      <div id="subOrbitItemsContainer"></div>
+    </div>
+  </section>
+
+  <!-- Photo Full-View Lightbox Modal -->
+  <div id="photoLightboxModal" class="lightbox-overlay" role="dialog" aria-modal="true">
+    <div class="lightbox-container">
+      <button class="lightbox-close-btn" id="lightboxCloseBtn" title="Close Full View (Esc)">✕</button>
+      
+      <!-- Prev & Next navigation buttons -->
+      <button class="lightbox-nav-btn lightbox-prev-btn" id="lightboxPrevBtn" title="Previous Photo (←)">‹</button>
+      <button class="lightbox-nav-btn lightbox-next-btn" id="lightboxNextBtn" title="Next Photo (→)">›</button>
+
+      <div class="lightbox-frame">
+        <img id="lightboxImg" src="" alt="Full view memory" class="lightbox-image">
+        
+        <div class="lightbox-details">
+          <div class="lightbox-badge" id="lightboxDate">November 2025</div>
+          <h2 class="lightbox-title" id="lightboxTitle">Annual Retreat Campfire</h2>
+          <p class="lightbox-story" id="lightboxStory">Underneath the open sky, stories were shared, bonds were deepened, and we celebrated the milestones that brought us closer.</p>
+          <div class="lightbox-counter" id="lightboxCounter">Photo 1 of 6</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Navigation & Climax CTA -->
+  <footer>
+    <div class="planet-selector-bar" id="planetSelectorBar">
+      <!-- Quick navigation buttons to jump to planets -->
+    </div>
+
+    <div class="finale-cta-wrapper">
+      <button class="btn-unite" id="btnUniteUniverse">
+        <span>✦</span> Unite Your Universe
+      </button>
+    </div>
+  </footer>
+
+  <!-- Supernova & Grand Finale Milestone Resolution Screen -->
+  <section id="finaleScreen">
+    <div class="milestone-container">
+      <div class="milestone-golden-badge">
+        <span>★</span> MILESTONE COMPLETE <span>★</span>
+      </div>
+
+      <h1 class="milestone-headline" id="milestoneHeadline">ONE YEAR.<br>ONE JOURNEY.</h1>
+
+      <p class="milestone-tagline" id="milestoneTagline">
+        In 365 days around our sun, you built what mattered, lifted those around you, and carved your own constellation. Everything you touched became part of who we are.
+      </p>
+
+      <div class="milestone-stats-grid">
+        <div class="stat-card">
+          <div class="stat-number" id="statPeople">8</div>
+          <div class="stat-label">Teammates & Mentors</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" id="statProjects">5</div>
+          <div class="stat-label">Major Launches</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" id="statSkills">12</div>
+          <div class="stat-label">Skills & Tech Unlocked</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" id="statValues">4</div>
+          <div class="stat-label">Living Core Values</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" id="statAwards">3</div>
+          <div class="stat-label">Honors & Accolades</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" id="statMemories">100+</div>
+          <div class="stat-label">Celebrated Moments</div>
+        </div>
+      </div>
+
+      <div class="finale-actions">
+        <button class="btn-replay" id="btnReplayUniverse">
+          ↺ Replay Universe
+        </button>
+        <button class="btn-certificate" id="btnDownloadCard">
+          ★ Download Journey Keepsake
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Edit Employee Profile Modal -->
+  <div id="editDataModal">
+    <div class="modal-box">
+      <h3 class="modal-title">Customize Universe Profile</h3>
+      
+      <div class="input-label" style="margin-bottom: 6px;">Quick Presets</div>
+      <div class="quick-preset-row">
+        <button class="preset-btn" id="presetHineshBtn">Hinesh Patel</button>
+        <button class="preset-btn" id="presetManushiBtn">Manushi</button>
+      </div>
+
+      <div class="input-group">
+        <label class="input-label">Employee Name</label>
+        <input type="text" id="editNameInput" class="input-control" value="Hinesh Patel">
+      </div>
+      <div class="input-group">
+        <label class="input-label">Role / Designation</label>
+        <input type="text" id="editRoleInput" class="input-control" value="Senior Product Architect">
+      </div>
+      <div class="input-group">
+        <label class="input-label">Journey Milestone</label>
+        <input type="text" id="editMilestoneInput" class="input-control" value="ONE YEAR. ONE JOURNEY.">
+      </div>
+      <div class="input-group">
+        <label class="input-label">Profile Avatar URL</label>
+        <input type="text" id="editAvatarInput" class="input-control" value="manushi_portrait.jpg">
+      </div>
+      <div class="modal-actions">
+        <button class="btn-replay" id="cancelEditBtn">Cancel</button>
+        <button class="btn-certificate" id="saveEditBtn">Save Changes</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT: Universe Engine, Orbital Dynamics, Sound Synthesis & Story Modes -->
+  <script>
+    /* =========================================================================
+       1. UNIVERSE DATA STORE
+       ========================================================================= */
+    const universeData = {
+      employee: {
+        name: "Hinesh Patel",
+        role: "Senior Product Architect",
+        milestone: "ONE YEAR. ONE JOURNEY.",
+        tenureBadge: "1 Year Orbit",
+        avatar: "manushi_portrait.jpg"
+      },
+      planets: [
+        {
+          id: "people",
+          name: "People",
+          subtitle: "Teammates & Mentors",
+          color: "#06D6A0",
+          radius: 146,
+          speed: 0.0014,
+          size: 38,
+          angle: 0.35,
+          quote: "The teammates and mentors who made tough days easy and good days memorable.",
+          items: [
+            {
+              name: "Priya Sharma",
+              role: "Design Lead",
+              note: "First buddy who guided me through design tokens & culture.",
+              avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=150&q=80"
+            },
+            {
+              name: "Vikram Mehta",
+              role: "VP Engineering",
+              note: "Trusted me with core architecture decisions from Day 30.",
+              avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80"
+            },
+            {
+              name: "Ananya Rao",
+              role: "Frontend Engineer",
+              note: "Late-night pair programming champion during Q3 launch.",
+              avatar: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=150&q=80"
+            },
+            {
+              name: "Karan Dave",
+              role: "Product Manager",
+              note: "Brought clarity, pizza, and endless positivity to every standup.",
+              avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&q=80"
+            }
+          ]
+        },
+        {
+          id: "projects",
+          name: "Projects",
+          subtitle: "Key Missions Delivered",
+          color: "#118AB2",
+          radius: 232,
+          speed: 0.0026,
+          size: 42,
+          angle: 1.90,
+          quote: "The footprint of your craftsmanship across our products.",
+          items: [
+            {
+              name: "Quantum Platform 2.0",
+              role: "150K Daily Users",
+              note: "Architected modern micro-frontend architecture with zero downtime.",
+              icon: "🚀"
+            },
+            {
+              name: "Real-time Telemetry Pipeline",
+              role: "4x Speed Boost",
+              note: "Reduced end-to-end latency by 72% for critical client events.",
+              icon: "⚡"
+            },
+            {
+              name: "Global Design System",
+              role: "80+ Reusable Components",
+              note: "Unified 4 regional products under a consistent design language.",
+              icon: "🎨"
+            },
+            {
+              name: "Enterprise Auth & RBAC",
+              role: "SOC2 Compliance",
+              note: "Secured enterprise tenant access with multi-factor policies.",
+              icon: "🛡️"
+            }
+          ]
+        },
+        {
+          id: "learning",
+          name: "Learning",
+          subtitle: "Skills & Constellations",
+          color: "#9D4EDD",
+          radius: 318,
+          speed: 0.0039,
+          size: 40,
+          angle: 3.20,
+          quote: "From beginner curiosity to confident domain mastery.",
+          items: [
+            {
+              name: "Distributed Event Streaming",
+              role: "Kafka & Redis Clusters",
+              note: "Designed resilient message broker patterns.",
+              icon: "🌌"
+            },
+            {
+              name: "AI Agentic Workflows",
+              role: "LLM Orchestration",
+              note: "Built smart autocomplete & automated triage agents.",
+              icon: "🤖"
+            },
+            {
+              name: "Cloud Architecture Pro",
+              role: "Certified Practitioner",
+              note: "Completed advanced multi-region resiliency track.",
+              icon: "☁️"
+            },
+            {
+              name: "Mentorship & Tech Leadership",
+              role: "Internal Academy",
+              note: "Mentored 3 junior developers through their first commits.",
+              icon: "🌱"
+            }
+          ]
+        },
+        {
+          id: "values",
+          name: "Values",
+          subtitle: "Living Principles",
+          color: "#FF9E00",
+          radius: 404,
+          speed: 0.0053,
+          size: 38,
+          angle: 4.35,
+          quote: "Not just what you accomplished, but how you did it with integrity.",
+          items: [
+            {
+              name: "Radical Ownership",
+              role: "Kudos from Engineering VP",
+              note: "'When systems went down at midnight, stayed until full resolution.'",
+              icon: "🔥"
+            },
+            {
+              name: "Empathy First",
+              role: "Peer Shoutout",
+              note: "'Always took time to listen and elevate team members.'",
+              icon: "❤️"
+            },
+            {
+              name: "Relentless Craft",
+              role: "Design Team Citation",
+              note: "'Cares about every micro-interaction, pixel, and performance frame.'",
+              icon: "💎"
+            },
+            {
+              name: "Candor & Humility",
+              role: "Culture Champion",
+              note: "'Never hesitated to ask questions and share learnings openly.'",
+              icon: "✨"
+            }
+          ]
+        },
+        {
+          id: "achievements",
+          name: "Achievements",
+          subtitle: "Accolades & Spotlights",
+          color: "#EF476F",
+          radius: 490,
+          speed: 0.0068,
+          size: 42,
+          angle: 5.30,
+          quote: "The moments where your hard work earned standing ovations.",
+          items: [
+            {
+              name: "Annual MVP Award 2025",
+              role: "Executive Leadership Honor",
+              note: "Recognized for top 1% contribution across tech org.",
+              icon: "🏆"
+            },
+            {
+              name: "Hackathon Champion",
+              role: "1st Place Winner",
+              note: "Built offline-first sync engine in 36 hours.",
+              icon: "🥇"
+            },
+            {
+              name: "Q3 Spot Spotlight",
+              role: "Peer Recognition",
+              note: "Awarded for exceptional platform reliability under peak load.",
+              icon: "⭐"
+            }
+          ]
+        },
+        {
+          id: "memories",
+          name: "Memories",
+          subtitle: "Celebrations & Bonds",
+          color: "#48CAE4",
+          radius: 576,
+          speed: 0.0086,
+          size: 44,
+          angle: 1.05,
+          quote: "The laughter, offsite campfires, and memories beyond the keyboard.",
+          items: [
+            {
+              caption: "Annual Retreat Campfire",
+              date: "November 2025",
+              story: "Underneath the open sky, stories were shared, bonds were deepened, and we celebrated the milestones that brought us closer as one family.",
+              image: "https://images.unsplash.com/photo-1517457373958-b7bdd4587205?auto=format&fit=crop&w=1000&q=80",
+              rotation: "-4deg"
+            },
+            {
+              caption: "Midnight Pizza Deployment",
+              date: "August 2025",
+              story: "The adrenaline of a major release, late-night high-fives, steaming pizza, and zero bugs in production.",
+              image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1000&q=80",
+              rotation: "3deg"
+            },
+            {
+              caption: "Diwali Festivities & Sweets",
+              date: "October 2025",
+              story: "Laughter echoed across the decorated hallways, traditional sweets were shared, and our team wore their festive best.",
+              image: "https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=1000&q=80",
+              rotation: "-3deg"
+            },
+            {
+              caption: "First Team Welcome Lunch",
+              date: "Day 1 Welcome",
+              story: "From Day 1, feeling welcomed, valued, and immediately included in team inside jokes and big dreams.",
+              image: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=1000&q=80",
+              rotation: "4deg"
+            },
+            {
+              caption: "Hackathon All-Nighter",
+              date: "May 2025",
+              story: "36 hours of pure innovation, creative chaos, whiteboard brainstorms, and building prototypes that shocked the judges.",
+              image: "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=1000&q=80",
+              rotation: "-2deg"
+            },
+            {
+              caption: "Friday Rooftop Coffee & Ideas",
+              date: "July 2025",
+              story: "Unwinding after an intense sprint, soaking in the evening breeze, and discussing ideas for the future.",
+              image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1000&q=80",
+              rotation: "3deg"
+            }
+          ]
+        }
+      ]
+    };
+
+    /* =========================================================================
+       2. PROCEDURAL SYNTHESIZED WEB AUDIO ENGINE
+       ========================================================================= */
+    class CosmicAudioEngine {
+      constructor() {
+        this.ctx = null;
+        this.isMuted = false;
+        this.ambientOsc = null;
+        this.gainNode = null;
+      }
+
+      init() {
+        if (!this.ctx) {
+          const AudioContext = window.AudioContext || window.webkitAudioContext;
+          this.ctx = new AudioContext();
+          this.masterGain = this.ctx.createGain();
+          this.masterGain.gain.setValueAtTime(0.3, this.ctx.currentTime);
+          this.masterGain.connect(this.ctx.destination);
+          this.startAmbientDrone();
+        }
+        if (this.ctx.state === 'suspended') {
+          this.ctx.resume();
+        }
+      }
+
+      startAmbientDrone() {
+        if (!this.ctx || this.ambientOsc) return;
+        const osc1 = this.ctx.createOscillator();
+        const osc2 = this.ctx.createOscillator();
+        const droneGain = this.ctx.createGain();
+        const filter = this.ctx.createBiquadFilter();
+
+        osc1.type = 'sine';
+        osc1.frequency.setValueAtTime(55, this.ctx.currentTime);
+        osc2.type = 'triangle';
+        osc2.frequency.setValueAtTime(110.5, this.ctx.currentTime);
+
+        filter.type = 'lowpass';
+        filter.frequency.setValueAtTime(220, this.ctx.currentTime);
+
+        droneGain.gain.setValueAtTime(0.08, this.ctx.currentTime);
+
+        osc1.connect(filter);
+        osc2.connect(filter);
+        filter.connect(droneGain);
+        droneGain.connect(this.masterGain);
+
+        osc1.start();
+        osc2.start();
+        this.ambientOsc = [osc1, osc2];
+      }
+
+      playPlanetChime(freq = 440) {
+        if (this.isMuted || !this.ctx) return;
+        const now = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, now);
+        osc.frequency.exponentialRampToValueAtTime(freq * 1.5, now + 0.3);
+
+        gain.gain.setValueAtTime(0.18, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 1.2);
+
+        osc.connect(gain);
+        gain.connect(this.masterGain);
+
+        osc.start(now);
+        osc.stop(now + 1.2);
+      }
+
+      playWarpWhoosh() {
+        if (this.isMuted || !this.ctx) return;
+        const now = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        const filter = this.ctx.createBiquadFilter();
+
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(120, now);
+        osc.frequency.exponentialRampToValueAtTime(880, now + 0.4);
+
+        filter.type = 'bandpass';
+        filter.frequency.setValueAtTime(300, now);
+        filter.frequency.linearRampToValueAtTime(2400, now + 0.4);
+
+        gain.gain.setValueAtTime(0.01, now);
+        gain.gain.linearRampToValueAtTime(0.2, now + 0.2);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.8);
+
+        osc.connect(filter);
+        filter.connect(gain);
+        gain.connect(this.masterGain);
+
+        osc.start(now);
+        osc.stop(now + 0.8);
+      }
+
+      playSupernovaBoom() {
+        if (this.isMuted || !this.ctx) return;
+        const now = this.ctx.currentTime;
+
+        const subOsc = this.ctx.createOscillator();
+        const subGain = this.ctx.createGain();
+        subOsc.type = 'sine';
+        subOsc.frequency.setValueAtTime(150, now);
+        subOsc.frequency.exponentialRampToValueAtTime(30, now + 1.8);
+
+        subGain.gain.setValueAtTime(0.6, now);
+        subGain.gain.exponentialRampToValueAtTime(0.001, now + 2.5);
+
+        subOsc.connect(subGain);
+        subGain.connect(this.masterGain);
+        subOsc.start(now);
+        subOsc.stop(now + 2.5);
+
+        const chordNotes = [523.25, 659.25, 783.99, 1046.50];
+        chordNotes.forEach((f, idx) => {
+          const chordOsc = this.ctx.createOscillator();
+          const chordGain = this.ctx.createGain();
+          chordOsc.type = 'sine';
+          chordOsc.frequency.setValueAtTime(f, now + 0.15 + idx * 0.08);
+
+          chordGain.gain.setValueAtTime(0.001, now);
+          chordGain.gain.linearRampToValueAtTime(0.12, now + 0.4 + idx * 0.08);
+          chordGain.gain.exponentialRampToValueAtTime(0.001, now + 3.5);
+
+          chordOsc.connect(chordGain);
+          chordGain.connect(this.masterGain);
+          chordOsc.start(now + 0.15);
+          chordOsc.stop(now + 3.8);
+        });
+      }
+
+      toggleMute() {
+        this.isMuted = !this.isMuted;
+        if (this.masterGain && this.ctx) {
+          this.masterGain.gain.setValueAtTime(this.isMuted ? 0 : 0.3, this.ctx.currentTime);
+        }
+        return this.isMuted;
+      }
+    }
+
+    const audio = new CosmicAudioEngine();
+
+    /* =========================================================================
+       3. BACKGROUND CANVAS (Stars, Nebulae, Meteors)
+       ========================================================================= */
+    const canvas = document.getElementById('spaceCanvas');
+    const ctx = canvas.getContext('2d');
+    let stars = [];
+    let meteors = [];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      initStars();
+    }
+
+    function initStars() {
+      stars = [];
+      const numStars = Math.min(350, Math.floor((canvas.width * canvas.height) / 3200));
+      for (let i = 0; i < numStars; i++) {
+        stars.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          radius: Math.random() * 1.6 + 0.4,
+          baseAlpha: Math.random() * 0.7 + 0.3,
+          alpha: Math.random(),
+          speed: Math.random() * 0.02 + 0.005,
+          color: ['#FFFFFF', '#FFD166', '#A0C4FF', '#E2E8F0'][Math.floor(Math.random() * 4)]
+        });
+      }
+    }
+
+    function addMeteor() {
+      if (Math.random() < 0.015 && meteors.length < 3) {
+        meteors.push({
+          x: Math.random() * canvas.width * 0.8,
+          y: 0,
+          length: Math.random() * 80 + 40,
+          speed: Math.random() * 9 + 8,
+          angle: Math.PI / 4 + (Math.random() - 0.5) * 0.2,
+          opacity: 1
+        });
+      }
+    }
+
+    function renderCanvas() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      stars.forEach(star => {
+        star.alpha += star.speed;
+        const currentAlpha = star.baseAlpha + Math.sin(star.alpha) * 0.35;
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+        ctx.fillStyle = star.color;
+        ctx.globalAlpha = Math.max(0.1, Math.min(1, currentAlpha));
+        ctx.fill();
+      });
+
+      addMeteor();
+      for (let i = meteors.length - 1; i >= 0; i--) {
+        const m = meteors[i];
+        m.x += Math.cos(m.angle) * m.speed;
+        m.y += Math.sin(m.angle) * m.speed;
+        m.opacity -= 0.018;
+
+        if (m.opacity <= 0 || m.x > canvas.width || m.y > canvas.height) {
+          meteors.splice(i, 1);
+          continue;
+        }
+
+        ctx.beginPath();
+        const tailX = m.x - Math.cos(m.angle) * m.length;
+        const tailY = m.y - Math.sin(m.angle) * m.length;
+        const grad = ctx.createLinearGradient(m.x, m.y, tailX, tailY);
+        grad.addColorStop(0, `rgba(255, 255, 255, ${m.opacity})`);
+        grad.addColorStop(0.4, `rgba(255, 209, 102, ${m.opacity * 0.6})`);
+        grad.addColorStop(1, 'rgba(255, 255, 255, 0)');
+
+        ctx.strokeStyle = grad;
+        ctx.lineWidth = 1.8;
+        ctx.moveTo(m.x, m.y);
+        ctx.lineTo(tailX, tailY);
+        ctx.stroke();
+      }
+
+      ctx.globalAlpha = 1;
+      requestAnimationFrame(renderCanvas);
+    }
+
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+    renderCanvas();
+
+    /* =========================================================================
+       4. ORBITAL DYNAMICS & PLANETARY RENDERER
+       ========================================================================= */
+    const solarSystem = document.getElementById('solarSystem');
+    const planetSelectorBar = document.getElementById('planetSelectorBar');
+    const planetElements = [];
+    let isOrbitPaused = false;
+    let isCollapsing = false;
+
+    const chimeFrequencies = [523.25, 587.33, 659.25, 783.99, 880.00, 1046.50];
+
+    let isEyeLevelView = true;
+    let activeOrbitStep = 0; // 0 = Overview, 1..6 = Planets, 7 = Finale
+
+    function applySolarSystemCamera(overrideScale) {
+      if (isCollapsing || !solarSystem) return;
+
+      const header = document.querySelector('header');
+      const footer = document.querySelector('footer');
+      const headerH = header ? header.offsetHeight : 70;
+      const footerH = footer ? footer.offsetHeight : 95;
+      
+      const isDesktop = window.innerWidth >= 1080;
+      const isHudOpen = (activeOrbitStep >= 1 && activeOrbitStep <= 6);
+
+      // Safe boundaries reserving clearance so no orbit ring or glow ever touches screen edges
+      const rightReserve = (isHudOpen && isDesktop) ? 390 : 40;
+      const leftReserve = (isHudOpen && isDesktop) ? 60 : 40;
+      const marginY = isDesktop ? 50 : 130;
+
+      const availW = Math.max(window.innerWidth - rightReserve - leftReserve, 200);
+      const availH = Math.max(window.innerHeight - headerH - footerH - marginY, 200);
+
+      // With tilt 48deg and perspective 1400px:
+      // Apparent 3D width with glow is ~1600px
+      // Apparent 3D height with glow is ~1080px
+      const projectedW = isEyeLevelView ? 1600 : 1240;
+      const projectedH = isEyeLevelView ? 1080 : 1240;
+
+      let baseScale = overrideScale || Math.min(availW / projectedW, availH / projectedH);
+      baseScale = Math.max(0.20, Math.min(baseScale, 0.72));
+
+      const earthHorizon = document.getElementById('earthHorizon');
+      if (earthHorizon) {
+        earthHorizon.style.opacity = isEyeLevelView ? '1' : '0.12';
+      }
+
+      // Center offset calculation for desktop when HUD is docked on the right
+      let shiftX = 0;
+      let shiftY = 0;
+
+      if (isHudOpen && isDesktop) {
+        shiftX = Math.round((leftReserve + availW / 2) - (window.innerWidth / 2));
+      } else if (isHudOpen && !isDesktop) {
+        shiftY = -35; // Shift up slightly on mobile/tablet so bottom HUD doesn't overlap orbits
+      }
+
+      if (isEyeLevelView) {
+        if (activeOrbitStep === 0) {
+          solarSystem.style.transform = `scale(${baseScale}) rotateX(48deg) rotateZ(-4deg) translate3d(0px, 0px, 0)`;
+        } else if (activeOrbitStep >= 1 && activeOrbitStep <= 6) {
+          const focusScale = Math.min(baseScale, 0.70);
+          solarSystem.style.transform = `translate3d(${shiftX}px, ${shiftY}px, 0) scale(${focusScale}) rotateX(48deg) rotateZ(-4deg)`;
+        }
+      } else {
+        if (activeOrbitStep === 0) {
+          solarSystem.style.transform = `scale(${baseScale}) rotateX(0deg) rotateZ(0deg) translate3d(0px, 0px, 0)`;
+        } else {
+          const focusScale = Math.min(baseScale, 0.72);
+          solarSystem.style.transform = `translate3d(${shiftX}px, ${shiftY}px, 0) scale(${focusScale}) rotateX(0deg) rotateZ(0deg)`;
+        }
+      }
+    }
+
+    function resetOrbitRings() {
+      planetElements.forEach(item => {
+        item.ring.classList.remove('active-orbit', 'dimmed-orbit');
+        item.ring.style.borderColor = 'rgba(255, 255, 255, 0.22)';
+        item.ring.style.borderWidth = '1px';
+        item.ring.style.boxShadow = '0 0 14px rgba(255, 255, 255, 0.05)';
+        item.ring.style.borderStyle = 'solid';
+        item.el.classList.remove('focused-orbit-planet');
+      });
+    }
+
+    function renderShowcaseHud(planet, stepIndex) {
+      const hud = document.getElementById('orbitShowcaseHud');
+      if (!hud) return;
+
+      const badge = document.getElementById('hudPlanetBadge');
+      const title = document.getElementById('hudTitle');
+      const subtitle = document.getElementById('hudSubtitle');
+      const quote = document.getElementById('hudQuote');
+      const itemsRow = document.getElementById('hudItemsRow');
+      const btnDeepDive = document.getElementById('hudBtnDeepDive');
+      const stepDots = document.getElementById('hudStepDots');
+
+      badge.innerText = `ORBIT 0${stepIndex} / 06 • ${planet.name}`;
+      badge.style.color = planet.color;
+      badge.style.borderColor = planet.color;
+      badge.style.background = `${planet.color}22`;
+
+      title.innerText = planet.name;
+      subtitle.innerText = planet.subtitle;
+      quote.innerText = `"${planet.quote}"`;
+
+      btnDeepDive.onclick = () => openPlanetStory(planet);
+
+      itemsRow.innerHTML = '';
+      const isMemories = (planet.id === 'memories');
+
+      if (isMemories) {
+        const grid = document.createElement('div');
+        grid.className = 'hud-polaroid-grid';
+        (planet.items || []).forEach((item, idx) => {
+          const card = document.createElement('div');
+          card.className = 'hud-polaroid-card';
+          card.title = 'Click to view full photo';
+          card.innerHTML = `
+            <img src="${item.image}" alt="${item.caption}" class="hud-polaroid-img">
+            <div class="hud-polaroid-cap">${item.caption}</div>
+            <div class="hud-polaroid-date">${item.date}</div>
+          `;
+          card.onclick = (e) => {
+            e.stopPropagation();
+            if (audio) {
+              audio.init();
+              audio.playPlanetChime(chimeFrequencies[idx % chimeFrequencies.length] * 1.5);
+            }
+            openPhotoLightbox(planet.items, idx);
+          };
+          grid.appendChild(card);
+        });
+        itemsRow.appendChild(grid);
+      } else {
+        (planet.items || []).forEach((item, idx) => {
+          const card = document.createElement('div');
+          card.className = 'hud-card';
+          card.style.color = planet.color;
+          card.innerHTML = `
+            ${item.avatar 
+              ? `<img src="${item.avatar}" alt="${item.name}" class="hud-card-avatar">` 
+              : `<div class="hud-card-icon">${item.icon || '✦'}</div>`
+            }
+            <div class="hud-card-body">
+              <div class="hud-card-title">${item.name}</div>
+              <div class="hud-card-role">${item.role}</div>
+              ${item.note ? `<div class="hud-card-note">${item.note}</div>` : ''}
+            </div>
+          `;
+          if (item.avatar) {
+            card.title = 'Click to view profile';
+            card.onclick = () => openPhotoLightbox(planet.items, idx);
+          }
+          itemsRow.appendChild(card);
+        });
+      }
+
+      // Update dots in HUD
+      stepDots.innerHTML = '';
+      for (let i = 0; i <= 7; i++) {
+        const dot = document.createElement('div');
+        dot.className = `hud-dot ${i === stepIndex ? 'active' : ''}`;
+        dot.title = i === 0 ? 'Overview' : (i === 7 ? 'Finale' : universeData.planets[i - 1].name);
+        dot.onclick = () => navigateOrbit(i);
+        stepDots.appendChild(dot);
+      }
+
+      hud.classList.remove('minimized');
+    }
+
+    function updateNavButtons() {
+      const prevBtn = document.getElementById('orbitNavPrevBtn');
+      const nextBtn = document.getElementById('orbitNavNextBtn');
+      const prevLabel = document.getElementById('navPrevLabel');
+      const nextLabel = document.getElementById('navNextLabel');
+
+      if (!prevBtn || !nextBtn) return;
+
+      const isDesktop = window.innerWidth >= 1080;
+
+      if (activeOrbitStep === 0) {
+        prevBtn.disabled = true;
+        prevBtn.classList.add('disabled');
+        prevLabel.innerText = 'OVERVIEW';
+        nextBtn.disabled = false;
+        nextBtn.classList.remove('disabled');
+        nextLabel.innerText = 'PEOPLE ›';
+        nextBtn.style.opacity = '1';
+        nextBtn.style.pointerEvents = 'auto';
+      } else if (activeOrbitStep >= 1 && activeOrbitStep <= 6) {
+        prevBtn.disabled = false;
+        prevBtn.classList.remove('disabled');
+        prevLabel.innerText = (activeOrbitStep === 1) ? '‹ OVERVIEW' : `‹ ${universeData.planets[activeOrbitStep - 2].name}`;
+
+        nextBtn.disabled = false;
+        nextBtn.classList.remove('disabled');
+        nextLabel.innerText = (activeOrbitStep === 6) ? 'FINALE ✦' : `${universeData.planets[activeOrbitStep].name} ›`;
+
+        // On desktop, HUD handles forward navigation to avoid overlapping
+        if (isDesktop) {
+          nextBtn.style.opacity = '0';
+          nextBtn.style.pointerEvents = 'none';
+        } else {
+          nextBtn.style.opacity = '1';
+          nextBtn.style.pointerEvents = 'auto';
+        }
+      } else if (activeOrbitStep === 7) {
+        prevBtn.disabled = false;
+        prevBtn.classList.remove('disabled');
+        prevLabel.innerText = '‹ MEMORIES';
+        nextBtn.disabled = true;
+        nextBtn.classList.add('disabled');
+        nextLabel.innerText = 'FINALE';
+        nextBtn.style.opacity = '0';
+        nextBtn.style.pointerEvents = 'none';
+      }
+    }
+
+    function updateSelectorButtons() {
+      const allBtns = document.querySelectorAll('.planet-selector-bar .planet-btn');
+      allBtns.forEach((btn, idx) => {
+        if (idx === activeOrbitStep) {
+          btn.classList.add('active-orbit-btn');
+          btn.style.borderColor = '#FFD166';
+          btn.style.background = 'rgba(255, 209, 102, 0.2)';
+        } else {
+          btn.classList.remove('active-orbit-btn');
+          btn.style.borderColor = '';
+          btn.style.background = '';
+        }
+      });
+    }
+
+    function navigateOrbit(targetStep, playSound = true) {
+      if (targetStep < 0) targetStep = 0;
+      if (targetStep > 7) targetStep = 7;
+      activeOrbitStep = targetStep;
+
+      // Update 3D Camera Focus
+      applySolarSystemCamera();
+
+      // Step 7: Grand Finale
+      if (activeOrbitStep === 7) {
+        const hud = document.getElementById('orbitShowcaseHud');
+        if (hud) hud.classList.add('minimized');
+        updateNavButtons();
+        updateSelectorButtons();
+        triggerCollapse();
+        return;
+      }
+
+      // Step 0: Full Overview
+      if (activeOrbitStep === 0) {
+        const hud = document.getElementById('orbitShowcaseHud');
+        if (hud) hud.classList.add('minimized');
+        resetOrbitRings();
+        updateNavButtons();
+        updateSelectorButtons();
+        if (playSound && audio) {
+          audio.init();
+          audio.playPlanetChime(440);
+        }
+        return;
+      }
+
+      // Step 1..6: Active Orbit Planet
+      const planetIndex = activeOrbitStep - 1;
+      const planet = universeData.planets[planetIndex];
+
+      // Highlight target orbit, preserve soft unbroken glow on other orbits
+      planetElements.forEach((item, idx) => {
+        if (idx === planetIndex) {
+          item.ring.classList.add('active-orbit');
+          item.ring.classList.remove('dimmed-orbit');
+          item.ring.style.borderColor = planet.color;
+          item.ring.style.borderStyle = 'solid';
+          item.ring.style.borderWidth = '2px';
+          item.ring.style.boxShadow = `0 0 24px ${planet.color}aa, 0 0 52px ${planet.color}55, inset 0 0 16px ${planet.color}33`;
+          item.el.classList.add('focused-orbit-planet');
+        } else {
+          item.ring.classList.remove('active-orbit');
+          item.ring.classList.add('dimmed-orbit');
+          item.ring.style.borderColor = 'rgba(255, 255, 255, 0.16)';
+          item.ring.style.borderStyle = 'solid';
+          item.ring.style.borderWidth = '1px';
+          item.ring.style.boxShadow = '0 0 10px rgba(255, 255, 255, 0.04)';
+          item.el.classList.remove('focused-orbit-planet');
+        }
+      });
+
+      // Render Showcase Card at Eye Level
+      renderShowcaseHud(planet, activeOrbitStep);
+
+      // Update Nav Buttons & Footer Stepper
+      updateNavButtons();
+      updateSelectorButtons();
+
+      // Sound
+      if (playSound && audio) {
+        audio.init();
+        audio.playPlanetChime(chimeFrequencies[planetIndex]);
+      }
+    }
+
+    function buildUniverse() {
+      const existingRings = document.querySelectorAll('.orbit-ring');
+      existingRings.forEach(r => r.remove());
+      const existingPlanets = document.querySelectorAll('.planet-wrapper');
+      existingPlanets.forEach(p => p.remove());
+      planetSelectorBar.innerHTML = '';
+      planetElements.length = 0;
+
+      document.getElementById('sunNameLabel').innerText = universeData.employee.name;
+      document.getElementById('sunTenureBadge').innerText = universeData.employee.tenureBadge;
+      document.getElementById('sunAvatarImg').src = universeData.employee.avatar;
+
+      // Add Overview button to footer selector bar
+      const overviewBtn = document.createElement('button');
+      overviewBtn.className = 'planet-btn active-orbit-btn';
+      overviewBtn.id = 'btnSelectorOverview';
+      overviewBtn.innerHTML = `
+        <div class="planet-btn-dot" style="background: #FFD166"></div>
+        <span>Overview</span>
+      `;
+      overviewBtn.addEventListener('click', () => {
+        navigateOrbit(0);
+      });
+      planetSelectorBar.appendChild(overviewBtn);
+
+      const sunEl = document.getElementById('employeeSun');
+      if (sunEl) {
+        sunEl.onclick = (e) => {
+          e.stopPropagation();
+          navigateOrbit(0);
+        };
+      }
+
+      universeData.planets.forEach((planet, index) => {
+        const ring = document.createElement('div');
+        ring.className = 'orbit-ring';
+        ring.id = `ring-${planet.id}`;
+        const diameter = planet.radius * 2;
+        ring.style.width = `${diameter}px`;
+        ring.style.height = `${diameter}px`;
+        solarSystem.appendChild(ring);
+
+        const planetEl = document.createElement('div');
+        planetEl.className = 'planet-wrapper';
+        planetEl.id = `planet-${planet.id}`;
+        planetEl.style.color = planet.color;
+
+        const miniSatellitesHtml = (planet.id === 'memories') ? `
+          <div class="memories-mini-orbit">
+            <div class="memories-mini-sat" title="Orbiting Memories">📸</div>
+            <div class="memories-mini-sat" title="Orbiting Memories">✨</div>
+            <div class="memories-mini-sat" title="Orbiting Memories">🎉</div>
+            <div class="memories-mini-sat" title="Orbiting Memories">❤️</div>
+          </div>
+        ` : '';
+
+        planetEl.innerHTML = `
+          <div class="planet-orb" style="width: ${planet.size}px; height: ${planet.size}px; background: radial-gradient(circle at 35% 35%, ${planet.color}, #080C1E 85%);">
+            <div class="planet-ring-hologram"></div>
+            ${miniSatellitesHtml}
+          </div>
+          <div class="planet-info-tag">
+            <span class="planet-title">${planet.name}</span>
+            <span class="planet-subtitle">${planet.subtitle}</span>
+          </div>
+        `;
+
+        planetEl.addEventListener('click', (e) => {
+          e.stopPropagation();
+          navigateOrbit(index + 1);
+        });
+
+        planetEl.addEventListener('mouseenter', () => {
+          if (activeOrbitStep === 0) {
+            ring.classList.add('active-orbit');
+            ring.style.borderColor = planet.color;
+            ring.style.boxShadow = `0 0 36px ${planet.color}88, inset 0 0 18px ${planet.color}33`;
+          }
+        });
+        planetEl.addEventListener('mouseleave', () => {
+          if (activeOrbitStep === 0) {
+            ring.classList.remove('active-orbit');
+            ring.style.borderColor = '';
+            ring.style.boxShadow = '';
+          }
+        });
+
+        solarSystem.appendChild(planetEl);
+
+        planetElements.push({
+          data: planet,
+          el: planetEl,
+          ring: ring,
+          freq: chimeFrequencies[index]
+        });
+
+        const navBtn = document.createElement('button');
+        navBtn.className = 'planet-btn';
+        navBtn.id = `btnSelector-${planet.id}`;
+        navBtn.innerHTML = `
+          <div class="planet-btn-dot" style="background: ${planet.color}"></div>
+          <span>${planet.name}</span>
+        `;
+        navBtn.addEventListener('click', () => {
+          navigateOrbit(index + 1);
+        });
+        navBtn.addEventListener('mouseenter', () => {
+          if (activeOrbitStep === 0) {
+            ring.classList.add('active-orbit');
+            ring.style.borderColor = planet.color;
+            ring.style.boxShadow = `0 0 36px ${planet.color}88, inset 0 0 18px ${planet.color}33`;
+            planetEl.classList.add('hovered');
+          }
+        });
+        navBtn.addEventListener('mouseleave', () => {
+          if (activeOrbitStep === 0) {
+            ring.classList.remove('active-orbit');
+            ring.style.borderColor = '';
+            ring.style.boxShadow = '';
+            planetEl.classList.remove('hovered');
+          }
+        });
+        planetSelectorBar.appendChild(navBtn);
+      });
+
+      updateNavButtons();
+      updateSelectorButtons();
+    }
+
+    let lastTime = 0;
+    function updateOrbits(currentTime) {
+      if (!lastTime) lastTime = currentTime || performance.now();
+      const deltaTime = ((currentTime || performance.now()) - lastTime) / 1000;
+      lastTime = currentTime || performance.now();
+
+      if (!isOrbitPaused && !isCollapsing) {
+        // Delta time factor (1.0 = standard 60fps frame)
+        const timeFactor = Math.min(deltaTime / 0.01667, 2.0);
+        const billboard = isEyeLevelView ? 'rotateZ(4deg) rotateX(-48deg)' : '';
+
+        planetElements.forEach(item => {
+          item.data.angle += item.data.speed * timeFactor;
+          const x = Math.cos(item.data.angle) * item.data.radius;
+          const y = Math.sin(item.data.angle) * item.data.radius;
+
+          // 3D Depth layering
+          item.el.style.zIndex = Math.round(y + 600);
+          item.el.style.transform = `translate3d(${x}px, ${y}px, 0) translate(-50%, -50%) ${billboard}`;
+        });
+
+        const sunEl = document.getElementById('employeeSun');
+        if (sunEl) {
+          sunEl.style.transform = `translate(-50%, -50%) ${billboard}`;
+        }
+      }
+      requestAnimationFrame(updateOrbits);
+    }
+
+    function handleResize() {
+      applySolarSystemCamera();
+    }
+    window.addEventListener('resize', handleResize);
+    window.addEventListener('load', handleResize);
+
+    // Scroll Wheel / Trackpad listener (debounced navigation)
+    let wheelCooldown = false;
+    let wheelAccumulator = 0;
+    window.addEventListener('wheel', (e) => {
+      // Don't intercept if lightbox or deep dive modal is open
+      const lightbox = document.getElementById('photoLightboxModal');
+      const deepDive = document.getElementById('planetStoryView');
+      if (lightbox && lightbox.classList.contains('active')) return;
+      if (deepDive && deepDive.classList.contains('active')) return;
+
+      // Don't intercept if horizontal scrolling inside hud items
+      const itemsRow = document.getElementById('hudItemsRow');
+      if (itemsRow && itemsRow.contains(e.target) && Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
+        return;
+      }
+
+      wheelAccumulator += e.deltaY;
+      if (Math.abs(wheelAccumulator) >= 30 && !wheelCooldown) {
+        wheelCooldown = true;
+        if (wheelAccumulator > 0) {
+          navigateOrbit(activeOrbitStep + 1);
+        } else {
+          navigateOrbit(activeOrbitStep - 1);
+        }
+        wheelAccumulator = 0;
+        setTimeout(() => { wheelCooldown = false; }, 550);
+      }
+    }, { passive: true });
+
+    // Touch Swipe listener
+    let touchStartY = 0;
+    let touchStartX = 0;
+    window.addEventListener('touchstart', (e) => {
+      touchStartY = e.touches[0].clientY;
+      touchStartX = e.touches[0].clientX;
+    }, { passive: true });
+    window.addEventListener('touchend', (e) => {
+      const lightbox = document.getElementById('photoLightboxModal');
+      const deepDive = document.getElementById('planetStoryView');
+      if (lightbox && lightbox.classList.contains('active')) return;
+      if (deepDive && deepDive.classList.contains('active')) return;
+
+      const dy = e.changedTouches[0].clientY - touchStartY;
+      const dx = e.changedTouches[0].clientX - touchStartX;
+      if (Math.abs(dy) > 45 || Math.abs(dx) > 45) {
+        if (dy < -45 || dx < -45) {
+          navigateOrbit(activeOrbitStep + 1);
+        } else if (dy > 45 || dx > 45) {
+          navigateOrbit(activeOrbitStep - 1);
+        }
+      }
+    }, { passive: true });
+
+    // Keyboard navigation (Arrow keys, Spacebar, Page Up/Down)
+    window.addEventListener('keydown', (e) => {
+      const lightbox = document.getElementById('photoLightboxModal');
+      const deepDive = document.getElementById('planetStoryView');
+      if (lightbox && lightbox.classList.contains('active')) return;
+      if (deepDive && deepDive.classList.contains('active')) return;
+
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === 'PageDown') {
+        navigateOrbit(activeOrbitStep + 1);
+      } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp' || e.key === 'PageUp') {
+        navigateOrbit(activeOrbitStep - 1);
+      } else if (e.key === 'Home') {
+        navigateOrbit(0);
+      } else if (e.key === 'End') {
+        navigateOrbit(7);
+      }
+    });
+
+    // Arrow Nav Buttons
+    const orbitNavPrevBtn = document.getElementById('orbitNavPrevBtn');
+    const orbitNavNextBtn = document.getElementById('orbitNavNextBtn');
+    if (orbitNavPrevBtn) orbitNavPrevBtn.onclick = () => navigateOrbit(activeOrbitStep - 1);
+    if (orbitNavNextBtn) orbitNavNextBtn.onclick = () => navigateOrbit(activeOrbitStep + 1);
+
+    const hudBtnPrev = document.getElementById('hudBtnPrev');
+    const hudBtnNext = document.getElementById('hudBtnNext');
+    if (hudBtnPrev) hudBtnPrev.onclick = () => navigateOrbit(activeOrbitStep - 1);
+    if (hudBtnNext) hudBtnNext.onclick = () => navigateOrbit(activeOrbitStep + 1);
+
+    // View Perspective Toggle Button
+    const viewToggleBtn = document.getElementById('viewPerspectiveToggleBtn');
+    const viewIcon = document.getElementById('viewPerspectiveIcon');
+    const viewText = document.getElementById('viewPerspectiveText');
+    if (viewToggleBtn) {
+      viewToggleBtn.onclick = () => {
+        isEyeLevelView = !isEyeLevelView;
+        if (isEyeLevelView) {
+          if (viewIcon) viewIcon.innerText = '👁️';
+          if (viewText) viewText.innerText = 'Eye-Level 3D';
+        } else {
+          if (viewIcon) viewIcon.innerText = '🪐';
+          if (viewText) viewText.innerText = 'Top-Down 2D';
+        }
+        applySolarSystemCamera();
+        if (audio) {
+          audio.init();
+          audio.playPlanetChime(587.33);
+        }
+      };
+    }
+
+    buildUniverse();
+    handleResize();
+    requestAnimationFrame(updateOrbits);
+
+    /* =========================================================================
+       5. PLANET DRILLDOWN STORY MODE (Interactive Sub-Orbital Experience)
+       ========================================================================= */
+    const storyView = document.getElementById('planetStoryView');
+    const closeStoryBtn = document.getElementById('closeStoryBtn');
+    const subCenterPlanet = document.getElementById('subCenterPlanet');
+    const subOrbitItemsContainer = document.getElementById('subOrbitItemsContainer');
+    const storyBadge = document.getElementById('storyBadge');
+    const storyTitle = document.getElementById('storyTitle');
+    const storyQuote = document.getElementById('storyQuote');
+
+    let subOrbitAnimationId = null;
+    let subOrbitAngle = 0;
+
+    function openPlanetStory(planet) {
+      isOrbitPaused = true;
+      storyView.classList.add('active');
+
+      storyBadge.innerText = planet.name;
+      storyBadge.style.backgroundColor = `${planet.color}25`;
+      storyBadge.style.color = planet.color;
+      storyBadge.style.border = `1px solid ${planet.color}`;
+
+      storyTitle.innerText = `Orbit of ${planet.name}`;
+      if (isMemories) {
+        storyQuote.innerHTML = `"${planet.quote}" <div style="margin-top: 10px; display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap;"><span style="font-size: 0.8rem; color: #48CAE4; font-weight: 500; background: rgba(72, 202, 228, 0.12); padding: 4px 14px; border-radius: 20px; border: 1px solid rgba(72, 202, 228, 0.35);">🔄 બધા ફોટો વર્તુળમાં ફરી રહ્યા છે • ક્લિક કરવાથી Full View ખુલશે</span><button id="btnOpenMemoriesLightbox" style="background: linear-gradient(135deg, #48CAE4, #0096C7); color: #020617; border: none; padding: 6px 16px; border-radius: 20px; font-weight: 700; font-size: 0.78rem; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 4px 14px rgba(72, 202, 228, 0.4); transition: transform 0.2s ease;">🔍 Open Full Gallery</button></div>`;
+      } else {
+        storyQuote.innerText = `"${planet.quote}"`;
+      }
+
+      subCenterPlanet.style.color = planet.color;
+      subCenterPlanet.style.background = `radial-gradient(circle at 35% 35%, ${planet.color}, #080C1E 85%)`;
+      if (isMemories) {
+        subCenterPlanet.innerHTML = `
+          <div style="font-family: 'Space Grotesk'; font-size: 0.85rem; font-weight: 700; color: #FFF; text-align: center; text-transform: uppercase; line-height: 1.2;">
+            <div style="font-size: 1.6rem; margin-bottom: 2px;">📸</div>
+            ${planet.name}
+          </div>
+        `;
+      } else {
+        subCenterPlanet.innerHTML = `
+          <div style="font-family: 'Space Grotesk'; font-size: 1rem; font-weight: 700; color: #FFF; text-align: center; text-transform: uppercase;">
+            ${planet.name}
+          </div>
+        `;
+      }
+
+      subOrbitItemsContainer.innerHTML = '';
+      subOrbitAngle = 0;
+
+      const items = planet.items || [];
+      const itemElements = [];
+      const isMemories = (planet.id === 'memories');
+      let isSubOrbitHovered = false;
+
+      // Adjust rings for circular memories orbit
+      const ring1 = document.querySelector('.sub-orbit-ring-1');
+      const ring2 = document.querySelector('.sub-orbit-ring-2');
+      if (isMemories) {
+        ring1.classList.add('sub-orbit-ring-memories');
+        if (ring2) ring2.style.display = 'none';
+        setTimeout(() => {
+          const btnGallery = document.getElementById('btnOpenMemoriesLightbox');
+          if (btnGallery) {
+            btnGallery.onclick = () => openPhotoLightbox(items, 0);
+          }
+        }, 50);
+      } else {
+        ring1.classList.remove('sub-orbit-ring-memories');
+        if (ring2) ring2.style.display = 'block';
+      }
+
+      items.forEach((item, idx) => {
+        const itemCard = document.createElement('div');
+        
+        if (isMemories) {
+          itemCard.className = 'polaroid-card';
+          itemCard.style.transform = `translate(-50%, -50%) rotate(${item.rotation || '0deg'})`;
+          itemCard.title = "Click to view full photo";
+          itemCard.innerHTML = `
+            <img src="${item.image}" alt="${item.caption}">
+            <div class="polaroid-caption">${item.caption}</div>
+            <div class="polaroid-date">${item.date}</div>
+            <div class="polaroid-hint">🔍 View Full Photo</div>
+          `;
+          
+          itemCard.addEventListener('click', (e) => {
+            e.stopPropagation();
+            audio.playPlanetChime(chimeFrequencies[idx % chimeFrequencies.length] * 1.5);
+            openPhotoLightbox(items, idx);
+          });
+        } else {
+          itemCard.className = 'sub-item-card';
+          itemCard.style.color = planet.color;
+          itemCard.innerHTML = `
+            ${item.avatar 
+              ? `<img src="${item.avatar}" alt="${item.name}" class="sub-item-avatar">`
+              : `<div style="font-size: 1.8rem; line-height: 1;">${item.icon || '✦'}</div>`
+            }
+            <div class="sub-item-details">
+              <div class="sub-item-name">${item.name}</div>
+              <div class="sub-item-role">${item.role}</div>
+              ${item.note ? `<div class="sub-item-note">${item.note}</div>` : ''}
+            </div>
+          `;
+
+          if (item.avatar) {
+            itemCard.title = "Click to view profile card";
+            itemCard.addEventListener('click', (e) => {
+              e.stopPropagation();
+              audio.playPlanetChime(chimeFrequencies[idx % chimeFrequencies.length] * 1.5);
+              openPhotoLightbox(items, idx);
+            });
+          } else {
+            itemCard.addEventListener('click', () => {
+              audio.playPlanetChime(chimeFrequencies[idx % chimeFrequencies.length] * 1.5);
+            });
+          }
+        }
+
+        // Hover slows down the circular sub-orbit
+        itemCard.addEventListener('mouseenter', () => { isSubOrbitHovered = true; });
+        itemCard.addEventListener('mouseleave', () => { isSubOrbitHovered = false; });
+
+        subOrbitItemsContainer.appendChild(itemCard);
+
+        itemElements.push({
+          card: itemCard,
+          offsetAngle: (idx / items.length) * Math.PI * 2,
+          radius: isMemories ? 270 : 255,
+          tilt: item.rotation || '0deg'
+        });
+      });
+
+      let subLastTime = 0;
+      function renderSubOrbit(currentTime) {
+        if (!subLastTime) subLastTime = currentTime || performance.now();
+        const delta = Math.min(((currentTime || performance.now()) - subLastTime) / 16.667, 2.0);
+        subLastTime = currentTime || performance.now();
+
+        // Smooth rotation: slows down to gentle float on hover
+        subOrbitAngle += (isSubOrbitHovered ? 0.0006 : 0.0028) * delta;
+        const centerX = 375;
+        const centerY = 375;
+
+        itemElements.forEach(item => {
+          const currentAngle = subOrbitAngle + item.offsetAngle;
+          // Every sub-orbit rotates in a TRUE CIRCLE!
+          const x = centerX + Math.cos(currentAngle) * item.radius;
+          const y = centerY + Math.sin(currentAngle) * item.radius;
+          
+          item.card.style.left = `${x}px`;
+          item.card.style.top = `${y}px`;
+          item.card.style.transform = isMemories
+            ? `translate(-50%, -50%) rotate(${item.tilt})`
+            : `translate(-50%, -50%)`;
+        });
+
+        subOrbitAnimationId = requestAnimationFrame(renderSubOrbit);
+      }
+
+      cancelAnimationFrame(subOrbitAnimationId);
+      subLastTime = 0;
+      requestAnimationFrame(renderSubOrbit);
+    }
+
+    function closePlanetStory() {
+      storyView.classList.remove('active');
+      cancelAnimationFrame(subOrbitAnimationId);
+      const ring2 = document.querySelector('.sub-orbit-ring-2');
+      if (ring2) ring2.style.display = 'block';
+      isOrbitPaused = false;
+      lastTime = 0;
+    }
+
+    closeStoryBtn.addEventListener('click', closePlanetStory);
+
+    /* =========================================================================
+       6. THE GRAND FINALE: "UNITE YOUR UNIVERSE"
+       ========================================================================= */
+    const btnUnite = document.getElementById('btnUniteUniverse');
+    const finaleScreen = document.getElementById('finaleScreen');
+    const supernovaFlash = document.getElementById('supernovaFlash');
+    const btnReplay = document.getElementById('btnReplayUniverse');
+    const btnDownload = document.getElementById('btnDownloadCard');
+
+    btnUnite.addEventListener('click', () => {
+      audio.init();
+      audio.playWarpWhoosh();
+      triggerGrandFinale();
+    });
+
+    function triggerGrandFinale() {
+      if (isCollapsing) return;
+      isCollapsing = true;
+
+      closePlanetStory();
+      solarSystem.classList.add('collapsing');
+
+      setTimeout(() => {
+        audio.playSupernovaBoom();
+        supernovaFlash.classList.add('flash-boom');
+
+        setTimeout(() => {
+          supernovaFlash.classList.remove('flash-boom');
+          finaleScreen.classList.add('active');
+
+          document.getElementById('milestoneHeadline').innerHTML = universeData.employee.milestone.replace('. ', '.<br>');
+        }, 300);
+
+      }, 1750);
+    }
+
+    function resetUniverse() {
+      finaleScreen.classList.remove('active');
+      solarSystem.classList.remove('collapsing');
+      isCollapsing = false;
+      isOrbitPaused = false;
+      lastTime = 0;
+      buildUniverse();
+      handleResize();
+    }
+
+    btnReplay.addEventListener('click', () => {
+      audio.playWarpWhoosh();
+      resetUniverse();
+    });
+
+    btnDownload.addEventListener('click', () => {
+      audio.playPlanetChime(880);
+      alert(`✦ Journey Keepsake saved for ${universeData.employee.name}!\n"${universeData.employee.milestone}"`);
+    });
+
+    /* =========================================================================
+       7. SOUND & PROFILE CUSTOMIZATION CONTROLS
+       ========================================================================= */
+    const soundToggleBtn = document.getElementById('soundToggleBtn');
+    const soundVisualizer = document.getElementById('soundVisualizer');
+    const soundLabel = document.getElementById('soundLabel');
+
+    soundToggleBtn.addEventListener('click', () => {
+      audio.init();
+      const muted = audio.toggleMute();
+      if (muted) {
+        soundVisualizer.classList.add('muted');
+        soundLabel.innerText = "Muted";
+      } else {
+        soundVisualizer.classList.remove('muted');
+        soundLabel.innerText = "Sound On";
+        audio.playPlanetChime(659.25);
+      }
+    });
+
+    // Profile Presets & Customization
+    const editDataBtn = document.getElementById('editDataBtn');
+    const editDataModal = document.getElementById('editDataModal');
+    const cancelEditBtn = document.getElementById('cancelEditBtn');
+    const saveEditBtn = document.getElementById('saveEditBtn');
+
+    const editNameInput = document.getElementById('editNameInput');
+    const editRoleInput = document.getElementById('editRoleInput');
+    const editMilestoneInput = document.getElementById('editMilestoneInput');
+    const editAvatarInput = document.getElementById('editAvatarInput');
+
+    const presetHineshBtn = document.getElementById('presetHineshBtn');
+    const presetManushiBtn = document.getElementById('presetManushiBtn');
+
+    presetHineshBtn.addEventListener('click', () => {
+      editNameInput.value = "Hinesh Patel";
+      editRoleInput.value = "Senior Product Architect";
+      editMilestoneInput.value = "ONE YEAR. ONE JOURNEY.";
+      editAvatarInput.value = "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80";
+    });
+
+    presetManushiBtn.addEventListener('click', () => {
+      editNameInput.value = "Manushi";
+      editRoleInput.value = "At the Centre of a Brighter Tomorrow";
+      editMilestoneInput.value = "ONE YEAR. ONE JOURNEY.";
+      editAvatarInput.value = "manushi_portrait.jpg";
+    });
+
+    editDataBtn.addEventListener('click', () => {
+      editNameInput.value = universeData.employee.name;
+      editRoleInput.value = universeData.employee.role;
+      editMilestoneInput.value = universeData.employee.milestone;
+      editAvatarInput.value = universeData.employee.avatar;
+      editDataModal.style.display = 'flex';
+    });
+
+    cancelEditBtn.addEventListener('click', () => {
+      editDataModal.style.display = 'none';
+    });
+
+    saveEditBtn.addEventListener('click', () => {
+      universeData.employee.name = editNameInput.value.trim() || universeData.employee.name;
+      universeData.employee.role = editRoleInput.value.trim() || universeData.employee.role;
+      universeData.employee.milestone = editMilestoneInput.value.trim() || universeData.employee.milestone;
+      universeData.employee.avatar = editAvatarInput.value.trim() || universeData.employee.avatar;
+
+      buildUniverse();
+      editDataModal.style.display = 'none';
+      audio.playPlanetChime(880);
+    });
+
+    document.getElementById('employeeSun').addEventListener('click', () => {
+      audio.init();
+      audio.playPlanetChime(440);
+      alert(`☀️ ${universeData.employee.name} (${universeData.employee.role})\nThe gravitational core of this universe!`);
+    });
+
+    // =========================================================================
+    // 8. PHOTO FULL-VIEW LIGHTBOX SYSTEM
+    // =========================================================================
+    const photoLightboxModal = document.getElementById('photoLightboxModal');
+    const lightboxImg = document.getElementById('lightboxImg');
+    const lightboxTitle = document.getElementById('lightboxTitle');
+    const lightboxDate = document.getElementById('lightboxDate');
+    const lightboxStory = document.getElementById('lightboxStory');
+    const lightboxCounter = document.getElementById('lightboxCounter');
+    const lightboxCloseBtn = document.getElementById('lightboxCloseBtn');
+    const lightboxPrevBtn = document.getElementById('lightboxPrevBtn');
+    const lightboxNextBtn = document.getElementById('lightboxNextBtn');
+
+    let currentLightboxList = [];
+    let currentLightboxIndex = 0;
+
+    function openPhotoLightbox(list, index = 0) {
+      if (!list || list.length === 0) return;
+      currentLightboxList = list;
+      currentLightboxIndex = index;
+      updateLightboxContent();
+      photoLightboxModal.classList.add('active');
+      audio.init();
+      audio.playPlanetChime(783.99);
+    }
+
+    function updateLightboxContent() {
+      const item = currentLightboxList[currentLightboxIndex];
+      if (!item) return;
+
+      lightboxImg.src = item.image || item.avatar || '';
+      lightboxTitle.innerText = item.caption || item.name || 'Memory Moment';
+      lightboxDate.innerText = item.date || item.role || 'Celebration';
+      lightboxStory.innerText = item.story || item.note || '';
+      lightboxCounter.innerText = `Photo ${currentLightboxIndex + 1} of ${currentLightboxList.length}`;
+    }
+
+    function closePhotoLightbox() {
+      photoLightboxModal.classList.remove('active');
+    }
+
+    lightboxCloseBtn.addEventListener('click', closePhotoLightbox);
+
+    lightboxPrevBtn.addEventListener('click', () => {
+      currentLightboxIndex = (currentLightboxIndex - 1 + currentLightboxList.length) % currentLightboxList.length;
+      updateLightboxContent();
+      audio.playPlanetChime(523.25);
+    });
+
+    lightboxNextBtn.addEventListener('click', () => {
+      currentLightboxIndex = (currentLightboxIndex + 1) % currentLightboxList.length;
+      updateLightboxContent();
+      audio.playPlanetChime(659.25);
+    });
+
+    photoLightboxModal.addEventListener('click', (e) => {
+      if (e.target === photoLightboxModal) {
+        closePhotoLightbox();
+      }
+    });
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        if (photoLightboxModal.classList.contains('active')) {
+          closePhotoLightbox();
+        } else {
+          closePlanetStory();
+          editDataModal.style.display = 'none';
+        }
+      } else if (photoLightboxModal.classList.contains('active')) {
+        if (e.key === 'ArrowLeft') {
+          lightboxPrevBtn.click();
+        } else if (e.key === 'ArrowRight') {
+          lightboxNextBtn.click();
+        }
+      }
+    });
+  </script>
+</body>
+</html>

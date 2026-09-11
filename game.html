@@ -1,0 +1,1618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>THE JOURNEY GAME | Level Up Your Journey — Manushi</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-dark: #060913;
+      --bg-card: rgba(15, 23, 42, 0.7);
+      --border-glow: rgba(0, 240, 255, 0.22);
+      --border-gold: rgba(255, 209, 102, 0.35);
+      --cyan-neon: #00f0ff;
+      --gold-neon: #ffd166;
+      --purple-neon: #b5179e;
+      --pink-neon: #ff007f;
+      --green-neon: #06d6a0;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --font-arcade: 'Press Start 2P', monospace;
+      --font-display: 'Space Grotesk', sans-serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      --header-h: 76px;
+      --bottom-h: 56px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    html, body {
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--font-body);
+      position: relative;
+    }
+
+    /* Ambient Canvases */
+    #starsCanvas, #confettiCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+    #confettiCanvas {
+      z-index: 1000;
+    }
+
+    /* Scanlines effect (subtle arcade texture) */
+    .scanlines {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.18) 50%);
+      background-size: 100% 4px;
+      z-index: 99;
+      opacity: 0.3;
+    }
+
+    /* Ambient Nebulae */
+    .ambient-glow {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(140px);
+      pointer-events: none;
+      opacity: 0.14;
+      z-index: 1;
+      animation: pulseGlow 14s ease-in-out infinite alternate;
+    }
+    .glow-1 {
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle, #00f0ff, transparent 70%);
+      top: -200px;
+      left: -150px;
+    }
+    .glow-2 {
+      width: 650px;
+      height: 650px;
+      background: radial-gradient(circle, #ff007f, transparent 70%);
+      bottom: -150px;
+      right: -100px;
+    }
+    @keyframes pulseGlow {
+      0% { transform: scale(1) translate(0, 0); opacity: 0.1; }
+      100% { transform: scale(1.15) translate(40px, 30px); opacity: 0.2; }
+    }
+
+    /* ==========================================================================
+       FIXED TOP HUD & JOURNEY OVERWORLD TRACK
+       ========================================================================== */
+    .game-top-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: var(--header-h);
+      background: rgba(6, 9, 19, 0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 28px;
+      gap: 20px;
+    }
+
+    .player-chip {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 220px;
+    }
+    .player-avatar-ring {
+      position: relative;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      padding: 2px;
+      background: linear-gradient(135deg, var(--cyan-neon), var(--gold-neon));
+      box-shadow: 0 0 14px rgba(0, 240, 255, 0.4);
+    }
+    .player-avatar-img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      background: #1e293b;
+    }
+    .player-chip-info h3 {
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .player-chip-info p {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+
+    /* Overworld Journey Tracker */
+    .journey-track-center {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      flex: 1;
+      max-width: 680px;
+    }
+
+    .journey-track-bar {
+      position: relative;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    /* Connecting Line */
+    .journey-track-bar::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 20px;
+      right: 20px;
+      height: 3px;
+      background: rgba(255, 255, 255, 0.12);
+      transform: translateY(-50%);
+      z-index: 1;
+    }
+    .track-fill-line {
+      position: absolute;
+      top: 50%;
+      left: 20px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--cyan-neon), var(--purple-neon), var(--gold-neon));
+      transform: translateY(-50%);
+      z-index: 2;
+      width: 0%;
+      transition: width 0.25s ease-out;
+      box-shadow: 0 0 10px var(--cyan-neon);
+    }
+    /* Moving Runner Avatar Pin */
+    .runner-pin {
+      position: absolute;
+      top: 50%;
+      left: 20px;
+      transform: translate(-50%, -50%);
+      z-index: 5;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 2px solid #fff;
+      box-shadow: 0 0 12px var(--cyan-neon);
+      transition: left 0.25s ease-out;
+      pointer-events: none;
+      background-image: url('manushi_avatar.jpg');
+      background-size: cover;
+      background-position: center;
+    }
+
+    .track-station {
+      position: relative;
+      z-index: 3;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(6, 9, 19, 0.95);
+      padding: 3px 8px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      font-family: var(--font-arcade);
+      font-size: 0.55rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.25s;
+    }
+    .track-station:hover {
+      border-color: var(--cyan-neon);
+      color: #fff;
+    }
+    .track-station.active {
+      border-color: var(--cyan-neon);
+      color: var(--cyan-neon);
+      box-shadow: 0 0 12px rgba(0, 240, 255, 0.4);
+      background: rgba(0, 240, 255, 0.1);
+    }
+    .track-station.passed {
+      border-color: var(--green-neon);
+      color: var(--green-neon);
+    }
+
+    .track-xp-label {
+      font-family: var(--font-arcade);
+      font-size: 0.65rem;
+      color: var(--gold-neon);
+      display: flex;
+      gap: 12px;
+    }
+
+    /* Top Right Tools */
+    .top-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 220px;
+      justify-content: flex-end;
+    }
+    .action-btn {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      color: var(--text-main);
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 0.76rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+      text-decoration: none;
+    }
+    .action-btn:hover {
+      background: rgba(255, 255, 255, 0.14);
+      border-color: var(--cyan-neon);
+    }
+    .action-btn.universe {
+      color: var(--gold-neon);
+      border-color: rgba(255, 209, 102, 0.35);
+    }
+
+    /* ==========================================================================
+       HORIZONTAL SCROLL TRACK & PANORAMIC STAGES
+       ========================================================================== */
+    .horizontal-viewport {
+      position: absolute;
+      top: var(--header-h);
+      bottom: var(--bottom-h);
+      left: 0;
+      right: 0;
+      display: flex;
+      flex-direction: row;
+      overflow-x: auto;
+      overflow-y: hidden;
+      scroll-behavior: smooth;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none; /* Firefox */
+      -ms-overflow-style: none; /* IE */
+    }
+    .horizontal-viewport::-webkit-scrollbar {
+      display: none; /* Chrome/Safari */
+    }
+
+    /* Stage Container (Each is a full panoramic station) */
+    .journey-stage {
+      flex: 0 0 100vw;
+      width: 100vw;
+      height: 100%;
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 60px;
+      position: relative;
+      z-index: 10;
+      opacity: 0.4;
+      transform: scale(0.97);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .journey-stage.in-view {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* Clean Stage Header */
+    .stage-badge-tag {
+      font-family: var(--font-arcade);
+      font-size: 0.68rem;
+      color: var(--cyan-neon);
+      background: rgba(0, 240, 255, 0.08);
+      border: 1px solid var(--cyan-neon);
+      padding: 5px 14px;
+      border-radius: 6px;
+      margin-bottom: 12px;
+      letter-spacing: 0.5px;
+    }
+    .stage-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 3.2vw, 2.4rem);
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 8px;
+      text-align: center;
+      line-height: 1.2;
+    }
+    .stage-subtitle {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin-bottom: 28px;
+      text-align: center;
+      max-width: 620px;
+    }
+
+    /* ==========================================================================
+       STAGE 0: OPENING / TITLE HERO
+       ========================================================================== */
+    .hero-opening {
+      text-align: center;
+      max-width: 820px;
+    }
+    .hero-arcade-title {
+      font-family: var(--font-arcade);
+      font-size: clamp(1.6rem, 4.5vw, 2.8rem);
+      line-height: 1.35;
+      background: linear-gradient(135deg, #ffffff 0%, var(--cyan-neon) 50%, var(--gold-neon) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 18px;
+      letter-spacing: 2px;
+      text-shadow: 0 0 30px rgba(0, 240, 255, 0.35);
+    }
+    .hero-desc {
+      font-size: 1.15rem;
+      color: #cbd5e1;
+      line-height: 1.6;
+      margin-bottom: 32px;
+    }
+    .hero-scroll-cue {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-family: var(--font-arcade);
+      font-size: 0.72rem;
+      color: var(--gold-neon);
+      background: rgba(255, 209, 102, 0.1);
+      border: 1px solid var(--gold-neon);
+      padding: 12px 24px;
+      border-radius: 30px;
+      animation: cuePulse 2s infinite alternate;
+      cursor: pointer;
+    }
+    @keyframes cuePulse {
+      0% { transform: translateX(0); box-shadow: 0 0 10px rgba(255, 209, 102, 0.3); }
+      100% { transform: translateX(8px); box-shadow: 0 0 24px rgba(255, 209, 102, 0.7); }
+    }
+
+    /* ==========================================================================
+       STAGE 1: START (Level 01 — The Beginning)
+       ========================================================================== */
+    .stage-start-layout {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 50px;
+      max-width: 960px;
+      width: 100%;
+    }
+    .day1-polaroid {
+      background: #ffffff;
+      padding: 14px 14px 24px 14px;
+      border-radius: 12px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 24px rgba(0, 240, 255, 0.25);
+      width: 320px;
+      transform: rotate(-2deg);
+      transition: transform 0.4s ease;
+      flex-shrink: 0;
+    }
+    .day1-polaroid:hover {
+      transform: rotate(0deg) scale(1.03);
+    }
+    .day1-img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      border-radius: 6px;
+      background: #0f172a;
+      display: block;
+    }
+    .day1-caption {
+      margin-top: 12px;
+      display: flex;
+      justify-content: space-between;
+      color: #0f172a;
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+    .day1-story {
+      max-width: 480px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    .quote-glass-card {
+      background: var(--bg-card);
+      border-left: 4px solid var(--cyan-neon);
+      border-radius: 0 16px 16px 0;
+      padding: 22px 24px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    }
+    .quote-glass-card h4 {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+    .quote-glass-card p {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+    .id-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 10px 18px;
+      border-radius: 12px;
+      font-size: 0.82rem;
+      color: var(--cyan-neon);
+    }
+
+    /* ==========================================================================
+       STAGE 2: LEARN (Level 02 — The Learning)
+       ========================================================================== */
+    .skills-gallery {
+      display: flex;
+      gap: 24px;
+      justify-content: center;
+      max-width: 1040px;
+      width: 100%;
+    }
+    .skill-card-clean {
+      flex: 1;
+      background: var(--bg-card);
+      border: 1px solid var(--border-glow);
+      border-radius: 18px;
+      padding: 28px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 14px;
+      transition: all 0.35s;
+    }
+    .skill-card-clean:hover {
+      transform: translateY(-6px);
+      border-color: var(--purple-neon);
+      box-shadow: 0 12px 30px rgba(181, 23, 158, 0.25);
+    }
+    .skill-icon-orb {
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #b5179e, #7209b7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      box-shadow: 0 0 20px rgba(181, 23, 158, 0.5);
+    }
+    .skill-card-clean h4 {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #fff;
+    }
+    .skill-card-clean p {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* ==========================================================================
+       STAGE 3: CONTRIBUTE (Level 03 — The Contribution)
+       ========================================================================== */
+    .missions-gallery {
+      display: flex;
+      gap: 22px;
+      justify-content: center;
+      max-width: 1080px;
+      width: 100%;
+    }
+    .mission-card-clean {
+      flex: 1;
+      background: rgba(17, 24, 39, 0.85);
+      border: 1px solid rgba(0, 240, 255, 0.2);
+      border-radius: 18px;
+      padding: 26px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: all 0.35s;
+    }
+    .mission-card-clean:hover {
+      transform: translateY(-6px);
+      border-color: var(--cyan-neon);
+      box-shadow: 0 12px 30px rgba(0, 240, 255, 0.25);
+    }
+    .mission-meta-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .mission-tag {
+      font-family: var(--font-arcade);
+      font-size: 0.58rem;
+      color: var(--cyan-neon);
+    }
+    .mission-metric {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--green-neon);
+    }
+    .mission-card-clean h4 {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #fff;
+    }
+    .mission-card-clean p {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* ==========================================================================
+       STAGE 4: CONNECT (Level 04 — The People)
+       ========================================================================== */
+    .people-gallery {
+      display: flex;
+      gap: 28px;
+      justify-content: center;
+      max-width: 1020px;
+      width: 100%;
+    }
+    .teammate-box-clean {
+      flex: 1;
+      background: var(--bg-card);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 20px;
+      padding: 26px 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      transition: all 0.35s;
+    }
+    .teammate-box-clean:hover {
+      transform: translateY(-6px);
+      border-color: var(--pink-neon);
+      box-shadow: 0 12px 30px rgba(255, 0, 127, 0.2);
+    }
+    .teammate-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .teammate-photo {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--pink-neon);
+    }
+    .teammate-header h4 {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #fff;
+    }
+    .teammate-header span {
+      font-size: 0.76rem;
+      color: var(--cyan-neon);
+    }
+    .teammate-quote-text {
+      font-size: 0.88rem;
+      color: #e2e8f0;
+      font-style: italic;
+      line-height: 1.55;
+      background: rgba(0, 0, 0, 0.25);
+      padding: 14px;
+      border-radius: 12px;
+      border-left: 3px solid var(--gold-neon);
+    }
+
+    /* ==========================================================================
+       STAGE 5: GROW (Level 05 — The Moments)
+       ========================================================================== */
+    .trophies-gallery {
+      display: flex;
+      gap: 24px;
+      justify-content: center;
+      max-width: 1040px;
+      width: 100%;
+    }
+    .trophy-card-clean {
+      flex: 1;
+      background: var(--bg-card);
+      border: 1px solid var(--border-gold);
+      border-radius: 20px;
+      padding: 28px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 12px;
+      transition: all 0.35s;
+    }
+    .trophy-card-clean:hover {
+      transform: translateY(-6px);
+      border-color: var(--gold-neon);
+      box-shadow: 0 14px 36px rgba(255, 209, 102, 0.3);
+    }
+    .trophy-emoji {
+      font-size: 3rem;
+      filter: drop-shadow(0 0 12px var(--gold-neon));
+    }
+    .trophy-card-clean h4 {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #fff;
+    }
+    .trophy-org-tag {
+      font-size: 0.74rem;
+      color: var(--gold-neon);
+      font-weight: 600;
+    }
+    .trophy-card-clean p {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* ==========================================================================
+       STAGE 6: CELEBRATE (Level Complete & Milestone Badges)
+       ========================================================================== */
+    .celebrate-clean-layout {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      max-width: 960px;
+      width: 100%;
+      gap: 24px;
+    }
+    .victory-crest-glow {
+      font-size: 3.8rem;
+      filter: drop-shadow(0 0 24px var(--gold-neon));
+      animation: bounceCrest 2s infinite;
+    }
+    @keyframes bounceCrest {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    /* 4 Distinct Milestone Badges from User Spec */
+    .milestones-row-clean {
+      display: flex;
+      gap: 18px;
+      width: 100%;
+      justify-content: center;
+    }
+    .milestone-badge-card {
+      flex: 1;
+      max-width: 220px;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid rgba(255, 209, 102, 0.3);
+      border-radius: 16px;
+      padding: 20px 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.3s;
+    }
+    .milestone-badge-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--gold-neon);
+      box-shadow: 0 10px 24px rgba(255, 209, 102, 0.35);
+    }
+    .milestone-badge-card.active-year {
+      border-color: var(--cyan-neon);
+      background: linear-gradient(180deg, rgba(0, 240, 255, 0.12), rgba(15, 23, 42, 0.9));
+      box-shadow: 0 0 24px rgba(0, 240, 255, 0.4);
+    }
+    .m-tenure {
+      font-family: var(--font-arcade);
+      font-size: 0.58rem;
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: #e11d48;
+      color: #fff;
+    }
+    .m-icon {
+      font-size: 2.2rem;
+    }
+    .m-title {
+      font-family: var(--font-arcade);
+      font-size: 0.72rem;
+      color: var(--gold-neon);
+      letter-spacing: 0.5px;
+    }
+    .m-tagline {
+      font-size: 0.74rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    .celebrate-actions {
+      display: flex;
+      gap: 14px;
+      margin-top: 10px;
+    }
+    .celebrate-btn {
+      padding: 12px 24px;
+      border-radius: 10px;
+      font-family: var(--font-arcade);
+      font-size: 0.68rem;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .celebrate-btn.gold {
+      background: var(--gold-neon);
+      color: #000;
+      font-weight: 700;
+      box-shadow: 0 0 20px rgba(255, 209, 102, 0.6);
+    }
+    .celebrate-btn.gold:hover {
+      transform: scale(1.05);
+    }
+    .celebrate-btn.outline {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #fff;
+    }
+    .celebrate-btn.outline:hover {
+      background: rgba(255, 255, 255, 0.16);
+    }
+
+    /* ==========================================================================
+       BOTTOM CLEAN NAVIGATION & QUICK JUMP DOCK
+       ========================================================================== */
+    .bottom-dock {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: var(--bottom-h);
+      background: rgba(6, 9, 19, 0.88);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+    }
+
+    .scroll-hint {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+    .kbd-chip {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.7rem;
+      color: #fff;
+    }
+
+    .quick-jump-dots {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .jump-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      cursor: pointer;
+      transition: all 0.25s;
+    }
+    .jump-dot:hover {
+      background: var(--cyan-neon);
+      transform: scale(1.3);
+    }
+    .jump-dot.active {
+      background: var(--cyan-neon);
+      box-shadow: 0 0 10px var(--cyan-neon);
+      transform: scale(1.3);
+    }
+
+    .active-stage-readout {
+      font-family: var(--font-arcade);
+      font-size: 0.65rem;
+      color: var(--cyan-neon);
+    }
+
+    /* Floating XP Notification */
+    .floating-xp {
+      position: fixed;
+      font-family: var(--font-arcade);
+      font-size: 1rem;
+      color: var(--gold-neon);
+      pointer-events: none;
+      z-index: 1000;
+      text-shadow: 0 0 10px rgba(255, 209, 102, 0.8);
+      animation: floatUpFade 1.3s ease-out forwards;
+    }
+    @keyframes floatUpFade {
+      0% { opacity: 0; transform: translateY(0) scale(0.8); }
+      20% { opacity: 1; transform: translateY(-15px) scale(1.1); }
+      100% { opacity: 0; transform: translateY(-50px) scale(1); }
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 900px) {
+      .stage-start-layout {
+        flex-direction: column;
+        gap: 20px;
+      }
+      .day1-polaroid {
+        width: 240px;
+      }
+      .skills-gallery, .missions-gallery, .people-gallery, .trophies-gallery, .milestones-row-clean {
+        flex-wrap: wrap;
+      }
+      .skill-card-clean, .mission-card-clean, .teammate-box-clean, .trophy-card-clean, .milestone-badge-card {
+        min-width: 180px;
+      }
+      .player-chip {
+        min-width: auto;
+      }
+      .journey-track-center {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="scanlines"></div>
+  <canvas id="starsCanvas"></canvas>
+  <canvas id="confettiCanvas"></canvas>
+  <div class="ambient-glow glow-1"></div>
+  <div class="ambient-glow glow-2"></div>
+
+  <!-- ========================================================================
+       TOP BAR & OVERWORLD TRACK
+       ======================================================================== -->
+  <header class="game-top-bar">
+    <!-- Player Info -->
+    <div class="player-chip">
+      <div class="player-avatar-ring">
+        <img src="manushi_portrait.jpg" alt="Manushi" class="player-avatar-img" onerror="this.src='manushi_avatar.jpg'">
+      </div>
+      <div class="player-chip-info">
+        <h3>MANUSHI <span style="color:var(--cyan-neon); font-size:0.75rem;">★ LV MAX</span></h3>
+        <p>Your Uffizio Journey</p>
+      </div>
+    </div>
+
+    <!-- Center Overworld Journey Map -->
+    <div class="journey-track-center">
+      <div class="journey-track-bar">
+        <div class="track-fill-line" id="topTrackFill"></div>
+        <div class="runner-pin" id="topRunnerPin"></div>
+
+        <div class="track-station active" data-index="1" id="trackStation1">🚀 START</div>
+        <div class="track-station" data-index="2" id="trackStation2">🧠 LEARN</div>
+        <div class="track-station" data-index="3" id="trackStation3">⚡ CONTRIBUTE</div>
+        <div class="track-station" data-index="4" id="trackStation4">🤝 CONNECT</div>
+        <div class="track-station" data-index="5" id="trackStation5">⭐ GROW</div>
+        <div class="track-station" data-index="6" id="trackStation6">🏆 CELEBRATE</div>
+      </div>
+      <div class="track-xp-label">
+        <span>XP: <strong id="hudXpNum">0</strong> / 1500</span>
+        <span id="currentStatusText" style="color:var(--cyan-neon);">STARTING QUEST...</span>
+      </div>
+    </div>
+
+    <!-- Top Right Actions -->
+    <div class="top-actions">
+      <button class="action-btn" id="soundToggleBtn" title="Toggle Sound">
+        <span id="soundIcon">🔊</span> SOUND
+      </button>
+      <a href="index.html" class="action-btn universe" title="Switch to 3D Universe View">
+        🌌 UNIVERSE VIEW
+      </a>
+    </div>
+  </header>
+
+  <!-- ========================================================================
+       HORIZONTAL SCROLL VIEWPORT
+       ======================================================================== -->
+  <main class="horizontal-viewport" id="viewport">
+
+    <!-- ====================================================================
+         STAGE 0: HERO OPENING
+         ==================================================================== -->
+    <section class="journey-stage in-view" data-stage="0" id="stage0">
+      <div class="hero-opening">
+        <div class="stage-badge-tag">👾 THE JOURNEY GAME • HORIZONTAL EXPEDITION</div>
+        <h1 class="hero-arcade-title">WELCOME BACK, MANUSHI</h1>
+        <p class="hero-desc">
+          Your career at <strong>Uffizio</strong> is a legendary journey. 
+          Simply <strong>scroll horizontally</strong> to glide through your milestones, masteries, missions, and memories!
+        </p>
+        <div class="hero-scroll-cue" id="startScrollCue">
+          SCROLL OR SWIPE RIGHT TO BEGIN ➔
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         STAGE 1: START (Level 01 — The Beginning)
+         ==================================================================== -->
+    <section class="journey-stage" data-stage="1" id="stage1">
+      <div class="stage-badge-tag">🔓 LEVEL 01 — THE BEGINNING</div>
+      <h2 class="stage-title">“Do you remember your first day?”</h2>
+      <p class="stage-subtitle">The first step into Uffizio that started an unforgettable transformation.</p>
+
+      <div class="stage-start-layout">
+        <!-- Day 1 Polaroid -->
+        <div class="day1-polaroid">
+          <img src="manushi_portrait.jpg" alt="Manushi First Day" class="day1-img" onerror="this.src='manushi_avatar.jpg'">
+          <div class="day1-caption">
+            <span>Day 01 at Uffizio 🌟</span>
+            <span style="color:#64748b; font-size:0.75rem;">Day 1 Memory</span>
+          </div>
+        </div>
+
+        <!-- Day 1 Story -->
+        <div class="day1-story">
+          <div class="quote-glass-card">
+            <h4>The First Desk, The First Welcome</h4>
+            <p>
+              A fresh workspace, a cup of warm coffee, curious eyes, and a team ready to welcome you with open arms. That first day laid the foundation for everything you would build.
+            </p>
+          </div>
+          <div class="id-pill">
+            <span>🪪</span>
+            <span>UFFIZIO ADVENTURER PASS: #UF-MANUSHI • DAY 1 CLEARED</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         STAGE 2: LEARN (Level 02 — The Learning)
+         ==================================================================== -->
+    <section class="journey-stage" data-stage="2" id="stage2">
+      <div class="stage-badge-tag">🔓 LEVEL 02 — THE LEARNING</div>
+      <h2 class="stage-title">Skills, Mastery & Constellations</h2>
+      <p class="stage-subtitle">From eager curiosity to formidable domain mastery across modern technologies.</p>
+
+      <div class="skills-gallery">
+        <div class="skill-card-clean">
+          <div class="skill-icon-orb">🌌</div>
+          <h4>Distributed Streaming</h4>
+          <p>Architected Kafka & Redis streaming channels with fault-tolerant delivery pipelines.</p>
+        </div>
+        <div class="skill-card-clean">
+          <div class="skill-icon-orb">🤖</div>
+          <h4>AI Agentic Workflows</h4>
+          <p>Engineered autonomous LLM agents, intelligent triage, and developer copilot tools.</p>
+        </div>
+        <div class="skill-card-clean">
+          <div class="skill-icon-orb">☁️</div>
+          <h4>Cloud Architecture</h4>
+          <p>Designed scalable multi-region micro-services with zero downtime deployments.</p>
+        </div>
+        <div class="skill-card-clean">
+          <div class="skill-icon-orb">🌱</div>
+          <h4>Peer Mentorship</h4>
+          <p>Guided junior developers through clean code practices, reviews, and architectural patterns.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         STAGE 3: CONTRIBUTE (Level 03 — The Contribution)
+         ==================================================================== -->
+    <section class="journey-stage" data-stage="3" id="stage3">
+      <div class="stage-badge-tag">🔓 LEVEL 03 — THE CONTRIBUTION</div>
+      <h2 class="stage-title">Major Work & High-Impact Quests</h2>
+      <p class="stage-subtitle">Flagship production missions delivered to hundreds of thousands of users worldwide.</p>
+
+      <div class="missions-gallery">
+        <div class="mission-card-clean">
+          <div class="mission-meta-top">
+            <span class="mission-tag">MISSION #01</span>
+            <span class="mission-metric">150K Daily Users</span>
+          </div>
+          <h4>Quantum Platform 2.0</h4>
+          <p>Modern micro-frontend architecture with ultra-responsive UX and high availability.</p>
+        </div>
+
+        <div class="mission-card-clean">
+          <div class="mission-meta-top">
+            <span class="mission-tag">MISSION #02</span>
+            <span class="mission-metric">4x Speed Boost</span>
+          </div>
+          <h4>Real-Time Telemetry</h4>
+          <p>Reduced fleet streaming latency by 72% for instant live vehicle tracking updates.</p>
+        </div>
+
+        <div class="mission-card-clean">
+          <div class="mission-meta-top">
+            <span class="mission-tag">MISSION #03</span>
+            <span class="mission-metric">80+ Components</span>
+          </div>
+          <h4>Unified Design System</h4>
+          <p>Harmonized design consistency across 4 enterprise applications for rapid shipping.</p>
+        </div>
+
+        <div class="mission-card-clean">
+          <div class="mission-meta-top">
+            <span class="mission-tag">MISSION #04</span>
+            <span class="mission-metric">SOC-2 Verified</span>
+          </div>
+          <h4>Enterprise RBAC & Auth</h4>
+          <p>Hardened multi-tenant security controls, protecting mission-critical fleet data.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         STAGE 4: CONNECT (Level 04 — The People)
+         ==================================================================== -->
+    <section class="journey-stage" data-stage="4" id="stage4">
+      <div class="stage-badge-tag">🔓 LEVEL 04 — THE PEOPLE</div>
+      <h2 class="stage-title">Team Memories & Camaraderie</h2>
+      <p class="stage-subtitle">The people who stood beside you through late-night sprints and celebrate every win.</p>
+
+      <div class="people-gallery">
+        <div class="teammate-box-clean">
+          <div class="teammate-header">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80" alt="Rajesh" class="teammate-photo">
+            <div>
+              <h4>Rajesh Varma</h4>
+              <span>VP of Engineering</span>
+            </div>
+          </div>
+          <p class="teammate-quote-text">
+            “Manushi was trusted with core architecture decisions from Day 30. Her clarity of thought elevates the entire engineering team.”
+          </p>
+        </div>
+
+        <div class="teammate-box-clean">
+          <div class="teammate-header">
+            <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=150&q=80" alt="Ananya" class="teammate-photo">
+            <div>
+              <h4>Ananya Rao</h4>
+              <span>Frontend Lead</span>
+            </div>
+          </div>
+          <p class="teammate-quote-text">
+            “Late-night pair programming champion during the Q3 launch. Never lost patience, always brought contagious energy!”
+          </p>
+        </div>
+
+        <div class="teammate-box-clean">
+          <div class="teammate-header">
+            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&q=80" alt="Karan" class="teammate-photo">
+            <div>
+              <h4>Karan Dave</h4>
+              <span>Product Manager</span>
+            </div>
+          </div>
+          <p class="teammate-quote-text">
+            “Brought clarity, pizza, and endless positivity to every sprint standup. A true cornerstone teammate.”
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         STAGE 5: GROW (Level 05 — The Moments)
+         ==================================================================== -->
+    <section class="journey-stage" data-stage="5" id="stage5">
+      <div class="stage-badge-tag">🔓 LEVEL 05 — THE MOMENTS</div>
+      <h2 class="stage-title">Accolades & Spotlights</h2>
+      <p class="stage-subtitle">Standing ovations and awards earned through relentless craftsmanship.</p>
+
+      <div class="trophies-gallery">
+        <div class="trophy-card-clean">
+          <div class="trophy-emoji">🏆</div>
+          <h4>Annual MVP Award</h4>
+          <span class="trophy-org-tag">Leadership Honor</span>
+          <p>Recognized for top 1% contribution across tech organization.</p>
+        </div>
+
+        <div class="trophy-card-clean">
+          <div class="trophy-emoji">🥇</div>
+          <h4>Hackathon Champion</h4>
+          <span class="trophy-org-tag">1st Place Winner</span>
+          <p>Built offline-first sync engine in 36 continuous hours.</p>
+        </div>
+
+        <div class="trophy-card-clean">
+          <div class="trophy-emoji">⭐</div>
+          <h4>Q3 Spotlight</h4>
+          <span class="trophy-org-tag">Peer Recognition</span>
+          <p>Honored for extraordinary platform reliability under historic peak load.</p>
+        </div>
+
+        <div class="trophy-card-clean">
+          <div class="trophy-emoji">💎</div>
+          <h4>Living Values Champion</h4>
+          <span class="trophy-org-tag">Culture Award</span>
+          <p>Embodied radical ownership, empathy first, and craftsmanship.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         STAGE 6: CELEBRATE (Level Complete & Milestone Badges)
+         ==================================================================== -->
+    <section class="journey-stage" data-stage="6" id="stage6">
+      <div class="celebrate-clean-layout">
+        <div class="victory-crest-glow">🏆</div>
+        <div class="stage-badge-tag" style="border-color: var(--gold-neon); color: var(--gold-neon);">
+          ★ LEVEL COMPLETE — HALL OF FAME ★
+        </div>
+        <h2 class="stage-title" style="color: var(--gold-neon);">CONGRATULATIONS, MANUSHI!</h2>
+        <p class="stage-subtitle">
+          You conquered every chapter of your Uffizio career quest. You didn't just scroll — you leveled up!
+        </p>
+
+        <!-- 4 Milestone Badges from User Spec -->
+        <div class="milestones-row-clean">
+          <!-- 1 Year -->
+          <div class="milestone-badge-card active-year">
+            <span class="m-tenure">1 YEAR</span>
+            <div class="m-icon">🌱</div>
+            <div class="m-title">FIRST YEAR</div>
+            <p class="m-tagline">“From curious newcomer to foundation champion.”</p>
+          </div>
+
+          <!-- 3 Year -->
+          <div class="milestone-badge-card">
+            <span class="m-tenure" style="background:#3b82f6;">3 YEAR</span>
+            <div class="m-icon">🔨</div>
+            <div class="m-title">BUILDER</div>
+            <p class="m-tagline">“Architecting scalable systems and resilient features.”</p>
+          </div>
+
+          <!-- 5 Year -->
+          <div class="milestone-badge-card">
+            <span class="m-tenure" style="background:#8b5cf6;">5 YEAR</span>
+            <div class="m-icon">⚡</div>
+            <div class="m-title">IMPACT MAKER</div>
+            <p class="m-tagline">“Driving transformations and mentoring teams.”</p>
+          </div>
+
+          <!-- 10 Year -->
+          <div class="milestone-badge-card">
+            <span class="m-tenure" style="background:#eab308; color:#000;">10 YEAR</span>
+            <div class="m-icon">👑</div>
+            <div class="m-title">INFLUENCER</div>
+            <p class="m-tagline">“Legendary pillar of Uffizio, inspiring generations.”</p>
+          </div>
+        </div>
+
+        <div class="celebrate-actions">
+          <button class="celebrate-btn gold" id="printPassBtn">
+            🖨️ PRINT / SAVE CAREER PASS
+          </button>
+          <a href="index.html" class="celebrate-btn outline">
+            🌌 EXPLORE 3D UNIVERSE
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========================================================================
+       BOTTOM QUICK NAVIGATION BAR
+       ======================================================================== -->
+  <footer class="bottom-dock">
+    <div class="scroll-hint">
+      <span>Scroll / Arrow Keys:</span>
+      <span class="kbd-chip">◀</span>
+      <span class="kbd-chip">▶</span>
+      <span style="color:var(--text-muted); margin-left: 6px;">to travel</span>
+    </div>
+
+    <div class="quick-jump-dots">
+      <div class="jump-dot active" data-index="0" title="Opening"></div>
+      <div class="jump-dot" data-index="1" title="Level 1: Start"></div>
+      <div class="jump-dot" data-index="2" title="Level 2: Learn"></div>
+      <div class="jump-dot" data-index="3" title="Level 3: Contribute"></div>
+      <div class="jump-dot" data-index="4" title="Level 4: Connect"></div>
+      <div class="jump-dot" data-index="5" title="Level 5: Grow"></div>
+      <div class="jump-dot" data-index="6" title="Celebrate"></div>
+    </div>
+
+    <div class="active-stage-readout" id="activeStageLabel">
+      STAGE 0 / 6 — OPENING
+    </div>
+  </footer>
+
+  <!-- ========================================================================
+       GAME LOGIC, SMOOTH HORIZONTAL SCROLL & SOUND
+       ======================================================================== -->
+  <script>
+    // -------------------------------------------------------------------------
+    // 1. SOUND SYNTHESIZER (Pure Web Audio API)
+    // -------------------------------------------------------------------------
+    class SoundEngine {
+      constructor() {
+        this.ctx = null;
+        this.muted = false;
+      }
+      init() {
+        if (!this.ctx) {
+          const AudioContext = window.AudioContext || window.webkitAudioContext;
+          this.ctx = new AudioContext();
+        }
+        if (this.ctx.state === 'suspended') {
+          this.ctx.resume();
+        }
+      }
+      playChime(freq = 600, duration = 0.15) {
+        if (this.muted) return;
+        this.init();
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
+        gain.gain.setValueAtTime(0.08, this.ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + duration);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start();
+        osc.stop(this.ctx.currentTime + duration);
+      }
+      playLevelUnlock() {
+        if (this.muted) return;
+        this.init();
+        const now = this.ctx.currentTime;
+        [523.25, 659.25, 783.99, 1046.50].forEach((freq, idx) => {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(freq, now + idx * 0.08);
+          gain.gain.setValueAtTime(0.09, now + idx * 0.08);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + (idx + 1) * 0.12);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start(now + idx * 0.08);
+          osc.stop(now + (idx + 1) * 0.12);
+        });
+      }
+      playVictory() {
+        if (this.muted) return;
+        this.init();
+        const now = this.ctx.currentTime;
+        [523.25, 659.25, 783.99, 1046.50, 1318.51].forEach((f, i) => {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(f, now + i * 0.1);
+          gain.gain.setValueAtTime(0.1, now + i * 0.1);
+          gain.gain.exponentialRampToValueAtTime(0.0001, now + i * 0.1 + 0.35);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start(now + i * 0.1);
+          osc.stop(now + i * 0.1 + 0.35);
+        });
+      }
+    }
+    const audio = new SoundEngine();
+
+    // -------------------------------------------------------------------------
+    // 2. STARFIELD BACKGROUND CANVAS
+    // -------------------------------------------------------------------------
+    const starsCanvas = document.getElementById('starsCanvas');
+    const sCtx = starsCanvas.getContext('2d');
+    let stars = [];
+    function initStars() {
+      starsCanvas.width = window.innerWidth;
+      starsCanvas.height = window.innerHeight;
+      stars = [];
+      for (let i = 0; i < 90; i++) {
+        stars.push({
+          x: Math.random() * starsCanvas.width,
+          y: Math.random() * starsCanvas.height,
+          radius: Math.random() * 1.4 + 0.4,
+          alpha: Math.random() * 0.7 + 0.3,
+          speed: Math.random() * 0.25 + 0.08
+        });
+      }
+    }
+    window.addEventListener('resize', initStars);
+    initStars();
+    function animateStars() {
+      sCtx.clearRect(0, 0, starsCanvas.width, starsCanvas.height);
+      stars.forEach(s => {
+        s.y -= s.speed;
+        if (s.y < 0) { s.y = starsCanvas.height; s.x = Math.random() * starsCanvas.width; }
+        sCtx.beginPath();
+        sCtx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
+        sCtx.fillStyle = `rgba(255,255,255,${s.alpha})`;
+        sCtx.fill();
+      });
+      requestAnimationFrame(animateStars);
+    }
+    animateStars();
+
+    // -------------------------------------------------------------------------
+    // 3. CONFETTI BURST
+    // -------------------------------------------------------------------------
+    const confettiCanvas = document.getElementById('confettiCanvas');
+    const cCtx = confettiCanvas.getContext('2d');
+    let confettiList = [];
+    function launchConfetti(count = 100) {
+      confettiCanvas.width = window.innerWidth;
+      confettiCanvas.height = window.innerHeight;
+      const colors = ['#00f0ff', '#ffd166', '#ff007f', '#06d6a0', '#ffffff'];
+      for (let i = 0; i < count; i++) {
+        confettiList.push({
+          x: confettiCanvas.width / 2 + (Math.random() * 200 - 100),
+          y: confettiCanvas.height / 2,
+          vx: (Math.random() - 0.5) * 14,
+          vy: Math.random() * -12 - 4,
+          size: Math.random() * 8 + 4,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          rotation: Math.random() * 360,
+          rotationSpeed: (Math.random() - 0.5) * 10,
+          life: 1
+        });
+      }
+    }
+    function animateConfetti() {
+      cCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+      for (let i = confettiList.length - 1; i >= 0; i--) {
+        const p = confettiList[i];
+        p.x += p.vx; p.y += p.vy;
+        p.vy += 0.3;
+        p.rotation += p.rotationSpeed;
+        p.life -= 0.012;
+        cCtx.save();
+        cCtx.translate(p.x, p.y);
+        cCtx.rotate((p.rotation * Math.PI) / 180);
+        cCtx.fillStyle = p.color;
+        cCtx.globalAlpha = Math.max(0, p.life);
+        cCtx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
+        cCtx.restore();
+        if (p.life <= 0 || p.y > confettiCanvas.height) confettiList.splice(i, 1);
+      }
+      requestAnimationFrame(animateConfetti);
+    }
+    animateConfetti();
+
+    // Floating XP Notification
+    function showFloatingXp(text, x, y) {
+      const el = document.createElement('div');
+      el.className = 'floating-xp';
+      el.textContent = text;
+      el.style.left = `${x || window.innerWidth / 2}px`;
+      el.style.top = `${y || 120}px`;
+      document.body.appendChild(el);
+      setTimeout(() => el.remove(), 1300);
+    }
+
+    // -------------------------------------------------------------------------
+    // 4. HORIZONTAL SCROLL & AUTO-UNLOCK ENGINE
+    // -------------------------------------------------------------------------
+    const viewport = document.getElementById('viewport');
+    const stages = document.querySelectorAll('.journey-stage');
+    const jumpDots = document.querySelectorAll('.jump-dot');
+    const trackStations = document.querySelectorAll('.track-station');
+    const topTrackFill = document.getElementById('topTrackFill');
+    const topRunnerPin = document.getElementById('topRunnerPin');
+    const hudXpNum = document.getElementById('hudXpNum');
+    const currentStatusText = document.getElementById('currentStatusText');
+    const activeStageLabel = document.getElementById('activeStageLabel');
+
+    const stageNames = [
+      "OPENING",
+      "LEVEL 01 — START",
+      "LEVEL 02 — LEARN",
+      "LEVEL 03 — CONTRIBUTE",
+      "LEVEL 04 — CONNECT",
+      "LEVEL 05 — GROW",
+      "LEVEL COMPLETE — CELEBRATE"
+    ];
+
+    const stageXp = [0, 250, 550, 900, 1200, 1500, 1500];
+    const unlockedStages = new Set([0]);
+
+    // Natural Mouse Wheel to Horizontal Translation
+    viewport.addEventListener('wheel', (e) => {
+      // If user scrolls vertically with mouse wheel, translate into horizontal smooth movement
+      if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+        e.preventDefault();
+        viewport.scrollLeft += e.deltaY * 1.1;
+      }
+    }, { passive: false });
+
+    // Scroll Position Tracking & State Updates
+    function updateScrollState() {
+      const maxScroll = viewport.scrollWidth - viewport.clientWidth;
+      const scrollPos = viewport.scrollLeft;
+      const scrollPct = maxScroll > 0 ? (scrollPos / maxScroll) : 0;
+
+      // Update Top Runner Pin & Fill Line
+      const fillPct = Math.min(100, Math.max(0, scrollPct * 100));
+      topTrackFill.style.width = `calc(${fillPct}% * 0.94)`;
+      topRunnerPin.style.left = `calc(20px + ${fillPct}% * 0.92)`;
+
+      // Determine active stage index
+      const stageWidth = viewport.clientWidth;
+      const currentIdx = Math.min(6, Math.max(0, Math.round(scrollPos / stageWidth)));
+
+      // Highlight active stage & handle unlock
+      stages.forEach((stage, idx) => {
+        if (idx === currentIdx) {
+          stage.classList.add('in-view');
+        } else {
+          stage.classList.remove('in-view');
+        }
+      });
+
+      // Update jump dots
+      jumpDots.forEach((dot, idx) => {
+        dot.classList.toggle('active', idx === currentIdx);
+      });
+
+      // Update overworld stations
+      trackStations.forEach((station) => {
+        const sIdx = parseInt(station.getAttribute('data-index'));
+        station.classList.remove('active', 'passed');
+        if (sIdx === currentIdx) {
+          station.classList.add('active');
+        } else if (sIdx < currentIdx) {
+          station.classList.add('passed');
+        }
+      });
+
+      // Update labels & XP
+      activeStageLabel.textContent = `STAGE ${currentIdx} / 6 — ${stageNames[currentIdx]}`;
+      currentStatusText.textContent = stageNames[currentIdx];
+
+      // Auto-unlock sound and XP when entering new stage
+      if (!unlockedStages.has(currentIdx)) {
+        unlockedStages.add(currentIdx);
+        const gained = stageXp[currentIdx] - stageXp[currentIdx - 1];
+        if (gained > 0) {
+          hudXpNum.textContent = stageXp[currentIdx];
+          showFloatingXp(`+${gained} XP UNLOCKED!`, window.innerWidth / 2, 110);
+          audio.playLevelUnlock();
+        }
+        if (currentIdx === 6) {
+          audio.playVictory();
+          launchConfetti(150);
+        }
+      } else {
+        hudXpNum.textContent = stageXp[currentIdx];
+      }
+    }
+
+    viewport.addEventListener('scroll', updateScrollState, { passive: true });
+
+    // Quick Jump handler
+    function scrollToStage(index) {
+      const stageWidth = viewport.clientWidth;
+      viewport.scrollTo({
+        left: index * stageWidth,
+        behavior: 'smooth'
+      });
+      audio.playChime(500 + index * 80);
+    }
+
+    jumpDots.forEach((dot) => {
+      dot.addEventListener('click', () => {
+        const idx = parseInt(dot.getAttribute('data-index'));
+        scrollToStage(idx);
+      });
+    });
+
+    trackStations.forEach((station) => {
+      station.addEventListener('click', () => {
+        const idx = parseInt(station.getAttribute('data-index'));
+        scrollToStage(idx);
+      });
+    });
+
+    document.getElementById('startScrollCue').addEventListener('click', () => {
+      scrollToStage(1);
+    });
+
+    // Keyboard navigation (Arrow keys)
+    window.addEventListener('keydown', (e) => {
+      const stageWidth = viewport.clientWidth;
+      const currentIdx = Math.round(viewport.scrollLeft / stageWidth);
+      if (e.code === 'ArrowRight' || e.code === 'Space') {
+        if (currentIdx < 6) scrollToStage(currentIdx + 1);
+      } else if (e.code === 'ArrowLeft') {
+        if (currentIdx > 0) scrollToStage(currentIdx - 1);
+      } else if (e.key >= '0' && e.key <= '6') {
+        scrollToStage(parseInt(e.key));
+      }
+    });
+
+    // Sound toggle
+    const soundToggleBtn = document.getElementById('soundToggleBtn');
+    const soundIcon = document.getElementById('soundIcon');
+    soundToggleBtn.addEventListener('click', () => {
+      audio.muted = !audio.muted;
+      soundIcon.textContent = audio.muted ? '🔇' : '🔊';
+      soundToggleBtn.style.color = audio.muted ? '#ef4444' : 'var(--text-main)';
+    });
+
+    // Milestone Cards Interactivity in Level Complete
+    const milestoneCards = document.querySelectorAll('.milestone-badge-card');
+    milestoneCards.forEach((card) => {
+      card.addEventListener('click', () => {
+        milestoneCards.forEach(c => c.classList.remove('active-year'));
+        card.classList.add('active-year');
+        const title = card.querySelector('.m-title').textContent;
+        const tenure = card.querySelector('.m-tenure').textContent;
+        audio.playChime(880);
+        launchConfetti(40);
+        showFloatingXp(`★ ${tenure}: ${title} ★`, window.innerWidth / 2, window.innerHeight / 2);
+      });
+    });
+
+    // Print Pass
+    document.getElementById('printPassBtn').addEventListener('click', () => {
+      window.print();
+    });
+
+    // Initialize on load
+    updateScrollState();
+  </script>
+</body>
+</html>
