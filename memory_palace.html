@@ -10312,9 +10312,9 @@
   </div>
 
   <!-- Souvenir Journey Certificate Modal -->
-  <div class="palace-modal-backdrop" id="certModalBackdrop">
+  <div class="palace-modal-backdrop" id="certModalBackdrop" onclick="if(event.target===this)closeCertificateModal()">
     <div class="palace-modal" style="max-width: 560px;">
-      <button class="modal-close-btn" id="closeCertModal">&times;</button>
+      <button class="modal-close-btn" id="closeCertModal" onclick="closeCertificateModal()">&times;</button>
       <div class="certificate-container">
         <h3 class="modal-title" style="text-align: center;">Palace Journey Certificate</h3>
         <p class="modal-subtitle" style="text-align: center; margin-bottom: 12px;">Your verified commemorative record of this year's journey.</p>
@@ -11177,6 +11177,33 @@
     } catch (e) {
       console.warn("Failed to parse embedded initialPalaceState", e);
     }
+    // 0. Check if URL hash has embedded #data= payload (e.g. from shared view link)
+    try {
+      if (typeof window !== 'undefined' && window.location && window.location.hash && window.location.hash.includes('data=')) {
+        const hashParts = window.location.hash.split('data=');
+        if (hashParts[1]) {
+          const jsonStr = decodeURIComponent(escape(atob(hashParts[1])));
+          const decoded = JSON.parse(jsonStr);
+          if (decoded && typeof decoded === 'object') {
+            Object.keys(decoded).forEach(k => {
+              if (decoded[k] !== undefined && decoded[k] !== null) {
+                if (typeof decoded[k] === 'object' && !Array.isArray(decoded[k])) {
+                  palaceState[k] = { ...palaceState[k], ...decoded[k] };
+                } else {
+                  palaceState[k] = decoded[k];
+                }
+              }
+            });
+            try {
+              localStorage.setItem('palace_full_profile', JSON.stringify(palaceState));
+            } catch (e) {}
+          }
+        }
+      }
+    } catch(e) {
+      console.warn("Early URL hash payload parsing error", e);
+    }
+
     // Load from localStorage if present
     const savedFullProfile = localStorage.getItem('palace_full_profile');
     if (savedFullProfile) {
@@ -12439,6 +12466,92 @@
     };
 
     // ==========================================================================
+    // JOURNEY COMMEMORATIVE SOUVENIR CERTIFICATE MODAL ENGINE
+    // ==========================================================================
+    function drawCertificate() {
+      const certificateCanvas = document.getElementById('certificateCanvas');
+      if (!certificateCanvas) return;
+      const certCtx = certificateCanvas.getContext('2d');
+      if (!certCtx) return;
+
+      const w = certificateCanvas.width;
+      const h = certificateCanvas.height;
+
+      const grad = certCtx.createLinearGradient(0, 0, w, h);
+      grad.addColorStop(0, '#090d16');
+      grad.addColorStop(1, '#111827');
+      certCtx.fillStyle = grad;
+      certCtx.fillRect(0, 0, w, h);
+
+      certCtx.strokeStyle = '#f5c065';
+      certCtx.lineWidth = 4;
+      certCtx.strokeRect(20, 20, w - 40, h - 40);
+
+      certCtx.strokeStyle = 'rgba(245, 192, 101, 0.4)';
+      certCtx.lineWidth = 1;
+      certCtx.strokeRect(28, 28, w - 56, h - 56);
+
+      certCtx.fillStyle = '#f5c065';
+      certCtx.font = '400 28px "DM Serif Display", serif';
+      certCtx.textAlign = 'center';
+      certCtx.fillText('DIGITAL MEMORY PALACE', w / 2, 85);
+
+      certCtx.fillStyle = '#94a3b8';
+      certCtx.font = '600 13px Space Grotesk, sans-serif';
+      certCtx.fillText('ANNUAL JOURNEY & CONTRIBUTION CITATION', w / 2, 110);
+
+      const empName = (palaceState.employee && palaceState.employee.name) || "Dhara Patel";
+      const empRole = (palaceState.employee && palaceState.employee.role) || "Customer Support";
+      const empDate = (palaceState.employee && palaceState.employee.date) || "01 September 2025";
+
+      certCtx.fillStyle = '#ffe8b5';
+      certCtx.font = '400 38px "Alex Brush", "DM Serif Display", cursive, serif';
+      certCtx.fillText(empName, w / 2, 180);
+
+      certCtx.fillStyle = '#f5c065';
+      certCtx.font = '500 15px Plus Jakarta Sans, sans-serif';
+      certCtx.fillText(empRole, w / 2, 210);
+
+      certCtx.fillStyle = '#cbd5e1';
+      certCtx.font = '14px Plus Jakarta Sans, sans-serif';
+      certCtx.fillText("For walking across the chambers of learning, creating impactful architectures,", w / 2, 260);
+      certCtx.fillText("lifting teammates, and stepping boldly toward the future horizon.", w / 2, 285);
+
+      certCtx.fillStyle = '#f5c065';
+      certCtx.font = '700 13px Space Grotesk, sans-serif';
+      certCtx.fillText('480+ HRS LEARNING   •   150+ PRS SHIPPED   •   99.98% RELIABILITY', w / 2, 340);
+
+      certCtx.fillStyle = '#94a3b8';
+      certCtx.font = '11px Space Grotesk, sans-serif';
+      certCtx.fillText('VERIFIED BY DIGITAL MEMORY PALACE', w / 4 + 20, 420);
+      certCtx.fillText(`JOINED: ${empDate.toUpperCase()}`, (w * 3) / 4 - 20, 420);
+
+      certCtx.strokeStyle = '#f5c065';
+      certCtx.lineWidth = 1;
+      certCtx.beginPath();
+      certCtx.moveTo(w / 4 - 60, 400);
+      certCtx.lineTo(w / 4 + 100, 400);
+      certCtx.moveTo((w * 3) / 4 - 100, 400);
+      certCtx.lineTo((w * 3) / 4 + 60, 400);
+      certCtx.stroke();
+    }
+
+    function openCertificateModal() {
+      const modal = document.getElementById('certModalBackdrop');
+      if (!modal) return;
+      drawCertificate();
+      modal.classList.add('active');
+    }
+
+    function closeCertificateModal() {
+      const modal = document.getElementById('certModalBackdrop');
+      if (modal) modal.classList.remove('active');
+    }
+
+    window.openCertificateModal = openCertificateModal;
+    window.closeCertificateModal = closeCertificateModal;
+
+    // ==========================================================================
     // FINAL CHAMBER: THANK YOU ROOM CONTROLLER & RENDER ENGINE
     // ==========================================================================
     function renderThankYouRoom() {
@@ -12483,7 +12596,7 @@
             <button class="btn-fire-confetti thankyou-confetti-btn" id="btnThankYouConfetti" title="Fire grand celebratory confetti!">
               <span>${escapeHtml(ty.actionBtn1 || '🎉 Shower Confetti & Applause')}</span>
             </button>
-            <button class="btn-download-cert thankyou-souvenir-btn" id="btnThankYouCert" title="View your official souvenir certificate">
+            <button class="btn-download-cert thankyou-souvenir-btn" id="btnThankYouCert" onclick="openCertificateModal()" title="View your official souvenir certificate">
               <span>${escapeHtml(ty.actionBtn2 || '📜 View Souvenir Card')}</span>
             </button>
             <button class="thankyou-return-btn" id="btnThankYouReturn" title="Return to palace entrance">
@@ -12504,9 +12617,9 @@
 
       const btnCert = document.getElementById('btnThankYouCert');
       if (btnCert) {
-        btnCert.addEventListener('click', () => {
-          const mainCertBtn = document.getElementById('btnOpenCertModal');
-          if (mainCertBtn) mainCertBtn.click();
+        btnCert.addEventListener('click', (e) => {
+          e.preventDefault();
+          openCertificateModal();
         });
       }
 
@@ -13696,23 +13809,24 @@
           if (hashParts[1]) {
             const decoded = decompressStateFromHash(hashParts[1]);
             if (decoded && typeof decoded === 'object') {
-              if (decoded.employee) palaceState.employee = { ...palaceState.employee, ...decoded.employee };
-              if (decoded.celebration) palaceState.celebration = { ...palaceState.celebration, ...decoded.celebration };
-              if (decoded.milestones) palaceState.milestones = decoded.milestones;
-              if (decoded.skills) palaceState.skills = decoded.skills;
-              if (decoded.projects) palaceState.projects = decoded.projects;
-              if (decoded.contributions) palaceState.contributions = decoded.contributions;
-              if (decoded.stickyNotes) palaceState.stickyNotes = decoded.stickyNotes;
-              if (decoded.chambers) palaceState.chambers = decoded.chambers;
-              if (decoded.doorWingLeft) palaceState.doorWingLeft = decoded.doorWingLeft;
-              if (decoded.doorWingRight) palaceState.doorWingRight = decoded.doorWingRight;
-              if (decoded.chamberStories) palaceState.chamberStories = decoded.chamberStories;
-              if (decoded.memories) palaceState.memories = decoded.memories;
-              if (decoded.editorPasscode) palaceState.editorPasscode = decoded.editorPasscode;
+              Object.keys(decoded).forEach(k => {
+                if (decoded[k] !== undefined && decoded[k] !== null) {
+                  if (typeof decoded[k] === 'object' && !Array.isArray(decoded[k])) {
+                    palaceState[k] = { ...palaceState[k], ...decoded[k] };
+                  } else {
+                    palaceState[k] = decoded[k];
+                  }
+                }
+              });
 
               try {
                 localStorage.setItem('palace_full_profile', JSON.stringify(palaceState));
               } catch (e) {}
+
+              // Re-render whole palace with the decoded data
+              if (typeof updatePalaceFromState === 'function') {
+                updatePalaceFromState();
+              }
             }
           }
         }
@@ -15274,86 +15388,20 @@
     }
 
     const certModalBackdrop = document.getElementById('certModalBackdrop');
-    const btnOpenCertModal = document.getElementById('btnOpenCertModal');
     const closeCertModal = document.getElementById('closeCertModal');
-    const certificateCanvas = document.getElementById('certificateCanvas');
-    const certCtx = certificateCanvas ? certificateCanvas.getContext('2d') : null;
     const btnDownloadCertPng = document.getElementById('btnDownloadCertPng');
 
-    function drawCertificate() {
-      const w = certificateCanvas.width;
-      const h = certificateCanvas.height;
-
-      const grad = certCtx.createLinearGradient(0, 0, w, h);
-      grad.addColorStop(0, '#090d16');
-      grad.addColorStop(1, '#111827');
-      certCtx.fillStyle = grad;
-      certCtx.fillRect(0, 0, w, h);
-
-      certCtx.strokeStyle = '#f5c065';
-      certCtx.lineWidth = 4;
-      certCtx.strokeRect(20, 20, w - 40, h - 40);
-
-      certCtx.strokeStyle = 'rgba(245, 192, 101, 0.4)';
-      certCtx.lineWidth = 1;
-      certCtx.strokeRect(28, 28, w - 56, h - 56);
-
-      certCtx.fillStyle = '#f5c065';
-      certCtx.font = '400 28px "DM Serif Display", serif';
-      certCtx.textAlign = 'center';
-      certCtx.fillText('DIGITAL MEMORY PALACE', w / 2, 85);
-
-      certCtx.fillStyle = '#94a3b8';
-      certCtx.font = '600 13px Space Grotesk, sans-serif';
-      certCtx.fillText('ANNUAL JOURNEY & CONTRIBUTION CITATION', w / 2, 110);
-
-      certCtx.fillStyle = '#ffe8b5';
-      certCtx.font = '400 38px "Alex Brush", "DM Serif Display", cursive, serif';
-      certCtx.fillText(palaceState.employee.name, w / 2, 180);
-
-      certCtx.fillStyle = '#f5c065';
-      certCtx.font = '500 15px Plus Jakarta Sans, sans-serif';
-      certCtx.fillText(palaceState.employee.role, w / 2, 210);
-
-      certCtx.fillStyle = '#cbd5e1';
-      certCtx.font = '14px Plus Jakarta Sans, sans-serif';
-      certCtx.fillText("For walking across the chambers of learning, creating impactful architectures,", w / 2, 260);
-      certCtx.fillText("lifting teammates, and stepping boldly toward the future horizon.", w / 2, 285);
-
-      certCtx.fillStyle = '#f5c065';
-      certCtx.font = '700 13px Space Grotesk, sans-serif';
-      certCtx.fillText('480+ HRS LEARNING   •   150+ PRS SHIPPED   •   99.98% RELIABILITY', w / 2, 340);
-
-      certCtx.fillStyle = '#94a3b8';
-      certCtx.font = '11px Space Grotesk, sans-serif';
-      certCtx.fillText('VERIFIED BY DIGITAL MEMORY PALACE', w / 4 + 20, 420);
-      certCtx.fillText(`JOINED: ${palaceState.employee.date.toUpperCase()}`, (w * 3) / 4 - 20, 420);
-
-      certCtx.strokeStyle = '#f5c065';
-      certCtx.lineWidth = 1;
-      certCtx.beginPath();
-      certCtx.moveTo(w / 4 - 60, 400);
-      certCtx.lineTo(w / 4 + 100, 400);
-      certCtx.moveTo((w * 3) / 4 - 100, 400);
-      certCtx.lineTo((w * 3) / 4 + 60, 400);
-      certCtx.stroke();
+    if (closeCertModal) {
+      closeCertModal.addEventListener('click', closeCertificateModal);
     }
 
-    if (btnOpenCertModal && certModalBackdrop) {
-      btnOpenCertModal.addEventListener('click', () => {
-        drawCertificate();
-        certModalBackdrop.classList.add('active');
-      });
-    }
-
-    if (closeCertModal && certModalBackdrop) {
-      closeCertModal.addEventListener('click', () => certModalBackdrop.classList.remove('active'));
-    }
-
-    if (btnDownloadCertPng && certificateCanvas) {
+    if (btnDownloadCertPng) {
       btnDownloadCertPng.addEventListener('click', () => {
+        const certificateCanvas = document.getElementById('certificateCanvas');
+        if (!certificateCanvas) return;
+        const empName = (palaceState.employee && palaceState.employee.name) || 'Dhara_Patel';
         const link = document.createElement('a');
-        link.download = `${palaceState.employee.name.replace(/\s+/g, '_')}_Memory_Palace_Certificate.png`;
+        link.download = `${empName.replace(/\s+/g, '_')}_Memory_Palace_Certificate.png`;
         link.href = certificateCanvas.toDataURL('image/png');
         link.click();
       });
