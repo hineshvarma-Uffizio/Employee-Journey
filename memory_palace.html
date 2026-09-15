@@ -1216,7 +1216,7 @@
 
     .portal-arch-header {
       position: absolute;
-      top: -116px;
+      top: -68px;
       left: 50%;
       transform: translateX(-50%);
       text-align: center;
@@ -8500,11 +8500,8 @@
           <!-- Hardware-Accelerated Static Halo -->
           <div class="portal-arch-glow-backdrop"></div>
 
-          <!-- Elegant Floating Header: Official White Uffizio Logo + Heading -->
+          <!-- Elegant Floating Header: Heading + Subtitle -->
           <div class="portal-arch-header">
-            <div class="portal-arch-logo-wrap" title="Click to upload / change entrance logo" onclick="window.triggerEntranceLogoUpload(); event.stopPropagation();">
-              <img src="uffizio_logo_white.png" alt="Uffizio" class="portal-arch-logo" id="portalArchLogo">
-            </div>
             <div class="portal-arch-title" contenteditable="true" data-editable="true" title="Click to edit entrance title">WELCOME TO YOUR JOURNEY</div>
             <div class="portal-arch-sub" contenteditable="true" data-editable="true" title="Click to edit entrance subtitle">WALK THROUGH YOUR YEAR • 2025 → 2026</div>
           </div>
@@ -12039,14 +12036,7 @@
                   ${isSingle && pDesc ? `<p class="single-card-feature-desc" data-editable="true" onclick="event.stopPropagation()">${escapeHtml(pDesc)}</p>` : ''}
                 </div>
 
-                <div class="split-card-col-right">
-                  <div class="split-card-pill-row">
-                    <span class="split-card-stat-pill" data-editable="true" onclick="event.stopPropagation()">${escapeHtml(metricDisplay)}</span>
-                  </div>
-                  <div class="split-card-btn-row">
-                    <span class="split-card-explore-btn">Story ↗</span>
-                  </div>
-                </div>
+
               </div>
             `;
           }).join('');
