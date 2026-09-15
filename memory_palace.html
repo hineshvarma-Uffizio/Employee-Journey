@@ -10972,8 +10972,17 @@
           </p>
         </div>
 
+        <!-- Short Link for Easy Sharing -->
         <div class="form-group" style="margin-bottom: 12px;">
-          <label style="font-size: 11px; font-weight: 600; color: #cbd5e1; text-transform: uppercase; margin-bottom: 6px; display: block;">Shareable View Link (Includes Custom Journey Data)</label>
+          <label style="font-size: 11px; font-weight: 600; color: #38bdf8; text-transform: uppercase; margin-bottom: 6px; display: block;">⚡ Short Link (WhatsApp / Mobile Friendly)</label>
+          <div style="display: flex; gap: 8px;">
+            <input type="text" id="shareTinyUrlInput" class="form-input" readonly value="https://tinyurl.com/uffizio-dhara" style="font-family: monospace; font-size: 11px; background: rgba(0,0,0,0.4); color: #38bdf8; font-weight: 600;">
+            <button type="button" class="btn-save-profile" id="btnCopyTinyLink" style="width: auto; padding: 8px 16px; white-space: nowrap; font-size: 12px; background: linear-gradient(135deg, #0284c7, #0369a1);">📋 Copy Short Link</button>
+          </div>
+        </div>
+
+        <div class="form-group" style="margin-bottom: 12px;">
+          <label style="font-size: 11px; font-weight: 600; color: #cbd5e1; text-transform: uppercase; margin-bottom: 6px; display: block;">Full Direct View Link</label>
           <div style="display: flex; gap: 8px;">
             <input type="text" id="shareViewUrlInput" class="form-input" readonly style="font-family: monospace; font-size: 11px; background: rgba(0,0,0,0.4); color: #e2e8f0;">
             <button type="button" class="btn-save-profile" id="btnCopyViewLink" style="width: auto; padding: 8px 16px; white-space: nowrap; font-size: 12px;">📋 Copy Link</button>
@@ -14977,10 +14986,10 @@
         const inputEditorPasscode = document.getElementById('inputEditorPasscode');
 
         if (shareViewUrlInput) {
-          shareViewUrlInput.value = `${baseUrl}?access=view#data=${encodedData}`;
+          shareViewUrlInput.value = `${baseUrl}?access=view`;
         }
         if (shareEditUrlInput) {
-          shareEditUrlInput.value = `${baseUrl}?access=edit#data=${encodedData}`;
+          shareEditUrlInput.value = `${baseUrl}?access=edit`;
         }
         if (inputEditorPasscode) {
           inputEditorPasscode.value = palaceState.editorPasscode || "uffizio";
@@ -15094,6 +15103,14 @@
       const btnCopyEditLink = document.getElementById('btnCopyEditLink');
       const copyViewFeedback = document.getElementById('copyViewFeedback');
       const copyEditFeedback = document.getElementById('copyEditFeedback');
+
+      const btnCopyTinyLink = document.getElementById('btnCopyTinyLink');
+      if (btnCopyTinyLink) {
+        btnCopyTinyLink.addEventListener('click', () => {
+          const url = document.getElementById('shareTinyUrlInput')?.value || "https://tinyurl.com/uffizio-dhara";
+          if (url) copyToClipboard(url, copyViewFeedback, "Ready to share");
+        });
+      }
 
       if (btnCopyViewLink) {
         btnCopyViewLink.addEventListener('click', () => {
