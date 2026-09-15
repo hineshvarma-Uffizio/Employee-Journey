@@ -4796,47 +4796,17 @@
     }
 
     .future-header {
-      margin-bottom: 2px;
-    }
-
-    .future-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
       margin-bottom: 6px;
-    }
-
-    .future-tag-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--gold-primary);
-      box-shadow: 0 0 10px var(--gold-primary);
-    }
-
-    .future-tag-line {
-      width: 28px;
-      height: 1px;
-      background: linear-gradient(90deg, rgba(245, 192, 101, 0.6), transparent);
-    }
-
-    .future-tag-text {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 10.5px;
-      font-weight: 700;
-      letter-spacing: 1.8px;
-      color: var(--gold-primary);
-      text-transform: uppercase;
     }
 
     .future-title {
       font-family: 'Cinzel', 'Playfair Display', serif;
-      font-size: 27px;
+      font-size: 30px;
       font-weight: 700;
       color: #ffffff;
       letter-spacing: 0.5px;
       line-height: 1.25;
-      margin: 0 0 6px 0;
+      margin: 0 0 12px 0;
       text-shadow: 0 2px 14px rgba(0, 0, 0, 0.6);
     }
 
@@ -4847,47 +4817,39 @@
       font-weight: 800;
     }
 
-    .future-desc {
-      font-size: 11.8px;
-      line-height: 1.5;
-      color: #94a3b8;
-      margin: 0;
-      max-width: 560px;
-    }
-
-    /* 5 Prompt Cards (No dropdowns!) */
+    /* 3 Vision Prompt Cards (No dropdowns!) */
     .future-cards-list {
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 13px;
     }
 
     .future-card {
-      background: rgba(10, 18, 36, 0.72);
-      border: 1px solid rgba(59, 130, 246, 0.22);
-      border-radius: 12px;
-      padding: 9.5px 14px;
+      background: rgba(10, 18, 36, 0.75);
+      border: 1px solid rgba(59, 130, 246, 0.24);
+      border-radius: 14px;
+      padding: 13px 18px;
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 16px;
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
       transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.4);
       position: relative;
     }
 
     .future-card:hover {
-      border-color: rgba(245, 192, 101, 0.45);
-      transform: translateY(-1.5px);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5), 0 0 16px rgba(59, 130, 246, 0.15);
-      background: rgba(14, 25, 52, 0.85);
+      border-color: rgba(245, 192, 101, 0.5);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 26px rgba(0, 0, 0, 0.55), 0 0 18px rgba(59, 130, 246, 0.2);
+      background: rgba(14, 25, 52, 0.88);
     }
 
     .future-card-icon-wrap {
-      width: 36px;
-      height: 36px;
-      min-width: 36px;
+      width: 42px;
+      height: 42px;
+      min-width: 42px;
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -4910,8 +4872,8 @@
     }
 
     .future-icon-svg {
-      width: 17px;
-      height: 17px;
+      width: 20px;
+      height: 20px;
     }
 
     .future-card-text {
@@ -4921,17 +4883,17 @@
 
     .future-card-title {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 600;
       color: #f8fafc;
-      margin: 0 0 2px 0;
+      margin: 0 0 3px 0;
       line-height: 1.35;
     }
 
     .future-card-sub {
-      font-size: 11px;
+      font-size: 11.8px;
       color: #94a3b8;
-      line-height: 1.35;
+      line-height: 1.4;
       margin: 0;
     }
 
@@ -4939,12 +4901,12 @@
     .future-bottom-quote {
       background: rgba(10, 18, 36, 0.55);
       border: 1px solid rgba(245, 192, 101, 0.25);
-      border-radius: 12px;
-      padding: 9px 14px;
+      border-radius: 14px;
+      padding: 12px 18px;
       display: flex;
       align-items: center;
-      gap: 12px;
-      margin-top: 3px;
+      gap: 14px;
+      margin-top: 6px;
     }
 
     .future-quote-sparkle {
@@ -9302,24 +9264,16 @@
           <div class="room-future">
             <div class="future-board">
               
-              <!-- Left Column: Header + 5 Prompt Cards (No Dropdowns!) + Bottom Quote -->
+              <!-- Left Column: Header + 3 Prompt Cards (No Dropdowns!) + Bottom Quote -->
               <div class="future-col-left">
-                <!-- Header -->
+                <!-- Header (Clean without tag & subtitle) -->
                 <div class="future-header">
-                  <div class="future-tag">
-                    <span class="future-tag-dot"></span>
-                    <span class="future-tag-line"></span>
-                    <span class="future-tag-text" contenteditable="true" data-editable="true" title="Click to edit section tag">SECTION 08 • THE FUTURE</span>
-                  </div>
                   <h2 class="future-title" contenteditable="true" data-editable="true" title="Click to edit main title">
                     My Vision for <span class="future-title-gold">What's Next</span>
                   </h2>
-                  <p class="future-desc" contenteditable="true" data-editable="true" title="Click to edit description">
-                    Let's look ahead. Share your thoughts, goals, and aspirations for the next chapter of your journey with Uffizio.
-                  </p>
                 </div>
 
-                <!-- 5 Vision Prompt Cards (No Dropdowns!) -->
+                <!-- 3 Vision Prompt Cards (No Dropdowns!) -->
                 <div class="future-cards-list">
                   <!-- Card 0 -->
                   <div class="future-card" data-idx="0">
@@ -9359,34 +9313,6 @@
                     <div class="future-card-text">
                       <h4 class="future-card-title" contenteditable="true" data-editable="true" title="Click to edit question">What impact do you want to create?</h4>
                       <p class="future-card-sub" contenteditable="true" data-editable="true" title="Click to edit prompt">How do you see yourself contributing more to your team and Uffizio?</p>
-                    </div>
-                  </div>
-
-                  <!-- Card 3 -->
-                  <div class="future-card" data-idx="3">
-                    <div class="future-card-icon-wrap icon-theme-blue">
-                      <svg class="future-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
-                        <circle cx="9" cy="7" r="4"/>
-                        <path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/>
-                      </svg>
-                    </div>
-                    <div class="future-card-text">
-                      <h4 class="future-card-title" contenteditable="true" data-editable="true" title="Click to edit question">Where do you see yourself in the next 1–2 years?</h4>
-                      <p class="future-card-sub" contenteditable="true" data-editable="true" title="Click to edit prompt">Share your career aspirations and the role you envision for yourself.</p>
-                    </div>
-                  </div>
-
-                  <!-- Card 4 -->
-                  <div class="future-card" data-idx="4">
-                    <div class="future-card-icon-wrap icon-theme-gold">
-                      <svg class="future-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
-                      </svg>
-                    </div>
-                    <div class="future-card-text">
-                      <h4 class="future-card-title" contenteditable="true" data-editable="true" title="Click to edit question">Anything else you would like to add?</h4>
-                      <p class="future-card-sub" contenteditable="true" data-editable="true" title="Click to edit prompt">A space for your additional thoughts, dreams, or a personal message.</p>
                     </div>
                   </div>
                 </div>
@@ -10208,27 +10134,17 @@
         <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:14px; gap:10px;">
           <div>
             <h4 style="color:var(--gold-light); font-size:15px; margin:0 0 4px 0;">🔮 Chamber 08: The Future (Vision Board)</h4>
-            <p style="font-size:12px; color:#94a3b8; margin:0;">Customize the Section Tag, Header, Top Quote, 5 Vision Prompt Cards, Bottom Banner, and Save Action.</p>
+            <p style="font-size:12px; color:#94a3b8; margin:0;">Customize the Header, Top Quote, 3 Vision Prompt Cards, Bottom Banner, and Save Action.</p>
           </div>
           <button type="button" class="btn-primary-add" onclick="window.previewRoomStage('chamber-5')" style="white-space:nowrap; padding:6px 12px; font-size:12px;">👁️ View Room</button>
         </div>
 
-        <!-- Section Tag & Main Title -->
+        <!-- Main Title -->
         <div style="background:rgba(15,23,42,0.8); border:1px solid rgba(245,192,101,0.3); border-radius:12px; padding:14px; margin-bottom:14px;">
-          <h5 style="color:var(--gold-primary); font-size:13px; margin:0 0 10px 0;">🏛️ Room Header & Placard</h5>
-          <div style="display:grid; grid-template-columns: 1fr 2fr; gap:12px; margin-bottom:10px;">
-            <div class="form-group">
-              <label>Section Tag</label>
-              <input type="text" class="form-input" id="adminFutureTag" placeholder="SECTION 08 • THE FUTURE">
-            </div>
-            <div class="form-group">
-              <label>Main Title</label>
-              <input type="text" class="form-input" id="adminFutureTitle" placeholder="My Vision for What's Next">
-            </div>
-          </div>
+          <h5 style="color:var(--gold-primary); font-size:13px; margin:0 0 10px 0;">🏛️ Room Main Title</h5>
           <div class="form-group">
-            <label>Subtitle / Vision Statement</label>
-            <textarea class="form-input form-textarea" id="adminFutureDesc" rows="2" placeholder="Let's look ahead. Share your thoughts, goals, and aspirations for the next chapter of your journey with Uffizio."></textarea>
+            <label>Main Title</label>
+            <input type="text" class="form-input" id="adminFutureTitle" placeholder="My Vision for What's Next">
           </div>
         </div>
 
@@ -10247,9 +10163,9 @@
           </div>
         </div>
 
-        <!-- 5 Vision Prompt Cards (No Dropdowns!) -->
+        <!-- 3 Vision Prompt Cards (No Dropdowns!) -->
         <div style="background:rgba(15,23,42,0.8); border:1px solid rgba(245,192,101,0.25); border-radius:12px; padding:14px; margin-bottom:14px;">
-          <h5 style="color:var(--gold-light); font-size:13px; margin:0 0 10px 0;">✨ 5 Vision Prompt Cards</h5>
+          <h5 style="color:var(--gold-light); font-size:13px; margin:0 0 10px 0;">✨ 3 Vision Prompt Cards</h5>
           <div style="display:flex; flex-direction:column; gap:12px;">
             <!-- Card 0 -->
             <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.1); border-radius:10px; padding:12px;">
@@ -10287,32 +10203,6 @@
               <div class="form-group">
                 <label>Prompt Description</label>
                 <input type="text" class="form-input" id="adminFutureCardSub2" placeholder="How do you see yourself contributing more to your team and Uffizio?">
-              </div>
-            </div>
-
-            <!-- Card 3 -->
-            <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.1); border-radius:10px; padding:12px;">
-              <div style="font-weight:600; font-size:12px; color:var(--gold-primary); margin-bottom:8px;">Card 04 (👥 Next 1–2 Years)</div>
-              <div class="form-group" style="margin-bottom:8px;">
-                <label>Question / Title</label>
-                <input type="text" class="form-input" id="adminFutureCardTitle3" placeholder="Where do you see yourself in the next 1–2 years?">
-              </div>
-              <div class="form-group">
-                <label>Prompt Description</label>
-                <input type="text" class="form-input" id="adminFutureCardSub3" placeholder="Share your career aspirations and the role you envision for yourself.">
-              </div>
-            </div>
-
-            <!-- Card 4 -->
-            <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.1); border-radius:10px; padding:12px;">
-              <div style="font-weight:600; font-size:12px; color:var(--gold-primary); margin-bottom:8px;">Card 05 (⭐ Additional Thoughts)</div>
-              <div class="form-group" style="margin-bottom:8px;">
-                <label>Question / Title</label>
-                <input type="text" class="form-input" id="adminFutureCardTitle4" placeholder="Anything else you would like to add?">
-              </div>
-              <div class="form-group">
-                <label>Prompt Description</label>
-                <input type="text" class="form-input" id="adminFutureCardSub4" placeholder="A space for your additional thoughts, dreams, or a personal message.">
               </div>
             </div>
           </div>
@@ -11010,20 +10900,17 @@
         celebrateBtn: "🎉 Fire Confetti!"
       },
       future: {
-        title: "The Future",
-        sub: "Looking ahead to the next summits, vision, and growth with Uffizio.",
-        horizonTitle: "Panoramic Future Horizon",
-        horizonDesc: "The dawn of new challenges, greater leadership, and unbounded personal mastery.",
-        pillars: [
-          { tag: "Pillar 01", title: "Architectural Leadership" },
-          { tag: "Pillar 02", title: "Next-Gen AI Systems" },
-          { tag: "Pillar 03", title: "Mentoring Future Stars" }
+        title: "My Vision for What's Next",
+        quoteText: "A goal without a plan is just a wish.",
+        quoteAuthor: "Antoine de Saint-Exupéry",
+        cards: [
+          { title: "What skills do you want to build?", sub: "Share the skills or knowledge you want to develop to grow in your career." },
+          { title: "What new challenges do you want to take on?", sub: "Tell us about the kind of opportunities or responsibilities you would like to explore." },
+          { title: "What impact do you want to create?", sub: "How do you see yourself contributing more to your team and Uffizio?" }
         ],
-        capsuleTitle: "⏳ Time Capsule to Next Year's Self",
-        capsuleDesc: "Write an aspiration or note for yourself 12 months from now. It will be sealed in your digital vault.",
-        capsulePlaceholder: "Dear future me, this year we built something incredible. In the coming year, I promise to keep learning, dare bigger, and...",
-        btnSealText: "⚜️ Seal Time Capsule",
-        btnCertText: "📜 Souvenir Card"
+        bottomQuote1: "Your journey doesn't end here.",
+        bottomQuote2: "It evolves with every step you take.",
+        btnSaveText: "Save My Vision"
       },
       skills: [
         { title: "Knowledge", desc: "Product & Architecture", pct: 98, icon: "🧠", tag: "Product Mastery" },
@@ -12865,17 +12752,13 @@
     // ==========================================================================
     function renderFutureRoom() {
       const fut = palaceState.future || {
-        tag: "SECTION 08 • THE FUTURE",
         title: "My Vision for What's Next",
-        sub: "Let's look ahead. Share your thoughts, goals, and aspirations for the next chapter of your journey with Uffizio.",
         quoteText: "A goal without a plan is just a wish.",
         quoteAuthor: "Antoine de Saint-Exupéry",
         cards: [
           { title: "What skills do you want to build?", sub: "Share the skills or knowledge you want to develop to grow in your career." },
           { title: "What new challenges do you want to take on?", sub: "Tell us about the kind of opportunities or responsibilities you would like to explore." },
-          { title: "What impact do you want to create?", sub: "How do you see yourself contributing more to your team and Uffizio?" },
-          { title: "Where do you see yourself in the next 1–2 years?", sub: "Share your career aspirations and the role you envision for yourself." },
-          { title: "Anything else you would like to add?", sub: "A space for your additional thoughts, dreams, or a personal message." }
+          { title: "What impact do you want to create?", sub: "How do you see yourself contributing more to your team and Uffizio?" }
         ],
         bottomQuote1: "Your journey doesn't end here.",
         bottomQuote2: "It evolves with every step you take.",
@@ -12888,9 +12771,6 @@
         placard.textContent = fut.title || (ch5Room && ch5Room.title) || "The Future";
       }
 
-      const tagEl = document.querySelector('#chamber-5 .future-tag-text');
-      if (tagEl && fut.tag) tagEl.textContent = fut.tag;
-
       const titleEl = document.querySelector('#chamber-5 .future-title');
       if (titleEl && fut.title) {
         if (fut.title.toLowerCase().includes("what's next")) {
@@ -12900,9 +12780,6 @@
           titleEl.textContent = fut.title;
         }
       }
-
-      const descEl = document.querySelector('#chamber-5 .future-desc');
-      if (descEl && fut.sub) descEl.textContent = fut.sub;
 
       const qText = document.querySelector('#chamber-5 .future-top-quote-text');
       if (qText && fut.quoteText) qText.textContent = fut.quoteText;
@@ -12936,31 +12813,21 @@
 
     function populateAdminFuture() {
       const fut = palaceState.future || {
-        tag: "SECTION 08 • THE FUTURE",
         title: "My Vision for What's Next",
-        sub: "Let's look ahead. Share your thoughts, goals, and aspirations for the next chapter of your journey with Uffizio.",
         quoteText: "A goal without a plan is just a wish.",
         quoteAuthor: "Antoine de Saint-Exupéry",
         cards: [
           { title: "What skills do you want to build?", sub: "Share the skills or knowledge you want to develop to grow in your career." },
           { title: "What new challenges do you want to take on?", sub: "Tell us about the kind of opportunities or responsibilities you would like to explore." },
-          { title: "What impact do you want to create?", sub: "How do you see yourself contributing more to your team and Uffizio?" },
-          { title: "Where do you see yourself in the next 1–2 years?", sub: "Share your career aspirations and the role you envision for yourself." },
-          { title: "Anything else you would like to add?", sub: "A space for your additional thoughts, dreams, or a personal message." }
+          { title: "What impact do you want to create?", sub: "How do you see yourself contributing more to your team and Uffizio?" }
         ],
         bottomQuote1: "Your journey doesn't end here.",
         bottomQuote2: "It evolves with every step you take.",
         btnSaveText: "Save My Vision"
       };
 
-      const tagInp = document.getElementById('adminFutureTag');
-      if (tagInp) tagInp.value = fut.tag || "SECTION 08 • THE FUTURE";
-
       const titleInp = document.getElementById('adminFutureTitle');
       if (titleInp) titleInp.value = fut.title || "My Vision for What's Next";
-
-      const descInp = document.getElementById('adminFutureDesc');
-      if (descInp) descInp.value = fut.sub || "Let's look ahead. Share your thoughts, goals, and aspirations for the next chapter of your journey with Uffizio.";
 
       const qT = document.getElementById('adminFutureQuoteText');
       if (qT) qT.value = fut.quoteText || "A goal without a plan is just a wish.";
@@ -12971,12 +12838,10 @@
       const defCards = [
         { title: "What skills do you want to build?", sub: "Share the skills or knowledge you want to develop to grow in your career." },
         { title: "What new challenges do you want to take on?", sub: "Tell us about the kind of opportunities or responsibilities you would like to explore." },
-        { title: "What impact do you want to create?", sub: "How do you see yourself contributing more to your team and Uffizio?" },
-        { title: "Where do you see yourself in the next 1–2 years?", sub: "Share your career aspirations and the role you envision for yourself." },
-        { title: "Anything else you would like to add?", sub: "A space for your additional thoughts, dreams, or a personal message." }
+        { title: "What impact do you want to create?", sub: "How do you see yourself contributing more to your team and Uffizio?" }
       ];
 
-      for (let i = 0; i < 5; i++) {
+      for (let i = 0; i < 3; i++) {
         const c = (fut.cards && fut.cards[i]) || defCards[i];
         const tInp = document.getElementById(`adminFutureCardTitle${i}`);
         const sInp = document.getElementById(`adminFutureCardSub${i}`);
@@ -17414,9 +17279,7 @@
         }
 
         // Collect Future (Chamber 08 / Chamber 5)
-        const adminFutTag = document.getElementById('adminFutureTag');
         const adminFutTitle = document.getElementById('adminFutureTitle');
-        const adminFutDesc = document.getElementById('adminFutureDesc');
         const adminFutQuoteText = document.getElementById('adminFutureQuoteText');
         const adminFutQuoteAuthor = document.getElementById('adminFutureQuoteAuthor');
         const adminFutBottom1 = document.getElementById('adminFutureBottomQuote1');
@@ -17424,22 +17287,18 @@
         const adminFutBtnSave = document.getElementById('adminFutureBtnSaveText');
 
         palaceState.future = palaceState.future || {};
-        if (adminFutTag && adminFutTag.value.trim()) palaceState.future.tag = adminFutTag.value.trim();
         if (adminFutTitle && adminFutTitle.value.trim()) palaceState.future.title = adminFutTitle.value.trim();
-        if (adminFutDesc && adminFutDesc.value.trim()) palaceState.future.sub = adminFutDesc.value.trim();
         if (adminFutQuoteText && adminFutQuoteText.value.trim()) palaceState.future.quoteText = adminFutQuoteText.value.trim();
         if (adminFutQuoteAuthor && adminFutQuoteAuthor.value.trim()) palaceState.future.quoteAuthor = adminFutQuoteAuthor.value.trim();
 
-        palaceState.future.cards = [0, 1, 2, 3, 4].map(i => {
+        palaceState.future.cards = [0, 1, 2].map(i => {
           const tInp = document.getElementById(`adminFutureCardTitle${i}`);
           const sInp = document.getElementById(`adminFutureCardSub${i}`);
           const liveCard = document.querySelectorAll('#chamber-5 .future-card')[i];
           const defCards = [
             { title: "What skills do you want to build?", sub: "Share the skills or knowledge you want to develop to grow in your career." },
             { title: "What new challenges do you want to take on?", sub: "Tell us about the kind of opportunities or responsibilities you would like to explore." },
-            { title: "What impact do you want to create?", sub: "How do you see yourself contributing more to your team and Uffizio?" },
-            { title: "Where do you see yourself in the next 1–2 years?", sub: "Share your career aspirations and the role you envision for yourself." },
-            { title: "Anything else you would like to add?", sub: "A space for your additional thoughts, dreams, or a personal message." }
+            { title: "What impact do you want to create?", sub: "How do you see yourself contributing more to your team and Uffizio?" }
           ];
           return {
             title: (tInp && tInp.value.trim()) || (liveCard && liveCard.querySelector('.future-card-title')?.textContent.trim()) || defCards[i].title,
@@ -18108,9 +17967,7 @@
         }
 
         // 8d. The Future (Chamber 08 / Chamber 5)
-        const liveFutTag = document.querySelector('#chamber-5 .future-tag-text');
         const liveFutTitle = document.querySelector('#chamber-5 .future-title');
-        const liveFutDesc = document.querySelector('#chamber-5 .future-desc');
         const liveFutQuoteText = document.querySelector('#chamber-5 .future-top-quote-text');
         const liveFutQuoteAuth = document.querySelector('#chamber-5 .future-top-quote-author');
         const liveFutCards = document.querySelectorAll('#chamber-5 .future-card');
@@ -18118,11 +17975,9 @@
         const liveFutBottom2 = document.querySelector('#chamber-5 .quote-line-2');
         const liveFutBtnSave = document.querySelector('#chamber-5 .btn-save-future-label');
 
-        if (liveFutTitle || liveFutDesc || (liveFutCards && liveFutCards.length > 0)) {
+        if (liveFutTitle || (liveFutCards && liveFutCards.length > 0)) {
           palaceState.future = palaceState.future || {};
-          if (liveFutTag) palaceState.future.tag = liveFutTag.textContent.trim();
           if (liveFutTitle) palaceState.future.title = liveFutTitle.textContent.trim();
-          if (liveFutDesc) palaceState.future.sub = liveFutDesc.textContent.trim();
           if (liveFutQuoteText) palaceState.future.quoteText = liveFutQuoteText.textContent.trim();
           if (liveFutQuoteAuth) palaceState.future.quoteAuthor = liveFutQuoteAuth.textContent.trim();
 
