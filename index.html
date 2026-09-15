@@ -14997,18 +14997,48 @@
       palaceAudio.init();
       palaceAudio.playChime();
 
-      const colors = ['#f5c065', '#ffd700', '#00e5ff', '#ff4d6d', '#10b981', '#ffffff', '#f43f5e', '#c084fc'];
-      for (let i = 0; i < 200; i++) {
+      const colors = ['#f5c065', '#ffd700', '#00e5ff', '#ff4d6d', '#10b981', '#ffffff', '#f43f5e', '#c084fc', '#fb923c'];
+      for (let i = 0; i < 220; i++) {
+        // Uneven shapes: rectangles, long streamers/strips, round sequins, diamonds, and sparkle stars
+        const rand = Math.random();
+        let shape = 'rect';
+        let width = 0, height = 0, radius = 0, size = 0;
+
+        if (rand < 0.35) {
+          shape = 'rect'; // Varied rectangles
+          width = Math.random() * 8 + 5; // 5 to 13px
+          height = Math.random() * 6 + 3; // 3 to 9px
+        } else if (rand < 0.60) {
+          shape = 'strip'; // Long ribbons / streamers
+          width = Math.random() * 12 + 10; // 10 to 22px
+          height = Math.random() * 2.5 + 2.5; // 2.5 to 5px
+        } else if (rand < 0.80) {
+          shape = 'circle'; // Round sequins / dots
+          radius = Math.random() * 3 + 2; // 2 to 5px radius
+        } else if (rand < 0.90) {
+          shape = 'diamond'; // Diamond gems
+          size = Math.random() * 4 + 4; // 4 to 8px
+        } else {
+          shape = 'star'; // 4-pointed sparkle stars
+          size = Math.random() * 4 + 4; // 4 to 8px
+        }
+
         confettiPieces.push({
-          x: window.innerWidth / 2 + (Math.random() - 0.5) * 60,
+          x: window.innerWidth / 2 + (Math.random() - 0.5) * 80,
           y: window.innerHeight * 0.62,
           vx: (Math.random() - 0.5) * 34,
           vy: -Math.random() * 22 - 12,
-          size: Math.random() * 8 + 6,
+          shape: shape,
+          width: width,
+          height: height,
+          radius: radius,
+          size: size,
           color: colors[Math.floor(Math.random() * colors.length)],
           rotation: Math.random() * 360,
           rotationSpeed: (Math.random() - 0.5) * 26,
-          gravity: 0.65,
+          wobble: Math.random() * 10,
+          wobbleSpeed: Math.random() * 0.16 + 0.08,
+          gravity: Math.random() * 0.2 + 0.55,
           life: 1
         });
       }
@@ -15023,9 +15053,10 @@
         p.x += p.vx;
         p.y += p.vy;
         p.rotation += p.rotationSpeed;
+        p.wobble += p.wobbleSpeed;
         p.life -= 0.011;
 
-        if (p.life <= 0 || p.y > confettiCanvas.height + 20) {
+        if (p.life <= 0 || p.y > confettiCanvas.height + 25) {
           confettiPieces.splice(i, 1);
           continue;
         }
@@ -15033,9 +15064,38 @@
         cctx.save();
         cctx.translate(p.x, p.y);
         cctx.rotate((p.rotation * Math.PI) / 180);
+        // 3D flip flutter effect: compresses horizontally to simulate realistic tumbling paper
+        cctx.scale(Math.cos(p.wobble), 1);
         cctx.globalAlpha = Math.max(0, p.life);
         cctx.fillStyle = p.color;
-        cctx.fillRect(-p.size / 2, -p.size / 4, p.size, p.size / 2);
+
+        if (p.shape === 'circle') {
+          cctx.beginPath();
+          cctx.arc(0, 0, p.radius, 0, Math.PI * 2);
+          cctx.fill();
+        } else if (p.shape === 'diamond') {
+          cctx.beginPath();
+          cctx.moveTo(0, -p.size);
+          cctx.lineTo(p.size * 0.7, 0);
+          cctx.lineTo(0, p.size);
+          cctx.lineTo(-p.size * 0.7, 0);
+          cctx.closePath();
+          cctx.fill();
+        } else if (p.shape === 'star') {
+          cctx.beginPath();
+          const s = p.size;
+          cctx.moveTo(0, -s);
+          cctx.quadraticCurveTo(0, 0, s, 0);
+          cctx.quadraticCurveTo(0, 0, 0, s);
+          cctx.quadraticCurveTo(0, 0, -s, 0);
+          cctx.quadraticCurveTo(0, 0, 0, -s);
+          cctx.closePath();
+          cctx.fill();
+        } else {
+          // 'rect' and 'strip'
+          cctx.fillRect(-p.width / 2, -p.height / 2, p.width, p.height);
+        }
+
         cctx.restore();
       }
       requestAnimationFrame(renderConfetti);
