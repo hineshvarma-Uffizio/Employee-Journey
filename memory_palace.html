@@ -4922,7 +4922,7 @@
 
     .future-top-quote {
       display: flex;
-      align-items: flex-start;
+      align-items: center;
       gap: 10px;
       padding: 2px 8px 6px 8px;
     }
@@ -9267,7 +9267,6 @@
                   <div class="future-top-quote-mark">“</div>
                   <div class="future-top-quote-body">
                     <p class="future-top-quote-text">A goal without a plan is just a wish.</p>
-                    <cite class="future-top-quote-author">— Antoine de Saint-Exupéry</cite>
                   </div>
                 </div>
 
@@ -10075,13 +10074,9 @@
         <!-- Top Quote (Above Artwork) -->
         <div style="background:rgba(15,23,42,0.8); border:1px solid rgba(245,192,101,0.25); border-radius:12px; padding:14px; margin-bottom:14px;">
           <h5 style="color:var(--gold-light); font-size:13px; margin:0 0 10px 0;">💬 Top Quote (Above Artwork)</h5>
-          <div class="form-group" style="margin-bottom:8px;">
+          <div class="form-group">
             <label>Quote Text</label>
             <input type="text" class="form-input" id="adminFutureQuoteText" placeholder="A goal without a plan is just a wish.">
-          </div>
-          <div class="form-group">
-            <label>Quote Author</label>
-            <input type="text" class="form-input" id="adminFutureQuoteAuthor" placeholder="Antoine de Saint-Exupéry">
           </div>
         </div>
 
@@ -12691,12 +12686,6 @@
       const qText = document.querySelector('#chamber-5 .future-top-quote-text');
       if (qText && fut.quoteText) qText.textContent = fut.quoteText;
 
-      const qAuth = document.querySelector('#chamber-5 .future-top-quote-author');
-      if (qAuth && fut.quoteAuthor) {
-        const cleanAuth = fut.quoteAuthor.replace(/^[—\-]\s*/, '');
-        qAuth.textContent = `— ${cleanAuth}`;
-      }
-
       const cardEls = document.querySelectorAll('#chamber-5 .future-card');
       if (cardEls && fut.cards) {
         cardEls.forEach((card, idx) => {
@@ -12735,9 +12724,6 @@
 
       const qT = document.getElementById('adminFutureQuoteText');
       if (qT) qT.value = fut.quoteText || "A goal without a plan is just a wish.";
-
-      const qA = document.getElementById('adminFutureQuoteAuthor');
-      if (qA) qA.value = (fut.quoteAuthor || "Antoine de Saint-Exupéry").replace(/^[—\-]\s*/, '');
 
       const defCards = [
         { title: "What skills do you want to build?", sub: "Share the skills or knowledge you want to develop to grow in your career." },
@@ -17150,14 +17136,12 @@
         // Collect Future (Chamber 08 / Chamber 5)
         const adminFutTitle = document.getElementById('adminFutureTitle');
         const adminFutQuoteText = document.getElementById('adminFutureQuoteText');
-        const adminFutQuoteAuthor = document.getElementById('adminFutureQuoteAuthor');
         const adminFutBottom1 = document.getElementById('adminFutureBottomQuote1');
         const adminFutBottom2 = document.getElementById('adminFutureBottomQuote2');
 
         palaceState.future = palaceState.future || {};
         if (adminFutTitle && adminFutTitle.value.trim()) palaceState.future.title = adminFutTitle.value.trim();
         if (adminFutQuoteText && adminFutQuoteText.value.trim()) palaceState.future.quoteText = adminFutQuoteText.value.trim();
-        if (adminFutQuoteAuthor && adminFutQuoteAuthor.value.trim()) palaceState.future.quoteAuthor = adminFutQuoteAuthor.value.trim();
 
         palaceState.future.cards = [0, 1, 2].map(i => {
           const tInp = document.getElementById(`adminFutureCardTitle${i}`);
@@ -17836,7 +17820,6 @@
         // 8d. The Future (Chamber 08 / Chamber 5)
         const liveFutPlacard = document.querySelector('#chamber-5 .chamber-name');
         const liveFutQuoteText = document.querySelector('#chamber-5 .future-top-quote-text');
-        const liveFutQuoteAuth = document.querySelector('#chamber-5 .future-top-quote-author');
         const liveFutCards = document.querySelectorAll('#chamber-5 .future-card');
         const liveFutBottom1 = document.querySelector('#chamber-5 .quote-line-1');
         const liveFutBottom2 = document.querySelector('#chamber-5 .quote-line-2');
@@ -17845,7 +17828,6 @@
           palaceState.future = palaceState.future || {};
           if (liveFutPlacard) palaceState.future.title = liveFutPlacard.textContent.trim();
           if (liveFutQuoteText) palaceState.future.quoteText = liveFutQuoteText.textContent.trim();
-          if (liveFutQuoteAuth) palaceState.future.quoteAuthor = liveFutQuoteAuth.textContent.trim();
 
           if (liveFutCards && liveFutCards.length > 0) {
             palaceState.future.cards = palaceState.future.cards || [];
