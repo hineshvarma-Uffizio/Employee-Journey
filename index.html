@@ -4750,191 +4750,351 @@
     .btn-fire-confetti:active { transform: scale(0.95); }
 
     /* ==========================================================================
-       ROOM 06: THE FUTURE
+       ROOM 08: THE FUTURE (VISION BOARD)
        ========================================================================== */
+    #chamber-5 .chamber-placard {
+      display: none !important;
+    }
+
+    #chamber-5 .chamber-content {
+      max-width: 1260px;
+      width: 95%;
+      height: calc(100% - 110px);
+      margin-top: 55px;
+    }
+
     .room-future {
       width: 100%;
       height: 100%;
       display: flex;
-      gap: 36px;
       align-items: center;
       justify-content: center;
+      padding: 10px 16px;
+      box-sizing: border-box;
     }
 
-    .horizon-observatory-window {
-      flex: 1.3;
-      height: 420px;
-      border-radius: 20px;
+    .future-board {
+      display: flex;
+      gap: 32px;
+      width: 100%;
+      max-width: 1200px;
+      align-items: stretch;
+      justify-content: space-between;
       position: relative;
-      overflow: hidden;
-      border: 3px solid rgba(255, 255, 255, 0.15);
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9), 0 0 45px rgba(0, 44, 107, 0.7), inset 0 0 40px rgba(0, 0, 0, 0.7);
+      z-index: 5;
+    }
+
+    /* Left Column */
+    .future-col-left {
+      flex: 1.18;
+      max-width: 630px;
+      min-width: 320px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      padding: 24px;
+      gap: 10px;
     }
 
-    .horizon-sky {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(180deg, #090e1f 0%, #171c38 40%, #593d6b 70%, #d97706 90%, #fef08a 100%);
-      z-index: 1;
-    }
-
-    .horizon-sun {
-      position: absolute;
-      bottom: 25px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 110px;
-      height: 110px;
-      border-radius: 50%;
-      background: radial-gradient(circle, #fffbeb 20%, #fde047 50%, #f97316 85%, transparent 100%);
-      box-shadow: 0 0 60px #fde047, 0 0 120px #f97316;
-      z-index: 2;
-    }
-
-    .horizon-mountain-silhouette {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 70px;
-      background: linear-gradient(180deg, transparent 0%, #060913 70%);
-      clip-path: polygon(0% 100%, 15% 45%, 35% 80%, 55% 30%, 75% 65%, 100% 40%, 100% 100%);
-      z-index: 3;
-    }
-
-    .window-mullions {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      border: 6px solid rgba(15, 23, 42, 0.8);
-      border-radius: 18px;
-      z-index: 4;
-      background: linear-gradient(90deg, transparent calc(33% - 2px), rgba(15, 23, 42, 0.8) calc(33% - 2px), rgba(15, 23, 42, 0.8) calc(33% + 2px), transparent calc(33% + 2px),
-                                           transparent calc(66% - 2px), rgba(15, 23, 42, 0.8) calc(66% - 2px), rgba(15, 23, 42, 0.8) calc(66% + 2px), transparent calc(66% + 2px));
-    }
-
-    .observatory-overlay-card {
-      position: relative;
-      z-index: 5;
-      background: rgba(10, 15, 29, 0.7);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      padding: 16px 20px;
-      border-radius: 12px;
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      max-width: 440px;
-    }
-
-    .observatory-overlay-card h3 { font-size: 15px; font-weight: 700; color: var(--gold-light); margin-bottom: 4px; }
-    .observatory-overlay-card p { font-size: 11px; color: #e2e8f0; line-height: 1.5; }
-
-    .vision-pillars-row { position: relative; z-index: 5; display: flex; gap: 10px; }
-
-    .pillar-pill {
-      flex: 1;
-      background: rgba(15, 23, 42, 0.8);
-      backdrop-filter: blur(8px);
-      border: 1px solid rgba(245, 192, 101, 0.3);
-      padding: 10px;
-      border-radius: 10px;
-      font-size: 11px;
-      color: #ffffff;
-      text-align: center;
-    }
-
-    .pillar-pill span {
-      display: block;
-      font-size: 9px;
-      font-family: 'Space Grotesk', sans-serif;
-      color: var(--gold-primary);
-      text-transform: uppercase;
+    .future-header {
       margin-bottom: 2px;
     }
 
-    .future-capsule-card {
-      flex: 1.1;
-      max-width: 480px;
-      height: 420px;
-      background: linear-gradient(145deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.95));
-      border: 1px solid var(--glass-gold-border);
-      border-radius: 20px;
-      padding: 24px;
+    .future-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .future-tag-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--gold-primary);
+      box-shadow: 0 0 10px var(--gold-primary);
+    }
+
+    .future-tag-line {
+      width: 28px;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(245, 192, 101, 0.6), transparent);
+    }
+
+    .future-tag-text {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 1.8px;
+      color: var(--gold-primary);
+      text-transform: uppercase;
+    }
+
+    .future-title {
+      font-family: 'Cinzel', 'Playfair Display', serif;
+      font-size: 27px;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: 0.5px;
+      line-height: 1.25;
+      margin: 0 0 6px 0;
+      text-shadow: 0 2px 14px rgba(0, 0, 0, 0.6);
+    }
+
+    .future-title-gold {
+      background: linear-gradient(135deg, #fce09b 0%, #f5c065 50%, #d4952b 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 800;
+    }
+
+    .future-desc {
+      font-size: 11.8px;
+      line-height: 1.5;
+      color: #94a3b8;
+      margin: 0;
+      max-width: 560px;
+    }
+
+    /* 5 Prompt Cards (No dropdowns!) */
+    .future-cards-list {
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
-      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.7);
+      gap: 8px;
     }
 
-    .capsule-header h3 { font-size: 16px; font-weight: 700; color: var(--gold-light); display: flex; align-items: center; gap: 8px; }
-    .capsule-header p { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
-
-    .capsule-letter-box {
-      width: 100%;
-      height: 140px;
-      background: #0b1120;
-      border: 1px dashed rgba(245, 192, 101, 0.3);
+    .future-card {
+      background: rgba(10, 18, 36, 0.72);
+      border: 1px solid rgba(59, 130, 246, 0.22);
       border-radius: 12px;
-      padding: 14px;
-      color: #f1f5f9;
-      font-size: 13px;
-      line-height: 1.6;
-      resize: none;
-      outline: none;
-      margin: 12px 0;
+      padding: 9.5px 14px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+      position: relative;
     }
 
-    .capsule-letter-box:focus { border-color: var(--gold-primary); }
+    .future-card:hover {
+      border-color: rgba(245, 192, 101, 0.45);
+      transform: translateY(-1.5px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5), 0 0 16px rgba(59, 130, 246, 0.15);
+      background: rgba(14, 25, 52, 0.85);
+    }
 
-    .capsule-actions-row { display: flex; gap: 12px; }
-
-    .btn-seal-capsule {
-      flex: 1;
-      padding: 12px;
-      border-radius: 12px;
-      background: linear-gradient(135deg, var(--gold-dark), var(--gold-primary));
-      border: none;
-      color: #0f172a;
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 13px;
-      font-weight: 700;
-      cursor: pointer;
+    .future-card-icon-wrap {
+      width: 36px;
+      height: 36px;
+      min-width: 36px;
+      border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
-      box-shadow: 0 4px 15px var(--gold-glow);
-      transition: all 0.2s;
+      position: relative;
     }
 
-    .btn-seal-capsule:hover { transform: translateY(-2px); box-shadow: 0 8px 25px var(--gold-glow); }
+    .future-card-icon-wrap.icon-theme-blue {
+      background: rgba(14, 30, 60, 0.9);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      color: #38bdf8;
+      box-shadow: inset 0 0 8px rgba(56, 189, 248, 0.15);
+    }
 
-    .btn-download-cert {
-      padding: 12px 16px;
+    .future-card-icon-wrap.icon-theme-gold {
+      background: rgba(36, 28, 12, 0.9);
+      border: 1px solid rgba(245, 192, 101, 0.4);
+      color: #f5c065;
+      box-shadow: inset 0 0 8px rgba(245, 192, 101, 0.15);
+    }
+
+    .future-icon-svg {
+      width: 17px;
+      height: 17px;
+    }
+
+    .future-card-text {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .future-card-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: #f8fafc;
+      margin: 0 0 2px 0;
+      line-height: 1.35;
+    }
+
+    .future-card-sub {
+      font-size: 11px;
+      color: #94a3b8;
+      line-height: 1.35;
+      margin: 0;
+    }
+
+    /* Bottom Quote Banner */
+    .future-bottom-quote {
+      background: rgba(10, 18, 36, 0.55);
+      border: 1px solid rgba(245, 192, 101, 0.25);
       border-radius: 12px;
-      background: rgba(30, 41, 59, 0.8);
-      border: 1px solid var(--glass-border);
-      color: var(--gold-light);
+      padding: 9px 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 3px;
+    }
+
+    .future-quote-sparkle {
+      color: var(--gold-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      min-width: 20px;
+    }
+
+    .future-quote-sep {
+      width: 1px;
+      height: 26px;
+      background: rgba(245, 192, 101, 0.35);
+    }
+
+    .future-bottom-quote-text {
+      font-family: 'Georgia', 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 11.5px;
+      color: #cbd5e1;
+      line-height: 1.4;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Right Column */
+    .future-col-right {
+      flex: 0.95;
+      max-width: 480px;
+      min-width: 320px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    .future-top-quote {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 2px 8px 8px 8px;
+      margin-bottom: 4px;
+    }
+
+    .future-top-quote-mark {
+      font-family: 'Georgia', serif;
+      font-size: 32px;
+      line-height: 0.8;
+      color: #38bdf8;
+      opacity: 0.85;
+      user-select: none;
+    }
+
+    .future-top-quote-body {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .future-top-quote-text {
+      font-family: 'Playfair Display', 'Georgia', serif;
+      font-style: italic;
+      font-size: 13.5px;
+      color: #f1f5f9;
+      margin: 0;
+      line-height: 1.4;
+    }
+
+    .future-top-quote-author {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 11px;
+      color: #94a3b8;
+      font-style: normal;
+      margin-top: 2px;
+    }
+
+    .future-artwork-container {
+      position: relative;
+      width: 100%;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 16px 45px rgba(0, 0, 0, 0.7), 0 0 35px rgba(0, 44, 107, 0.35);
+      background: #060a16;
+    }
+
+    .future-artwork-img {
+      width: 100%;
+      height: auto;
+      max-height: 420px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .future-artwork-overlay-edge {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 15%;
+      height: 100%;
+      pointer-events: none;
+      background: linear-gradient(to right, rgba(6, 10, 22, 0.95) 0%, rgba(6, 10, 22, 0) 100%);
+    }
+
+    .btn-save-future-vision {
+      position: absolute;
+      bottom: 18px;
+      right: 20px;
+      z-index: 10;
+      padding: 10px 18px;
+      border-radius: 24px;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #f1f5f9;
       font-family: 'Space Grotesk', sans-serif;
       font-size: 12px;
       font-weight: 600;
       cursor: pointer;
-      display: flex;
+      display: inline-flex;
       align-items: center;
-      gap: 6px;
-      transition: all 0.2s;
+      gap: 8px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+      transition: all 0.25s ease;
     }
 
-    .btn-download-cert:hover { background: #334155; border-color: var(--gold-primary); }
+    .btn-save-future-vision:hover {
+      background: rgba(30, 41, 59, 0.95);
+      border-color: var(--gold-primary);
+      color: var(--gold-light);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.8), 0 0 16px rgba(245, 192, 101, 0.3);
+    }
+
+    @media (max-width: 900px) {
+      .future-board {
+        flex-direction: column;
+        gap: 20px;
+      }
+      .future-col-left, .future-col-right {
+        max-width: 100%;
+        width: 100%;
+      }
+      .future-top-quote {
+        display: none;
+      }
+    }
 
     /* ==========================================================================
        BOTTOM PALACE CORRIDOR NAVIGATION
@@ -9125,7 +9285,7 @@
       </section>
 
       <!-- ====================================================================
-           ROOM 06: THE FUTURE
+           ROOM 08: THE FUTURE (VISION BOARD)
            ==================================================================== -->
       <section class="palace-chamber" id="chamber-5" data-index="5">
         <div class="room-shell">
@@ -9140,54 +9300,135 @@
 
         <div class="chamber-content">
           <div class="room-future">
-            
-            <div class="horizon-observatory-window">
-              <div class="horizon-sky"></div>
-              <div class="horizon-sun"></div>
-              <div class="horizon-mountain-silhouette"></div>
-              <div class="window-mullions"></div>
+            <div class="future-board">
+              
+              <!-- Left Column: Header + 5 Prompt Cards (No Dropdowns!) + Bottom Quote -->
+              <div class="future-col-left">
+                <!-- Header -->
+                <div class="future-header">
+                  <div class="future-tag">
+                    <span class="future-tag-dot"></span>
+                    <span class="future-tag-line"></span>
+                    <span class="future-tag-text" contenteditable="true" data-editable="true" title="Click to edit section tag">SECTION 08 • THE FUTURE</span>
+                  </div>
+                  <h2 class="future-title" contenteditable="true" data-editable="true" title="Click to edit main title">
+                    My Vision for <span class="future-title-gold">What's Next</span>
+                  </h2>
+                  <p class="future-desc" contenteditable="true" data-editable="true" title="Click to edit description">
+                    Let's look ahead. Share your thoughts, goals, and aspirations for the next chapter of your journey with Uffizio.
+                  </p>
+                </div>
 
-              <div class="observatory-overlay-card">
-                <h3 contenteditable="true" data-editable="true" title="Click to edit heading">Panoramic Future Horizon</h3>
-                <p contenteditable="true" data-editable="true" title="Click to edit description">The dawn of new challenges, greater leadership, and unbounded personal mastery.</p>
+                <!-- 5 Vision Prompt Cards (No Dropdowns!) -->
+                <div class="future-cards-list">
+                  <!-- Card 0 -->
+                  <div class="future-card" data-idx="0">
+                    <div class="future-card-icon-wrap icon-theme-blue">
+                      <svg class="future-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 20V10M12 20V4M6 20v-6"/>
+                        <path d="M4 8l5-5 4 4 7-7"/>
+                      </svg>
+                    </div>
+                    <div class="future-card-text">
+                      <h4 class="future-card-title" contenteditable="true" data-editable="true" title="Click to edit question">What skills do you want to build?</h4>
+                      <p class="future-card-sub" contenteditable="true" data-editable="true" title="Click to edit prompt">Share the skills or knowledge you want to develop to grow in your career.</p>
+                    </div>
+                  </div>
+
+                  <!-- Card 1 -->
+                  <div class="future-card" data-idx="1">
+                    <div class="future-card-icon-wrap icon-theme-blue">
+                      <svg class="future-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M4 21h16M4 21l8-14 4 7 4-5v12"/>
+                        <path d="M12 7V3l3 2-3 2"/>
+                      </svg>
+                    </div>
+                    <div class="future-card-text">
+                      <h4 class="future-card-title" contenteditable="true" data-editable="true" title="Click to edit question">What new challenges do you want to take on?</h4>
+                      <p class="future-card-sub" contenteditable="true" data-editable="true" title="Click to edit prompt">Tell us about the kind of opportunities or responsibilities you would like to explore.</p>
+                    </div>
+                  </div>
+
+                  <!-- Card 2 -->
+                  <div class="future-card" data-idx="2">
+                    <div class="future-card-icon-wrap icon-theme-gold">
+                      <svg class="future-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 18h6M10 22h4M12 2a7 7 0 00-7 7c0 2.5 1.5 4.7 3.5 6h7c2-1.3 3.5-3.5 3.5-6a7 7 0 00-7-7z"/>
+                      </svg>
+                    </div>
+                    <div class="future-card-text">
+                      <h4 class="future-card-title" contenteditable="true" data-editable="true" title="Click to edit question">What impact do you want to create?</h4>
+                      <p class="future-card-sub" contenteditable="true" data-editable="true" title="Click to edit prompt">How do you see yourself contributing more to your team and Uffizio?</p>
+                    </div>
+                  </div>
+
+                  <!-- Card 3 -->
+                  <div class="future-card" data-idx="3">
+                    <div class="future-card-icon-wrap icon-theme-blue">
+                      <svg class="future-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
+                        <circle cx="9" cy="7" r="4"/>
+                        <path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/>
+                      </svg>
+                    </div>
+                    <div class="future-card-text">
+                      <h4 class="future-card-title" contenteditable="true" data-editable="true" title="Click to edit question">Where do you see yourself in the next 1–2 years?</h4>
+                      <p class="future-card-sub" contenteditable="true" data-editable="true" title="Click to edit prompt">Share your career aspirations and the role you envision for yourself.</p>
+                    </div>
+                  </div>
+
+                  <!-- Card 4 -->
+                  <div class="future-card" data-idx="4">
+                    <div class="future-card-icon-wrap icon-theme-gold">
+                      <svg class="future-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                      </svg>
+                    </div>
+                    <div class="future-card-text">
+                      <h4 class="future-card-title" contenteditable="true" data-editable="true" title="Click to edit question">Anything else you would like to add?</h4>
+                      <p class="future-card-sub" contenteditable="true" data-editable="true" title="Click to edit prompt">A space for your additional thoughts, dreams, or a personal message.</p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Bottom Quote Banner -->
+                <div class="future-bottom-quote">
+                  <div class="future-quote-sparkle">✦</div>
+                  <div class="future-quote-sep"></div>
+                  <div class="future-bottom-quote-text" contenteditable="true" data-editable="true" title="Click to edit banner quote">
+                    <span class="quote-line-1">Your journey doesn't end here.</span>
+                    <span class="quote-line-2">It evolves with every step you take.</span>
+                  </div>
+                </div>
               </div>
 
-              <div class="vision-pillars-row">
-                <div class="pillar-pill">
-                  <span contenteditable="true" data-editable="true" title="Click to edit tag">Pillar 01</span>
-                  <b contenteditable="true" data-editable="true" title="Click to edit title">Architectural Leadership</b>
+              <!-- Right Column: Top Quote + Artwork + Save Button -->
+              <div class="future-col-right">
+                <!-- Top Quote -->
+                <div class="future-top-quote" contenteditable="true" data-editable="true" title="Click to edit quote">
+                  <div class="future-top-quote-mark">“</div>
+                  <div class="future-top-quote-body">
+                    <p class="future-top-quote-text">A goal without a plan is just a wish.</p>
+                    <cite class="future-top-quote-author">— Antoine de Saint-Exupéry</cite>
+                  </div>
                 </div>
-                <div class="pillar-pill">
-                  <span contenteditable="true" data-editable="true" title="Click to edit tag">Pillar 02</span>
-                  <b contenteditable="true" data-editable="true" title="Click to edit title">Next-Gen AI Systems</b>
-                </div>
-                <div class="pillar-pill">
-                  <span contenteditable="true" data-editable="true" title="Click to edit tag">Pillar 03</span>
-                  <b contenteditable="true" data-editable="true" title="Click to edit title">Mentoring Future Stars</b>
+
+                <!-- Artwork with Atmospheric Horizon Desk -->
+                <div class="future-artwork-container">
+                  <img src="future_vision_board.png" alt="Future Horizon Observatory" class="future-artwork-img" loading="eager">
+                  <div class="future-artwork-overlay-edge"></div>
+
+                  <!-- Save Button -->
+                  <button class="btn-save-future-vision" id="btnSaveFutureVision" type="button" title="Save your vision">
+                    <span class="btn-save-future-label">Save My Vision</span>
+                    <svg class="btn-save-future-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                  </button>
                 </div>
               </div>
+
             </div>
-
-            <div class="future-capsule-card">
-              <div>
-                <div class="capsule-header">
-                  <h3 contenteditable="true" data-editable="true" title="Click to edit heading">⏳ Time Capsule to Next Year's Self</h3>
-                  <p contenteditable="true" data-editable="true" title="Click to edit description">Write an aspiration or note for yourself 12 months from now. It will be sealed in your digital vault.</p>
-                </div>
-
-                <textarea class="capsule-letter-box" id="capsuleLetter" placeholder="Dear future me, this year we built something incredible. In the coming year, I promise to keep learning, dare bigger, and..."></textarea>
-              </div>
-
-              <div class="capsule-actions-row">
-                <button class="btn-seal-capsule" id="btnSealCapsule">
-                  <span contenteditable="true" data-editable="true" title="Click to edit label">⚜️ Seal Time Capsule</span>
-                </button>
-                <button class="btn-download-cert" id="btnOpenCertModal">
-                  <span contenteditable="true" data-editable="true" title="Click to edit label">📜 Souvenir Card</span>
-                </button>
-              </div>
-            </div>
-
           </div>
         </div>
       </section>
@@ -9966,103 +10207,133 @@
       <div class="admin-tab-content" id="tab-future">
         <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:14px; gap:10px;">
           <div>
-            <h4 style="color:var(--gold-light); font-size:15px; margin:0 0 4px 0;">🔮 Chamber 08: The Future Horizon</h4>
-            <p style="font-size:12px; color:#94a3b8; margin:0;">Customize the Panoramic Horizon observatory, 3 Vision Pillars, and Time Capsule message.</p>
+            <h4 style="color:var(--gold-light); font-size:15px; margin:0 0 4px 0;">🔮 Chamber 08: The Future (Vision Board)</h4>
+            <p style="font-size:12px; color:#94a3b8; margin:0;">Customize the Section Tag, Header, Top Quote, 5 Vision Prompt Cards, Bottom Banner, and Save Action.</p>
           </div>
           <button type="button" class="btn-primary-add" onclick="window.previewRoomStage('chamber-5')" style="white-space:nowrap; padding:6px 12px; font-size:12px;">👁️ View Room</button>
         </div>
 
-        <!-- Chamber Heading / Placard -->
+        <!-- Section Tag & Main Title -->
         <div style="background:rgba(15,23,42,0.8); border:1px solid rgba(245,192,101,0.3); border-radius:12px; padding:14px; margin-bottom:14px;">
-          <h5 style="color:var(--gold-primary); font-size:13px; margin:0 0 10px 0;">🏛️ Chamber Placard Title</h5>
+          <h5 style="color:var(--gold-primary); font-size:13px; margin:0 0 10px 0;">🏛️ Room Header & Placard</h5>
+          <div style="display:grid; grid-template-columns: 1fr 2fr; gap:12px; margin-bottom:10px;">
+            <div class="form-group">
+              <label>Section Tag</label>
+              <input type="text" class="form-input" id="adminFutureTag" placeholder="SECTION 08 • THE FUTURE">
+            </div>
+            <div class="form-group">
+              <label>Main Title</label>
+              <input type="text" class="form-input" id="adminFutureTitle" placeholder="My Vision for What's Next">
+            </div>
+          </div>
           <div class="form-group">
-            <label>Placard Title</label>
-            <input type="text" class="form-input" id="adminFutureTitle" placeholder="The Future">
+            <label>Subtitle / Vision Statement</label>
+            <textarea class="form-input form-textarea" id="adminFutureDesc" rows="2" placeholder="Let's look ahead. Share your thoughts, goals, and aspirations for the next chapter of your journey with Uffizio."></textarea>
           </div>
         </div>
 
-        <!-- Panoramic Observatory Card -->
-        <div style="background:rgba(15,23,42,0.8); border:1px solid rgba(0,229,255,0.3); border-radius:12px; padding:14px; margin-bottom:14px;">
-          <h5 style="color:var(--cyan-accent); font-size:13px; margin:0 0 10px 0;">🌅 Panoramic Observatory Horizon Card</h5>
-          <div class="form-group" style="margin-bottom:10px;">
-            <label>Horizon Card Title</label>
-            <input type="text" class="form-input" id="adminFutureHorizonTitle" placeholder="Panoramic Future Horizon">
-          </div>
-          <div class="form-group">
-            <label>Horizon Subtitle / Vision Statement</label>
-            <textarea class="form-input form-textarea" id="adminFutureHorizonDesc" rows="2" placeholder="The dawn of new challenges, greater leadership, and unbounded personal mastery."></textarea>
+        <!-- Top Right Quote -->
+        <div style="background:rgba(15,23,42,0.8); border:1px solid rgba(56,189,248,0.3); border-radius:12px; padding:14px; margin-bottom:14px;">
+          <h5 style="color:var(--cyan-accent); font-size:13px; margin:0 0 10px 0;">📜 Top Inspiration Quote</h5>
+          <div style="display:grid; grid-template-columns: 2fr 1fr; gap:12px;">
+            <div class="form-group">
+              <label>Quote Text</label>
+              <input type="text" class="form-input" id="adminFutureQuoteText" placeholder="A goal without a plan is just a wish.">
+            </div>
+            <div class="form-group">
+              <label>Author</label>
+              <input type="text" class="form-input" id="adminFutureQuoteAuthor" placeholder="Antoine de Saint-Exupéry">
+            </div>
           </div>
         </div>
 
-        <!-- 3 Vision Pillars -->
+        <!-- 5 Vision Prompt Cards (No Dropdowns!) -->
         <div style="background:rgba(15,23,42,0.8); border:1px solid rgba(245,192,101,0.25); border-radius:12px; padding:14px; margin-bottom:14px;">
-          <h5 style="color:var(--gold-light); font-size:13px; margin:0 0 10px 0;">🏛️ 3 Vision Pillars</h5>
-          <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap:12px;">
-            <!-- Pillar 1 -->
+          <h5 style="color:var(--gold-light); font-size:13px; margin:0 0 10px 0;">✨ 5 Vision Prompt Cards</h5>
+          <div style="display:flex; flex-direction:column; gap:12px;">
+            <!-- Card 0 -->
             <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.1); border-radius:10px; padding:12px;">
-              <div style="font-weight:600; font-size:12px; color:var(--gold-primary); margin-bottom:8px;">Pillar 01</div>
+              <div style="font-weight:600; font-size:12px; color:var(--gold-primary); margin-bottom:8px;">Card 01 (📈 Skills)</div>
               <div class="form-group" style="margin-bottom:8px;">
-                <label>Tag Label</label>
-                <input type="text" class="form-input" id="adminFuturePillarTag0" placeholder="Pillar 01">
+                <label>Question / Title</label>
+                <input type="text" class="form-input" id="adminFutureCardTitle0" placeholder="What skills do you want to build?">
               </div>
               <div class="form-group">
-                <label>Title / Aspiration</label>
-                <input type="text" class="form-input" id="adminFuturePillarTitle0" placeholder="Architectural Leadership">
+                <label>Prompt Description</label>
+                <input type="text" class="form-input" id="adminFutureCardSub0" placeholder="Share the skills or knowledge you want to develop to grow in your career.">
               </div>
             </div>
 
-            <!-- Pillar 2 -->
+            <!-- Card 1 -->
             <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.1); border-radius:10px; padding:12px;">
-              <div style="font-weight:600; font-size:12px; color:var(--gold-primary); margin-bottom:8px;">Pillar 02</div>
+              <div style="font-weight:600; font-size:12px; color:var(--gold-primary); margin-bottom:8px;">Card 02 (🚩 Challenges)</div>
               <div class="form-group" style="margin-bottom:8px;">
-                <label>Tag Label</label>
-                <input type="text" class="form-input" id="adminFuturePillarTag1" placeholder="Pillar 02">
+                <label>Question / Title</label>
+                <input type="text" class="form-input" id="adminFutureCardTitle1" placeholder="What new challenges do you want to take on?">
               </div>
               <div class="form-group">
-                <label>Title / Aspiration</label>
-                <input type="text" class="form-input" id="adminFuturePillarTitle1" placeholder="Next-Gen AI Systems">
+                <label>Prompt Description</label>
+                <input type="text" class="form-input" id="adminFutureCardSub1" placeholder="Tell us about the kind of opportunities or responsibilities you would like to explore.">
               </div>
             </div>
 
-            <!-- Pillar 3 -->
+            <!-- Card 2 -->
             <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.1); border-radius:10px; padding:12px;">
-              <div style="font-weight:600; font-size:12px; color:var(--gold-primary); margin-bottom:8px;">Pillar 03</div>
+              <div style="font-weight:600; font-size:12px; color:var(--gold-primary); margin-bottom:8px;">Card 03 (💡 Impact)</div>
               <div class="form-group" style="margin-bottom:8px;">
-                <label>Tag Label</label>
-                <input type="text" class="form-input" id="adminFuturePillarTag2" placeholder="Pillar 03">
+                <label>Question / Title</label>
+                <input type="text" class="form-input" id="adminFutureCardTitle2" placeholder="What impact do you want to create?">
               </div>
               <div class="form-group">
-                <label>Title / Aspiration</label>
-                <input type="text" class="form-input" id="adminFuturePillarTitle2" placeholder="Mentoring Future Stars">
+                <label>Prompt Description</label>
+                <input type="text" class="form-input" id="adminFutureCardSub2" placeholder="How do you see yourself contributing more to your team and Uffizio?">
+              </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.1); border-radius:10px; padding:12px;">
+              <div style="font-weight:600; font-size:12px; color:var(--gold-primary); margin-bottom:8px;">Card 04 (👥 Next 1–2 Years)</div>
+              <div class="form-group" style="margin-bottom:8px;">
+                <label>Question / Title</label>
+                <input type="text" class="form-input" id="adminFutureCardTitle3" placeholder="Where do you see yourself in the next 1–2 years?">
+              </div>
+              <div class="form-group">
+                <label>Prompt Description</label>
+                <input type="text" class="form-input" id="adminFutureCardSub3" placeholder="Share your career aspirations and the role you envision for yourself.">
+              </div>
+            </div>
+
+            <!-- Card 4 -->
+            <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.1); border-radius:10px; padding:12px;">
+              <div style="font-weight:600; font-size:12px; color:var(--gold-primary); margin-bottom:8px;">Card 05 (⭐ Additional Thoughts)</div>
+              <div class="form-group" style="margin-bottom:8px;">
+                <label>Question / Title</label>
+                <input type="text" class="form-input" id="adminFutureCardTitle4" placeholder="Anything else you would like to add?">
+              </div>
+              <div class="form-group">
+                <label>Prompt Description</label>
+                <input type="text" class="form-input" id="adminFutureCardSub4" placeholder="A space for your additional thoughts, dreams, or a personal message.">
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Time Capsule to Next Year's Self -->
+        <!-- Bottom Quote Banner & Action Button -->
         <div style="background:rgba(245,192,101,0.06); border:1px solid rgba(245,192,101,0.25); border-radius:10px; padding:14px; margin-bottom:14px;">
-          <h5 style="color:var(--gold-primary); font-size:13px; margin:0 0 10px 0;">⏳ Time Capsule Vault</h5>
+          <h5 style="color:var(--gold-primary); font-size:13px; margin:0 0 10px 0;">🌟 Bottom Quote Banner & Action Button</h5>
           <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px; margin-bottom:10px;">
             <div class="form-group">
-              <label>Capsule Heading</label>
-              <input type="text" class="form-input" id="adminFutureCapsuleTitle" placeholder="⏳ Time Capsule to Next Year's Self">
+              <label>Bottom Banner Line 1</label>
+              <input type="text" class="form-input" id="adminFutureBottomQuote1" placeholder="Your journey doesn't end here.">
             </div>
             <div class="form-group">
-              <label>Seal Button Label</label>
-              <input type="text" class="form-input" id="adminFutureBtnSealText" placeholder="⚜️ Seal Time Capsule">
+              <label>Bottom Banner Line 2</label>
+              <input type="text" class="form-input" id="adminFutureBottomQuote2" placeholder="It evolves with every step you take.">
             </div>
           </div>
-          <div class="form-group" style="margin-bottom:10px;">
-            <label>Instruction Description</label>
-            <textarea class="form-input form-textarea" id="adminFutureCapsuleDesc" rows="2" placeholder="Write an aspiration or note for yourself 12 months from now. It will be sealed in your digital vault."></textarea>
-          </div>
-          <div class="form-group" style="margin-bottom:10px;">
-            <label>Default / Placeholder Message</label>
-            <textarea class="form-input form-textarea" id="adminFutureCapsulePlaceholder" rows="2" placeholder="Dear future me, this year we built something incredible. In the coming year, I promise to keep learning, dare bigger, and..."></textarea>
-          </div>
           <div class="form-group">
-            <label>Souvenir Card Button Label</label>
-            <input type="text" class="form-input" id="adminFutureBtnCertText" placeholder="📜 Souvenir Card">
+            <label>Save Button Label</label>
+            <input type="text" class="form-input" id="adminFutureBtnSaveText" placeholder="Save My Vision">
           </div>
         </div>
       </div>
@@ -12594,20 +12865,21 @@
     // ==========================================================================
     function renderFutureRoom() {
       const fut = palaceState.future || {
-        title: "The Future",
-        sub: "Looking ahead to the next summits, vision, and growth with Uffizio.",
-        horizonTitle: "Panoramic Future Horizon",
-        horizonDesc: "The dawn of new challenges, greater leadership, and unbounded personal mastery.",
-        pillars: [
-          { tag: "Pillar 01", title: "Architectural Leadership" },
-          { tag: "Pillar 02", title: "Next-Gen AI Systems" },
-          { tag: "Pillar 03", title: "Mentoring Future Stars" }
+        tag: "SECTION 08 • THE FUTURE",
+        title: "My Vision for What's Next",
+        sub: "Let's look ahead. Share your thoughts, goals, and aspirations for the next chapter of your journey with Uffizio.",
+        quoteText: "A goal without a plan is just a wish.",
+        quoteAuthor: "Antoine de Saint-Exupéry",
+        cards: [
+          { title: "What skills do you want to build?", sub: "Share the skills or knowledge you want to develop to grow in your career." },
+          { title: "What new challenges do you want to take on?", sub: "Tell us about the kind of opportunities or responsibilities you would like to explore." },
+          { title: "What impact do you want to create?", sub: "How do you see yourself contributing more to your team and Uffizio?" },
+          { title: "Where do you see yourself in the next 1–2 years?", sub: "Share your career aspirations and the role you envision for yourself." },
+          { title: "Anything else you would like to add?", sub: "A space for your additional thoughts, dreams, or a personal message." }
         ],
-        capsuleTitle: "⏳ Time Capsule to Next Year's Self",
-        capsuleDesc: "Write an aspiration or note for yourself 12 months from now. It will be sealed in your digital vault.",
-        capsulePlaceholder: "Dear future me, this year we built something incredible. In the coming year, I promise to keep learning, dare bigger, and...",
-        btnSealText: "⚜️ Seal Time Capsule",
-        btnCertText: "📜 Souvenir Card"
+        bottomQuote1: "Your journey doesn't end here.",
+        bottomQuote2: "It evolves with every step you take.",
+        btnSaveText: "Save My Vision"
       };
 
       const placard = document.querySelector('#chamber-5 .chamber-name');
@@ -12616,95 +12888,110 @@
         placard.textContent = fut.title || (ch5Room && ch5Room.title) || "The Future";
       }
 
-      const horH3 = document.querySelector('#chamber-5 .observatory-overlay-card h3');
-      if (horH3 && fut.horizonTitle) horH3.textContent = fut.horizonTitle;
+      const tagEl = document.querySelector('#chamber-5 .future-tag-text');
+      if (tagEl && fut.tag) tagEl.textContent = fut.tag;
 
-      const horP = document.querySelector('#chamber-5 .observatory-overlay-card p');
-      if (horP && fut.horizonDesc) horP.textContent = fut.horizonDesc;
+      const titleEl = document.querySelector('#chamber-5 .future-title');
+      if (titleEl && fut.title) {
+        if (fut.title.toLowerCase().includes("what's next")) {
+          const parts = fut.title.split(/(What's Next)/i);
+          titleEl.innerHTML = (parts[0] || 'My Vision for ') + `<span class="future-title-gold">${parts[1] || "What's Next"}</span>` + (parts[2] || '');
+        } else {
+          titleEl.textContent = fut.title;
+        }
+      }
 
-      const pillEls = document.querySelectorAll('#chamber-5 .vision-pillars-row .pillar-pill');
-      if (pillEls && fut.pillars) {
-        pillEls.forEach((el, idx) => {
-          const p = fut.pillars[idx];
-          if (!p) return;
-          const sp = el.querySelector('span');
-          const b = el.querySelector('b');
-          if (sp && p.tag) sp.textContent = p.tag;
-          if (b && p.title) b.textContent = p.title;
+      const descEl = document.querySelector('#chamber-5 .future-desc');
+      if (descEl && fut.sub) descEl.textContent = fut.sub;
+
+      const qText = document.querySelector('#chamber-5 .future-top-quote-text');
+      if (qText && fut.quoteText) qText.textContent = fut.quoteText;
+
+      const qAuth = document.querySelector('#chamber-5 .future-top-quote-author');
+      if (qAuth && fut.quoteAuthor) {
+        qAuth.textContent = fut.quoteAuthor.startsWith('—') ? fut.quoteAuthor : `— ${fut.quoteAuthor}`;
+      }
+
+      const cardEls = document.querySelectorAll('#chamber-5 .future-card');
+      if (cardEls && fut.cards) {
+        cardEls.forEach((card, idx) => {
+          const cData = fut.cards[idx];
+          if (!cData) return;
+          const tEl = card.querySelector('.future-card-title');
+          const sEl = card.querySelector('.future-card-sub');
+          if (tEl && cData.title) tEl.textContent = cData.title;
+          if (sEl && cData.sub) sEl.textContent = cData.sub;
         });
       }
 
-      const capH3 = document.querySelector('#chamber-5 .capsule-header h3');
-      if (capH3 && fut.capsuleTitle) capH3.textContent = fut.capsuleTitle;
+      const bq1 = document.querySelector('#chamber-5 .quote-line-1');
+      if (bq1 && fut.bottomQuote1) bq1.textContent = fut.bottomQuote1;
 
-      const capP = document.querySelector('#chamber-5 .capsule-header p');
-      if (capP && fut.capsuleDesc) capP.textContent = fut.capsuleDesc;
+      const bq2 = document.querySelector('#chamber-5 .quote-line-2');
+      if (bq2 && fut.bottomQuote2) bq2.textContent = fut.bottomQuote2;
 
-      const capLetter = document.getElementById('capsuleLetter');
-      if (capLetter && fut.capsulePlaceholder) capLetter.setAttribute('placeholder', fut.capsulePlaceholder);
-
-      const sealBtn = document.querySelector('#chamber-5 #btnSealCapsule span');
-      if (sealBtn && fut.btnSealText) sealBtn.textContent = fut.btnSealText;
-
-      const certBtn = document.querySelector('#chamber-5 #btnOpenCertModal span');
-      if (certBtn && fut.btnCertText) certBtn.textContent = fut.btnCertText;
+      const btnSaveLabel = document.querySelector('#chamber-5 .btn-save-future-label');
+      if (btnSaveLabel && fut.btnSaveText) btnSaveLabel.textContent = fut.btnSaveText;
     }
 
     function populateAdminFuture() {
       const fut = palaceState.future || {
-        title: "The Future",
-        sub: "Looking ahead to the next summits, vision, and growth with Uffizio.",
-        horizonTitle: "Panoramic Future Horizon",
-        horizonDesc: "The dawn of new challenges, greater leadership, and unbounded personal mastery.",
-        pillars: [
-          { tag: "Pillar 01", title: "Architectural Leadership" },
-          { tag: "Pillar 02", title: "Next-Gen AI Systems" },
-          { tag: "Pillar 03", title: "Mentoring Future Stars" }
+        tag: "SECTION 08 • THE FUTURE",
+        title: "My Vision for What's Next",
+        sub: "Let's look ahead. Share your thoughts, goals, and aspirations for the next chapter of your journey with Uffizio.",
+        quoteText: "A goal without a plan is just a wish.",
+        quoteAuthor: "Antoine de Saint-Exupéry",
+        cards: [
+          { title: "What skills do you want to build?", sub: "Share the skills or knowledge you want to develop to grow in your career." },
+          { title: "What new challenges do you want to take on?", sub: "Tell us about the kind of opportunities or responsibilities you would like to explore." },
+          { title: "What impact do you want to create?", sub: "How do you see yourself contributing more to your team and Uffizio?" },
+          { title: "Where do you see yourself in the next 1–2 years?", sub: "Share your career aspirations and the role you envision for yourself." },
+          { title: "Anything else you would like to add?", sub: "A space for your additional thoughts, dreams, or a personal message." }
         ],
-        capsuleTitle: "⏳ Time Capsule to Next Year's Self",
-        capsuleDesc: "Write an aspiration or note for yourself 12 months from now. It will be sealed in your digital vault.",
-        capsulePlaceholder: "Dear future me, this year we built something incredible. In the coming year, I promise to keep learning, dare bigger, and...",
-        btnSealText: "⚜️ Seal Time Capsule",
-        btnCertText: "📜 Souvenir Card"
+        bottomQuote1: "Your journey doesn't end here.",
+        bottomQuote2: "It evolves with every step you take.",
+        btnSaveText: "Save My Vision"
       };
 
+      const tagInp = document.getElementById('adminFutureTag');
+      if (tagInp) tagInp.value = fut.tag || "SECTION 08 • THE FUTURE";
+
       const titleInp = document.getElementById('adminFutureTitle');
-      if (titleInp) titleInp.value = fut.title || "The Future";
+      if (titleInp) titleInp.value = fut.title || "My Vision for What's Next";
 
-      const horT = document.getElementById('adminFutureHorizonTitle');
-      if (horT) horT.value = fut.horizonTitle || "Panoramic Future Horizon";
+      const descInp = document.getElementById('adminFutureDesc');
+      if (descInp) descInp.value = fut.sub || "Let's look ahead. Share your thoughts, goals, and aspirations for the next chapter of your journey with Uffizio.";
 
-      const horD = document.getElementById('adminFutureHorizonDesc');
-      if (horD) horD.value = fut.horizonDesc || "The dawn of new challenges, greater leadership, and unbounded personal mastery.";
+      const qT = document.getElementById('adminFutureQuoteText');
+      if (qT) qT.value = fut.quoteText || "A goal without a plan is just a wish.";
 
-      const defPillars = [
-        { tag: "Pillar 01", title: "Architectural Leadership" },
-        { tag: "Pillar 02", title: "Next-Gen AI Systems" },
-        { tag: "Pillar 03", title: "Mentoring Future Stars" }
+      const qA = document.getElementById('adminFutureQuoteAuthor');
+      if (qA) qA.value = (fut.quoteAuthor || "Antoine de Saint-Exupéry").replace(/^[—\-]\s*/, '');
+
+      const defCards = [
+        { title: "What skills do you want to build?", sub: "Share the skills or knowledge you want to develop to grow in your career." },
+        { title: "What new challenges do you want to take on?", sub: "Tell us about the kind of opportunities or responsibilities you would like to explore." },
+        { title: "What impact do you want to create?", sub: "How do you see yourself contributing more to your team and Uffizio?" },
+        { title: "Where do you see yourself in the next 1–2 years?", sub: "Share your career aspirations and the role you envision for yourself." },
+        { title: "Anything else you would like to add?", sub: "A space for your additional thoughts, dreams, or a personal message." }
       ];
 
-      for (let i = 0; i < 3; i++) {
-        const p = (fut.pillars && fut.pillars[i]) || defPillars[i];
-        const tagInp = document.getElementById(`adminFuturePillarTag${i}`);
-        const titleInp = document.getElementById(`adminFuturePillarTitle${i}`);
-        if (tagInp) tagInp.value = p.tag || defPillars[i].tag;
-        if (titleInp) titleInp.value = p.title || defPillars[i].title;
+      for (let i = 0; i < 5; i++) {
+        const c = (fut.cards && fut.cards[i]) || defCards[i];
+        const tInp = document.getElementById(`adminFutureCardTitle${i}`);
+        const sInp = document.getElementById(`adminFutureCardSub${i}`);
+        if (tInp) tInp.value = c.title || defCards[i].title;
+        if (sInp) sInp.value = c.sub || defCards[i].sub;
       }
 
-      const capT = document.getElementById('adminFutureCapsuleTitle');
-      if (capT) capT.value = fut.capsuleTitle || "⏳ Time Capsule to Next Year's Self";
+      const bq1 = document.getElementById('adminFutureBottomQuote1');
+      if (bq1) bq1.value = fut.bottomQuote1 || "Your journey doesn't end here.";
 
-      const capD = document.getElementById('adminFutureCapsuleDesc');
-      if (capD) capD.value = fut.capsuleDesc || "Write an aspiration or note for yourself 12 months from now. It will be sealed in your digital vault.";
+      const bq2 = document.getElementById('adminFutureBottomQuote2');
+      if (bq2) bq2.value = fut.bottomQuote2 || "It evolves with every step you take.";
 
-      const capP = document.getElementById('adminFutureCapsulePlaceholder');
-      if (capP) capP.value = fut.capsulePlaceholder || "Dear future me, this year we built something incredible. In the coming year, I promise to keep learning, dare bigger, and...";
-
-      const sealInp = document.getElementById('adminFutureBtnSealText');
-      if (sealInp) sealInp.value = fut.btnSealText || "⚜️ Seal Time Capsule";
-
-      const certInp = document.getElementById('adminFutureBtnCertText');
-      if (certInp) certInp.value = fut.btnCertText || "📜 Souvenir Card";
+      const btnSaveInp = document.getElementById('adminFutureBtnSaveText');
+      if (btnSaveInp) btnSaveInp.value = fut.btnSaveText || "Save My Vision";
     }
 
     function renderProudRoom() {
@@ -15375,34 +15662,70 @@
     renderConfetti();
 
     /* ==========================================================================
-       11. ROOM 06 INTERACTIONS (TIME CAPSULE & SOUVENIR)
+       11. ROOM 08 INTERACTIONS (FUTURE VISION & SOUVENIR)
        ========================================================================== */
+    const btnSaveFuture = document.getElementById('btnSaveFutureVision');
+    if (btnSaveFuture) {
+      btnSaveFuture.addEventListener('click', function() {
+        if (typeof palaceAudio !== 'undefined' && palaceAudio.playChime) {
+          try { palaceAudio.init(); palaceAudio.playChime(); } catch(e){}
+        } else {
+          const ding = document.getElementById('audioDing') || document.getElementById('audioChime');
+          if (ding) { try { ding.currentTime = 0; ding.play().catch(()=>{}); } catch(e){} }
+        }
+        if (typeof createSparkleBurst === 'function') {
+          const rect = btnSaveFuture.getBoundingClientRect();
+          createSparkleBurst(rect.left + rect.width / 2, rect.top + rect.height / 2);
+        }
+        const label = btnSaveFuture.querySelector('.btn-save-future-label');
+        if (label) {
+          const orig = label.textContent;
+          label.textContent = '✓ Vision Saved!';
+          btnSaveFuture.style.borderColor = 'var(--gold-primary)';
+          btnSaveFuture.style.background = 'rgba(16, 185, 129, 0.35)';
+          setTimeout(() => {
+            label.textContent = orig;
+            btnSaveFuture.style.borderColor = '';
+            btnSaveFuture.style.background = '';
+          }, 2500);
+        }
+        if (typeof showToast === 'function') {
+          showToast('🌟 Your vision for the future has been saved!');
+        }
+        if (typeof saveStateToStorage === 'function') {
+          saveStateToStorage();
+        }
+      });
+    }
+
     const btnSealCapsule = document.getElementById('btnSealCapsule');
     const capsuleLetter = document.getElementById('capsuleLetter');
 
-    btnSealCapsule.addEventListener('click', () => {
-      const text = capsuleLetter.value.trim();
-      if (!text) { alert("Please write a message to your future self before sealing!"); return; }
+    if (btnSealCapsule && capsuleLetter) {
+      btnSealCapsule.addEventListener('click', () => {
+        const text = capsuleLetter.value.trim();
+        if (!text) { alert("Please write a message to your future self before sealing!"); return; }
 
-      palaceAudio.init();
-      palaceAudio.playChime();
-      localStorage.setItem('palace_time_capsule', text);
+        palaceAudio.init();
+        palaceAudio.playChime();
+        localStorage.setItem('palace_time_capsule', text);
 
-      btnSealCapsule.innerHTML = "<span>🔒 Sealed in Time Vault!</span>";
-      btnSealCapsule.style.background = "linear-gradient(135deg, #10b981, #059669)";
-      btnSealCapsule.style.color = "#ffffff";
-      setTimeout(() => {
-        btnSealCapsule.innerHTML = "<span>⚜️ Seal Time Capsule</span>";
-        btnSealCapsule.style.background = "";
-        btnSealCapsule.style.color = "";
-      }, 3000);
-    });
+        btnSealCapsule.innerHTML = "<span>🔒 Sealed in Time Vault!</span>";
+        btnSealCapsule.style.background = "linear-gradient(135deg, #10b981, #059669)";
+        btnSealCapsule.style.color = "#ffffff";
+        setTimeout(() => {
+          btnSealCapsule.innerHTML = "<span>⚜️ Seal Time Capsule</span>";
+          btnSealCapsule.style.background = "";
+          btnSealCapsule.style.color = "";
+        }, 3000);
+      });
+    }
 
     const certModalBackdrop = document.getElementById('certModalBackdrop');
     const btnOpenCertModal = document.getElementById('btnOpenCertModal');
     const closeCertModal = document.getElementById('closeCertModal');
     const certificateCanvas = document.getElementById('certificateCanvas');
-    const certCtx = certificateCanvas.getContext('2d');
+    const certCtx = certificateCanvas ? certificateCanvas.getContext('2d') : null;
     const btnDownloadCertPng = document.getElementById('btnDownloadCertPng');
 
     function drawCertificate() {
@@ -15464,19 +15787,25 @@
       certCtx.stroke();
     }
 
-    btnOpenCertModal.addEventListener('click', () => {
-      drawCertificate();
-      certModalBackdrop.classList.add('active');
-    });
+    if (btnOpenCertModal && certModalBackdrop) {
+      btnOpenCertModal.addEventListener('click', () => {
+        drawCertificate();
+        certModalBackdrop.classList.add('active');
+      });
+    }
 
-    closeCertModal.addEventListener('click', () => certModalBackdrop.classList.remove('active'));
+    if (closeCertModal && certModalBackdrop) {
+      closeCertModal.addEventListener('click', () => certModalBackdrop.classList.remove('active'));
+    }
 
-    btnDownloadCertPng.addEventListener('click', () => {
-      const link = document.createElement('a');
-      link.download = `${palaceState.employee.name.replace(/\s+/g, '_')}_Memory_Palace_Certificate.png`;
-      link.href = certificateCanvas.toDataURL('image/png');
-      link.click();
-    });
+    if (btnDownloadCertPng && certificateCanvas) {
+      btnDownloadCertPng.addEventListener('click', () => {
+        const link = document.createElement('a');
+        link.download = `${palaceState.employee.name.replace(/\s+/g, '_')}_Memory_Palace_Certificate.png`;
+        link.href = certificateCanvas.toDataURL('image/png');
+        link.click();
+      });
+    }
 
     /* ==========================================================================
        12. COMPREHENSIVE ADMIN CONTROL PANEL & JOURNEY CUSTOMIZER
@@ -17085,84 +17414,42 @@
         }
 
         // Collect Future (Chamber 08 / Chamber 5)
+        const adminFutTag = document.getElementById('adminFutureTag');
         const adminFutTitle = document.getElementById('adminFutureTitle');
-        const adminFutHorizonTitle = document.getElementById('adminFutureHorizonTitle');
-        const adminFutHorizonDesc = document.getElementById('adminFutureHorizonDesc');
-        const adminFutCapsuleTitle = document.getElementById('adminFutureCapsuleTitle');
-        const adminFutCapsuleDesc = document.getElementById('adminFutureCapsuleDesc');
-        const adminFutCapsulePlaceholder = document.getElementById('adminFutureCapsulePlaceholder');
-        const adminFutBtnSeal = document.getElementById('adminFutureBtnSealText');
-        const adminFutBtnCert = document.getElementById('adminFutureBtnCertText');
-
-        const liveFutPlacard = document.querySelector('#chamber-5 .chamber-name');
-        const liveFutH3 = document.querySelector('#chamber-5 .observatory-overlay-card h3');
-        const liveFutP = document.querySelector('#chamber-5 .observatory-overlay-card p');
-        const liveCapH3 = document.querySelector('#chamber-5 .capsule-header h3');
-        const liveCapP = document.querySelector('#chamber-5 .capsule-header p');
-        const liveCapLetter = document.getElementById('capsuleLetter');
-        const liveSealBtn = document.querySelector('#chamber-5 #btnSealCapsule span');
-        const liveCertBtn = document.querySelector('#chamber-5 #btnOpenCertModal span');
+        const adminFutDesc = document.getElementById('adminFutureDesc');
+        const adminFutQuoteText = document.getElementById('adminFutureQuoteText');
+        const adminFutQuoteAuthor = document.getElementById('adminFutureQuoteAuthor');
+        const adminFutBottom1 = document.getElementById('adminFutureBottomQuote1');
+        const adminFutBottom2 = document.getElementById('adminFutureBottomQuote2');
+        const adminFutBtnSave = document.getElementById('adminFutureBtnSaveText');
 
         palaceState.future = palaceState.future || {};
-        if (adminFutTitle && adminFutTitle.value.trim()) {
-          palaceState.future.title = adminFutTitle.value.trim();
-        } else if (liveFutPlacard) {
-          palaceState.future.title = liveFutPlacard.textContent.trim();
-        }
+        if (adminFutTag && adminFutTag.value.trim()) palaceState.future.tag = adminFutTag.value.trim();
+        if (adminFutTitle && adminFutTitle.value.trim()) palaceState.future.title = adminFutTitle.value.trim();
+        if (adminFutDesc && adminFutDesc.value.trim()) palaceState.future.sub = adminFutDesc.value.trim();
+        if (adminFutQuoteText && adminFutQuoteText.value.trim()) palaceState.future.quoteText = adminFutQuoteText.value.trim();
+        if (adminFutQuoteAuthor && adminFutQuoteAuthor.value.trim()) palaceState.future.quoteAuthor = adminFutQuoteAuthor.value.trim();
 
-        if (adminFutHorizonTitle && adminFutHorizonTitle.value.trim()) {
-          palaceState.future.horizonTitle = adminFutHorizonTitle.value.trim();
-        } else if (liveFutH3) {
-          palaceState.future.horizonTitle = liveFutH3.textContent.trim();
-        }
-
-        if (adminFutHorizonDesc && adminFutHorizonDesc.value.trim()) {
-          palaceState.future.horizonDesc = adminFutHorizonDesc.value.trim();
-        } else if (liveFutP) {
-          palaceState.future.horizonDesc = liveFutP.textContent.trim();
-        }
-
-        palaceState.future.pillars = [0, 1, 2].map(i => {
-          const tagInp = document.getElementById(`adminFuturePillarTag${i}`);
-          const titleInp = document.getElementById(`adminFuturePillarTitle${i}`);
-          const livePill = document.querySelectorAll('#chamber-5 .vision-pillars-row .pillar-pill')[i];
-          const defTags = ["Pillar 01", "Pillar 02", "Pillar 03"];
-          const defTitles = ["Architectural Leadership", "Next-Gen AI Systems", "Mentoring Future Stars"];
+        palaceState.future.cards = [0, 1, 2, 3, 4].map(i => {
+          const tInp = document.getElementById(`adminFutureCardTitle${i}`);
+          const sInp = document.getElementById(`adminFutureCardSub${i}`);
+          const liveCard = document.querySelectorAll('#chamber-5 .future-card')[i];
+          const defCards = [
+            { title: "What skills do you want to build?", sub: "Share the skills or knowledge you want to develop to grow in your career." },
+            { title: "What new challenges do you want to take on?", sub: "Tell us about the kind of opportunities or responsibilities you would like to explore." },
+            { title: "What impact do you want to create?", sub: "How do you see yourself contributing more to your team and Uffizio?" },
+            { title: "Where do you see yourself in the next 1–2 years?", sub: "Share your career aspirations and the role you envision for yourself." },
+            { title: "Anything else you would like to add?", sub: "A space for your additional thoughts, dreams, or a personal message." }
+          ];
           return {
-            tag: (tagInp && tagInp.value.trim()) || (livePill && livePill.querySelector('span')?.textContent.trim()) || defTags[i],
-            title: (titleInp && titleInp.value.trim()) || (livePill && livePill.querySelector('b')?.textContent.trim()) || defTitles[i]
+            title: (tInp && tInp.value.trim()) || (liveCard && liveCard.querySelector('.future-card-title')?.textContent.trim()) || defCards[i].title,
+            sub: (sInp && sInp.value.trim()) || (liveCard && liveCard.querySelector('.future-card-sub')?.textContent.trim()) || defCards[i].sub
           };
         });
 
-        if (adminFutCapsuleTitle && adminFutCapsuleTitle.value.trim()) {
-          palaceState.future.capsuleTitle = adminFutCapsuleTitle.value.trim();
-        } else if (liveCapH3) {
-          palaceState.future.capsuleTitle = liveCapH3.textContent.trim();
-        }
-
-        if (adminFutCapsuleDesc && adminFutCapsuleDesc.value.trim()) {
-          palaceState.future.capsuleDesc = adminFutCapsuleDesc.value.trim();
-        } else if (liveCapP) {
-          palaceState.future.capsuleDesc = liveCapP.textContent.trim();
-        }
-
-        if (adminFutCapsulePlaceholder && adminFutCapsulePlaceholder.value.trim()) {
-          palaceState.future.capsulePlaceholder = adminFutCapsulePlaceholder.value.trim();
-        } else if (liveCapLetter && liveCapLetter.getAttribute('placeholder')) {
-          palaceState.future.capsulePlaceholder = liveCapLetter.getAttribute('placeholder').trim();
-        }
-
-        if (adminFutBtnSeal && adminFutBtnSeal.value.trim()) {
-          palaceState.future.btnSealText = adminFutBtnSeal.value.trim();
-        } else if (liveSealBtn) {
-          palaceState.future.btnSealText = liveSealBtn.textContent.trim();
-        }
-
-        if (adminFutBtnCert && adminFutBtnCert.value.trim()) {
-          palaceState.future.btnCertText = adminFutBtnCert.value.trim();
-        } else if (liveCertBtn) {
-          palaceState.future.btnCertText = liveCertBtn.textContent.trim();
-        }
+        if (adminFutBottom1 && adminFutBottom1.value.trim()) palaceState.future.bottomQuote1 = adminFutBottom1.value.trim();
+        if (adminFutBottom2 && adminFutBottom2.value.trim()) palaceState.future.bottomQuote2 = adminFutBottom2.value.trim();
+        if (adminFutBtnSave && adminFutBtnSave.value.trim()) palaceState.future.btnSaveText = adminFutBtnSave.value.trim();
 
         // Collect Photo Memories from dynamic inputs
         const memItems = document.querySelectorAll('#adminMemoriesList .admin-dynamic-item');
@@ -17821,38 +18108,40 @@
         }
 
         // 8d. The Future (Chamber 08 / Chamber 5)
-        const liveFutPlacard_ = document.querySelector('#chamber-5 .chamber-name');
-        const liveFutH3_ = document.querySelector('#chamber-5 .observatory-overlay-card h3');
-        const liveFutP_ = document.querySelector('#chamber-5 .observatory-overlay-card p');
-        const livePillars_ = document.querySelectorAll('#chamber-5 .vision-pillars-row .pillar-pill');
-        const liveCapH3_ = document.querySelector('#chamber-5 .capsule-header h3');
-        const liveCapP_ = document.querySelector('#chamber-5 .capsule-header p');
-        const liveSealBtn_ = document.querySelector('#chamber-5 #btnSealCapsule span');
-        const liveCertBtn_ = document.querySelector('#chamber-5 #btnOpenCertModal span');
+        const liveFutTag = document.querySelector('#chamber-5 .future-tag-text');
+        const liveFutTitle = document.querySelector('#chamber-5 .future-title');
+        const liveFutDesc = document.querySelector('#chamber-5 .future-desc');
+        const liveFutQuoteText = document.querySelector('#chamber-5 .future-top-quote-text');
+        const liveFutQuoteAuth = document.querySelector('#chamber-5 .future-top-quote-author');
+        const liveFutCards = document.querySelectorAll('#chamber-5 .future-card');
+        const liveFutBottom1 = document.querySelector('#chamber-5 .quote-line-1');
+        const liveFutBottom2 = document.querySelector('#chamber-5 .quote-line-2');
+        const liveFutBtnSave = document.querySelector('#chamber-5 .btn-save-future-label');
 
-        if (liveFutPlacard_ || liveFutH3_ || (livePillars_ && livePillars_.length > 0) || liveCapH3_) {
+        if (liveFutTitle || liveFutDesc || (liveFutCards && liveFutCards.length > 0)) {
           palaceState.future = palaceState.future || {};
-          if (liveFutPlacard_) palaceState.future.title = liveFutPlacard_.textContent.trim();
-          if (liveFutH3_) palaceState.future.horizonTitle = liveFutH3_.textContent.trim();
-          if (liveFutP_) palaceState.future.horizonDesc = liveFutP_.textContent.trim();
+          if (liveFutTag) palaceState.future.tag = liveFutTag.textContent.trim();
+          if (liveFutTitle) palaceState.future.title = liveFutTitle.textContent.trim();
+          if (liveFutDesc) palaceState.future.sub = liveFutDesc.textContent.trim();
+          if (liveFutQuoteText) palaceState.future.quoteText = liveFutQuoteText.textContent.trim();
+          if (liveFutQuoteAuth) palaceState.future.quoteAuthor = liveFutQuoteAuth.textContent.trim();
 
-          if (livePillars_ && livePillars_.length > 0) {
-            palaceState.future.pillars = palaceState.future.pillars || [];
-            livePillars_.forEach((el, idx) => {
-              const sp = el.querySelector('span');
-              const b = el.querySelector('b');
-              const existing = palaceState.future.pillars[idx] || {};
-              palaceState.future.pillars[idx] = {
-                tag: (sp && sp.textContent.trim()) || existing.tag || `Pillar 0${idx + 1}`,
-                title: (b && b.textContent.trim()) || existing.title || ''
+          if (liveFutCards && liveFutCards.length > 0) {
+            palaceState.future.cards = palaceState.future.cards || [];
+            liveFutCards.forEach((el, idx) => {
+              const tEl = el.querySelector('.future-card-title');
+              const sEl = el.querySelector('.future-card-sub');
+              const existing = palaceState.future.cards[idx] || {};
+              palaceState.future.cards[idx] = {
+                title: (tEl && tEl.textContent.trim()) || existing.title || '',
+                sub: (sEl && sEl.textContent.trim()) || existing.sub || ''
               };
             });
           }
 
-          if (liveCapH3_) palaceState.future.capsuleTitle = liveCapH3_.textContent.trim();
-          if (liveCapP_) palaceState.future.capsuleDesc = liveCapP_.textContent.trim();
-          if (liveSealBtn_) palaceState.future.btnSealText = liveSealBtn_.textContent.trim();
-          if (liveCertBtn_) palaceState.future.btnCertText = liveCertBtn_.textContent.trim();
+          if (liveFutBottom1) palaceState.future.bottomQuote1 = liveFutBottom1.textContent.trim();
+          if (liveFutBottom2) palaceState.future.bottomQuote2 = liveFutBottom2.textContent.trim();
+          if (liveFutBtnSave) palaceState.future.btnSaveText = liveFutBtnSave.textContent.trim();
         }
 
         // 8. Sticky Notes text
