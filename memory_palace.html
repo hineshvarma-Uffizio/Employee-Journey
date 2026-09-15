@@ -4,7 +4,7 @@
   <!-- Embedded Palace State (Self-Contained Cross-Device & Incognito Support) -->
   <script id="initialPalaceState" type="application/json">
 {
-  "profileVersion": 2,
+  "profileVersion": 3,
   "chambers": [
     {
       "id": "chamber-milestone",
@@ -251,15 +251,15 @@
     "trophyImg": "golden_trophy.png",
     "polaroids": [
       {
-        "image": "universe_poster.jpg",
+        "image": "proud_polaroid_1.png",
         "caption": "v4.0 Launch Night! 🚀"
       },
       {
-        "image": "manushi_avatar.jpg",
+        "image": "proud_polaroid_2.png",
         "caption": "Hackathon Runners-up 🏆"
       },
       {
-        "image": "manushi_portrait.jpg",
+        "image": "proud_polaroid_3.png",
         "caption": "All-Hands Demo Day 🎤"
       }
     ],
@@ -9774,7 +9774,7 @@
               <div class="polaroids-row">
                 <div class="polaroid-frame">
                   <div class="polaroid-img-box" onclick="triggerProudPhotoUpload(0)" title="Click to upload photo">
-                    <img src="universe_poster.jpg" alt="Launch Night Celebration">
+                    <img src="proud_polaroid_1.png" alt="Launch Night Celebration">
                     <div class="polaroid-upload-overlay">
                       <span>📷 Change</span>
                     </div>
@@ -9784,7 +9784,7 @@
 
                 <div class="polaroid-frame">
                   <div class="polaroid-img-box" onclick="triggerProudPhotoUpload(1)" title="Click to upload photo">
-                    <img src="manushi_avatar.jpg" alt="Hackathon Sprint">
+                    <img src="proud_polaroid_2.png" alt="Hackathon Sprint">
                     <div class="polaroid-upload-overlay">
                       <span>📷 Change</span>
                     </div>
@@ -9794,7 +9794,7 @@
 
                 <div class="polaroid-frame">
                   <div class="polaroid-img-box" onclick="triggerProudPhotoUpload(2)" title="Click to upload photo">
-                    <img src="manushi_portrait.jpg" alt="All Hands Presentation">
+                    <img src="proud_polaroid_3.png" alt="All Hands Presentation">
                     <div class="polaroid-upload-overlay">
                       <span>📷 Change</span>
                     </div>
@@ -10597,7 +10597,7 @@
                 </div>
               </div>
               <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
-                <img id="adminProudPreview0" src="universe_poster.jpg" style="width:50px; height:50px; object-fit:cover; border-radius:6px; border:1px solid rgba(255,255,255,0.2);">
+                <img id="adminProudPreview0" src="proud_polaroid_1.png" style="width:50px; height:50px; object-fit:cover; border-radius:6px; border:1px solid rgba(255,255,255,0.2);">
                 <div style="flex:1;">
                   <label style="font-size:11px; color:#94a3b8; display:block; margin-bottom:4px;">Caption</label>
                   <input type="text" class="form-input" id="adminProudCaption0" placeholder="v4.0 Launch Night! 🚀">
@@ -10616,7 +10616,7 @@
                 </div>
               </div>
               <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
-                <img id="adminProudPreview1" src="manushi_avatar.jpg" style="width:50px; height:50px; object-fit:cover; border-radius:6px; border:1px solid rgba(255,255,255,0.2);">
+                <img id="adminProudPreview1" src="proud_polaroid_2.png" style="width:50px; height:50px; object-fit:cover; border-radius:6px; border:1px solid rgba(255,255,255,0.2);">
                 <div style="flex:1;">
                   <label style="font-size:11px; color:#94a3b8; display:block; margin-bottom:4px;">Caption</label>
                   <input type="text" class="form-input" id="adminProudCaption1" placeholder="Hackathon Runners-up 🏆">
@@ -10635,7 +10635,7 @@
                 </div>
               </div>
               <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
-                <img id="adminProudPreview2" src="manushi_portrait.jpg" style="width:50px; height:50px; object-fit:cover; border-radius:6px; border:1px solid rgba(255,255,255,0.2);">
+                <img id="adminProudPreview2" src="proud_polaroid_3.png" style="width:50px; height:50px; object-fit:cover; border-radius:6px; border:1px solid rgba(255,255,255,0.2);">
                 <div style="flex:1;">
                   <label style="font-size:11px; color:#94a3b8; display:block; margin-bottom:4px;">Caption</label>
                   <input type="text" class="form-input" id="adminProudCaption2" placeholder="All-Hands Demo Day 🎤">
@@ -11451,7 +11451,7 @@
 ];
 
     const palaceState = {
-      "profileVersion": 2,
+      "profileVersion": 3,
       "chambers": [
         {
           "id": "chamber-milestone",
@@ -11697,19 +11697,19 @@
         "plaqueSubtitle": "2025 - 2026 ANNUAL HONORS",
         "trophyImg": "golden_trophy.png",
         "polaroids": [
-          {
-            "image": "universe_poster.jpg",
-            "caption": "v4.0 Launch Night! 🚀"
-          },
-          {
-            "image": "manushi_avatar.jpg",
-            "caption": "Hackathon Runners-up 🏆"
-          },
-          {
-            "image": "manushi_portrait.jpg",
-            "caption": "All-Hands Demo Day 🎤"
-          }
-        ],
+      {
+        "image": "proud_polaroid_1.png",
+        "caption": "v4.0 Launch Night! 🚀"
+      },
+      {
+        "image": "proud_polaroid_2.png",
+        "caption": "Hackathon Runners-up 🏆"
+      },
+      {
+        "image": "proud_polaroid_3.png",
+        "caption": "All-Hands Demo Day 🎤"
+      }
+    ],
         "celebrateTitle": "Celebrate This Milestone",
         "celebrateDesc": "Trigger the palace confetti cannon and commemorate your incredible achievements.",
         "celebrateBtn": "🎉 Fire Confetti!"
@@ -13797,9 +13797,9 @@
       }
 
       const defaultPolaroids = [
-        { image: "universe_poster.jpg", caption: "v4.0 Launch Night! 🚀" },
-        { image: "manushi_avatar.jpg", caption: "Hackathon Runners-up 🏆" },
-        { image: "manushi_portrait.jpg", caption: "All-Hands Demo Day 🎤" }
+        { image: "proud_polaroid_1.png", caption: "v4.0 Launch Night! 🚀" },
+        { image: "proud_polaroid_2.png", caption: "Hackathon Runners-up 🏆" },
+        { image: "proud_polaroid_3.png", caption: "All-Hands Demo Day 🎤" }
       ];
 
       const polaroidFrames = document.querySelectorAll('#chamber-4 .polaroids-row .polaroid-frame');
@@ -13856,9 +13856,9 @@
       if (trophyPrev) trophyPrev.src = proud.trophyImg || "golden_trophy.png";
 
       const defaultPolaroids = [
-        { image: "universe_poster.jpg", caption: "v4.0 Launch Night! 🚀" },
-        { image: "manushi_avatar.jpg", caption: "Hackathon Runners-up 🏆" },
-        { image: "manushi_portrait.jpg", caption: "All-Hands Demo Day 🎤" }
+        { image: "proud_polaroid_1.png", caption: "v4.0 Launch Night! 🚀" },
+        { image: "proud_polaroid_2.png", caption: "Hackathon Runners-up 🏆" },
+        { image: "proud_polaroid_3.png", caption: "All-Hands Demo Day 🎤" }
       ];
 
       for (let i = 0; i < 3; i++) {
@@ -18082,7 +18082,7 @@
             const photoVal = document.getElementById(`adminProudPhoto${i}`)?.value.trim();
             const capVal = document.getElementById(`adminProudCaption${i}`)?.value.trim();
             return {
-              image: photoVal || existing.image || (['universe_poster.jpg', 'manushi_avatar.jpg', 'manushi_portrait.jpg'][i]),
+              image: photoVal || existing.image || (['proud_polaroid_1.png', 'proud_polaroid_2.png', 'proud_polaroid_3.png'][i]),
               caption: capVal !== undefined && capVal !== '' ? capVal : (existing.caption || ['v4.0 Launch Night! 🚀', 'Hackathon Runners-up 🏆', 'All-Hands Demo Day 🎤'][i])
             };
           });
