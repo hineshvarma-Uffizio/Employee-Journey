@@ -8903,7 +8903,7 @@
               <div class="creations-split-right">
                 <div class="creations-common-image-card" id="creationsCommonImageCard2">
                   <div class="common-img-frame">
-                    <img id="chamber2bCommonImg" src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1000&auto=format&fit=crop&q=80" alt="Creations Showcase" class="common-showcase-img" onerror="this.src='where_it_started.png'">
+                    <img id="chamber2bCommonImg" src="creations_showcase_common.png" alt="Creations Showcase" class="common-showcase-img" onerror="this.src='where_it_started.png'">
                     <div class="common-img-gradient-overlay"></div>
                     <div class="common-img-top-badge">
                       <span class="common-badge-pill" id="chamber2bCommonBadge">🚀 KEY DELIVERABLES</span>
@@ -10911,7 +10911,7 @@
           }
         }
       ],
-      chamber2bCommonImage: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1000&auto=format&fit=crop&q=80",
+      chamber2bCommonImage: "creations_showcase_common.png",
       chamber2bCommonTitle: "Innovation & Systems In Action",
       chamber2bCommonDesc: "Real-time architecture, proactive incident workflows, and high-impact partner success.",
       projects: [
@@ -12191,7 +12191,7 @@
       const commonDesc = document.getElementById('chamber2bCommonDesc');
       if (!commonImg) return;
 
-      const defaultImg = palaceState.chamber2bCommonImage || "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1000&auto=format&fit=crop&q=80";
+      const defaultImg = palaceState.chamber2bCommonImage || "creations_showcase_common.png";
       commonImg.src = defaultImg;
       if (commonBadge) commonBadge.textContent = `🚀 KEY DELIVERABLES`;
       if (commonTitle) commonTitle.textContent = palaceState.chamber2bCommonTitle || "Innovation & Systems In Action";
