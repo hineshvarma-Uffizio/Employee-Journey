@@ -12148,7 +12148,7 @@
             const badgeText = isSingle ? '⭐ KEY INITIATIVE' : `PROJECT ${taskNumStr}`;
 
             return `
-              <div class="split-creation-card ${isSingle ? 'is-single-card' : ''}" data-card-index="${idx}" onmouseenter="highlightChamber2bCard(${idx})" onmouseleave="resetChamber2bCommonImage()" onclick="openProjectLightbox(${idx}, 2)">
+              <div class="split-creation-card ${isSingle ? 'is-single-card' : ''}" data-card-index="${idx}" onclick="openProjectLightbox(${idx}, 2)">
                 <div class="split-card-col-left">
                   <div class="split-card-badge-row">
                     <span class="split-card-task-badge">${badgeText}</span>
@@ -12167,21 +12167,9 @@
       resetChamber2bCommonImage();
     }
 
-    // Dynamic right-side image preview on card hover
+    // Fixed right-side common showcase image - hover image change disabled per user request
     function highlightChamber2bCard(idx) {
-      const commonImg = document.getElementById('chamber2bCommonImg');
-      const commonBadge = document.getElementById('chamber2bCommonBadge');
-      const commonTitle = document.getElementById('chamber2bCommonTitle');
-      const commonDesc = document.getElementById('chamber2bCommonDesc');
-      const list = palaceState.contributions2 || [];
-      const c = list[idx];
-      if (!c || !commonImg) return;
-
-      const imgSrc = c.image || defaultProjectImages[idx % defaultProjectImages.length] || 'where_it_started.png';
-      commonImg.src = imgSrc;
-      if (commonBadge) commonBadge.textContent = `PROJECT 0${idx + 1} • PREVIEW`;
-      if (commonTitle) commonTitle.textContent = c.project?.title || `Project ${idx + 1}`;
-      if (commonDesc) commonDesc.textContent = c.contribution?.desc || c.project?.desc || '';
+      return; // Common image stays fixed at all times
     }
 
     function resetChamber2bCommonImage() {
