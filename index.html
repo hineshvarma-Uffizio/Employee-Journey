@@ -3236,7 +3236,7 @@
       -webkit-backdrop-filter: blur(12px);
       box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
       transition: border-color 0.28s ease, box-shadow 0.28s ease, background 0.28s ease;
-      cursor: pointer;
+      cursor: default;
       position: relative;
       overflow: hidden;
       min-height: 86px;
@@ -8904,14 +8904,6 @@
                 <div class="creations-common-image-card" id="creationsCommonImageCard2">
                   <div class="common-img-frame">
                     <img id="chamber2bCommonImg" src="creations_showcase_common.png" alt="Creations Showcase" class="common-showcase-img" onerror="this.src='where_it_started.png'">
-                    <div class="common-img-gradient-overlay"></div>
-                    <div class="common-img-top-badge">
-                      <span class="common-badge-pill" id="chamber2bCommonBadge">🚀 KEY DELIVERABLES</span>
-                    </div>
-                    <div class="common-img-caption-box">
-                      <h4 class="common-img-title" id="chamber2bCommonTitle" data-editable="true">Innovation & Systems In Action</h4>
-                      <p class="common-img-desc" id="chamber2bCommonDesc" data-editable="true">Real-time architecture, proactive incident workflows, and high-impact partner success.</p>
-                    </div>
                   </div>
                 </div>
               </div>
@@ -12148,16 +12140,14 @@
             const badgeText = isSingle ? '⭐ KEY INITIATIVE' : `PROJECT ${taskNumStr}`;
 
             return `
-              <div class="split-creation-card ${isSingle ? 'is-single-card' : ''}" data-card-index="${idx}" onclick="openProjectLightbox(${idx}, 2)">
+              <div class="split-creation-card ${isSingle ? 'is-single-card' : ''}" data-card-index="${idx}">
                 <div class="split-card-col-left">
                   <div class="split-card-badge-row">
                     <span class="split-card-task-badge">${badgeText}</span>
                   </div>
-                  <h3 class="split-card-title" data-editable="true" onclick="event.stopPropagation()" title="${escapeHtmlAttr(pTitle)}">${escapeHtml(pTitle)}</h3>
-                  ${isSingle && pDesc ? `<p class="single-card-feature-desc" data-editable="true" onclick="event.stopPropagation()">${escapeHtml(pDesc)}</p>` : ''}
+                  <h3 class="split-card-title" data-editable="true" title="${escapeHtmlAttr(pTitle)}">${escapeHtml(pTitle)}</h3>
+                  ${isSingle && pDesc ? `<p class="single-card-feature-desc" data-editable="true">${escapeHtml(pDesc)}</p>` : ''}
                 </div>
-
-
               </div>
             `;
           }).join('');
