@@ -1,0 +1,716 @@
+{
+  "profileVersion": 3,
+  "chambers": [
+    {
+      "id": "chamber-milestone",
+      "type": "celebration",
+      "navNum": "★",
+      "navLabel": "Year One",
+      "title": "Celebrating Your First Year With Uffizio",
+      "sub": "With Uffizio",
+      "canDelete": false,
+      "enabled": true,
+      "tabTarget": "tab-celebration"
+    },
+    {
+      "id": "chamber-0",
+      "type": "timeline",
+      "navNum": "01",
+      "navLabel": "First Day",
+      "title": "Where Your Journey Began",
+      "sub": "The beginning of your journey",
+      "canDelete": true,
+      "enabled": true,
+      "tabTarget": "tab-milestones"
+    },
+    {
+      "id": "chamber-1",
+      "type": "skills",
+      "navNum": "02",
+      "navLabel": "Learned",
+      "title": "The Evolution Of Growth",
+      "sub": "The breakthrough moments, technical mastery, and skills forged through dedication.",
+      "canDelete": true,
+      "enabled": true,
+      "tabTarget": "tab-skills"
+    },
+    {
+      "id": "chamber-2",
+      "type": "projects",
+      "navNum": "03",
+      "navLabel": "Created",
+      "title": "The Impact You Created",
+      "sub": "The achievements shipped, architectures scaled, and client milestones delivered.",
+      "canDelete": true,
+      "enabled": false,
+      "tabTarget": "tab-projects"
+    },
+    {
+      "id": "chamber-2b",
+      "type": "projects",
+      "navNum": "03",
+      "navLabel": "Created II",
+      "title": "Building Impact Through Innovation",
+      "sub": "Expanding horizons, specialized solutions, and next-level contributions.",
+      "canDelete": true,
+      "enabled": true,
+      "tabTarget": "tab-projects-2"
+    },
+    {
+      "id": "chamber-memories",
+      "type": "memories",
+      "navNum": "04",
+      "navLabel": "Memories",
+      "title": "Year in Memories",
+      "sub": "A curated collection of unforgettable moments, team laughter, and workplace milestones.",
+      "canDelete": true,
+      "enabled": false,
+      "tabTarget": "tab-memories"
+    },
+    {
+      "id": "chamber-memories-2",
+      "type": "memories",
+      "navNum": "04",
+      "navLabel": "Memories II",
+      "title": "Celebrating a Year of Memories",
+      "sub": "More curated moments, team laughter, and workplace milestones.",
+      "canDelete": true,
+      "enabled": true,
+      "tabTarget": "tab-memories-2"
+    },
+    {
+      "id": "chamber-values",
+      "type": "values",
+      "navNum": "05",
+      "navLabel": "Values",
+      "title": "The Values You Bring",
+      "sub": "The Values You Bring — How Your Everyday Actions Define Our Culture",
+      "canDelete": true,
+      "enabled": true,
+      "tabTarget": "tab-values"
+    },
+    {
+      "id": "chamber-3",
+      "type": "people",
+      "navNum": "06",
+      "navLabel": "People",
+      "title": "The People Behind your Journey",
+      "sub": "Warm words, memories, and shared laughs with the team who walked with you.",
+      "canDelete": true,
+      "enabled": true,
+      "tabTarget": "tab-notes"
+    },
+    {
+      "id": "chamber-4",
+      "type": "achievements",
+      "navNum": "07",
+      "navLabel": "Proud Moments",
+      "title": "Moments That Made You Proud",
+      "sub": "Milestones of recognition, awards, and breakthroughs celebrating your impact.",
+      "canDelete": true,
+      "enabled": true,
+      "tabTarget": "tab-proud"
+    },
+    {
+      "id": "chamber-5",
+      "type": "future",
+      "navNum": "08",
+      "navLabel": "The Future",
+      "title": "My Vision for What’s Next",
+      "sub": "Looking ahead to the next summits, vision, and growth with Uffizio.",
+      "canDelete": true,
+      "enabled": true,
+      "tabTarget": "tab-future"
+    },
+    {
+      "id": "chamber-thankyou",
+      "type": "thankyou",
+      "navNum": "09",
+      "navLabel": "Thank You",
+      "title": "Thank You",
+      "sub": "With Deepest Gratitude & Pride — Honoring Your 1 Year Journey With Uffizio",
+      "canDelete": true,
+      "enabled": true,
+      "tabTarget": "tab-thankyou"
+    }
+  ],
+  "doorWingLeft": "UFFIZIO",
+  "doorWingRight": "2025 → 2026",
+  "editorPasscode": "uffizio",
+  "entrance": {
+    "logo": "uffizio_logo_white.png",
+    "title": "WELCOME TO YOUR JOURNEY",
+    "subtitle": "WALK THROUGH YOUR YEAR • 2025 → 2026",
+    "prompt": "Scroll Down or Click Door to Enter"
+  },
+  "employee": {
+    "name": "New Employee",
+    "role": "Role / Designation",
+    "date": "01 January 2025",
+    "photo": "dhara_profile.jpg",
+    "years": "2025 → 2026"
+  },
+  "celebration": {
+    "title": "Celebrating Your Work Anniversary",
+    "sub": "With Uffizio",
+    "quote": "“One year ago, a new chapter began. Today, we celebrate everything that made it meaningful.”"
+  },
+  "milestones": [
+    {
+      "date": "01 September 2025",
+      "title": "Joined Uffizio",
+      "sub": "Customer Support Journey Begins"
+    },
+    {
+      "date": "March 2026",
+      "title": "Successfully Completed Probation",
+      "sub": "Confirmed Core Team Member"
+    },
+    {
+      "date": "01 September 2026",
+      "title": "Completed 1 Year Journey",
+      "sub": "1 Year of Impact & Excellence"
+    },
+    {
+      "date": "September 2026",
+      "title": "Sr.Devloper",
+      "sub": "Devloper journy began."
+    }
+  ],
+  "evolution": {
+    "thenTitle": "Day 01 • Starting Horizon",
+    "thenPoints": [
+      {
+        "icon": "globe",
+        "text": "Learning the environment"
+      },
+      {
+        "icon": "box",
+        "text": "Understanding the product"
+      },
+      {
+        "icon": "compass",
+        "text": "Getting familiar with the role"
+      }
+    ],
+    "growthLabel": "1 YEAR GROWTH",
+    "nowTitle": "Year 01 • Proven Mastery",
+    "nowPoints": [
+      {
+        "icon": "shield",
+        "text": "More confidence",
+        "colorClass": "highlight-gold"
+      },
+      {
+        "icon": "target",
+        "text": "Better understanding",
+        "colorClass": "highlight-cyan"
+      },
+      {
+        "icon": "crown",
+        "text": "Greater ownership",
+        "colorClass": "highlight-emerald"
+      }
+    ]
+  },
+  "thankYou": {
+    "headerBadge": "✨ HEARTFELT APPRECIATION • 1 YEAR MILESTONE ✨",
+    "title": "Thank You!",
+    "subtitle": "",
+    "message": "Thank you for bringing your dedication, energy, and brilliant spirit to Uffizio every single day. Your presence strengthens our team, elevates our culture, and turns every challenge into an inspiring milestone. We are deeply proud of your growth and honored to walk this journey together.",
+    "signature": "— With heartfelt gratitude & best wishes, Team Uffizio 🌟",
+    "actionBtn1": "🎉 Shower Confetti & Applause",
+    "actionBtn2": "📜 View Souvenir Card",
+    "actionBtn3": "🏛️ Revisit Palace From Start",
+    "badges": [
+      {
+        "icon": "star",
+        "title": "365 Days of Excellence",
+        "desc": "Dedication and resilience every single day"
+      },
+      {
+        "icon": "heart",
+        "title": "Cherished Teammate",
+        "desc": "Bringing warmth, trust, and team spirit"
+      },
+      {
+        "icon": "rocket",
+        "title": "Limitless Horizons",
+        "desc": "Ready to conquer the next summits together"
+      }
+    ]
+  },
+  "proud": {
+    "plaqueTitle": "INNOVATOR OF THE YEAR",
+    "plaqueSubtitle": "2025 - 2026 ANNUAL HONORS",
+    "trophyImg": "golden_trophy.png",
+    "polaroids": [
+      {
+        "image": "proud_polaroid_1.png",
+        "caption": "v4.0 Launch Night! 🚀"
+      },
+      {
+        "image": "proud_polaroid_2.png",
+        "caption": "Hackathon Runners-up 🏆"
+      },
+      {
+        "image": "proud_polaroid_3.png",
+        "caption": "All-Hands Demo Day 🎤"
+      }
+    ],
+    "celebrateTitle": "Celebrate This Milestone",
+    "celebrateDesc": "Trigger the palace confetti cannon and commemorate your incredible achievements.",
+    "celebrateBtn": "🎉 Fire Confetti!"
+  },
+  "future": {
+    "title": "My Vision for What's Next",
+    "quoteText": "A goal without a plan is just a wish.",
+    "quoteAuthor": "Antoine de Saint-Exupéry",
+    "cards": [
+      {
+        "title": "What skills do you want to build?",
+        "sub": "Share the skills or knowledge you want to develop to grow in your career."
+      },
+      {
+        "title": "What new challenges do you want to take on?",
+        "sub": "Tell us about the kind of opportunities or responsibilities you would like to explore."
+      },
+      {
+        "title": "What impact do you want to create?",
+        "sub": "How do you see yourself contributing more to your team and Uffizio?"
+      }
+    ],
+    "bottomQuote1": "Your journey doesn't end here.",
+    "bottomQuote2": "It evolves with every step you take.",
+    "btnSaveText": "Save My Vision"
+  },
+  "skills": [
+    {
+      "title": "Knowledge",
+      "desc": "Product & Architecture",
+      "pct": 98,
+      "icon": "🧠",
+      "tag": "Product Mastery"
+    },
+    {
+      "title": "Communication",
+      "desc": "Cross-Team Alignment",
+      "pct": 95,
+      "icon": "💬",
+      "tag": "Team Synergy"
+    },
+    {
+      "title": "Problem Solving",
+      "desc": "First-Principles Triage",
+      "pct": 96,
+      "icon": "🧩",
+      "tag": "Rapid Resolution"
+    },
+    {
+      "title": "Confidence",
+      "desc": "Autonomous Ownership",
+      "pct": 98,
+      "icon": "🛡️",
+      "tag": "High Autonomy"
+    }
+  ],
+  "contributions": [
+    {
+      "id": 0,
+      "image": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=700&auto=format&fit=crop&q=80",
+      "project": {
+        "title": "Enterprise Support SLA 99.8%",
+        "desc": "Delivering mission-critical technical support and rapid incident resolution for high-value enterprise fleet partners."
+      },
+      "contribution": {
+        "title": "Direct Triage & Swift Resolution",
+        "desc": "Owned tier-1/tier-2 incident lifecycle, coordinated cross-functional engineering fixes, and established a sub-15m initial response rhythm."
+      },
+      "impact": {
+        "title": "Zero SLA Breaches & 99.8% CSAT",
+        "desc": "Maintained an impeccable SLA track record throughout Year 1, earning stellar partner trust and high retention.",
+        "metricVal1": "99.8%",
+        "metricLbl1": "SLA Maintained"
+      }
+    },
+    {
+      "id": 1,
+      "image": "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=700&auto=format&fit=crop&q=80",
+      "project": {
+        "title": "Standard Operating Procedures v2",
+        "desc": "Standardizing complex vehicle tracking hardware diagnostics and telematics platform onboarding SOPs."
+      },
+      "contribution": {
+        "title": "Authoring 60+ Troubleshooting Guides",
+        "desc": "Synthesized edge-case solutions into visual step-by-step documentation and conducted knowledge-transfer sessions."
+      },
+      "impact": {
+        "title": "65% Faster Team Ramp-Up",
+        "desc": "Reduced support query escalation turnaround by 3x and accelerated training for all newly onboarding teammates.",
+        "metricVal1": "60+",
+        "metricLbl1": "Guides Authored"
+      }
+    },
+    {
+      "id": 2,
+      "image": "https://images.unsplash.com/photo-1524522173746-f628baad3644?w=700&auto=format&fit=crop&q=80",
+      "project": {
+        "title": "Proactive Fleet Anomaly Monitoring",
+        "desc": "Early detection of sensor disconnections, device battery drain, and network latency before clients notice downtime."
+      },
+      "contribution": {
+        "title": "Preventative Diagnostics Routine",
+        "desc": "Implemented daily automated health checks and conducted outreach calls to pre-emptively calibrate vehicle tracking units."
+      },
+      "impact": {
+        "title": "+48% Proactive Case Resolution",
+        "desc": "Prevented hundreds of potential downtime hours and substantially elevated client confidence in platform stability.",
+        "metricVal1": "150+",
+        "metricLbl1": "Fleets Safeguarded"
+      }
+    },
+    {
+      "id": 3,
+      "image": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=700&auto=format&fit=crop&q=80",
+      "project": {
+        "title": "Year-Round Client Advocacy",
+        "desc": "Serving as the trusted face and reassuring voice of Uffizio across 500+ complex customer touchpoints."
+      },
+      "contribution": {
+        "title": "Empathetic, End-to-End Ownership",
+        "desc": "Turned frustrated users into brand champions through relentless follow-ups, patience, and clear technical communication."
+      },
+      "impact": {
+        "title": "500+ Smiles & 4.9★ Rating",
+        "desc": "Directly strengthened client loyalty, earning praise from team leads, customers, and management alike.",
+        "metricVal1": "500+",
+        "metricLbl1": "Breakthroughs"
+      }
+    },
+    {
+      "id": 4,
+      "image": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=700&auto=format&fit=crop&q=80",
+      "project": {
+        "title": "Employee new  task",
+        "desc": "Describe the key project scope, customer problem, or technical initiative."
+      },
+      "contribution": {
+        "title": "Good",
+        "desc": "Describe the direct action you took, solutions created, or fixes delivered."
+      },
+      "impact": {
+        "title": "Measurable Business Result",
+        "desc": "Explain the outcome, customer satisfaction, or efficiency achieved.",
+        "metricVal1": "100%",
+        "metricLbl1": "Success"
+      }
+    },
+    {
+      "id": 5,
+      "image": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=700&auto=format&fit=crop&q=80",
+      "project": {
+        "title": "Project / Task 6",
+        "desc": "Describe the key project scope, customer problem, or technical initiative."
+      },
+      "contribution": {
+        "title": "Key Contribution & Ownership",
+        "desc": "Describe the direct action you took, solutions created, or fixes delivered."
+      },
+      "impact": {
+        "title": "Measurable Business Result",
+        "desc": "Explain the outcome, customer satisfaction, or efficiency achieved.",
+        "metricVal1": "100%",
+        "metricLbl1": "Success"
+      }
+    },
+    {
+      "id": 6,
+      "image": "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=700&auto=format&fit=crop&q=80",
+      "project": {
+        "title": "Project / Task 7",
+        "desc": "Describe the key project scope, customer problem, or technical initiative."
+      },
+      "contribution": {
+        "title": "Key Contribution & Ownership",
+        "desc": "Describe the direct action you took, solutions created, or fixes delivered."
+      },
+      "impact": {
+        "title": "Measurable Business Result",
+        "desc": "Explain the outcome, customer satisfaction, or efficiency achieved.",
+        "metricVal1": "100%",
+        "metricLbl1": "Success"
+      }
+    },
+    {
+      "id": 7,
+      "image": "https://images.unsplash.com/photo-1524522173746-f628baad3644?w=700&auto=format&fit=crop&q=80",
+      "project": {
+        "title": "Project / Task 8",
+        "desc": "Describe the key project scope, customer problem, or technical initiative."
+      },
+      "contribution": {
+        "title": "Key Contribution & Ownership",
+        "desc": "Describe the direct action you took, solutions created, or fixes delivered."
+      },
+      "impact": {
+        "title": "Measurable Business Result",
+        "desc": "Explain the outcome, customer satisfaction, or efficiency achieved.",
+        "metricVal1": "100%",
+        "metricLbl1": "Success"
+      }
+    }
+  ],
+  "contributions2": [
+    {
+      "id": 0,
+      "tabLabel": "Telematics Sync",
+      "tabIcon": "🛰️",
+      "image": "https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&auto=format&fit=crop&q=80",
+      "project": {
+        "title": "Cross-Platform Telematics Sync",
+        "desc": "Engineering high-throughput telemetry stream monitoring and synchronization across multi-vendor GPS hardware.",
+        "tag": "IoT & Data Integrity • High Precision"
+      },
+      "contribution": {
+        "title": "",
+        "desc": "Architected real-time ingestion pipelines reconciling protocol discrepancies across 15+ IoT tracker models."
+      },
+      "impact": {
+        "title": "Data Reliability & Precision",
+        "desc": "Achieved 99.9% telematics accuracy, eliminating GPS packet drops and enabling live fleet tracking at scale.",
+        "metricVal1": "",
+        "metricLbl1": "Telematics Accuracy"
+      }
+    },
+    {
+      "id": 1,
+      "tabLabel": "Incident Automation",
+      "tabIcon": "⚡",
+      "image": "https://images.unsplash.com/photo-1551434678-e076c223a692?w=800&auto=format&fit=crop&q=80",
+      "project": {
+        "title": "Automated Incident Escalation",
+        "desc": "Developing smart triage triggers and escalation workflows to accelerate critical issue response times.",
+        "tag": "Workflow Automation • Operations"
+      },
+      "contribution": {
+        "title": "",
+        "desc": "Built rule-based dispatch scripts connecting customer priority tickets directly with specialized engineering pods."
+      },
+      "impact": {
+        "title": "Swift MTTR Reduction",
+        "desc": "Accelerated critical issue escalation by 35% and improved cross-departmental incident handoffs.",
+        "metricVal1": "",
+        "metricLbl1": "Faster Escalation"
+      }
+    },
+    {
+      "id": 2,
+      "tabLabel": "Client Onboarding",
+      "tabIcon": "🌐",
+      "image": "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&auto=format&fit=crop&q=80",
+      "project": {
+        "title": "Global Client Onboarding Hub",
+        "desc": "Guiding enterprise fleet operators through bespoke onboarding architectures, device configuration, and staff training.",
+        "tag": "Partner Success • Global Scale"
+      },
+      "contribution": {
+        "title": "",
+        "desc": "Facilitated over 120 live migration sessions, configuring geofences, alerts, and analytics dashboards for new clients."
+      },
+      "impact": {
+        "title": "Accelerated Time-to-Value",
+        "desc": "Onboarded 120+ commercial fleets smoothly with a 100% first-month retention milestone.",
+        "metricVal1": "",
+        "metricLbl1": "Fleets Onboarded"
+      }
+    },
+    {
+      "id": 3,
+      "tabLabel": "Quality Loop",
+      "tabIcon": "🔄",
+      "image": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&auto=format&fit=crop&q=80",
+      "project": {
+        "title": "Quality Assurance & Feedback Loop",
+        "desc": "Establishing direct feedback loops connecting real-world user pain points with product sprint planning.",
+        "tag": "Product Excellence • Voice of Customer"
+      },
+      "contribution": {
+        "title": "",
+        "desc": "Analyzed frontline feedback trends and authored monthly usability insight reports for the engineering team."
+      },
+      "impact": {
+        "title": "High First-Contact Resolution",
+        "desc": "Helped drive first-contact fix rates to 98% and reduced repetitive feature-related inquiries.",
+        "metricVal1": "",
+        "metricLbl1": "First-Contact Fix"
+      }
+    }
+  ],
+  "chamber2bCommonImage": "creations_showcase_common.png",
+  "chamber2bCommonTitle": "Innovation & Systems In Action",
+  "chamber2bCommonDesc": "Real-time architecture, proactive incident workflows, and high-impact partner success.",
+  "projects": [
+    {
+      "title": "Platform Core v4.0",
+      "subtitle": "Flagship Telematics & Engine Architecture",
+      "gauge1": "99.98%",
+      "gauge2": "+42%",
+      "desc": "Architected the high-throughput ingestion pipeline processing real-time vehicle coordinates and alerts with sub-50ms round-trip synchronization."
+    },
+    {
+      "title": "Design System 2.0",
+      "subtitle": "Accessible Component Library",
+      "gauge1": "50+",
+      "gauge2": "3x",
+      "desc": "Built a ground-up accessible enterprise UI system with dark/light themes, WCAG AA compliance, and rich spatial interaction primitives."
+    },
+    {
+      "title": "Workflow Automation Engine",
+      "subtitle": "Intelligent Operations & Dispatch",
+      "gauge1": "18h",
+      "gauge2": "12k+",
+      "desc": "Engineered automated dispatch reconciliation, eliminating manual spreadsheets and reducing error margins to practically zero."
+    },
+    {
+      "title": "150+ PRs Shipped",
+      "subtitle": "Engineering Consistency & Velocity",
+      "gauge1": "620+",
+      "gauge2": "99.8%",
+      "desc": "A full cycle of dependable delivery with thorough code reviews, zero regressions introduced in critical flows, and strong docs."
+    }
+  ],
+  "memories": [
+    {
+      "id": 1,
+      "title": "",
+      "date": "",
+      "tag": "",
+      "image": "memory_1_photo.jpg",
+      "desc": "Stepping into the Uffizio family on Day 1 with excitement, high aspirations, and warm welcomes."
+    },
+    {
+      "id": 2,
+      "title": "",
+      "date": "",
+      "tag": "",
+      "image": "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&auto=format&fit=crop&q=80",
+      "desc": "Collaborative problem-solving, whiteboard brainstorms, and late-night pizza coding sessions."
+    },
+    {
+      "id": 3,
+      "title": "",
+      "date": "",
+      "tag": "",
+      "image": "https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=600&auto=format&fit=crop&q=80",
+      "desc": "Unwinding outside the office with laughter, fun activities, and deep conversations."
+    },
+    {
+      "id": 4,
+      "title": "",
+      "date": "",
+      "tag": "",
+      "image": "https://images.unsplash.com/photo-1531482615713-2afd69097998?w=600&auto=format&fit=crop&q=80",
+      "desc": "Standing ovations and high fives across the floor when the system went live seamlessly."
+    },
+    {
+      "id": 5,
+      "title": "",
+      "date": "",
+      "tag": "",
+      "image": "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600&auto=format&fit=crop&q=80",
+      "desc": "Traditional attire, vibrant colors, sweets, and celebrating our rich diversity together."
+    },
+    {
+      "id": 6,
+      "title": "",
+      "date": "",
+      "tag": "",
+      "image": "memory_6_photo.jpg",
+      "desc": "Looking back at an incredible year of personal evolution, achievements, and strong bonds."
+    }
+  ],
+  "memories2CollageImage": "memories_collage_part2.png",
+  "memories2": [
+    {
+      "id": 101,
+      "title": "Year in Memories Collage",
+      "date": "2025 → 2026",
+      "tag": "📸 Collage",
+      "image": "memories_collage_part2.png",
+      "desc": "Curated moments, team laughter, and workplace milestones."
+    }
+  ],
+  "values": [
+    {
+      "id": 1,
+      "title": "OWNERSHIP",
+      "icon": "shield",
+      "quote": "You step forward when something needs to be done.",
+      "desc": "Taking autonomous initiative, closing loops, and owning outcomes from start to finish.",
+      "badge": "Accountability"
+    },
+    {
+      "id": 2,
+      "title": "LEARNING",
+      "icon": "sprout",
+      "quote": "You turn every challenge into an opportunity to improve.",
+      "desc": "Embracing complex problems, mastering new systems, and turning feedback into growth.",
+      "badge": "Continuous Evolution"
+    },
+    {
+      "id": 3,
+      "title": "COLLABORATION",
+      "icon": "users",
+      "quote": "You grow by working with and supporting others.",
+      "desc": "Lifting teammates, fostering trust, and driving cross-functional alignment across all teams.",
+      "badge": "Team Synergy"
+    },
+    {
+      "id": 4,
+      "title": "CUSTOMER FOCUS",
+      "icon": "target",
+      "quote": "You keep the people we serve at the centre of your work.",
+      "desc": "Deep empathy for partner needs, swift resolution, and elevating customer experience.",
+      "badge": "Customer Centricity"
+    }
+  ],
+  "stickyNotes": [
+    {
+      "text": "Thank you for staying back and untangling that telemetry cluster bug! You're a true rockstar.",
+      "author": "Priya S. • Lead Architect",
+      "photo": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=240&auto=format&fit=crop&q=80",
+      "color": "yellow"
+    },
+    {
+      "text": "The dedication you show to every client inspires the entire team. Proud to work alongside you!",
+      "author": "Rahul D. • Support Lead",
+      "photo": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=240&auto=format&fit=crop&q=80",
+      "color": "pink"
+    },
+    {
+      "text": "Best coffee partner and problem solver. Always ready with an elegant solution and a smile.",
+      "author": "Ankit M. • Fellow Teammate",
+      "photo": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=240&auto=format&fit=crop&q=80",
+      "color": "mint"
+    },
+    {
+      "text": "Incredible growth from Day 1. You handled high-pressure situations like a veteran. Keep soaring!",
+      "author": "Vikram R. • Operations Director",
+      "photo": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=240&auto=format&fit=crop&q=80",
+      "color": "sky"
+    }
+  ],
+  "chamberStories": {
+    "ch1Title": "Where Your Journey Began",
+    "ch1Sub": "The beginning of your journey",
+    "ch2Title": "What You Learned",
+    "ch2Sub": "The breakthrough moments, technical mastery, and skills forged through dedication.",
+    "ch3Title": "What You Created",
+    "ch3Sub": "The achievements shipped, architectures scaled, and client milestones delivered.",
+    "ch4Title": "The People & Bonds",
+    "ch4Sub": "Warm words, memories, and shared laughs with the team who walked with you.",
+    "chValTitle": "Your Values",
+    "chValDesc": "The Values You Bring — How Your Everyday Actions Define Our Culture",
+    "ch6Wish": "To a year defined by bold initiatives, late-night breakthroughs, and continuous excellence. Happy 1st Work Anniversary!"
+  }
+}

@@ -10864,6 +10864,32 @@
 
       <!-- Tab 8: Save & Export / Import JSON Profiles -->
       <div class="admin-tab-content" id="tab-export">
+        <!-- 0. Multi-Employee Profiles Directory & Switcher -->
+        <div style="background: rgba(30, 41, 59, 0.7); border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 12px; padding: 16px; margin-bottom: 18px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+            <h4 style="color:#38bdf8; font-size:15px; margin:0; display:flex; align-items:center; gap:8px;">
+              <span>👥 Employee Profiles Directory</span>
+              <span style="font-size:10px; background:rgba(56, 189, 248, 0.2); padding:2px 8px; border-radius:10px; color:#bae6fd;">Multi-Profile System</span>
+            </h4>
+            <button type="button" class="btn-primary-add" id="btnCreateNewEmpProfile" style="padding:6px 12px; font-size:11px; background:linear-gradient(135deg, #0284c7, #0369a1); border:none; color:#fff; border-radius:6px; cursor:pointer; font-weight:600;">
+              ➕ New Employee Journey
+            </button>
+          </div>
+          <p style="font-size:12px; color:#cbd5e1; margin-bottom:12px; line-height:1.45;">
+            દરેક કર્મચારીની પોતાની અલગ લિંક અને અલગ ડેટા રહેશે જેથી કોઈનો પણ ડેટા Replace ન થાય. અહીંથી તમે સહેલાઈથી પ્રોફાઇલ સ્વિચ કરી શકો છો:
+          </p>
+          <div style="display:flex; flex-wrap:wrap; gap:10px; align-items:center;">
+            <label style="font-size:12px; color:#94a3b8; white-space:nowrap;">Active Profile:</label>
+            <select id="selectEmployeeProfile" class="form-input" style="flex:1; min-width:200px; background:rgba(0,0,0,0.5); color:#38bdf8; font-weight:600;">
+              <option value="dhara">👤 Dhara Patel (dhara)</option>
+              <option value="rahul">👤 Rahul Sharma (rahul)</option>
+            </select>
+            <button type="button" class="btn-secondary" id="btnSwitchProfile" style="padding:8px 14px; font-size:12px; white-space:nowrap;">
+              🔄 Open Profile
+            </button>
+          </div>
+        </div>
+
         <!-- 1. Permanent Save & Download Engine -->
         <div style="background: rgba(16, 185, 129, 0.12); border: 1px solid rgba(16, 185, 129, 0.4); border-radius: 12px; padding: 16px; margin-bottom: 18px;">
           <h4 style="color:#6ee7b7; font-size:15px; margin-bottom:6px; display:flex; align-items:center; gap:8px;">
@@ -12207,13 +12233,22 @@
       });
     }
 
+    // Multi-Profile URL Parameter & Storage Key Isolation
+    const _urlParams = new URLSearchParams(window.location.search);
+    const currentEmpSlug = (_urlParams.get('emp') || _urlParams.get('id') || _urlParams.get('profile') || '').toLowerCase().trim();
+
+    function getStorageKeyForProfile(slug) {
+      return slug ? ('palace_profile_' + slug) : 'palace_full_profile';
+    }
+
     function saveToIndexedDB(state) {
       openPalaceDB().then(db => {
         if (!db) return;
         try {
           const tx = db.transaction(STORE_NAME, 'readwrite');
           const store = tx.objectStore(STORE_NAME);
-          store.put({ key: 'full_profile', data: JSON.parse(JSON.stringify(state)) });
+          const idbKey = currentEmpSlug ? ('profile_' + currentEmpSlug) : 'full_profile';
+          store.put({ key: idbKey, data: JSON.parse(JSON.stringify(state)) });
         } catch (e) {
           console.warn('IndexedDB save error:', e);
         }
@@ -12227,7 +12262,8 @@
           try {
             const tx = db.transaction(STORE_NAME, 'readonly');
             const store = tx.objectStore(STORE_NAME);
-            const req = store.get('full_profile');
+            const idbKey = currentEmpSlug ? ('profile_' + currentEmpSlug) : 'full_profile';
+            const req = store.get(idbKey);
             req.onsuccess = () => resolve(req.result ? req.result.data : null);
             req.onerror = () => resolve(null);
           } catch (e) {
@@ -12238,8 +12274,9 @@
     }
 
     function persistPalaceState() {
+      const key = getStorageKeyForProfile(currentEmpSlug);
       try {
-        localStorage.setItem('palace_full_profile', JSON.stringify(palaceState));
+        localStorage.setItem(key, JSON.stringify(palaceState));
       } catch (e) {
         console.warn("Storage quota exceeded in localStorage, relying on IndexedDB", e);
       }
@@ -12308,13 +12345,14 @@
     }
 
     // Load from localStorage if present
-    const savedFullProfile = localStorage.getItem('palace_full_profile');
+    const activeStorageKey = getStorageKeyForProfile(currentEmpSlug);
+    const savedFullProfile = localStorage.getItem(activeStorageKey);
     if (savedFullProfile) {
       try {
         const parsed = JSON.parse(savedFullProfile);
         if (!parsed.profileVersion || parsed.profileVersion < (palaceState.profileVersion || 1)) {
           console.log("Upgrading stale localStorage profile to latest baked profile version", palaceState.profileVersion);
-          localStorage.setItem('palace_full_profile', JSON.stringify(palaceState));
+          localStorage.setItem(activeStorageKey, JSON.stringify(palaceState));
         } else {
           if (parsed.employee) {
             if (parsed.employee.name === 'Manushi Patel') parsed.employee.name = 'Dhara Patel';
@@ -13334,7 +13372,7 @@
           const dataUrl = evt.target.result;
           if (palaceState.stickyNotes && palaceState.stickyNotes[idx]) {
             palaceState.stickyNotes[idx].photo = dataUrl;
-            localStorage.setItem('palace_full_profile', JSON.stringify(palaceState));
+            persistPalaceState();
             renderStickyNotes();
           }
         };
@@ -14985,11 +15023,23 @@
         const shareEditUrlInput = document.getElementById('shareEditUrlInput');
         const inputEditorPasscode = document.getElementById('inputEditorPasscode');
 
+        const slug = currentEmpSlug;
+        const empQuery = slug ? `?emp=${encodeURIComponent(slug)}&` : '?';
         if (shareViewUrlInput) {
-          shareViewUrlInput.value = `${baseUrl}?access=view`;
+          shareViewUrlInput.value = `${baseUrl}${empQuery}access=view`;
         }
         if (shareEditUrlInput) {
-          shareEditUrlInput.value = `${baseUrl}?access=edit`;
+          shareEditUrlInput.value = `${baseUrl}${empQuery}access=edit`;
+        }
+        const shareTinyInp = document.getElementById('shareTinyUrlInput');
+        if (shareTinyInp) {
+          if (!slug || slug === 'dhara') {
+            shareTinyInp.value = 'https://tinyurl.com/uffizio-dhara';
+          } else if (slug === 'rahul') {
+            shareTinyInp.value = 'https://tinyurl.com/uffizio-rahul';
+          } else {
+            shareTinyInp.value = `${baseUrl}?emp=${encodeURIComponent(slug)}`;
+          }
         }
         if (inputEditorPasscode) {
           inputEditorPasscode.value = palaceState.editorPasscode || "uffizio";
@@ -15154,6 +15204,82 @@
           } catch (e) {}
           generateShareUrls();
         });
+      }
+    }
+
+
+    // ==========================================================================
+    // MULTI-EMPLOYEE PROFILE ENGINE: DYNAMIC JSON FETCHER & STATE SYNC
+    // ==========================================================================
+    async function initEmployeeProfile() {
+      if (!currentEmpSlug) return;
+      const localKey = getStorageKeyForProfile(currentEmpSlug);
+      try {
+        const cached = localStorage.getItem(localKey);
+        if (cached) {
+          const parsed = JSON.parse(cached);
+          if (parsed && parsed.employee) {
+            applyLoadedProfile(parsed);
+            console.log(`Loaded active profile for ${currentEmpSlug} from local storage cache.`);
+            return;
+          }
+        }
+      } catch(e) {}
+
+      try {
+        const resp = await fetch(`profiles/${encodeURIComponent(currentEmpSlug)}.json?v=${Date.now()}`);
+        if (resp.ok) {
+          const data = await resp.json();
+          applyLoadedProfile(data);
+          try {
+            localStorage.setItem(localKey, JSON.stringify(data));
+          } catch(e) {}
+          console.log(`Successfully fetched and applied profiles/${currentEmpSlug}.json`);
+        } else {
+          console.warn(`Profile file profiles/${currentEmpSlug}.json not found (HTTP ${resp.status})`);
+        }
+      } catch(err) {
+        console.warn(`Could not load profiles/${currentEmpSlug}.json:`, err);
+      }
+    }
+
+    function applyLoadedProfile(data) {
+      if (!data || typeof data !== 'object') return;
+      Object.keys(data).forEach(k => {
+        if (data[k] !== undefined && data[k] !== null) {
+          if (typeof data[k] === 'object' && !Array.isArray(data[k]) && palaceState[k] && typeof palaceState[k] === 'object' && !Array.isArray(palaceState[k])) {
+            palaceState[k] = { ...palaceState[k], ...data[k] };
+          } else {
+            palaceState[k] = data[k];
+          }
+        }
+      });
+      updatePalaceFromState();
+      if (typeof populateAdminInputs === 'function') {
+        populateAdminInputs();
+      }
+    }
+
+    async function populateProfileDropdown() {
+      const select = document.getElementById('selectEmployeeProfile');
+      if (!select) return;
+      try {
+        const resp = await fetch(`profiles/index.json?v=${Date.now()}`);
+        if (resp.ok) {
+          const list = await resp.json();
+          if (Array.isArray(list) && list.length > 0) {
+            select.innerHTML = '';
+            list.forEach(item => {
+              const opt = document.createElement('option');
+              opt.value = item.slug || item.id;
+              opt.textContent = `👤 ${item.name} (${item.slug || item.id})`;
+              select.appendChild(opt);
+            });
+          }
+        }
+      } catch(e) {}
+      if (currentEmpSlug) {
+        select.value = currentEmpSlug;
       }
     }
 
@@ -18192,12 +18318,80 @@
       });
     }
 
+
+      // Multi-Employee Profile Switcher Events
+      const selectEmployeeProfile = document.getElementById('selectEmployeeProfile');
+      const btnSwitchProfile = document.getElementById('btnSwitchProfile');
+      const btnCreateNewEmpProfile = document.getElementById('btnCreateNewEmpProfile');
+
+      if (selectEmployeeProfile && currentEmpSlug) {
+        selectEmployeeProfile.value = currentEmpSlug;
+      }
+
+      if (btnSwitchProfile && selectEmployeeProfile) {
+        btnSwitchProfile.addEventListener('click', () => {
+          const selected = selectEmployeeProfile.value;
+          const baseUrl = window.location.href.split('?')[0].split('#')[0];
+          const newUrl = selected === 'dhara' ? `${baseUrl}?emp=dhara` : `${baseUrl}?emp=${encodeURIComponent(selected)}`;
+          window.location.href = newUrl;
+        });
+      }
+
+      if (btnCreateNewEmpProfile) {
+        btnCreateNewEmpProfile.addEventListener('click', async () => {
+          const empName = prompt("નવા કર્મચારીનું પૂરું નામ લખો (e.g. Priya Patel):");
+          if (!empName || !empName.trim()) return;
+          const slug = empName.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+          if (!slug) return;
+          
+          const confirmCreate = confirm(`નવા કર્મચારી '${empName}' (${slug}) માટે નવી જર્ની શરૂ કરવી છે?\nજૂના કર્મચારીનો ડેટા સહેજ પણ Replace કે Overwrite થશે નહીં.`);
+          if (!confirmCreate) return;
+
+          let newProfile = JSON.parse(JSON.stringify(palaceState));
+          try {
+            const tResp = await fetch(`profiles/template.json?v=${Date.now()}`);
+            if (tResp.ok) {
+              newProfile = await tResp.json();
+            }
+          } catch(e) {}
+
+          newProfile.employee = {
+            ...newProfile.employee,
+            name: empName.trim(),
+            role: "Software Engineer",
+            date: "01 October 2025",
+            photo: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=600&auto=format&fit=crop&q=80",
+            years: "2025 → 2026"
+          };
+          newProfile.celebration = {
+            ...newProfile.celebration,
+            title: `Celebrating Your Journey`,
+            sub: "With Uffizio",
+            quote: "“Celebrating dedication, milestones, and continuous growth together.”"
+          };
+          if (newProfile.thankYou) {
+            newProfile.thankYou.title = `Thank You, ${empName.trim()}!`;
+          }
+          
+          // Save isolated profile state to localStorage
+          const newKey = getStorageKeyForProfile(slug);
+          try {
+            localStorage.setItem(newKey, JSON.stringify(newProfile));
+          } catch(e) {}
+          
+          const baseUrl = window.location.href.split('?')[0].split('#')[0];
+          alert(`✅ '${empName}' માટે નવી પ્રોફાઇલ તૈયાર છે! હવે તમે એમની વિગતો અને ફોટા ભરી શકો છો.`);
+          window.location.href = `${baseUrl}?emp=${encodeURIComponent(slug)}&access=edit`;
+        });
+      }
+
     // Export Profile to JSON
     if (btnExportJson) {
       btnExportJson.addEventListener('click', () => {
         const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(palaceState, null, 2));
         const dlAnchor = document.createElement('a');
-        const filename = `${(palaceState.employee.name || 'employee').replace(/\s+/g, '_')}_journey.json`;
+        const currentName = (palaceState.employee && palaceState.employee.name) || currentEmpSlug || 'employee';
+        const filename = `${currentName.replace(/\s+/g, '_')}_journey.json`;
         dlAnchor.setAttribute("href", dataStr);
         dlAnchor.setAttribute("download", filename);
         document.body.appendChild(dlAnchor);
@@ -18236,7 +18430,7 @@
               palaceState.chambers = imported.chambers;
             }
 
-            localStorage.setItem('palace_full_profile', JSON.stringify(palaceState));
+            persistPalaceState();
             populateAdminInputs();
             updatePalaceFromState();
             alert(`✅ Successfully loaded profile for ${palaceState.employee.name}!`);
@@ -18252,7 +18446,8 @@
     if (btnResetDefault) {
       btnResetDefault.addEventListener('click', () => {
         if (confirm("Reset journey back to default profile?")) {
-          localStorage.removeItem('palace_full_profile');
+          const activeKey = getStorageKeyForProfile(currentEmpSlug);
+          localStorage.removeItem(activeKey);
           if (window.indexedDB) window.indexedDB.deleteDatabase(DB_NAME);
           location.reload();
         }
@@ -18538,7 +18733,7 @@
         if (chMemD) palaceState.chamberStories.chMemDesc = chMemD.textContent.trim();
 
         // Save to localStorage
-        localStorage.setItem('palace_full_profile', JSON.stringify(palaceState));
+        persistPalaceState();
         disableLiveEditMode();
         updatePalaceFromState();
         alert("✅ All on-screen text edits saved successfully!");
@@ -18559,6 +18754,10 @@
 
     // Initial render on load
     updatePalaceFromState();
+    if (currentEmpSlug) {
+      initEmployeeProfile();
+    }
+    populateProfileDropdown();
     
   
     /* ==========================================================================
