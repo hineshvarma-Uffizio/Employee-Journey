@@ -9365,199 +9365,146 @@
     }
 
     /* ==========================================================================
-       ROYAL VECTOR FLOURISHES (BLOOMING OUTWARD BEHIND DOOR & PHOTO FRAMES)
+       ROYAL BAROQUE VECTOR FRAMES (AUTHENTIC GILDED ROCOCO / THEME-ADAPTIVE)
        ========================================================================== */
     .royal-door-vector-flourishes {
       position: absolute;
-      inset: -60px -125px -40px -125px;
-      pointer-events: none;
-      z-index: 1;
-      transform-style: preserve-3d;
-      will-change: transform, opacity;
-    }
-
-    .royal-arch-crest-top {
-      position: absolute;
-      top: -52px;
+      top: 53%;
       left: 50%;
-      transform: translateX(-50%);
-      width: 340px;
-      height: 105px;
+      transform: translate(-50%, -50%);
+      width: 580px;
+      height: 748px;
       pointer-events: none;
       z-index: 1;
-      opacity: 0.65;
-      filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.6)) drop-shadow(0 0 3px var(--gold-primary));
-      animation: royalCrestEmerge 1.6s cubic-bezier(0.16, 1, 0.3, 1) forwards, royalCrestFloat 6s 1.6s infinite ease-in-out;
-      transition: filter 0.5s ease, opacity 0.5s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform-style: preserve-3d;
+      will-change: transform, opacity, filter;
     }
 
-    .royal-arch-flourish-left {
-      position: absolute;
-      top: 35px;
-      left: -95px;
-      width: 195px;
-      height: 460px;
-      pointer-events: none;
-      z-index: 1;
-      opacity: 0.65;
-      filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.6)) drop-shadow(0 0 3px var(--gold-primary));
-      transform-origin: right center;
-      animation: royalFlourishEmergeLeft 1.8s cubic-bezier(0.16, 1, 0.3, 1) forwards, royalFlourishPulseLeft 6.5s 1.8s infinite ease-in-out;
+    .royal-door-baroque-vector-img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      opacity: 0.90;
+      filter: drop-shadow(0 12px 35px rgba(0, 0, 0, 0.9)) drop-shadow(0 0 16px rgba(245, 192, 101, 0.45));
+      animation: royalDoorVectorFloat 7s ease-in-out infinite alternate;
+      transform-origin: center center;
       transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s ease, opacity 0.5s ease;
     }
 
-    .royal-arch-flourish-right {
-      position: absolute;
-      top: 35px;
-      right: -95px;
-      width: 195px;
-      height: 460px;
-      pointer-events: none;
-      z-index: 1;
-      opacity: 0.65;
-      filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.6)) drop-shadow(0 0 3px var(--gold-primary));
-      transform-origin: left center;
-      animation: royalFlourishEmergeRight 1.8s cubic-bezier(0.16, 1, 0.3, 1) forwards, royalFlourishPulseRight 6.5s 1.8s infinite ease-in-out;
-      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s ease, opacity 0.5s ease;
+    .portal-arch-structure:hover .royal-door-baroque-vector-img {
+      transform: scale(1.035) translateY(-4px);
+      opacity: 0.98;
+      filter: drop-shadow(0 18px 45px rgba(0, 0, 0, 0.95)) drop-shadow(0 0 24px rgba(245, 192, 101, 0.75));
     }
 
-    /* Interactive Expansion on Hover / Focus */
-    .portal-arch-structure:hover .royal-arch-flourish-left {
-      transform: translate3d(-18px, -4px, 0) scale(1.04);
-      opacity: 0.85;
-      filter: drop-shadow(0 0 12px rgba(0, 0, 0, 0.7)) drop-shadow(0 0 5px var(--gold-primary));
-    }
-
-    .portal-arch-structure:hover .royal-arch-flourish-right {
-      transform: translate3d(18px, -4px, 0) scale(1.04);
-      opacity: 0.85;
-      filter: drop-shadow(0 0 12px rgba(0, 0, 0, 0.7)) drop-shadow(0 0 5px var(--gold-primary));
-    }
-
-    .portal-arch-structure:hover .royal-arch-crest-top {
-      transform: translateX(-50%) translate3d(0, -6px, 0) scale(1.04);
-      opacity: 0.85;
-      filter: drop-shadow(0 0 12px rgba(0, 0, 0, 0.7)) drop-shadow(0 0 5px var(--gold-primary));
-    }
-
-    /* Emerging Animations from behind the Door Frame */
-    @keyframes royalCrestEmerge {
+    @keyframes royalDoorVectorFloat {
       0% {
-        transform: translateX(-50%) translate3d(0, 40px, 0) scale(0.6);
-        opacity: 0;
-      }
-      60% {
-        transform: translateX(-50%) translate3d(0, -8px, 0) scale(1.04);
-        opacity: 0.70;
+        transform: translateY(0px) scale(1);
+        filter: drop-shadow(0 12px 35px rgba(0, 0, 0, 0.9)) drop-shadow(0 0 14px rgba(245, 192, 101, 0.4));
       }
       100% {
-        transform: translateX(-50%) translate3d(0, 0, 0) scale(1);
-        opacity: 0.65;
+        transform: translateY(-8px) scale(1.02);
+        filter: drop-shadow(0 18px 42px rgba(0, 0, 0, 0.95)) drop-shadow(0 0 22px rgba(245, 192, 101, 0.65));
       }
     }
 
-    @keyframes royalFlourishEmergeLeft {
-      0% {
-        transform: translate3d(60px, 0, 0) scale(0.6);
-        opacity: 0;
-      }
-      60% {
-        transform: translate3d(-20px, -4px, 0) scale(1.05);
-        opacity: 0.70;
-      }
-      100% {
-        transform: translate3d(-10px, 0, 0) scale(1);
-        opacity: 0.65;
-      }
-    }
-
-    @keyframes royalFlourishEmergeRight {
-      0% {
-        transform: translate3d(-60px, 0, 0) scale(0.6);
-        opacity: 0;
-      }
-      60% {
-        transform: translate3d(20px, -4px, 0) scale(1.05);
-        opacity: 0.70;
-      }
-      100% {
-        transform: translate3d(10px, 0, 0) scale(1);
-        opacity: 0.65;
-      }
-    }
-
-    /* Ambient continuous breathing loops */
-    @keyframes royalFlourishPulseLeft {
-      0%, 100% {
-        transform: translate3d(-10px, 0, 0) scale(1);
-        opacity: 0.60;
-      }
-      50% {
-        transform: translate3d(-14px, -3px, 0) scale(1.03);
-        opacity: 0.72;
-      }
-    }
-
-    @keyframes royalFlourishPulseRight {
-      0%, 100% {
-        transform: translate3d(10px, 0, 0) scale(1);
-        opacity: 0.60;
-      }
-      50% {
-        transform: translate3d(14px, -3px, 0) scale(1.03);
-        opacity: 0.72;
-      }
-    }
-
-    @keyframes royalCrestFloat {
-      0%, 100% {
-        transform: translateX(-50%) translate3d(0, 0, 0) scale(1);
-        opacity: 0.62;
-      }
-      50% {
-        transform: translateX(-50%) translate3d(0, -5px, 0) scale(1.03);
-        opacity: 0.72;
-      }
-    }
-
-
-
-    /* Royal Photo Frame Flourishes in Celebration Room */
+    /* Royal Baroque Vector Frame behind Photo Frame in Celebration Room */
     .royal-frame-vector-flourishes {
       position: absolute;
-      inset: -25px -45px -20px -45px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 530px;
+      height: 684px;
       pointer-events: none;
       z-index: -1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform-style: preserve-3d;
+      will-change: transform, opacity, filter;
     }
 
-    .royal-frame-flourish-left {
-      position: absolute;
-      top: 40px;
-      left: -35px;
-      width: 100px;
-      height: 380px;
-      filter: drop-shadow(0 0 14px rgba(245, 192, 101, 0.5));
-      animation: royalFrameBloomLeft 6.5s infinite ease-in-out;
+    .royal-photo-baroque-vector-img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      opacity: 0.92;
+      filter: drop-shadow(0 14px 40px rgba(0, 0, 0, 0.92)) drop-shadow(0 0 18px rgba(245, 192, 101, 0.48));
+      animation: royalPhotoVectorFloat 8s ease-in-out infinite alternate;
+      transform-origin: center center;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s ease, opacity 0.5s ease;
     }
 
-    .royal-frame-flourish-right {
-      position: absolute;
-      top: 40px;
-      right: -35px;
-      width: 100px;
-      height: 380px;
-      filter: drop-shadow(0 0 14px rgba(245, 192, 101, 0.5));
-      animation: royalFrameBloomRight 6.5s infinite ease-in-out;
+    .celebration-portrait-column:hover .royal-photo-baroque-vector-img {
+      transform: scale(1.04) translateY(-5px);
+      opacity: 1;
+      filter: drop-shadow(0 20px 50px rgba(0, 0, 0, 0.98)) drop-shadow(0 0 28px rgba(245, 192, 101, 0.8));
     }
 
-    @keyframes royalFrameBloomLeft {
-      0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
-      50% { transform: translate3d(-6px, -2px, 0) scale(1.03); }
+    @keyframes royalPhotoVectorFloat {
+      0% {
+        transform: translateY(0px) scale(1);
+        filter: drop-shadow(0 14px 40px rgba(0, 0, 0, 0.92)) drop-shadow(0 0 16px rgba(245, 192, 101, 0.45));
+      }
+      100% {
+        transform: translateY(-7px) scale(1.025);
+        filter: drop-shadow(0 20px 48px rgba(0, 0, 0, 0.95)) drop-shadow(0 0 25px rgba(245, 192, 101, 0.7));
+      }
     }
 
-    @keyframes royalFrameBloomRight {
-      0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
-      50% { transform: translate3d(6px, -2px, 0) scale(1.03); }
+    /* Milestone Theme Tier Adaptations for Baroque Vector Frames */
+    /* Tier 3yr: Moonlight Platinum Silver & Deep Cobalt Blue */
+    body.theme-tier-3yr .royal-door-baroque-vector-img,
+    body.theme-tier-3yr .royal-photo-baroque-vector-img {
+      filter: grayscale(1) brightness(1.22) contrast(1.1) drop-shadow(0 12px 35px rgba(0, 0, 0, 0.9)) drop-shadow(0 0 16px rgba(226, 232, 240, 0.65));
+    }
+    body.theme-tier-3yr .portal-arch-structure:hover .royal-door-baroque-vector-img,
+    body.theme-tier-3yr .celebration-portrait-column:hover .royal-photo-baroque-vector-img {
+      filter: grayscale(1) brightness(1.3) contrast(1.15) drop-shadow(0 18px 45px rgba(0, 0, 0, 0.95)) drop-shadow(0 0 24px rgba(226, 232, 240, 0.85));
+    }
+
+    /* Tier 5yr: Royal Champagne Amber Gold & Obsidian */
+    body.theme-tier-5yr .royal-door-baroque-vector-img,
+    body.theme-tier-5yr .royal-photo-baroque-vector-img {
+      filter: hue-rotate(15deg) saturate(1.35) brightness(1.06) drop-shadow(0 12px 35px rgba(0, 0, 0, 0.9)) drop-shadow(0 0 16px rgba(245, 158, 11, 0.7));
+    }
+    body.theme-tier-5yr .portal-arch-structure:hover .royal-door-baroque-vector-img,
+    body.theme-tier-5yr .celebration-portrait-column:hover .royal-photo-baroque-vector-img {
+      filter: hue-rotate(15deg) saturate(1.45) brightness(1.12) drop-shadow(0 18px 45px rgba(0, 0, 0, 0.95)) drop-shadow(0 0 24px rgba(245, 158, 11, 0.9));
+    }
+
+    /* Tier 10yr: Prism Diamond Ice & Holographic Cyan */
+    body.theme-tier-10yr .royal-door-baroque-vector-img,
+    body.theme-tier-10yr .royal-photo-baroque-vector-img {
+      filter: hue-rotate(205deg) saturate(0.85) brightness(1.22) drop-shadow(0 12px 35px rgba(0, 0, 0, 0.9)) drop-shadow(0 0 18px rgba(165, 243, 252, 0.75));
+    }
+    body.theme-tier-10yr .portal-arch-structure:hover .royal-door-baroque-vector-img,
+    body.theme-tier-10yr .celebration-portrait-column:hover .royal-photo-baroque-vector-img {
+      filter: hue-rotate(205deg) saturate(0.95) brightness(1.3) drop-shadow(0 18px 45px rgba(0, 0, 0, 0.95)) drop-shadow(0 0 26px rgba(165, 243, 252, 0.92));
+    }
+
+    /* Tier 15yr: Deep Emerald & Antique Gold */
+    body.theme-tier-15yr .royal-door-baroque-vector-img,
+    body.theme-tier-15yr .royal-photo-baroque-vector-img {
+      filter: hue-rotate(85deg) saturate(1.3) brightness(1.04) drop-shadow(0 12px 35px rgba(0, 0, 0, 0.9)) drop-shadow(0 0 18px rgba(16, 185, 129, 0.7));
+    }
+    body.theme-tier-15yr .portal-arch-structure:hover .royal-door-baroque-vector-img,
+    body.theme-tier-15yr .celebration-portrait-column:hover .royal-photo-baroque-vector-img {
+      filter: hue-rotate(85deg) saturate(1.4) brightness(1.1) drop-shadow(0 18px 45px rgba(0, 0, 0, 0.95)) drop-shadow(0 0 26px rgba(16, 185, 129, 0.9));
+    }
+
+    /* Tier 20yr: Imperial Royal Purple & 24K Liquid Gold */
+    body.theme-tier-20yr .royal-door-baroque-vector-img,
+    body.theme-tier-20yr .royal-photo-baroque-vector-img {
+      filter: hue-rotate(265deg) saturate(1.35) brightness(1.1) drop-shadow(0 12px 35px rgba(0, 0, 0, 0.9)) drop-shadow(0 0 20px rgba(192, 132, 252, 0.8));
+    }
+    body.theme-tier-20yr .portal-arch-structure:hover .royal-door-baroque-vector-img,
+    body.theme-tier-20yr .celebration-portrait-column:hover .royal-photo-baroque-vector-img {
+      filter: hue-rotate(265deg) saturate(1.45) brightness(1.18) drop-shadow(0 18px 45px rgba(0, 0, 0, 0.95)) drop-shadow(0 0 28px rgba(192, 132, 252, 0.95));
     }
 
     @media (max-width: 640px) {
@@ -9569,18 +9516,13 @@
         -webkit-mask-image: radial-gradient(ellipse 90% 75% at 50% 50%, #000 15%, rgba(0, 0, 0, 0.7) 45%, rgba(0, 0, 0, 0.2) 70%, transparent 95%);
         mask-image: radial-gradient(ellipse 90% 75% at 50% 50%, #000 15%, rgba(0, 0, 0, 0.7) 45%, rgba(0, 0, 0, 0.2) 70%, transparent 95%);
       }
-      .royal-arch-flourish-left {
-        left: -38px;
-        width: 110px;
+      .royal-door-vector-flourishes {
+        width: 460px;
+        height: 593px;
       }
-      .royal-arch-flourish-right {
-        right: -38px;
-        width: 110px;
-      }
-      .royal-arch-crest-top {
-        top: -30px;
-        width: 220px;
-        height: 65px;
+      .royal-frame-vector-flourishes {
+        width: 380px;
+        height: 490px;
       }
     }
 
@@ -9671,90 +9613,9 @@
         
         <div class="portal-arch-structure" id="portalArch" title="Scroll down or click door to enter">
           
-          <!-- Royal Vector Flourishes emerging from behind the Door / Arch (Theme Adaptive) -->
+          <!-- Royal Baroque Vector Frame emerging from behind Door / Arch (Authentic Gilded Rococo / Theme-Adaptive) -->
           <div class="royal-door-vector-flourishes" aria-hidden="true">
-            <svg class="royal-arch-crest-top" viewBox="0 0 320 95" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <linearGradient id="rfDynamicCrest" x1="0%" y1="100%" x2="0%" y2="0%">
-      <stop offset="0%" stop-color="var(--gold-dark)" stop-opacity="0.8"/>
-      <stop offset="50%" stop-color="var(--gold-primary)" stop-opacity="0.95"/>
-      <stop offset="100%" stop-color="var(--gold-light)" stop-opacity="1"/>
-    </linearGradient>
-  </defs>
-  <!-- Central Imperial Palmette & Crown -->
-  <path d="M160,5 C155,25 142,42 120,52 C100,60 70,55 50,68 C35,78 30,90 20,92" stroke="url(#rfDynamicCrest)" stroke-width="2.4" stroke-linecap="round"/>
-  <path d="M160,5 C165,25 178,42 200,52 C220,60 250,55 270,68 C285,78 290,90 300,92" stroke="url(#rfDynamicCrest)" stroke-width="2.4" stroke-linecap="round"/>
-  <!-- Symmetrical Crown Crest Petals -->
-  <path d="M160,10 C154,26 150,45 160,65 C170,45 166,26 160,10 Z" fill="var(--glass-gold-border)" stroke="url(#rfDynamicCrest)" stroke-width="1.8"/>
-  <path d="M160,28 C144,38 136,55 145,72 C154,62 156,45 160,28 Z" fill="var(--glass-gold-border)" stroke="url(#rfDynamicCrest)" stroke-width="1.4"/>
-  <path d="M160,28 C176,38 184,55 175,72 C166,62 164,45 160,28 Z" fill="var(--glass-gold-border)" stroke="url(#rfDynamicCrest)" stroke-width="1.4"/>
-  <!-- Lateral Curling Tendrils -->
-  <path d="M120,52 C108,35 88,40 85,55 C82,70 100,78 112,68 C118,63 118,54 110,48" stroke="url(#rfDynamicCrest)" stroke-width="1.6" stroke-linecap="round"/>
-  <path d="M200,52 C212,35 232,40 235,55 C238,70 220,78 208,68 C202,63 202,54 210,48" stroke="url(#rfDynamicCrest)" stroke-width="1.6" stroke-linecap="round"/>
-  <!-- Center Royal Star & Jewels -->
-  <polygon points="160,18 162.5,25 170,25 164,29.5 166.5,37 160,32 153.5,37 156,29.5 150,25 157.5,25" fill="var(--gold-light)"/>
-  <circle cx="160" cy="5" r="3.5" fill="var(--gold-light)"/>
-  <circle cx="85" cy="55" r="2.5" fill="var(--gold-light)"/>
-  <circle cx="235" cy="55" r="2.5" fill="var(--gold-light)"/>
-  <circle cx="20" cy="92" r="2" fill="var(--gold-light)"/>
-  <circle cx="300" cy="92" r="2" fill="var(--gold-light)"/>
-</svg>
-            <svg class="royal-arch-flourish-left" viewBox="0 0 175 440" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <linearGradient id="rfDynamicLeft" x1="100%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="var(--gold-light)" stop-opacity="0.95"/>
-      <stop offset="45%" stop-color="var(--gold-primary)" stop-opacity="0.85"/>
-      <stop offset="85%" stop-color="var(--gold-dark)" stop-opacity="0.6"/>
-      <stop offset="100%" stop-color="var(--gold-dark)" stop-opacity="0.15"/>
-    </linearGradient>
-  </defs>
-  <!-- S-Curve Botanical Acanthus Spine -->
-  <path d="M170,45 C130,40 90,70 80,115 C65,165 105,210 75,260 C50,305 18,340 38,395 C48,420 85,430 170,435" stroke="url(#rfDynamicLeft)" stroke-width="2.8" stroke-linecap="round"/>
-  <!-- Tendril Spirals -->
-  <path d="M80,115 C58,88 28,98 25,128 C22,154 48,170 66,155 C76,147 77,130 68,122 C59,114 46,122 47,133" stroke="url(#rfDynamicLeft)" stroke-width="2" stroke-linecap="round"/>
-  <path d="M92,75 C75,38 40,44 34,70 C30,88 50,104 66,94" stroke="url(#rfDynamicLeft)" stroke-width="1.6" stroke-linecap="round"/>
-  <path d="M130,45 C112,12 75,16 70,38 C67,52 82,64 96,55" stroke="url(#rfDynamicLeft)" stroke-width="1.5" stroke-linecap="round"/>
-  <path d="M75,260 C45,238 15,255 12,284 C9,310 36,326 55,313 C65,306 67,289 57,281 C47,273 35,281 36,292" stroke="url(#rfDynamicLeft)" stroke-width="2" stroke-linecap="round"/>
-  <path d="M38,395 C12,385 4,412 18,428 C32,438 54,426 48,408" stroke="url(#rfDynamicLeft)" stroke-width="1.6" stroke-linecap="round"/>
-  <!-- Ornate Leaves -->
-  <path d="M120,95 C102,118 114,144 136,138 C152,133 154,106 120,95 Z" fill="var(--glass-gold-border)" stroke="url(#rfDynamicLeft)" stroke-width="1.3"/>
-  <path d="M100,185 C80,205 88,232 114,226 C130,220 134,195 100,185 Z" fill="var(--glass-gold-border)" stroke="url(#rfDynamicLeft)" stroke-width="1.3"/>
-  <path d="M78,285 C58,305 66,332 92,326 C108,320 112,295 78,285 Z" fill="var(--glass-gold-border)" stroke="url(#rfDynamicLeft)" stroke-width="1.3"/>
-  <!-- Brilliant Jewels -->
-  <circle cx="25" cy="128" r="3.5" fill="var(--gold-light)"/>
-  <circle cx="12" cy="284" r="3.5" fill="var(--gold-light)"/>
-  <circle cx="34" cy="70" r="2.8" fill="var(--gold-light)"/>
-  <circle cx="18" cy="428" r="2.8" fill="var(--gold-light)"/>
-</svg>
-            <svg class="royal-arch-flourish-right" viewBox="0 0 175 440" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <linearGradient id="rfDynamicRight" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="var(--gold-light)" stop-opacity="0.95"/>
-      <stop offset="45%" stop-color="var(--gold-primary)" stop-opacity="0.85"/>
-      <stop offset="85%" stop-color="var(--gold-dark)" stop-opacity="0.6"/>
-      <stop offset="100%" stop-color="var(--gold-dark)" stop-opacity="0.15"/>
-    </linearGradient>
-  </defs>
-  <g transform="translate(175,0) scale(-1,1)">
-    <!-- S-Curve Botanical Acanthus Spine -->
-    <path d="M170,45 C130,40 90,70 80,115 C65,165 105,210 75,260 C50,305 18,340 38,395 C48,420 85,430 170,435" stroke="url(#rfDynamicRight)" stroke-width="2.8" stroke-linecap="round"/>
-    <!-- Tendril Spirals -->
-    <path d="M80,115 C58,88 28,98 25,128 C22,154 48,170 66,155 C76,147 77,130 68,122 C59,114 46,122 47,133" stroke="url(#rfDynamicRight)" stroke-width="2" stroke-linecap="round"/>
-    <path d="M92,75 C75,38 40,44 34,70 C30,88 50,104 66,94" stroke="url(#rfDynamicRight)" stroke-width="1.6" stroke-linecap="round"/>
-    <path d="M130,45 C112,12 75,16 70,38 C67,52 82,64 96,55" stroke="url(#rfDynamicRight)" stroke-width="1.5" stroke-linecap="round"/>
-    <path d="M75,260 C45,238 15,255 12,284 C9,310 36,326 55,313 C65,306 67,289 57,281 C47,273 35,281 36,292" stroke="url(#rfDynamicRight)" stroke-width="2" stroke-linecap="round"/>
-    <path d="M38,395 C12,385 4,412 18,428 C32,438 54,426 48,408" stroke="url(#rfDynamicRight)" stroke-width="1.6" stroke-linecap="round"/>
-    <!-- Ornate Leaves -->
-    <path d="M120,95 C102,118 114,144 136,138 C152,133 154,106 120,95 Z" fill="var(--glass-gold-border)" stroke="url(#rfDynamicRight)" stroke-width="1.3"/>
-    <path d="M100,185 C80,205 88,232 114,226 C130,220 134,195 100,185 Z" fill="var(--glass-gold-border)" stroke="url(#rfDynamicRight)" stroke-width="1.3"/>
-    <path d="M78,285 C58,305 66,332 92,326 C108,320 112,295 78,285 Z" fill="var(--glass-gold-border)" stroke="url(#rfDynamicRight)" stroke-width="1.3"/>
-    <!-- Brilliant Jewels -->
-    <circle cx="25" cy="128" r="3.5" fill="var(--gold-light)"/>
-    <circle cx="12" cy="284" r="3.5" fill="var(--gold-light)"/>
-    <circle cx="34" cy="70" r="2.8" fill="var(--gold-light)"/>
-    <circle cx="18" cy="428" r="2.8" fill="var(--gold-light)"/>
-  </g>
-</svg>
+            <img src="royal_baroque_frame_800.png" alt="Royal Baroque Door Vector Frame" class="royal-door-baroque-vector-img" loading="eager" decoding="async">
           </div>
           
           <!-- Hardware-Accelerated Static Halo -->
@@ -9862,24 +9723,9 @@
           
           <!-- LEFT / HERO PORTRAIT COLUMN (Occupies 60–70% page height) -->
           <div class="celebration-portrait-column">
-            <!-- Royal Vector Flourishes emerging behind Hero Photo Frame -->
+            <!-- Royal Baroque Vector Frame emerging behind Hero Photo Frame (Authentic Gilded Rococo / Theme-Adaptive) -->
             <div class="royal-frame-vector-flourishes" aria-hidden="true">
-              <svg class="royal-frame-flourish-left" viewBox="0 0 100 380" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <path d="M95,30 C65,35 35,65 30,105 C20,150 55,190 32,235 C15,275 -5,310 10,355 C18,375 50,378 95,378" stroke="url(#rfGoldLeft)" stroke-width="2.2" stroke-linecap="round"/>
-  <path d="M30,105 C12,85 -8,95 -10,120 C-12,142 10,155 24,142" stroke="url(#rfGoldLeft)" stroke-width="1.5" stroke-linecap="round"/>
-  <path d="M32,235 C8,218 -10,235 -12,258 C-14,280 8,294 22,282" stroke="url(#rfGoldLeft)" stroke-width="1.5" stroke-linecap="round"/>
-  <circle cx="-10" cy="120" r="2.5" fill="#ffe8b5"/>
-  <circle cx="-12" cy="258" r="2.5" fill="#ffe8b5"/>
-</svg>
-              <svg class="royal-frame-flourish-right" viewBox="0 0 100 380" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <g transform="translate(100,0) scale(-1,1)">
-    <path d="M95,30 C65,35 35,65 30,105 C20,150 55,190 32,235 C15,275 -5,310 10,355 C18,375 50,378 95,378" stroke="url(#rfGoldRight)" stroke-width="2.2" stroke-linecap="round"/>
-    <path d="M30,105 C12,85 -8,95 -10,120 C-12,142 10,155 24,142" stroke="url(#rfGoldRight)" stroke-width="1.5" stroke-linecap="round"/>
-    <path d="M32,235 C8,218 -10,235 -12,258 C-14,280 8,294 22,282" stroke="url(#rfGoldRight)" stroke-width="1.5" stroke-linecap="round"/>
-    <circle cx="-10" cy="120" r="2.5" fill="#ffe8b5"/>
-    <circle cx="-12" cy="258" r="2.5" fill="#ffe8b5"/>
-  </g>
-</svg>
+              <img src="royal_baroque_frame_800.png" alt="Royal Baroque Photo Vector Frame" class="royal-photo-baroque-vector-img" loading="eager" decoding="async">
             </div>
             <div class="celebration-portrait-glow"></div>
             <div class="celebration-portrait-frame" id="celebrationPortraitFrame" title="Hover to float portrait in 3D">
