@@ -5,9 +5,9 @@
       "id": "chamber-milestone",
       "type": "celebration",
       "navNum": "★",
-      "navLabel": "Year One",
-      "title": "Celebrating Your First Year With Uffizio",
-      "sub": "With Uffizio",
+      "navLabel": "3 Years",
+      "title": "Celebrating 3 Remarkable Years With Uffizio",
+      "sub": "Core Pillar • Telematics Systems",
       "canDelete": false,
       "enabled": true,
       "tabTarget": "tab-celebration"
@@ -135,7 +135,7 @@
     }
   ],
   "doorWingLeft": "UFFIZIO",
-  "doorWingRight": "2025 → 2026",
+  "doorWingRight": "2023 → 2026",
   "editorPasscode": "uffizio",
   "entrance": {
     "logo": "uffizio_logo_white.png",
@@ -148,12 +148,12 @@
     "role": "Senior Fleet Telematics Engineer",
     "date": "15 October 2024",
     "photo": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&auto=format&fit=crop&q=80",
-    "years": "2024 → 2026"
+    "years": "2023 → 2026"
   },
   "celebration": {
-    "title": "Celebrating Your Second Year",
-    "sub": "With Uffizio",
-    "quote": "“Two years of engineering breakthroughs, leadership, and elevating fleet reliability.”"
+    "title": "Celebrating 3 Remarkable Years",
+    "sub": "Core Pillar • With Uffizio",
+    "quote": "“Three years of building trust, mastering telemetry challenges, and shaping success together.”"
   },
   "milestones": [
     {
@@ -214,7 +214,7 @@
     ]
   },
   "thankYou": {
-    "headerBadge": "✨ HEARTFELT APPRECIATION • 1 YEAR MILESTONE ✨",
+    "headerBadge": "✨ 3 YEARS OF IMPACT & LEADERSHIP ✨",
     "title": "Thank You, Rahul!",
     "subtitle": "",
     "message": "Thank you for bringing your dedication, energy, and brilliant spirit to Uffizio every single day. Your presence strengthens our team, elevates our culture, and turns every challenge into an inspiring milestone. We are deeply proud of your growth and honored to walk this journey together.",
@@ -712,5 +712,6 @@
     "chValTitle": "Your Values",
     "chValDesc": "The Values You Bring — How Your Everyday Actions Define Our Culture",
     "ch6Wish": "To a year defined by bold initiatives, late-night breakthroughs, and continuous excellence. Happy 1st Work Anniversary!"
-  }
+  },
+  "milestoneTier": "3yr"
 }

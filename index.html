@@ -757,6 +757,95 @@
       --font-calligraphy: 'Alex Brush', 'Great Vibes', 'Allura', 'Brush Script MT', cursive;
     }
 
+    /* ==========================================================================
+       YEAR-WISE MILESTONE ANNIVERSARY THEME TIERS
+       Tier 1yr: Default Sapphire Blue & Gold (100% preserves original styling)
+       Tier 3yr: Moonlight Platinum Silver & Deep Cobalt Blue
+       Tier 5yr: Royal Champagne Gold & Amber Obsidian
+       Tier 10yr: Prism Diamond Ice & Holographic Cyan
+       Tier 15yr: Deep Emerald & Antique Gold
+       Tier 20yr: Imperial Royal Purple & 24K Liquid Gold
+       ========================================================================== */
+    body.theme-tier-3yr {
+      --bg-palace: #050b14;
+      --bg-room: #091224;
+      --gold-primary: #e2e8f0;
+      --gold-light: #ffffff;
+      --gold-dark: #94a3b8;
+      --gold-glow: rgba(56, 189, 248, 0.85);
+      --shadow-sapphire: 0 15px 40px rgba(3, 105, 161, 0.55);
+      --shadow-glow: 0 0 30px rgba(56, 189, 248, 0.75);
+      --bg-sapphire-glow: #0369a1;
+      --bg-sapphire-glow-rgba: rgba(3, 105, 161, 0.85);
+      --cyan-accent: #38bdf8;
+      --cyan-glow: rgba(56, 189, 248, 0.85);
+      --glass-gold-border: rgba(226, 232, 240, 0.35);
+    }
+
+    body.theme-tier-5yr {
+      --bg-palace: #0f0b05;
+      --bg-room: #1c1409;
+      --gold-primary: #fbbf24;
+      --gold-light: #fef08a;
+      --gold-dark: #d97706;
+      --gold-glow: rgba(245, 158, 11, 0.85);
+      --shadow-sapphire: 0 15px 40px rgba(180, 83, 9, 0.55);
+      --shadow-glow: 0 0 30px rgba(245, 158, 11, 0.75);
+      --bg-sapphire-glow: #78350f;
+      --bg-sapphire-glow-rgba: rgba(120, 53, 15, 0.85);
+      --cyan-accent: #f59e0b;
+      --cyan-glow: rgba(245, 158, 11, 0.85);
+      --glass-gold-border: rgba(251, 191, 36, 0.4);
+    }
+
+    body.theme-tier-10yr {
+      --bg-palace: #07091e;
+      --bg-room: #0e1235;
+      --gold-primary: #c4b5fd;
+      --gold-light: #ffffff;
+      --gold-dark: #818cf8;
+      --gold-glow: rgba(168, 85, 247, 0.85);
+      --shadow-sapphire: 0 15px 40px rgba(79, 70, 229, 0.55);
+      --shadow-glow: 0 0 30px rgba(168, 85, 247, 0.75);
+      --bg-sapphire-glow: #312e81;
+      --bg-sapphire-glow-rgba: rgba(49, 46, 129, 0.85);
+      --cyan-accent: #a5f3fc;
+      --cyan-glow: rgba(165, 243, 252, 0.85);
+      --glass-gold-border: rgba(165, 243, 252, 0.45);
+    }
+
+    body.theme-tier-15yr {
+      --bg-palace: #03120e;
+      --bg-room: #06241b;
+      --gold-primary: #34d399;
+      --gold-light: #a7f3d0;
+      --gold-dark: #059669;
+      --gold-glow: rgba(16, 185, 129, 0.85);
+      --shadow-sapphire: 0 15px 40px rgba(5, 150, 105, 0.55);
+      --shadow-glow: 0 0 30px rgba(16, 185, 129, 0.75);
+      --bg-sapphire-glow: #064e3b;
+      --bg-sapphire-glow-rgba: rgba(6, 78, 59, 0.85);
+      --cyan-accent: #10b981;
+      --cyan-glow: rgba(16, 185, 129, 0.85);
+      --glass-gold-border: rgba(52, 211, 153, 0.4);
+    }
+
+    body.theme-tier-20yr {
+      --bg-palace: #110519;
+      --bg-room: #1f0b2d;
+      --gold-primary: #ffd700;
+      --gold-light: #fffbeb;
+      --gold-dark: #b45309;
+      --gold-glow: rgba(168, 85, 247, 0.85);
+      --shadow-sapphire: 0 15px 40px rgba(107, 33, 168, 0.55);
+      --shadow-glow: 0 0 30px rgba(255, 215, 0, 0.75);
+      --bg-sapphire-glow: #581c87;
+      --bg-sapphire-glow-rgba: rgba(88, 28, 135, 0.85);
+      --cyan-accent: #c084fc;
+      --cyan-glow: rgba(192, 132, 252, 0.85);
+      --glass-gold-border: rgba(255, 215, 0, 0.45);
+    }
+
     * {
       box-sizing: border-box;
       margin: 0;
@@ -10197,6 +10286,28 @@
               <input type="text" id="inputEmployeeYears" class="form-input" placeholder="e.g., 2025 → 2026">
             </div>
 
+            <!-- Milestone Anniversary Tier & Theme Selector -->
+            <div class="form-group" style="margin-top: 10px; background: rgba(56, 189, 248, 0.08); border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 8px; padding: 10px 12px;">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+                <label for="adminMilestoneTier" style="font-size: 11.5px; font-weight: 700; color: #38bdf8; text-transform: uppercase; margin: 0;">🏆 Milestone Anniversary Tier & Theme</label>
+                <span style="font-size: 10px; color: #bae6fd; background: rgba(56,189,248,0.2); padding: 1px 6px; border-radius: 4px;">Dynamic Theme</span>
+              </div>
+              <select id="adminMilestoneTier" class="form-input" style="font-weight: 600; background: rgba(0,0,0,0.5); color: #f1f5f9;">
+                <option value="1yr">★ 1 Year • Rising Pioneer (Classic Sapphire & Gold - Default)</option>
+                <option value="3yr">✦ 3 Years • Core Pillar (Moonlight Silver & Deep Cobalt)</option>
+                <option value="5yr">👑 5 Years • Half-Decade Leader (Royal Amber Gold)</option>
+                <option value="10yr">💎 10 Years • Decade Legend (Diamond Prism Ice)</option>
+                <option value="15yr">🏛️ 15 Years • Sovereign Architect (Deep Emerald & Gold)</option>
+                <option value="20yr">👑 20 Years • Heritage Icon (Imperial Purple & 24K Gold)</option>
+              </select>
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-top:6px;">
+                <span style="font-size: 10.5px; color: #94a3b8;">પસંદ કરેલ વર્ષ મુજબ મહેલની કલર થીમ આપોઆપ બદલાઈ જશે.</span>
+                <button type="button" id="btnApplyTierTitles" style="background: rgba(56,189,248,0.18); border: 1px solid rgba(56,189,248,0.4); color: #38bdf8; font-size: 10px; padding: 3px 8px; border-radius: 4px; cursor: pointer; font-weight: 600;">
+                  ✨ Auto-Suggest Titles
+                </button>
+              </div>
+            </div>
+
             <!-- Door Wings Customization (Left & Right Door Leaves) -->
             <div style="background: rgba(245, 192, 101, 0.06); border: 1px solid rgba(245, 192, 101, 0.25); border-radius: 8px; padding: 10px 12px; margin-top: 10px;">
               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
@@ -15211,6 +15322,16 @@
     // ==========================================================================
     // MULTI-EMPLOYEE PROFILE ENGINE: DYNAMIC JSON FETCHER & STATE SYNC
     // ==========================================================================
+
+    // Apply Milestone Anniversary Theme Tier
+    function applyThemeTier(tier) {
+      const activeTier = tier || (palaceState && palaceState.milestoneTier) || '1yr';
+      document.body.classList.remove('theme-tier-3yr', 'theme-tier-5yr', 'theme-tier-10yr', 'theme-tier-15yr', 'theme-tier-20yr');
+      if (activeTier && activeTier !== '1yr') {
+        document.body.classList.add(`theme-tier-${activeTier}`);
+      }
+    }
+
     async function initEmployeeProfile() {
       if (!currentEmpSlug) return;
       const localKey = getStorageKeyForProfile(currentEmpSlug);
@@ -15284,6 +15405,7 @@
     }
 
     function updatePalaceFromState() {
+      applyThemeTier(palaceState.milestoneTier || '1yr');
       syncPalaceNavigation();
       const emp = palaceState.employee;
       const celeb = palaceState.celebration || {};
@@ -17648,6 +17770,10 @@
       inputEmployeeRole.value = emp.role || "Customer Support";
       inputEmployeeDate.value = emp.date || "01 September 2025";
       inputEmployeeYears.value = emp.years || "2025 → 2026";
+      const adminMilestoneTierEl = document.getElementById('adminMilestoneTier');
+      if (adminMilestoneTierEl) {
+        adminMilestoneTierEl.value = palaceState.milestoneTier || '1yr';
+      }
       inputEmployeePhoto.value = emp.photo || "manushi_hero.jpg";
 
       const inputDoorLeft = document.getElementById('inputDoorLeftText');
@@ -17985,6 +18111,11 @@
         } else if (inpDoorR) {
           palaceState.doorWingRight = inpDoorR.value.trim() || years || "2025 → 2026";
         }
+        const adminMilestoneTierEl = document.getElementById('adminMilestoneTier');
+        if (adminMilestoneTierEl) {
+          palaceState.milestoneTier = adminMilestoneTierEl.value;
+          applyThemeTier(palaceState.milestoneTier);
+        }
 
         // Collect Room Customizations from Rooms Manager
         const roomCards = document.querySelectorAll('#adminRoomsList .admin-room-card');
@@ -18319,6 +18450,53 @@
     }
 
 
+      // Milestone Tier Selection & Auto-Suggest
+      const adminMilestoneTierEl = document.getElementById('adminMilestoneTier');
+      const btnApplyTierTitles = document.getElementById('btnApplyTierTitles');
+
+      if (adminMilestoneTierEl) {
+        adminMilestoneTierEl.addEventListener('change', () => {
+          const chosen = adminMilestoneTierEl.value;
+          palaceState.milestoneTier = chosen;
+          applyThemeTier(chosen);
+        });
+      }
+
+      if (btnApplyTierTitles && adminMilestoneTierEl) {
+        btnApplyTierTitles.addEventListener('click', () => {
+          const tier = adminMilestoneTierEl.value;
+          const empName = (palaceState.employee && palaceState.employee.name) || "Employee";
+          
+          if (tier === '1yr') {
+            adminCelebTitle.value = "Celebrating Your First Year";
+            adminCelebSub.value = "With Uffizio";
+            adminCelebQuote.value = "“One year ago, a new chapter began. Today, we celebrate everything that made it meaningful.”";
+          } else if (tier === '3yr') {
+            adminCelebTitle.value = "Celebrating 3 Remarkable Years";
+            adminCelebSub.value = "Core Pillar • With Uffizio";
+            adminCelebQuote.value = "“Three years of building trust, mastering challenges, and shaping success together.”";
+          } else if (tier === '5yr') {
+            adminCelebTitle.value = "Celebrating Half a Decade of Impact";
+            adminCelebSub.value = "5 Years of Leadership • With Uffizio";
+            adminCelebQuote.value = "“Five years of passion, vision, and guiding our journey forward.”";
+          } else if (tier === '10yr') {
+            adminCelebTitle.value = "Celebrating A Decade of Excellence";
+            adminCelebSub.value = "10 Years of Timeless Impact & Legacy";
+            adminCelebQuote.value = "“A decade of loyalty, brilliance, and being an unbreakable pillar of Uffizio.”";
+          } else if (tier === '15yr') {
+            adminCelebTitle.value = "Celebrating 15 Years of Sovereign Leadership";
+            adminCelebSub.value = "Architect of Our Success & Culture";
+            adminCelebQuote.value = "“Fifteen years of forging paths, inspiring generations, and building our foundation.”";
+          } else if (tier === '20yr') {
+            adminCelebTitle.value = "Honoring Two Decades of Timeless Heritage";
+            adminCelebSub.value = "20 Years of Invaluable Dedication With Uffizio";
+            adminCelebQuote.value = "“Twenty years of extraordinary dedication, enduring wisdom, and a legacy that inspires us all.”";
+          }
+          
+          alert(`✨ ${tier.toUpperCase()} માટે યોગ્ય ટાઇટલ અને ક્વોટ આપમેળે સેટ થઈ ગયા છે!`);
+        });
+      }
+
       // Multi-Employee Profile Switcher Events
       const selectEmployeeProfile = document.getElementById('selectEmployeeProfile');
       const btnSwitchProfile = document.getElementById('btnSwitchProfile');
@@ -18347,7 +18525,16 @@
           const confirmCreate = confirm(`નવા કર્મચારી '${empName}' (${slug}) માટે નવી જર્ની શરૂ કરવી છે?\nજૂના કર્મચારીનો ડેટા સહેજ પણ Replace કે Overwrite થશે નહીં.`);
           if (!confirmCreate) return;
 
+          const tierChoice = prompt("એનિવર્સરી વર્ષ પસંદ કરો (1, 3, 5, 10, 15, 20):", "1");
+          let chosenTier = "1yr";
+          if (tierChoice === '3') chosenTier = "3yr";
+          else if (tierChoice === '5') chosenTier = "5yr";
+          else if (tierChoice === '10') chosenTier = "10yr";
+          else if (tierChoice === '15') chosenTier = "15yr";
+          else if (tierChoice === '20') chosenTier = "20yr";
+
           let newProfile = JSON.parse(JSON.stringify(palaceState));
+          newProfile.milestoneTier = chosenTier;
           try {
             const tResp = await fetch(`profiles/template.json?v=${Date.now()}`);
             if (tResp.ok) {
