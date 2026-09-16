@@ -9479,64 +9479,7 @@
       }
     }
 
-    /* ==========================================================================
-       ROYAL BACKGROUND DAMASK PATTERN (10% OPACITY SHINING & THEME-ADAPTIVE)
-       ========================================================================== */
-    .royal-ambient-pattern-layer {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 0;
-      overflow: hidden;
-      opacity: 0.10; /* Exactly 10% Opacity as requested */
-      animation: royalPatternBreathing 8s infinite ease-in-out;
-      transition: opacity 0.6s ease;
-    }
 
-    @keyframes royalPatternBreathing {
-      0%, 100% {
-        opacity: 0.08;
-        filter: drop-shadow(0 0 2px var(--gold-glow));
-      }
-      50% {
-        opacity: 0.13;
-        filter: drop-shadow(0 0 6px var(--gold-glow));
-      }
-    }
-
-    .royal-pattern-shimmer-sweep {
-      position: absolute;
-      inset: -60%;
-      width: 220%;
-      height: 220%;
-      background: linear-gradient(
-        125deg,
-        transparent 35%,
-        rgba(255, 255, 255, 0.03) 46%,
-        var(--gold-light) 50%,
-        rgba(255, 255, 255, 0.03) 54%,
-        transparent 65%
-      );
-      opacity: 0.14;
-      transform: rotate(-25deg) translateY(-100%);
-      animation: royalPatternSweep 10s infinite ease-in-out;
-      pointer-events: none;
-      mix-blend-mode: overlay;
-    }
-
-    @keyframes royalPatternSweep {
-      0% {
-        transform: rotate(-25deg) translateY(-120%);
-      }
-      35% {
-        transform: rotate(-25deg) translateY(0%);
-      }
-      70%, 100% {
-        transform: rotate(-25deg) translateY(120%);
-      }
-    }
 
     /* Royal Photo Frame Flourishes in Celebration Room */
     .royal-frame-vector-flourishes {
@@ -9672,40 +9615,7 @@
        THE 2.5D MEMORY PALACE VIEWPORT
        ========================================================================== -->
   <main class="palace-viewport" id="palaceViewport">
-    <!-- Royal Ambient Background Pattern (10% Opacity with Subtle Shining Effect) -->
-    <div class="royal-ambient-pattern-layer" aria-hidden="true">
-      <svg class="royal-bg-pattern-svg" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <pattern id="royalDamaskPattern" width="160" height="160" patternUnits="userSpaceOnUse">
-            <!-- Center Royal Fleur-de-lis & Symmetrical Flourish -->
-            <path d="M80,20 C76,38 68,50 50,56 C68,62 76,74 80,92 C84,74 92,62 110,56 C92,50 84,38 80,20 Z" fill="var(--glass-gold-border)" stroke="var(--gold-primary)" stroke-width="1.2"/>
-            <path d="M80,30 C78,42 74,50 62,56 C74,62 78,70 80,82 C82,70 86,62 98,56 C86,50 82,42 80,30 Z" fill="none" stroke="var(--gold-light)" stroke-width="0.8"/>
-            <circle cx="80" cy="56" r="3.5" fill="var(--gold-light)"/>
-            <!-- Corner Diamond Rosettes & Acanthus Curves -->
-            <path d="M0,0 C15,18 22,35 18,52 C12,68 0,75 0,80" fill="none" stroke="var(--gold-primary)" stroke-width="1.1"/>
-            <path d="M160,0 C145,18 138,35 142,52 C148,68 160,75 160,80" fill="none" stroke="var(--gold-primary)" stroke-width="1.1"/>
-            <path d="M0,160 C15,142 22,125 18,108 C12,92 0,85 0,80" fill="none" stroke="var(--gold-primary)" stroke-width="1.1"/>
-            <path d="M160,160 C145,142 138,125 142,108 C148,92 160,85 160,80" fill="none" stroke="var(--gold-primary)" stroke-width="1.1"/>
-            <!-- Ornate Lattice Diamond Linking Vines -->
-            <path d="M0,80 Q40,75 50,56 Q40,37 0,32" fill="none" stroke="var(--gold-primary)" stroke-width="1" stroke-dasharray="2,3"/>
-            <path d="M160,80 Q120,75 110,56 Q120,37 160,32" fill="none" stroke="var(--gold-primary)" stroke-width="1" stroke-dasharray="2,3"/>
-            <path d="M80,0 Q75,40 56,50 Q37,40 32,0" fill="none" stroke="var(--gold-primary)" stroke-width="1" stroke-dasharray="2,3"/>
-            <path d="M80,160 Q75,120 56,110 Q37,120 32,160" fill="none" stroke="var(--gold-primary)" stroke-width="1" stroke-dasharray="2,3"/>
-            <!-- Subtle Micro Crystals at Intersections -->
-            <polygon points="0,0 3,6 0,12 -3,6" fill="var(--gold-light)"/>
-            <polygon points="160,0 163,6 160,12 157,6" fill="var(--gold-light)"/>
-            <polygon points="0,160 3,166 0,172 -3,166" fill="var(--gold-light)"/>
-            <polygon points="160,160 163,166 160,172 157,166" fill="var(--gold-light)"/>
-            <polygon points="80,0 82.5,5 80,10 77.5,5" fill="var(--gold-light)"/>
-            <polygon points="80,160 82.5,165 80,170 77.5,165" fill="var(--gold-light)"/>
-            <polygon points="0,80 2.5,85 0,90 -2.5,85" fill="var(--gold-light)"/>
-            <polygon points="160,80 162.5,85 160,90 157.5,85" fill="var(--gold-light)"/>
-          </pattern>
-        </defs>
-        <rect width="100%" height="100%" fill="url(#royalDamaskPattern)"/>
-      </svg>
-      <div class="royal-pattern-shimmer-sweep" aria-hidden="true"></div>
-    </div>
+
     <div class="palace-stage" id="palaceStage">
 
       <!-- ====================================================================
