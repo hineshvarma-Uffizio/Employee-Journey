@@ -9245,7 +9245,7 @@
 
 
     /* ==========================================================================
-       ROYAL VICTORIAN DAMASK BACKGROUND PATTERN (10% OPACITY + SOFT SHIMMER)
+       ROYAL VICTORIAN DAMASK BACKGROUND PATTERN (SUBTLE OPACITY + SOFT SHIMMER)
        ========================================================================== */
     .royal-ethnic-pattern-layer {
       position: fixed;
@@ -9256,9 +9256,9 @@
       pointer-events: none;
       z-index: 1;
       overflow: hidden;
-      opacity: 0.10;
+      opacity: 0.045;
       transition: opacity 0.5s ease;
-      animation: royalPatternGlimmer 12s infinite ease-in-out alternate;
+      animation: royalPatternGlimmer 14s infinite ease-in-out alternate;
       -webkit-mask-image: url('royal_damask_mask_512.png');
       mask-image: url('royal_damask_mask_512.png');
       -webkit-mask-repeat: repeat;
@@ -9269,13 +9269,13 @@
 
     @keyframes royalPatternGlimmer {
       0% {
-        opacity: 0.08;
+        opacity: 0.035;
       }
       50% {
-        opacity: 0.12;
+        opacity: 0.055;
       }
       100% {
-        opacity: 0.09;
+        opacity: 0.04;
       }
     }
 
@@ -9288,7 +9288,7 @@
       background-color: var(--gold-primary);
     }
 
-    /* Soft Ambient Glimmer Wave across the Damask Motifs */
+    /* Soft Ambient Glimmer Wave across the Damask Motifs (Gentle Specular) */
     .royal-ethnic-shimmer-sheen {
       position: absolute;
       top: -100%;
@@ -9298,17 +9298,17 @@
       background: linear-gradient(
         115deg,
         transparent 0%,
-        transparent 42%,
-        var(--gold-light) 48%,
-        rgba(255, 255, 255, 0.95) 50%,
-        var(--gold-primary) 52%,
-        transparent 58%,
+        transparent 44%,
+        rgba(255, 255, 255, 0.15) 49%,
+        var(--gold-light) 50%,
+        rgba(255, 255, 255, 0.15) 51%,
+        transparent 56%,
         transparent 100%
       );
       mix-blend-mode: screen;
-      animation: royalEthnicShine 8.5s infinite ease-in-out;
+      animation: royalEthnicShine 12s infinite ease-in-out;
       pointer-events: none;
-      opacity: 0.65;
+      opacity: 0.25;
     }
 
     @keyframes royalEthnicShine {
@@ -9317,11 +9317,11 @@
         opacity: 0;
       }
       15% {
-        opacity: 0.8;
+        opacity: 0.35;
       }
       50% {
         transform: translate3d(35%, 35%, 0) rotate(0deg);
-        opacity: 0.8;
+        opacity: 0.35;
       }
       65%, 100% {
         transform: translate3d(35%, 35%, 0) rotate(0deg);
@@ -9350,9 +9350,10 @@
       height: 105px;
       pointer-events: none;
       z-index: 1;
-      filter: drop-shadow(0 0 18px var(--gold-glow)) drop-shadow(0 0 5px var(--gold-primary));
+      opacity: 0.65;
+      filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.6)) drop-shadow(0 0 3px var(--gold-primary));
       animation: royalCrestEmerge 1.6s cubic-bezier(0.16, 1, 0.3, 1) forwards, royalCrestFloat 6s 1.6s infinite ease-in-out;
-      transition: filter 0.5s ease;
+      transition: filter 0.5s ease, opacity 0.5s ease;
     }
 
     .royal-arch-flourish-left {
@@ -9363,10 +9364,11 @@
       height: 460px;
       pointer-events: none;
       z-index: 1;
-      filter: drop-shadow(0 0 20px var(--gold-glow)) drop-shadow(0 0 6px var(--gold-primary));
+      opacity: 0.65;
+      filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.6)) drop-shadow(0 0 3px var(--gold-primary));
       transform-origin: right center;
       animation: royalFlourishEmergeLeft 1.8s cubic-bezier(0.16, 1, 0.3, 1) forwards, royalFlourishPulseLeft 6.5s 1.8s infinite ease-in-out;
-      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s ease;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s ease, opacity 0.5s ease;
     }
 
     .royal-arch-flourish-right {
@@ -9377,26 +9379,30 @@
       height: 460px;
       pointer-events: none;
       z-index: 1;
-      filter: drop-shadow(0 0 20px var(--gold-glow)) drop-shadow(0 0 6px var(--gold-primary));
+      opacity: 0.65;
+      filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.6)) drop-shadow(0 0 3px var(--gold-primary));
       transform-origin: left center;
       animation: royalFlourishEmergeRight 1.8s cubic-bezier(0.16, 1, 0.3, 1) forwards, royalFlourishPulseRight 6.5s 1.8s infinite ease-in-out;
-      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s ease;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s ease, opacity 0.5s ease;
     }
 
     /* Interactive Expansion on Hover / Focus */
     .portal-arch-structure:hover .royal-arch-flourish-left {
-      transform: translate3d(-24px, -6px, 0) scale(1.10);
-      filter: drop-shadow(0 0 30px var(--gold-glow)) drop-shadow(0 0 10px var(--gold-primary));
+      transform: translate3d(-18px, -4px, 0) scale(1.04);
+      opacity: 0.85;
+      filter: drop-shadow(0 0 12px rgba(0, 0, 0, 0.7)) drop-shadow(0 0 5px var(--gold-primary));
     }
 
     .portal-arch-structure:hover .royal-arch-flourish-right {
-      transform: translate3d(24px, -6px, 0) scale(1.10);
-      filter: drop-shadow(0 0 30px var(--gold-glow)) drop-shadow(0 0 10px var(--gold-primary));
+      transform: translate3d(18px, -4px, 0) scale(1.04);
+      opacity: 0.85;
+      filter: drop-shadow(0 0 12px rgba(0, 0, 0, 0.7)) drop-shadow(0 0 5px var(--gold-primary));
     }
 
     .portal-arch-structure:hover .royal-arch-crest-top {
-      transform: translateX(-50%) translate3d(0, -10px, 0) scale(1.08);
-      filter: drop-shadow(0 0 28px var(--gold-glow)) drop-shadow(0 0 10px var(--gold-primary));
+      transform: translateX(-50%) translate3d(0, -6px, 0) scale(1.04);
+      opacity: 0.85;
+      filter: drop-shadow(0 0 12px rgba(0, 0, 0, 0.7)) drop-shadow(0 0 5px var(--gold-primary));
     }
 
     /* Emerging Animations from behind the Door Frame */
@@ -9406,12 +9412,12 @@
         opacity: 0;
       }
       60% {
-        transform: translateX(-50%) translate3d(0, -8px, 0) scale(1.06);
-        opacity: 1;
+        transform: translateX(-50%) translate3d(0, -8px, 0) scale(1.04);
+        opacity: 0.70;
       }
       100% {
         transform: translateX(-50%) translate3d(0, 0, 0) scale(1);
-        opacity: 0.95;
+        opacity: 0.65;
       }
     }
 
@@ -9421,12 +9427,12 @@
         opacity: 0;
       }
       60% {
-        transform: translate3d(-24px, -6px, 0) scale(1.08);
-        opacity: 1;
+        transform: translate3d(-20px, -4px, 0) scale(1.05);
+        opacity: 0.70;
       }
       100% {
         transform: translate3d(-10px, 0, 0) scale(1);
-        opacity: 0.94;
+        opacity: 0.65;
       }
     }
 
@@ -9436,12 +9442,12 @@
         opacity: 0;
       }
       60% {
-        transform: translate3d(24px, -6px, 0) scale(1.08);
-        opacity: 1;
+        transform: translate3d(20px, -4px, 0) scale(1.05);
+        opacity: 0.70;
       }
       100% {
         transform: translate3d(10px, 0, 0) scale(1);
-        opacity: 0.94;
+        opacity: 0.65;
       }
     }
 
@@ -9449,33 +9455,33 @@
     @keyframes royalFlourishPulseLeft {
       0%, 100% {
         transform: translate3d(-10px, 0, 0) scale(1);
-        opacity: 0.90;
+        opacity: 0.60;
       }
       50% {
-        transform: translate3d(-18px, -4px, 0) scale(1.05);
-        opacity: 1;
+        transform: translate3d(-14px, -3px, 0) scale(1.03);
+        opacity: 0.72;
       }
     }
 
     @keyframes royalFlourishPulseRight {
       0%, 100% {
         transform: translate3d(10px, 0, 0) scale(1);
-        opacity: 0.90;
+        opacity: 0.60;
       }
       50% {
-        transform: translate3d(18px, -4px, 0) scale(1.05);
-        opacity: 1;
+        transform: translate3d(14px, -3px, 0) scale(1.03);
+        opacity: 0.72;
       }
     }
 
     @keyframes royalCrestFloat {
       0%, 100% {
         transform: translateX(-50%) translate3d(0, 0, 0) scale(1);
-        opacity: 0.92;
+        opacity: 0.62;
       }
       50% {
-        transform: translateX(-50%) translate3d(0, -6px, 0) scale(1.04);
-        opacity: 1;
+        transform: translateX(-50%) translate3d(0, -5px, 0) scale(1.03);
+        opacity: 0.72;
       }
     }
 
