@@ -1924,6 +1924,23 @@
                   visibility 0s 0.9s;
     }
 
+    /* Soft Cinematic Corner Vignette on Entrance Screen */
+    .palace-portal-stage::after {
+      content: '';
+      position: absolute;
+      inset: -5%;
+      width: 110%;
+      height: 110%;
+      background: radial-gradient(
+        ellipse 70% 64% at 50% 50%,
+        transparent 35%,
+        rgba(3, 7, 18, 0.35) 65%,
+        rgba(3, 7, 18, 0.8) 100%
+      );
+      pointer-events: none;
+      z-index: 0;
+    }
+
     /* Dramatic Cinematic Zoom: Camera dollies forward in through the open doorway */
     .portal-door-occlusion-mask {
       display: none; /* Removed 1200px solid shadow so royal vector flourishes can bloom freely behind the frame */
@@ -9245,7 +9262,7 @@
 
 
     /* ==========================================================================
-       ROYAL VICTORIAN DAMASK BACKGROUND PATTERN (SUBTLE OPACITY + SOFT SHIMMER)
+       ROYAL VICTORIAN DAMASK PATTERN WITH CINEMATIC CORNER VIGNETTE GRADIENT
        ========================================================================== */
     .royal-ethnic-pattern-layer {
       position: fixed;
@@ -9256,36 +9273,38 @@
       pointer-events: none;
       z-index: 1;
       overflow: hidden;
-      opacity: 0.045;
+      opacity: 0.07;
       transition: opacity 0.5s ease;
       animation: royalPatternGlimmer 14s infinite ease-in-out alternate;
+      /* Soft Radial Vignette Mask: Concentrated around center, fading seamlessly into dark corners */
+      -webkit-mask-image: radial-gradient(ellipse 70% 64% at 50% 50%, #000 18%, rgba(0, 0, 0, 0.75) 45%, rgba(0, 0, 0, 0.2) 70%, transparent 92%);
+      mask-image: radial-gradient(ellipse 70% 64% at 50% 50%, #000 18%, rgba(0, 0, 0, 0.75) 45%, rgba(0, 0, 0, 0.2) 70%, transparent 92%);
+    }
+
+    @keyframes royalPatternGlimmer {
+      0% {
+        opacity: 0.055;
+      }
+      50% {
+        opacity: 0.085;
+      }
+      100% {
+        opacity: 0.06;
+      }
+    }
+
+    .royal-ethnic-svg-tile {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      background-color: var(--gold-primary);
       -webkit-mask-image: url('royal_damask_mask_512.png');
       mask-image: url('royal_damask_mask_512.png');
       -webkit-mask-repeat: repeat;
       mask-repeat: repeat;
       -webkit-mask-size: 320px 320px;
       mask-size: 320px 320px;
-    }
-
-    @keyframes royalPatternGlimmer {
-      0% {
-        opacity: 0.035;
-      }
-      50% {
-        opacity: 0.055;
-      }
-      100% {
-        opacity: 0.04;
-      }
-    }
-
-    .royal-ethnic-svg-tile {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: var(--gold-primary);
     }
 
     /* Soft Ambient Glimmer Wave across the Damask Motifs (Gentle Specular) */
@@ -9327,6 +9346,22 @@
         transform: translate3d(35%, 35%, 0) rotate(0deg);
         opacity: 0;
       }
+    }
+
+    /* Soft Atmospheric Gradient Vignette Overlay to ensure deep corner falloff */
+    .royal-ethnic-vignette-overlay {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      background: radial-gradient(
+        ellipse 72% 65% at 50% 50%,
+        transparent 18%,
+        rgba(6, 9, 19, 0.35) 48%,
+        var(--bg-palace) 80%,
+        var(--bg-palace) 100%
+      );
     }
 
     /* ==========================================================================
@@ -9526,9 +9561,13 @@
     }
 
     @media (max-width: 640px) {
-      .royal-ethnic-pattern-layer {
+      .royal-ethnic-svg-tile {
         -webkit-mask-size: 220px 220px;
         mask-size: 220px 220px;
+      }
+      .royal-ethnic-pattern-layer {
+        -webkit-mask-image: radial-gradient(ellipse 90% 75% at 50% 50%, #000 15%, rgba(0, 0, 0, 0.7) 45%, rgba(0, 0, 0, 0.2) 70%, transparent 95%);
+        mask-image: radial-gradient(ellipse 90% 75% at 50% 50%, #000 15%, rgba(0, 0, 0, 0.7) 45%, rgba(0, 0, 0, 0.2) 70%, transparent 95%);
       }
       .royal-arch-flourish-left {
         left: -38px;
@@ -9548,10 +9587,11 @@
   </style>
 </head>
 <body>
-  <!-- Background 10% Opacity Royal Ethnic Lattice Pattern with Shimmering Sheen -->
+  <!-- Background Royal Victorian Damask Pattern with Soft Vignetting -->
   <div class="royal-ethnic-pattern-layer" id="royalEthnicBg" aria-hidden="true">
     <div class="royal-ethnic-svg-tile"></div>
     <div class="royal-ethnic-shimmer-sheen"></div>
+    <div class="royal-ethnic-vignette-overlay"></div>
   </div>
   <!-- Live On-Screen Click-to-Edit Sticky Toolbar -->
   <div class="live-edit-toolbar" id="liveEditToolbar">
