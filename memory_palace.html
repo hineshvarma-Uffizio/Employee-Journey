@@ -1926,17 +1926,7 @@
 
     /* Dramatic Cinematic Zoom: Camera dollies forward in through the open doorway */
     .portal-door-occlusion-mask {
-      position: absolute;
-      top: 80px;
-      left: 80px;
-      width: 266px;
-      height: 374px;
-      border-radius: 133px 133px 0 0;
-      box-shadow: 0 0 0 1200px #060913;
-      pointer-events: none;
-      z-index: 3;
-      transform: translate3d(0, 0, 0);
-      will-change: transform;
+      display: none; /* Removed 1200px solid shadow so royal vector flourishes can bloom freely behind the frame */
     }
 
     /* Dramatic Cinematic Zoom: Camera dollies forward in through the open doorway */
@@ -9326,88 +9316,136 @@
        ========================================================================== */
     .royal-door-vector-flourishes {
       position: absolute;
-      inset: -40px -90px -30px -90px;
+      inset: -60px -125px -40px -125px;
       pointer-events: none;
-      z-index: 0;
+      z-index: 1;
       transform-style: preserve-3d;
+      will-change: transform, opacity;
     }
 
     .royal-arch-crest-top {
       position: absolute;
-      top: -45px;
+      top: -52px;
       left: 50%;
       transform: translateX(-50%);
-      width: 320px;
-      height: 95px;
+      width: 340px;
+      height: 105px;
       pointer-events: none;
       z-index: 1;
-      filter: drop-shadow(0 0 14px rgba(245, 192, 101, 0.65));
-      animation: royalCrestFloat 5s infinite ease-in-out;
+      filter: drop-shadow(0 0 18px var(--gold-glow)) drop-shadow(0 0 5px var(--gold-primary));
+      animation: royalCrestEmerge 1.6s cubic-bezier(0.16, 1, 0.3, 1) forwards, royalCrestFloat 6s 1.6s infinite ease-in-out;
+      transition: filter 0.5s ease;
     }
 
     .royal-arch-flourish-left {
       position: absolute;
-      top: 45px;
-      left: -78px;
-      width: 175px;
-      height: 440px;
+      top: 35px;
+      left: -95px;
+      width: 195px;
+      height: 460px;
       pointer-events: none;
-      z-index: 0;
-      filter: drop-shadow(0 0 16px rgba(245, 192, 101, 0.55));
+      z-index: 1;
+      filter: drop-shadow(0 0 20px var(--gold-glow)) drop-shadow(0 0 6px var(--gold-primary));
       transform-origin: right center;
-      animation: royalFlourishBloomLeft 6s infinite ease-in-out;
+      animation: royalFlourishEmergeLeft 1.8s cubic-bezier(0.16, 1, 0.3, 1) forwards, royalFlourishPulseLeft 6.5s 1.8s infinite ease-in-out;
       transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s ease;
     }
 
     .royal-arch-flourish-right {
       position: absolute;
-      top: 45px;
-      right: -78px;
-      width: 175px;
-      height: 440px;
+      top: 35px;
+      right: -95px;
+      width: 195px;
+      height: 460px;
       pointer-events: none;
-      z-index: 0;
-      filter: drop-shadow(0 0 16px rgba(245, 192, 101, 0.55));
+      z-index: 1;
+      filter: drop-shadow(0 0 20px var(--gold-glow)) drop-shadow(0 0 6px var(--gold-primary));
       transform-origin: left center;
-      animation: royalFlourishBloomRight 6s infinite ease-in-out;
+      animation: royalFlourishEmergeRight 1.8s cubic-bezier(0.16, 1, 0.3, 1) forwards, royalFlourishPulseRight 6.5s 1.8s infinite ease-in-out;
       transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s ease;
     }
 
     /* Interactive Expansion on Hover / Focus */
     .portal-arch-structure:hover .royal-arch-flourish-left {
-      transform: translate3d(-14px, 0, 0) scale(1.08);
-      filter: drop-shadow(0 0 24px rgba(245, 192, 101, 0.85));
+      transform: translate3d(-24px, -6px, 0) scale(1.10);
+      filter: drop-shadow(0 0 30px var(--gold-glow)) drop-shadow(0 0 10px var(--gold-primary));
     }
 
     .portal-arch-structure:hover .royal-arch-flourish-right {
-      transform: translate3d(14px, 0, 0) scale(1.08);
-      filter: drop-shadow(0 0 24px rgba(245, 192, 101, 0.85));
+      transform: translate3d(24px, -6px, 0) scale(1.10);
+      filter: drop-shadow(0 0 30px var(--gold-glow)) drop-shadow(0 0 10px var(--gold-primary));
     }
 
     .portal-arch-structure:hover .royal-arch-crest-top {
-      transform: translateX(-50%) translate3d(0, -6px, 0) scale(1.06);
-      filter: drop-shadow(0 0 22px rgba(245, 192, 101, 0.9));
+      transform: translateX(-50%) translate3d(0, -10px, 0) scale(1.08);
+      filter: drop-shadow(0 0 28px var(--gold-glow)) drop-shadow(0 0 10px var(--gold-primary));
     }
 
-    /* Ethereal Blooming Animations */
-    @keyframes royalFlourishBloomLeft {
+    /* Emerging Animations from behind the Door Frame */
+    @keyframes royalCrestEmerge {
+      0% {
+        transform: translateX(-50%) translate3d(0, 40px, 0) scale(0.6);
+        opacity: 0;
+      }
+      60% {
+        transform: translateX(-50%) translate3d(0, -8px, 0) scale(1.06);
+        opacity: 1;
+      }
+      100% {
+        transform: translateX(-50%) translate3d(0, 0, 0) scale(1);
+        opacity: 0.95;
+      }
+    }
+
+    @keyframes royalFlourishEmergeLeft {
+      0% {
+        transform: translate3d(60px, 0, 0) scale(0.6);
+        opacity: 0;
+      }
+      60% {
+        transform: translate3d(-24px, -6px, 0) scale(1.08);
+        opacity: 1;
+      }
+      100% {
+        transform: translate3d(-10px, 0, 0) scale(1);
+        opacity: 0.94;
+      }
+    }
+
+    @keyframes royalFlourishEmergeRight {
+      0% {
+        transform: translate3d(-60px, 0, 0) scale(0.6);
+        opacity: 0;
+      }
+      60% {
+        transform: translate3d(24px, -6px, 0) scale(1.08);
+        opacity: 1;
+      }
+      100% {
+        transform: translate3d(10px, 0, 0) scale(1);
+        opacity: 0.94;
+      }
+    }
+
+    /* Ambient continuous breathing loops */
+    @keyframes royalFlourishPulseLeft {
       0%, 100% {
-        transform: translate3d(0, 0, 0) scale(1);
-        opacity: 0.88;
+        transform: translate3d(-10px, 0, 0) scale(1);
+        opacity: 0.90;
       }
       50% {
-        transform: translate3d(-8px, -4px, 0) scale(1.04);
+        transform: translate3d(-18px, -4px, 0) scale(1.05);
         opacity: 1;
       }
     }
 
-    @keyframes royalFlourishBloomRight {
+    @keyframes royalFlourishPulseRight {
       0%, 100% {
-        transform: translate3d(0, 0, 0) scale(1);
-        opacity: 0.88;
+        transform: translate3d(10px, 0, 0) scale(1);
+        opacity: 0.90;
       }
       50% {
-        transform: translate3d(8px, -4px, 0) scale(1.04);
+        transform: translate3d(18px, -4px, 0) scale(1.05);
         opacity: 1;
       }
     }
@@ -9418,8 +9456,67 @@
         opacity: 0.92;
       }
       50% {
-        transform: translateX(-50%) translate3d(0, -5px, 0) scale(1.03);
+        transform: translateX(-50%) translate3d(0, -6px, 0) scale(1.04);
         opacity: 1;
+      }
+    }
+
+    /* ==========================================================================
+       ROYAL BACKGROUND DAMASK PATTERN (10% OPACITY SHINING & THEME-ADAPTIVE)
+       ========================================================================== */
+    .royal-ambient-pattern-layer {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+      opacity: 0.10; /* Exactly 10% Opacity as requested */
+      animation: royalPatternBreathing 8s infinite ease-in-out;
+      transition: opacity 0.6s ease;
+    }
+
+    @keyframes royalPatternBreathing {
+      0%, 100% {
+        opacity: 0.08;
+        filter: drop-shadow(0 0 2px var(--gold-glow));
+      }
+      50% {
+        opacity: 0.13;
+        filter: drop-shadow(0 0 6px var(--gold-glow));
+      }
+    }
+
+    .royal-pattern-shimmer-sweep {
+      position: absolute;
+      inset: -60%;
+      width: 220%;
+      height: 220%;
+      background: linear-gradient(
+        125deg,
+        transparent 35%,
+        rgba(255, 255, 255, 0.03) 46%,
+        var(--gold-light) 50%,
+        rgba(255, 255, 255, 0.03) 54%,
+        transparent 65%
+      );
+      opacity: 0.14;
+      transform: rotate(-25deg) translateY(-100%);
+      animation: royalPatternSweep 10s infinite ease-in-out;
+      pointer-events: none;
+      mix-blend-mode: overlay;
+    }
+
+    @keyframes royalPatternSweep {
+      0% {
+        transform: rotate(-25deg) translateY(-120%);
+      }
+      35% {
+        transform: rotate(-25deg) translateY(0%);
+      }
+      70%, 100% {
+        transform: rotate(-25deg) translateY(120%);
       }
     }
 
@@ -9553,6 +9650,40 @@
        THE 2.5D MEMORY PALACE VIEWPORT
        ========================================================================== -->
   <main class="palace-viewport" id="palaceViewport">
+    <!-- Royal Ambient Background Pattern (10% Opacity with Subtle Shining Effect) -->
+    <div class="royal-ambient-pattern-layer" aria-hidden="true">
+      <svg class="royal-bg-pattern-svg" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <pattern id="royalDamaskPattern" width="160" height="160" patternUnits="userSpaceOnUse">
+            <!-- Center Royal Fleur-de-lis & Symmetrical Flourish -->
+            <path d="M80,20 C76,38 68,50 50,56 C68,62 76,74 80,92 C84,74 92,62 110,56 C92,50 84,38 80,20 Z" fill="var(--glass-gold-border)" stroke="var(--gold-primary)" stroke-width="1.2"/>
+            <path d="M80,30 C78,42 74,50 62,56 C74,62 78,70 80,82 C82,70 86,62 98,56 C86,50 82,42 80,30 Z" fill="none" stroke="var(--gold-light)" stroke-width="0.8"/>
+            <circle cx="80" cy="56" r="3.5" fill="var(--gold-light)"/>
+            <!-- Corner Diamond Rosettes & Acanthus Curves -->
+            <path d="M0,0 C15,18 22,35 18,52 C12,68 0,75 0,80" fill="none" stroke="var(--gold-primary)" stroke-width="1.1"/>
+            <path d="M160,0 C145,18 138,35 142,52 C148,68 160,75 160,80" fill="none" stroke="var(--gold-primary)" stroke-width="1.1"/>
+            <path d="M0,160 C15,142 22,125 18,108 C12,92 0,85 0,80" fill="none" stroke="var(--gold-primary)" stroke-width="1.1"/>
+            <path d="M160,160 C145,142 138,125 142,108 C148,92 160,85 160,80" fill="none" stroke="var(--gold-primary)" stroke-width="1.1"/>
+            <!-- Ornate Lattice Diamond Linking Vines -->
+            <path d="M0,80 Q40,75 50,56 Q40,37 0,32" fill="none" stroke="var(--gold-primary)" stroke-width="1" stroke-dasharray="2,3"/>
+            <path d="M160,80 Q120,75 110,56 Q120,37 160,32" fill="none" stroke="var(--gold-primary)" stroke-width="1" stroke-dasharray="2,3"/>
+            <path d="M80,0 Q75,40 56,50 Q37,40 32,0" fill="none" stroke="var(--gold-primary)" stroke-width="1" stroke-dasharray="2,3"/>
+            <path d="M80,160 Q75,120 56,110 Q37,120 32,160" fill="none" stroke="var(--gold-primary)" stroke-width="1" stroke-dasharray="2,3"/>
+            <!-- Subtle Micro Crystals at Intersections -->
+            <polygon points="0,0 3,6 0,12 -3,6" fill="var(--gold-light)"/>
+            <polygon points="160,0 163,6 160,12 157,6" fill="var(--gold-light)"/>
+            <polygon points="0,160 3,166 0,172 -3,166" fill="var(--gold-light)"/>
+            <polygon points="160,160 163,166 160,172 157,166" fill="var(--gold-light)"/>
+            <polygon points="80,0 82.5,5 80,10 77.5,5" fill="var(--gold-light)"/>
+            <polygon points="80,160 82.5,165 80,170 77.5,165" fill="var(--gold-light)"/>
+            <polygon points="0,80 2.5,85 0,90 -2.5,85" fill="var(--gold-light)"/>
+            <polygon points="160,80 162.5,85 160,90 157.5,85" fill="var(--gold-light)"/>
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#royalDamaskPattern)"/>
+      </svg>
+      <div class="royal-pattern-shimmer-sweep" aria-hidden="true"></div>
+    </div>
     <div class="palace-stage" id="palaceStage">
 
       <!-- ====================================================================
@@ -9562,88 +9693,88 @@
         
         <div class="portal-arch-structure" id="portalArch" title="Scroll down or click door to enter">
           
-          <!-- Royal Vector Flourishes emerging from behind the Door / Arch -->
+          <!-- Royal Vector Flourishes emerging from behind the Door / Arch (Theme Adaptive) -->
           <div class="royal-door-vector-flourishes" aria-hidden="true">
             <svg class="royal-arch-crest-top" viewBox="0 0 320 95" fill="none" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <linearGradient id="rfGoldCrest" x1="0%" y1="100%" x2="0%" y2="0%">
-      <stop offset="0%" stop-color="#d97706" stop-opacity="0.7"/>
-      <stop offset="50%" stop-color="#f5c065" stop-opacity="0.95"/>
-      <stop offset="100%" stop-color="#ffe8b5" stop-opacity="1"/>
+    <linearGradient id="rfDynamicCrest" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="var(--gold-dark)" stop-opacity="0.8"/>
+      <stop offset="50%" stop-color="var(--gold-primary)" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="var(--gold-light)" stop-opacity="1"/>
     </linearGradient>
   </defs>
   <!-- Central Imperial Palmette & Crown -->
-  <path d="M160,5 C155,25 142,42 120,52 C100,60 70,55 50,68 C35,78 30,90 20,92" stroke="url(#rfGoldCrest)" stroke-width="2.2" stroke-linecap="round"/>
-  <path d="M160,5 C165,25 178,42 200,52 C220,60 250,55 270,68 C285,78 290,90 300,92" stroke="url(#rfGoldCrest)" stroke-width="2.2" stroke-linecap="round"/>
+  <path d="M160,5 C155,25 142,42 120,52 C100,60 70,55 50,68 C35,78 30,90 20,92" stroke="url(#rfDynamicCrest)" stroke-width="2.4" stroke-linecap="round"/>
+  <path d="M160,5 C165,25 178,42 200,52 C220,60 250,55 270,68 C285,78 290,90 300,92" stroke="url(#rfDynamicCrest)" stroke-width="2.4" stroke-linecap="round"/>
   <!-- Symmetrical Crown Crest Petals -->
-  <path d="M160,10 C154,26 150,45 160,65 C170,45 166,26 160,10 Z" fill="rgba(245, 192, 101, 0.25)" stroke="url(#rfGoldCrest)" stroke-width="1.8"/>
-  <path d="M160,28 C144,38 136,55 145,72 C154,62 156,45 160,28 Z" fill="rgba(245, 192, 101, 0.2)" stroke="url(#rfGoldCrest)" stroke-width="1.4"/>
-  <path d="M160,28 C176,38 184,55 175,72 C166,62 164,45 160,28 Z" fill="rgba(245, 192, 101, 0.2)" stroke="url(#rfGoldCrest)" stroke-width="1.4"/>
+  <path d="M160,10 C154,26 150,45 160,65 C170,45 166,26 160,10 Z" fill="var(--glass-gold-border)" stroke="url(#rfDynamicCrest)" stroke-width="1.8"/>
+  <path d="M160,28 C144,38 136,55 145,72 C154,62 156,45 160,28 Z" fill="var(--glass-gold-border)" stroke="url(#rfDynamicCrest)" stroke-width="1.4"/>
+  <path d="M160,28 C176,38 184,55 175,72 C166,62 164,45 160,28 Z" fill="var(--glass-gold-border)" stroke="url(#rfDynamicCrest)" stroke-width="1.4"/>
   <!-- Lateral Curling Tendrils -->
-  <path d="M120,52 C108,35 88,40 85,55 C82,70 100,78 112,68 C118,63 118,54 110,48" stroke="url(#rfGoldCrest)" stroke-width="1.5" stroke-linecap="round"/>
-  <path d="M200,52 C212,35 232,40 235,55 C238,70 220,78 208,68 C202,63 202,54 210,48" stroke="url(#rfGoldCrest)" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M120,52 C108,35 88,40 85,55 C82,70 100,78 112,68 C118,63 118,54 110,48" stroke="url(#rfDynamicCrest)" stroke-width="1.6" stroke-linecap="round"/>
+  <path d="M200,52 C212,35 232,40 235,55 C238,70 220,78 208,68 C202,63 202,54 210,48" stroke="url(#rfDynamicCrest)" stroke-width="1.6" stroke-linecap="round"/>
   <!-- Center Royal Star & Jewels -->
-  <polygon points="160,18 162.5,25 170,25 164,29.5 166.5,37 160,32 153.5,37 156,29.5 150,25 157.5,25" fill="#ffe8b5"/>
-  <circle cx="160" cy="5" r="3.5" fill="#ffe8b5"/>
-  <circle cx="85" cy="55" r="2.5" fill="#ffe8b5"/>
-  <circle cx="235" cy="55" r="2.5" fill="#ffe8b5"/>
-  <circle cx="20" cy="92" r="2" fill="#ffe8b5"/>
-  <circle cx="300" cy="92" r="2" fill="#ffe8b5"/>
+  <polygon points="160,18 162.5,25 170,25 164,29.5 166.5,37 160,32 153.5,37 156,29.5 150,25 157.5,25" fill="var(--gold-light)"/>
+  <circle cx="160" cy="5" r="3.5" fill="var(--gold-light)"/>
+  <circle cx="85" cy="55" r="2.5" fill="var(--gold-light)"/>
+  <circle cx="235" cy="55" r="2.5" fill="var(--gold-light)"/>
+  <circle cx="20" cy="92" r="2" fill="var(--gold-light)"/>
+  <circle cx="300" cy="92" r="2" fill="var(--gold-light)"/>
 </svg>
             <svg class="royal-arch-flourish-left" viewBox="0 0 175 440" fill="none" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <linearGradient id="rfGoldLeft" x1="100%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#ffe8b5" stop-opacity="0.95"/>
-      <stop offset="45%" stop-color="#f5c065" stop-opacity="0.85"/>
-      <stop offset="85%" stop-color="#d97706" stop-opacity="0.6"/>
-      <stop offset="100%" stop-color="#92400e" stop-opacity="0.15"/>
+    <linearGradient id="rfDynamicLeft" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="var(--gold-light)" stop-opacity="0.95"/>
+      <stop offset="45%" stop-color="var(--gold-primary)" stop-opacity="0.85"/>
+      <stop offset="85%" stop-color="var(--gold-dark)" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="var(--gold-dark)" stop-opacity="0.15"/>
     </linearGradient>
   </defs>
   <!-- S-Curve Botanical Acanthus Spine -->
-  <path d="M170,45 C130,40 90,70 80,115 C65,165 105,210 75,260 C50,305 18,340 38,395 C48,420 85,430 170,435" stroke="url(#rfGoldLeft)" stroke-width="2.6" stroke-linecap="round"/>
+  <path d="M170,45 C130,40 90,70 80,115 C65,165 105,210 75,260 C50,305 18,340 38,395 C48,420 85,430 170,435" stroke="url(#rfDynamicLeft)" stroke-width="2.8" stroke-linecap="round"/>
   <!-- Tendril Spirals -->
-  <path d="M80,115 C58,88 28,98 25,128 C22,154 48,170 66,155 C76,147 77,130 68,122 C59,114 46,122 47,133" stroke="url(#rfGoldLeft)" stroke-width="1.8" stroke-linecap="round"/>
-  <path d="M92,75 C75,38 40,44 34,70 C30,88 50,104 66,94" stroke="url(#rfGoldLeft)" stroke-width="1.5" stroke-linecap="round"/>
-  <path d="M130,45 C112,12 75,16 70,38 C67,52 82,64 96,55" stroke="url(#rfGoldLeft)" stroke-width="1.4" stroke-linecap="round"/>
-  <path d="M75,260 C45,238 15,255 12,284 C9,310 36,326 55,313 C65,306 67,289 57,281 C47,273 35,281 36,292" stroke="url(#rfGoldLeft)" stroke-width="1.8" stroke-linecap="round"/>
-  <path d="M38,395 C12,385 4,412 18,428 C32,438 54,426 48,408" stroke="url(#rfGoldLeft)" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M80,115 C58,88 28,98 25,128 C22,154 48,170 66,155 C76,147 77,130 68,122 C59,114 46,122 47,133" stroke="url(#rfDynamicLeft)" stroke-width="2" stroke-linecap="round"/>
+  <path d="M92,75 C75,38 40,44 34,70 C30,88 50,104 66,94" stroke="url(#rfDynamicLeft)" stroke-width="1.6" stroke-linecap="round"/>
+  <path d="M130,45 C112,12 75,16 70,38 C67,52 82,64 96,55" stroke="url(#rfDynamicLeft)" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M75,260 C45,238 15,255 12,284 C9,310 36,326 55,313 C65,306 67,289 57,281 C47,273 35,281 36,292" stroke="url(#rfDynamicLeft)" stroke-width="2" stroke-linecap="round"/>
+  <path d="M38,395 C12,385 4,412 18,428 C32,438 54,426 48,408" stroke="url(#rfDynamicLeft)" stroke-width="1.6" stroke-linecap="round"/>
   <!-- Ornate Leaves -->
-  <path d="M120,95 C102,118 114,144 136,138 C152,133 154,106 120,95 Z" fill="rgba(245, 192, 101, 0.18)" stroke="url(#rfGoldLeft)" stroke-width="1.2"/>
-  <path d="M100,185 C80,205 88,232 114,226 C130,220 134,195 100,185 Z" fill="rgba(245, 192, 101, 0.18)" stroke="url(#rfGoldLeft)" stroke-width="1.2"/>
-  <path d="M78,285 C58,305 66,332 92,326 C108,320 112,295 78,285 Z" fill="rgba(245, 192, 101, 0.18)" stroke="url(#rfGoldLeft)" stroke-width="1.2"/>
+  <path d="M120,95 C102,118 114,144 136,138 C152,133 154,106 120,95 Z" fill="var(--glass-gold-border)" stroke="url(#rfDynamicLeft)" stroke-width="1.3"/>
+  <path d="M100,185 C80,205 88,232 114,226 C130,220 134,195 100,185 Z" fill="var(--glass-gold-border)" stroke="url(#rfDynamicLeft)" stroke-width="1.3"/>
+  <path d="M78,285 C58,305 66,332 92,326 C108,320 112,295 78,285 Z" fill="var(--glass-gold-border)" stroke="url(#rfDynamicLeft)" stroke-width="1.3"/>
   <!-- Brilliant Jewels -->
-  <circle cx="25" cy="128" r="3.2" fill="#ffe8b5"/>
-  <circle cx="12" cy="284" r="3.2" fill="#ffe8b5"/>
-  <circle cx="34" cy="70" r="2.5" fill="#ffe8b5"/>
-  <circle cx="18" cy="428" r="2.5" fill="#ffe8b5"/>
+  <circle cx="25" cy="128" r="3.5" fill="var(--gold-light)"/>
+  <circle cx="12" cy="284" r="3.5" fill="var(--gold-light)"/>
+  <circle cx="34" cy="70" r="2.8" fill="var(--gold-light)"/>
+  <circle cx="18" cy="428" r="2.8" fill="var(--gold-light)"/>
 </svg>
             <svg class="royal-arch-flourish-right" viewBox="0 0 175 440" fill="none" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <linearGradient id="rfGoldRight" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#ffe8b5" stop-opacity="0.95"/>
-      <stop offset="45%" stop-color="#f5c065" stop-opacity="0.85"/>
-      <stop offset="85%" stop-color="#d97706" stop-opacity="0.6"/>
-      <stop offset="100%" stop-color="#92400e" stop-opacity="0.15"/>
+    <linearGradient id="rfDynamicRight" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="var(--gold-light)" stop-opacity="0.95"/>
+      <stop offset="45%" stop-color="var(--gold-primary)" stop-opacity="0.85"/>
+      <stop offset="85%" stop-color="var(--gold-dark)" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="var(--gold-dark)" stop-opacity="0.15"/>
     </linearGradient>
   </defs>
   <g transform="translate(175,0) scale(-1,1)">
     <!-- S-Curve Botanical Acanthus Spine -->
-    <path d="M170,45 C130,40 90,70 80,115 C65,165 105,210 75,260 C50,305 18,340 38,395 C48,420 85,430 170,435" stroke="url(#rfGoldRight)" stroke-width="2.6" stroke-linecap="round"/>
+    <path d="M170,45 C130,40 90,70 80,115 C65,165 105,210 75,260 C50,305 18,340 38,395 C48,420 85,430 170,435" stroke="url(#rfDynamicRight)" stroke-width="2.8" stroke-linecap="round"/>
     <!-- Tendril Spirals -->
-    <path d="M80,115 C58,88 28,98 25,128 C22,154 48,170 66,155 C76,147 77,130 68,122 C59,114 46,122 47,133" stroke="url(#rfGoldRight)" stroke-width="1.8" stroke-linecap="round"/>
-    <path d="M92,75 C75,38 40,44 34,70 C30,88 50,104 66,94" stroke="url(#rfGoldRight)" stroke-width="1.5" stroke-linecap="round"/>
-    <path d="M130,45 C112,12 75,16 70,38 C67,52 82,64 96,55" stroke="url(#rfGoldRight)" stroke-width="1.4" stroke-linecap="round"/>
-    <path d="M75,260 C45,238 15,255 12,284 C9,310 36,326 55,313 C65,306 67,289 57,281 C47,273 35,281 36,292" stroke="url(#rfGoldRight)" stroke-width="1.8" stroke-linecap="round"/>
-    <path d="M38,395 C12,385 4,412 18,428 C32,438 54,426 48,408" stroke="url(#rfGoldRight)" stroke-width="1.5" stroke-linecap="round"/>
+    <path d="M80,115 C58,88 28,98 25,128 C22,154 48,170 66,155 C76,147 77,130 68,122 C59,114 46,122 47,133" stroke="url(#rfDynamicRight)" stroke-width="2" stroke-linecap="round"/>
+    <path d="M92,75 C75,38 40,44 34,70 C30,88 50,104 66,94" stroke="url(#rfDynamicRight)" stroke-width="1.6" stroke-linecap="round"/>
+    <path d="M130,45 C112,12 75,16 70,38 C67,52 82,64 96,55" stroke="url(#rfDynamicRight)" stroke-width="1.5" stroke-linecap="round"/>
+    <path d="M75,260 C45,238 15,255 12,284 C9,310 36,326 55,313 C65,306 67,289 57,281 C47,273 35,281 36,292" stroke="url(#rfDynamicRight)" stroke-width="2" stroke-linecap="round"/>
+    <path d="M38,395 C12,385 4,412 18,428 C32,438 54,426 48,408" stroke="url(#rfDynamicRight)" stroke-width="1.6" stroke-linecap="round"/>
     <!-- Ornate Leaves -->
-    <path d="M120,95 C102,118 114,144 136,138 C152,133 154,106 120,95 Z" fill="rgba(245, 192, 101, 0.18)" stroke="url(#rfGoldRight)" stroke-width="1.2"/>
-    <path d="M100,185 C80,205 88,232 114,226 C130,220 134,195 100,185 Z" fill="rgba(245, 192, 101, 0.18)" stroke="url(#rfGoldRight)" stroke-width="1.2"/>
-    <path d="M78,285 C58,305 66,332 92,326 C108,320 112,295 78,285 Z" fill="rgba(245, 192, 101, 0.18)" stroke="url(#rfGoldRight)" stroke-width="1.2"/>
+    <path d="M120,95 C102,118 114,144 136,138 C152,133 154,106 120,95 Z" fill="var(--glass-gold-border)" stroke="url(#rfDynamicRight)" stroke-width="1.3"/>
+    <path d="M100,185 C80,205 88,232 114,226 C130,220 134,195 100,185 Z" fill="var(--glass-gold-border)" stroke="url(#rfDynamicRight)" stroke-width="1.3"/>
+    <path d="M78,285 C58,305 66,332 92,326 C108,320 112,295 78,285 Z" fill="var(--glass-gold-border)" stroke="url(#rfDynamicRight)" stroke-width="1.3"/>
     <!-- Brilliant Jewels -->
-    <circle cx="25" cy="128" r="3.2" fill="#ffe8b5"/>
-    <circle cx="12" cy="284" r="3.2" fill="#ffe8b5"/>
-    <circle cx="34" cy="70" r="2.5" fill="#ffe8b5"/>
-    <circle cx="18" cy="428" r="2.5" fill="#ffe8b5"/>
+    <circle cx="25" cy="128" r="3.5" fill="var(--gold-light)"/>
+    <circle cx="12" cy="284" r="3.5" fill="var(--gold-light)"/>
+    <circle cx="34" cy="70" r="2.8" fill="var(--gold-light)"/>
+    <circle cx="18" cy="428" r="2.8" fill="var(--gold-light)"/>
   </g>
 </svg>
           </div>
