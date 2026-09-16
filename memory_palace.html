@@ -9253,9 +9253,238 @@
       }
     }
 
+
+    /* ==========================================================================
+       ROYAL ETHNIC BACKGROUND PATTERN (10% OPACITY + CONTINUOUS SHINING ANIMATION)
+       ========================================================================== */
+    .royal-ethnic-pattern-layer {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
+      opacity: 0.10;
+      transition: opacity 0.5s ease;
+    }
+
+    .royal-ethnic-svg-tile {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22140%22%20height%3D%22140%22%20viewBox%3D%220%200%20140%20140%22%3E%3Cdefs%3E%3CradialGradient%20id%3D%22rg%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2250%25%22%3E%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23ffe8b5%22%20stop-opacity%3D%220.95%22/%3E%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22%23f5c065%22%20stop-opacity%3D%220.7%22/%3E%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23d97706%22%20stop-opacity%3D%220.3%22/%3E%3C/radialGradient%3E%3C/defs%3E%3C%21--%20Royal%20Diamond%20Jaali%20Grid%20--%3E%3Cpath%20d%3D%22M70%200%20L140%2070%20L70%20140%20L0%2070%20Z%22%20fill%3D%22none%22%20stroke%3D%22%23f5c065%22%20stroke-width%3D%220.9%22%20opacity%3D%220.8%22/%3E%3Cpath%20d%3D%22M70%2012%20L128%2070%20L70%20128%20L12%2070%20Z%22%20fill%3D%22none%22%20stroke%3D%22%23ffe8b5%22%20stroke-width%3D%220.5%22%20opacity%3D%220.4%22/%3E%3Cpath%20d%3D%22M70%200%20L70%20140%20M0%2070%20L140%2070%22%20fill%3D%22none%22%20stroke%3D%22%23f5c065%22%20stroke-width%3D%220.4%22%20stroke-dasharray%3D%222%2C5%22%20opacity%3D%220.35%22/%3E%3C%21--%20Central%208-Point%20Royal%20Mandala%20--%3E%3Cg%20transform%3D%22translate%2870%2C70%29%22%3E%3Ccircle%20r%3D%227%22%20fill%3D%22none%22%20stroke%3D%22%23ffe8b5%22%20stroke-width%3D%220.9%22/%3E%3Ccircle%20r%3D%223%22%20fill%3D%22%23ffe8b5%22%20opacity%3D%220.9%22/%3E%3C%21--%208%20Royal%20Petals%20--%3E%3Cpath%20d%3D%22M0%20-7%20C3.5%20-18%207%20-18%200%20-28%20C-7%20-18%20-3.5%20-18%200%20-7%20Z%22%20fill%3D%22rgba%28245%2C%20192%2C%20101%2C%200.15%29%22%20stroke%3D%22%23f5c065%22%20stroke-width%3D%220.8%22/%3E%3Cpath%20d%3D%22M0%207%20C3.5%2018%207%2018%200%2028%20C-7%2018%20-3.5%2018%200%207%20Z%22%20fill%3D%22rgba%28245%2C%20192%2C%20101%2C%200.15%29%22%20stroke%3D%22%23f5c065%22%20stroke-width%3D%220.8%22/%3E%3Cpath%20d%3D%22M-7%200%20C-18%203.5%20-18%207%20-28%200%20C-18%20-7%20-18%20-3.5%20-7%200%20Z%22%20fill%3D%22rgba%28245%2C%20192%2C%20101%2C%200.15%29%22%20stroke%3D%22%23f5c065%22%20stroke-width%3D%220.8%22/%3E%3Cpath%20d%3D%22M7%200%20C18%203.5%2018%207%2028%200%20C18%20-7%2018%20-3.5%207%200%20Z%22%20fill%3D%22rgba%28245%2C%20192%2C%20101%2C%200.15%29%22%20stroke%3D%22%23f5c065%22%20stroke-width%3D%220.8%22/%3E%3C%21--%204%20Diagonal%20Arabesque%20Flourishes%20--%3E%3Cpath%20d%3D%22M-5%20-5%20C-13%20-16%20-10.5%20-18.5%20-20%20-20%20C-18.5%20-10.5%20-16%20-13%20-5%20-5%20Z%22%20fill%3D%22rgba%28245%2C%20192%2C%20101%2C%200.12%29%22%20stroke%3D%22%23f5c065%22%20stroke-width%3D%220.7%22/%3E%3Cpath%20d%3D%22M5%20-5%20C13%20-16%2010.5%20-18.5%2020%20-20%20C18.5%20-10.5%2016%20-13%205%20-5%20Z%22%20fill%3D%22rgba%28245%2C%20192%2C%20101%2C%200.12%29%22%20stroke%3D%22%23f5c065%22%20stroke-width%3D%220.7%22/%3E%3Cpath%20d%3D%22M-5%205%20C-13%2016%20-10.5%2018.5%20-20%2020%20C-18.5%2010.5%20-16%2013%20-5%205%20Z%22%20fill%3D%22rgba%28245%2C%20192%2C%20101%2C%200.12%29%22%20stroke%3D%22%23f5c065%22%20stroke-width%3D%220.7%22/%3E%3Cpath%20d%3D%22M5%205%20C13%2016%2010.5%2018.5%2020%2020%20C18.5%2010.5%2016%2013%205%205%20Z%22%20fill%3D%22rgba%28245%2C%20192%2C%20101%2C%200.12%29%22%20stroke%3D%22%23f5c065%22%20stroke-width%3D%220.7%22/%3E%3C%21--%20Outer%20Delicate%20Filigree%20Ring%20--%3E%3Ccircle%20r%3D%2236%22%20fill%3D%22none%22%20stroke%3D%22%23ffe8b5%22%20stroke-width%3D%220.6%22%20stroke-dasharray%3D%223%2C5%22%20opacity%3D%220.6%22/%3E%3C/g%3E%3C%21--%20Seamless%20Corner%20Mandalas%20--%3E%3Cg%20transform%3D%22translate%280%2C0%29%22%3E%3Ccircle%20r%3D%2216%22%20fill%3D%22none%22%20stroke%3D%22%23f5c065%22%20stroke-width%3D%220.8%22/%3E%3Ccircle%20r%3D%226%22%20fill%3D%22%23f5c065%22%20opacity%3D%220.4%22/%3E%3Cpath%20d%3D%22M0%2016%20C9%2016%2016%209%2016%200%22%20fill%3D%22none%22%20stroke%3D%22%23ffe8b5%22%20stroke-width%3D%220.7%22/%3E%3C/g%3E%3Cg%20transform%3D%22translate%28140%2C0%29%22%3E%3Ccircle%20r%3D%2216%22%20fill%3D%22none%22%20stroke%3D%22%23f5c065%22%20stroke-width%3D%220.8%22/%3E%3Ccircle%20r%3D%226%22%20fill%3D%22%23f5c065%22%20opacity%3D%220.4%22/%3E%3Cpath%20d%3D%22M140%2016%20C131%2016%20124%209%20124%200%22%20fill%3D%22none%22%20stroke%3D%22%23ffe8b5%22%20stroke-width%3D%220.7%22/%3E%3C/g%3E%3Cg%20transform%3D%22translate%280%2C140%29%22%3E%3Ccircle%20r%3D%2216%22%20fill%3D%22none%22%20stroke%3D%22%23f5c065%22%20stroke-width%3D%220.8%22/%3E%3Ccircle%20r%3D%226%22%20fill%3D%22%23f5c065%22%20opacity%3D%220.4%22/%3E%3Cpath%20d%3D%22M0%20124%20C9%20124%2016%20131%2016%20140%22%20fill%3D%22none%22%20stroke%3D%22%23ffe8b5%22%20stroke-width%3D%220.7%22/%3E%3C/g%3E%3Cg%20transform%3D%22translate%28140%2C140%29%22%3E%3Ccircle%20r%3D%2216%22%20fill%3D%22none%22%20stroke%3D%22%23f5c065%22%20stroke-width%3D%220.8%22/%3E%3Ccircle%20r%3D%226%22%20fill%3D%22%23f5c065%22%20opacity%3D%220.4%22/%3E%3Cpath%20d%3D%22M140%20124%20C131%20124%20124%20131%20124%20140%22%20fill%3D%22none%22%20stroke%3D%22%23ffe8b5%22%20stroke-width%3D%220.7%22/%3E%3C/g%3E%3C/svg%3E");
+      background-repeat: repeat;
+      background-size: 140px 140px;
+    }
+
+    /* Shining Shimmer Wave across the Ethnic Pattern */
+    .royal-ethnic-shimmer-sheen {
+      position: absolute;
+      top: -100%;
+      left: -100%;
+      width: 300%;
+      height: 300%;
+      background: linear-gradient(
+        115deg,
+        transparent 0%,
+        transparent 40%,
+        rgba(255, 235, 185, 0.45) 48%,
+        rgba(255, 255, 255, 0.85) 50%,
+        rgba(245, 192, 101, 0.5) 52%,
+        transparent 60%,
+        transparent 100%
+      );
+      mix-blend-mode: color-dodge;
+      animation: royalEthnicShine 7.5s infinite ease-in-out;
+      pointer-events: none;
+    }
+
+    @keyframes royalEthnicShine {
+      0% {
+        transform: translate3d(-35%, -35%, 0) rotate(0deg);
+        opacity: 0;
+      }
+      15% {
+        opacity: 0.95;
+      }
+      55% {
+        transform: translate3d(35%, 35%, 0) rotate(0deg);
+        opacity: 0.95;
+      }
+      70%, 100% {
+        transform: translate3d(35%, 35%, 0) rotate(0deg);
+        opacity: 0;
+      }
+    }
+
+    /* ==========================================================================
+       ROYAL VECTOR FLOURISHES (BLOOMING OUTWARD BEHIND DOOR & PHOTO FRAMES)
+       ========================================================================== */
+    .royal-door-vector-flourishes {
+      position: absolute;
+      inset: -40px -90px -30px -90px;
+      pointer-events: none;
+      z-index: 0;
+      transform-style: preserve-3d;
+    }
+
+    .royal-arch-crest-top {
+      position: absolute;
+      top: -45px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 320px;
+      height: 95px;
+      pointer-events: none;
+      z-index: 1;
+      filter: drop-shadow(0 0 14px rgba(245, 192, 101, 0.65));
+      animation: royalCrestFloat 5s infinite ease-in-out;
+    }
+
+    .royal-arch-flourish-left {
+      position: absolute;
+      top: 45px;
+      left: -78px;
+      width: 175px;
+      height: 440px;
+      pointer-events: none;
+      z-index: 0;
+      filter: drop-shadow(0 0 16px rgba(245, 192, 101, 0.55));
+      transform-origin: right center;
+      animation: royalFlourishBloomLeft 6s infinite ease-in-out;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s ease;
+    }
+
+    .royal-arch-flourish-right {
+      position: absolute;
+      top: 45px;
+      right: -78px;
+      width: 175px;
+      height: 440px;
+      pointer-events: none;
+      z-index: 0;
+      filter: drop-shadow(0 0 16px rgba(245, 192, 101, 0.55));
+      transform-origin: left center;
+      animation: royalFlourishBloomRight 6s infinite ease-in-out;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s ease;
+    }
+
+    /* Interactive Expansion on Hover / Focus */
+    .portal-arch-structure:hover .royal-arch-flourish-left {
+      transform: translate3d(-14px, 0, 0) scale(1.08);
+      filter: drop-shadow(0 0 24px rgba(245, 192, 101, 0.85));
+    }
+
+    .portal-arch-structure:hover .royal-arch-flourish-right {
+      transform: translate3d(14px, 0, 0) scale(1.08);
+      filter: drop-shadow(0 0 24px rgba(245, 192, 101, 0.85));
+    }
+
+    .portal-arch-structure:hover .royal-arch-crest-top {
+      transform: translateX(-50%) translate3d(0, -6px, 0) scale(1.06);
+      filter: drop-shadow(0 0 22px rgba(245, 192, 101, 0.9));
+    }
+
+    /* Ethereal Blooming Animations */
+    @keyframes royalFlourishBloomLeft {
+      0%, 100% {
+        transform: translate3d(0, 0, 0) scale(1);
+        opacity: 0.88;
+      }
+      50% {
+        transform: translate3d(-8px, -4px, 0) scale(1.04);
+        opacity: 1;
+      }
+    }
+
+    @keyframes royalFlourishBloomRight {
+      0%, 100% {
+        transform: translate3d(0, 0, 0) scale(1);
+        opacity: 0.88;
+      }
+      50% {
+        transform: translate3d(8px, -4px, 0) scale(1.04);
+        opacity: 1;
+      }
+    }
+
+    @keyframes royalCrestFloat {
+      0%, 100% {
+        transform: translateX(-50%) translate3d(0, 0, 0) scale(1);
+        opacity: 0.92;
+      }
+      50% {
+        transform: translateX(-50%) translate3d(0, -5px, 0) scale(1.03);
+        opacity: 1;
+      }
+    }
+
+    /* Royal Photo Frame Flourishes in Celebration Room */
+    .royal-frame-vector-flourishes {
+      position: absolute;
+      inset: -25px -45px -20px -45px;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .royal-frame-flourish-left {
+      position: absolute;
+      top: 40px;
+      left: -35px;
+      width: 100px;
+      height: 380px;
+      filter: drop-shadow(0 0 14px rgba(245, 192, 101, 0.5));
+      animation: royalFrameBloomLeft 6.5s infinite ease-in-out;
+    }
+
+    .royal-frame-flourish-right {
+      position: absolute;
+      top: 40px;
+      right: -35px;
+      width: 100px;
+      height: 380px;
+      filter: drop-shadow(0 0 14px rgba(245, 192, 101, 0.5));
+      animation: royalFrameBloomRight 6.5s infinite ease-in-out;
+    }
+
+    @keyframes royalFrameBloomLeft {
+      0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+      50% { transform: translate3d(-6px, -2px, 0) scale(1.03); }
+    }
+
+    @keyframes royalFrameBloomRight {
+      0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+      50% { transform: translate3d(6px, -2px, 0) scale(1.03); }
+    }
+
+    @media (max-width: 640px) {
+      .royal-arch-flourish-left {
+        left: -38px;
+        width: 110px;
+      }
+      .royal-arch-flourish-right {
+        right: -38px;
+        width: 110px;
+      }
+      .royal-arch-crest-top {
+        top: -30px;
+        width: 220px;
+        height: 65px;
+      }
+    }
+
   </style>
 </head>
 <body>
+  <!-- Background 10% Opacity Royal Ethnic Lattice Pattern with Shimmering Sheen -->
+  <div class="royal-ethnic-pattern-layer" id="royalEthnicBg" aria-hidden="true">
+    <div class="royal-ethnic-svg-tile"></div>
+    <div class="royal-ethnic-shimmer-sheen"></div>
+  </div>
   <!-- Live On-Screen Click-to-Edit Sticky Toolbar -->
   <div class="live-edit-toolbar" id="liveEditToolbar">
     <div class="live-edit-status">
@@ -9332,6 +9561,92 @@
       <div class="palace-portal-stage" id="portalStage">
         
         <div class="portal-arch-structure" id="portalArch" title="Scroll down or click door to enter">
+          
+          <!-- Royal Vector Flourishes emerging from behind the Door / Arch -->
+          <div class="royal-door-vector-flourishes" aria-hidden="true">
+            <svg class="royal-arch-crest-top" viewBox="0 0 320 95" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="rfGoldCrest" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#d97706" stop-opacity="0.7"/>
+      <stop offset="50%" stop-color="#f5c065" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#ffe8b5" stop-opacity="1"/>
+    </linearGradient>
+  </defs>
+  <!-- Central Imperial Palmette & Crown -->
+  <path d="M160,5 C155,25 142,42 120,52 C100,60 70,55 50,68 C35,78 30,90 20,92" stroke="url(#rfGoldCrest)" stroke-width="2.2" stroke-linecap="round"/>
+  <path d="M160,5 C165,25 178,42 200,52 C220,60 250,55 270,68 C285,78 290,90 300,92" stroke="url(#rfGoldCrest)" stroke-width="2.2" stroke-linecap="round"/>
+  <!-- Symmetrical Crown Crest Petals -->
+  <path d="M160,10 C154,26 150,45 160,65 C170,45 166,26 160,10 Z" fill="rgba(245, 192, 101, 0.25)" stroke="url(#rfGoldCrest)" stroke-width="1.8"/>
+  <path d="M160,28 C144,38 136,55 145,72 C154,62 156,45 160,28 Z" fill="rgba(245, 192, 101, 0.2)" stroke="url(#rfGoldCrest)" stroke-width="1.4"/>
+  <path d="M160,28 C176,38 184,55 175,72 C166,62 164,45 160,28 Z" fill="rgba(245, 192, 101, 0.2)" stroke="url(#rfGoldCrest)" stroke-width="1.4"/>
+  <!-- Lateral Curling Tendrils -->
+  <path d="M120,52 C108,35 88,40 85,55 C82,70 100,78 112,68 C118,63 118,54 110,48" stroke="url(#rfGoldCrest)" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M200,52 C212,35 232,40 235,55 C238,70 220,78 208,68 C202,63 202,54 210,48" stroke="url(#rfGoldCrest)" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- Center Royal Star & Jewels -->
+  <polygon points="160,18 162.5,25 170,25 164,29.5 166.5,37 160,32 153.5,37 156,29.5 150,25 157.5,25" fill="#ffe8b5"/>
+  <circle cx="160" cy="5" r="3.5" fill="#ffe8b5"/>
+  <circle cx="85" cy="55" r="2.5" fill="#ffe8b5"/>
+  <circle cx="235" cy="55" r="2.5" fill="#ffe8b5"/>
+  <circle cx="20" cy="92" r="2" fill="#ffe8b5"/>
+  <circle cx="300" cy="92" r="2" fill="#ffe8b5"/>
+</svg>
+            <svg class="royal-arch-flourish-left" viewBox="0 0 175 440" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="rfGoldLeft" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffe8b5" stop-opacity="0.95"/>
+      <stop offset="45%" stop-color="#f5c065" stop-opacity="0.85"/>
+      <stop offset="85%" stop-color="#d97706" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#92400e" stop-opacity="0.15"/>
+    </linearGradient>
+  </defs>
+  <!-- S-Curve Botanical Acanthus Spine -->
+  <path d="M170,45 C130,40 90,70 80,115 C65,165 105,210 75,260 C50,305 18,340 38,395 C48,420 85,430 170,435" stroke="url(#rfGoldLeft)" stroke-width="2.6" stroke-linecap="round"/>
+  <!-- Tendril Spirals -->
+  <path d="M80,115 C58,88 28,98 25,128 C22,154 48,170 66,155 C76,147 77,130 68,122 C59,114 46,122 47,133" stroke="url(#rfGoldLeft)" stroke-width="1.8" stroke-linecap="round"/>
+  <path d="M92,75 C75,38 40,44 34,70 C30,88 50,104 66,94" stroke="url(#rfGoldLeft)" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M130,45 C112,12 75,16 70,38 C67,52 82,64 96,55" stroke="url(#rfGoldLeft)" stroke-width="1.4" stroke-linecap="round"/>
+  <path d="M75,260 C45,238 15,255 12,284 C9,310 36,326 55,313 C65,306 67,289 57,281 C47,273 35,281 36,292" stroke="url(#rfGoldLeft)" stroke-width="1.8" stroke-linecap="round"/>
+  <path d="M38,395 C12,385 4,412 18,428 C32,438 54,426 48,408" stroke="url(#rfGoldLeft)" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- Ornate Leaves -->
+  <path d="M120,95 C102,118 114,144 136,138 C152,133 154,106 120,95 Z" fill="rgba(245, 192, 101, 0.18)" stroke="url(#rfGoldLeft)" stroke-width="1.2"/>
+  <path d="M100,185 C80,205 88,232 114,226 C130,220 134,195 100,185 Z" fill="rgba(245, 192, 101, 0.18)" stroke="url(#rfGoldLeft)" stroke-width="1.2"/>
+  <path d="M78,285 C58,305 66,332 92,326 C108,320 112,295 78,285 Z" fill="rgba(245, 192, 101, 0.18)" stroke="url(#rfGoldLeft)" stroke-width="1.2"/>
+  <!-- Brilliant Jewels -->
+  <circle cx="25" cy="128" r="3.2" fill="#ffe8b5"/>
+  <circle cx="12" cy="284" r="3.2" fill="#ffe8b5"/>
+  <circle cx="34" cy="70" r="2.5" fill="#ffe8b5"/>
+  <circle cx="18" cy="428" r="2.5" fill="#ffe8b5"/>
+</svg>
+            <svg class="royal-arch-flourish-right" viewBox="0 0 175 440" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="rfGoldRight" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffe8b5" stop-opacity="0.95"/>
+      <stop offset="45%" stop-color="#f5c065" stop-opacity="0.85"/>
+      <stop offset="85%" stop-color="#d97706" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#92400e" stop-opacity="0.15"/>
+    </linearGradient>
+  </defs>
+  <g transform="translate(175,0) scale(-1,1)">
+    <!-- S-Curve Botanical Acanthus Spine -->
+    <path d="M170,45 C130,40 90,70 80,115 C65,165 105,210 75,260 C50,305 18,340 38,395 C48,420 85,430 170,435" stroke="url(#rfGoldRight)" stroke-width="2.6" stroke-linecap="round"/>
+    <!-- Tendril Spirals -->
+    <path d="M80,115 C58,88 28,98 25,128 C22,154 48,170 66,155 C76,147 77,130 68,122 C59,114 46,122 47,133" stroke="url(#rfGoldRight)" stroke-width="1.8" stroke-linecap="round"/>
+    <path d="M92,75 C75,38 40,44 34,70 C30,88 50,104 66,94" stroke="url(#rfGoldRight)" stroke-width="1.5" stroke-linecap="round"/>
+    <path d="M130,45 C112,12 75,16 70,38 C67,52 82,64 96,55" stroke="url(#rfGoldRight)" stroke-width="1.4" stroke-linecap="round"/>
+    <path d="M75,260 C45,238 15,255 12,284 C9,310 36,326 55,313 C65,306 67,289 57,281 C47,273 35,281 36,292" stroke="url(#rfGoldRight)" stroke-width="1.8" stroke-linecap="round"/>
+    <path d="M38,395 C12,385 4,412 18,428 C32,438 54,426 48,408" stroke="url(#rfGoldRight)" stroke-width="1.5" stroke-linecap="round"/>
+    <!-- Ornate Leaves -->
+    <path d="M120,95 C102,118 114,144 136,138 C152,133 154,106 120,95 Z" fill="rgba(245, 192, 101, 0.18)" stroke="url(#rfGoldRight)" stroke-width="1.2"/>
+    <path d="M100,185 C80,205 88,232 114,226 C130,220 134,195 100,185 Z" fill="rgba(245, 192, 101, 0.18)" stroke="url(#rfGoldRight)" stroke-width="1.2"/>
+    <path d="M78,285 C58,305 66,332 92,326 C108,320 112,295 78,285 Z" fill="rgba(245, 192, 101, 0.18)" stroke="url(#rfGoldRight)" stroke-width="1.2"/>
+    <!-- Brilliant Jewels -->
+    <circle cx="25" cy="128" r="3.2" fill="#ffe8b5"/>
+    <circle cx="12" cy="284" r="3.2" fill="#ffe8b5"/>
+    <circle cx="34" cy="70" r="2.5" fill="#ffe8b5"/>
+    <circle cx="18" cy="428" r="2.5" fill="#ffe8b5"/>
+  </g>
+</svg>
+          </div>
           
           <!-- Hardware-Accelerated Static Halo -->
           <div class="portal-arch-glow-backdrop"></div>
@@ -9438,6 +9753,25 @@
           
           <!-- LEFT / HERO PORTRAIT COLUMN (Occupies 60–70% page height) -->
           <div class="celebration-portrait-column">
+            <!-- Royal Vector Flourishes emerging behind Hero Photo Frame -->
+            <div class="royal-frame-vector-flourishes" aria-hidden="true">
+              <svg class="royal-frame-flourish-left" viewBox="0 0 100 380" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M95,30 C65,35 35,65 30,105 C20,150 55,190 32,235 C15,275 -5,310 10,355 C18,375 50,378 95,378" stroke="url(#rfGoldLeft)" stroke-width="2.2" stroke-linecap="round"/>
+  <path d="M30,105 C12,85 -8,95 -10,120 C-12,142 10,155 24,142" stroke="url(#rfGoldLeft)" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M32,235 C8,218 -10,235 -12,258 C-14,280 8,294 22,282" stroke="url(#rfGoldLeft)" stroke-width="1.5" stroke-linecap="round"/>
+  <circle cx="-10" cy="120" r="2.5" fill="#ffe8b5"/>
+  <circle cx="-12" cy="258" r="2.5" fill="#ffe8b5"/>
+</svg>
+              <svg class="royal-frame-flourish-right" viewBox="0 0 100 380" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <g transform="translate(100,0) scale(-1,1)">
+    <path d="M95,30 C65,35 35,65 30,105 C20,150 55,190 32,235 C15,275 -5,310 10,355 C18,375 50,378 95,378" stroke="url(#rfGoldRight)" stroke-width="2.2" stroke-linecap="round"/>
+    <path d="M30,105 C12,85 -8,95 -10,120 C-12,142 10,155 24,142" stroke="url(#rfGoldRight)" stroke-width="1.5" stroke-linecap="round"/>
+    <path d="M32,235 C8,218 -10,235 -12,258 C-14,280 8,294 22,282" stroke="url(#rfGoldRight)" stroke-width="1.5" stroke-linecap="round"/>
+    <circle cx="-10" cy="120" r="2.5" fill="#ffe8b5"/>
+    <circle cx="-12" cy="258" r="2.5" fill="#ffe8b5"/>
+  </g>
+</svg>
+            </div>
             <div class="celebration-portrait-glow"></div>
             <div class="celebration-portrait-frame" id="celebrationPortraitFrame" title="Hover to float portrait in 3D">
               <div class="celebration-portrait-inner">
