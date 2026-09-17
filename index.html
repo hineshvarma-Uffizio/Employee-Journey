@@ -15849,13 +15849,13 @@
         promptText.textContent = 'Scroll Down or Click to Step Inside Palace ↓';
       }
 
-      // Ample reading time: auto-advance after 5.5s if user does not scroll
+      // Ample reading time: auto-advance after 10s if user does not scroll
       clearTimeout(doorAutoAdvanceTimer);
       doorAutoAdvanceTimer = setTimeout(() => {
         if (currentStage === 0 && isDoorOpen && !isTransitioning) {
           stepInsidePalace();
         }
-      }, 5500);
+      }, 10000);
 
       setTimeout(() => {
         isTransitioning = false;
