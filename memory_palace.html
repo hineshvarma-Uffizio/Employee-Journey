@@ -16041,10 +16041,10 @@
           setTimeout(() => {
             palaceAudio.playChime();
             fireConfetti();
-          }, 380);
+          }, 180);
           setTimeout(() => {
             fireConfetti();
-          }, 820);
+          }, 650);
         }
       }
 
@@ -16858,7 +16858,8 @@
       palaceAudio.playChime();
 
       const colors = ['#f5c065', '#ffd700', '#00e5ff', '#ff4d6d', '#10b981', '#ffffff', '#f43f5e', '#c084fc', '#fb923c'];
-      for (let i = 0; i < 220; i++) {
+      const totalPieces = 260;
+      for (let i = 0; i < totalPieces; i++) {
         // Uneven shapes: rectangles, long streamers/strips, round sequins, diamonds, and sparkle stars
         const rand = Math.random();
         let shape = 'rect';
@@ -16866,28 +16867,51 @@
 
         if (rand < 0.35) {
           shape = 'rect'; // Varied rectangles
-          width = Math.random() * 8 + 5; // 5 to 13px
-          height = Math.random() * 6 + 3; // 3 to 9px
+          width = Math.random() * 9 + 6;
+          height = Math.random() * 7 + 4;
         } else if (rand < 0.60) {
           shape = 'strip'; // Long ribbons / streamers
-          width = Math.random() * 12 + 10; // 10 to 22px
-          height = Math.random() * 2.5 + 2.5; // 2.5 to 5px
+          width = Math.random() * 14 + 12;
+          height = Math.random() * 3 + 3;
         } else if (rand < 0.80) {
           shape = 'circle'; // Round sequins / dots
-          radius = Math.random() * 3 + 2; // 2 to 5px radius
+          radius = Math.random() * 3.5 + 2.5;
         } else if (rand < 0.90) {
           shape = 'diamond'; // Diamond gems
-          size = Math.random() * 4 + 4; // 4 to 8px
+          size = Math.random() * 5 + 5;
         } else {
           shape = 'star'; // 4-pointed sparkle stars
-          size = Math.random() * 4 + 4; // 4 to 8px
+          size = Math.random() * 5 + 5;
+        }
+
+        // Multi-cannon explosive burst: fast launch velocity across full screen
+        let originX, originY, vx, vy;
+        const cannon = i % 3;
+        if (cannon === 0) {
+          // Left cannon: shoots up-right fast
+          originX = window.innerWidth * 0.15;
+          originY = window.innerHeight * 0.72;
+          vx = Math.random() * 32 + 14;
+          vy = -Math.random() * 26 - 26;
+        } else if (cannon === 1) {
+          // Right cannon: shoots up-left fast
+          originX = window.innerWidth * 0.85;
+          originY = window.innerHeight * 0.72;
+          vx = -Math.random() * 32 - 14;
+          vy = -Math.random() * 26 - 26;
+        } else {
+          // Center cannon: high-speed vertical fountain
+          originX = window.innerWidth * 0.5 + (Math.random() - 0.5) * 100;
+          originY = window.innerHeight * 0.68;
+          vx = (Math.random() - 0.5) * 56;
+          vy = -Math.random() * 28 - 28;
         }
 
         confettiPieces.push({
-          x: window.innerWidth / 2 + (Math.random() - 0.5) * 80,
-          y: window.innerHeight * 0.62,
-          vx: (Math.random() - 0.5) * 34,
-          vy: -Math.random() * 22 - 12,
+          x: originX,
+          y: originY,
+          vx: vx,
+          vy: vy,
           shape: shape,
           width: width,
           height: height,
@@ -16895,10 +16919,10 @@
           size: size,
           color: colors[Math.floor(Math.random() * colors.length)],
           rotation: Math.random() * 360,
-          rotationSpeed: (Math.random() - 0.5) * 26,
+          rotationSpeed: (Math.random() - 0.5) * 48,
           wobble: Math.random() * 10,
-          wobbleSpeed: Math.random() * 0.16 + 0.08,
-          gravity: Math.random() * 0.2 + 0.55,
+          wobbleSpeed: Math.random() * 0.32 + 0.18,
+          gravity: Math.random() * 0.35 + 1.25,
           life: 1
         });
       }
@@ -16910,13 +16934,14 @@
       for (let i = confettiPieces.length - 1; i >= 0; i--) {
         const p = confettiPieces[i];
         p.vy += p.gravity;
+        p.vx *= 0.988;
         p.x += p.vx;
         p.y += p.vy;
         p.rotation += p.rotationSpeed;
         p.wobble += p.wobbleSpeed;
-        p.life -= 0.011;
+        p.life -= 0.015;
 
-        if (p.life <= 0 || p.y > confettiCanvas.height + 25) {
+        if (p.life <= 0 || p.y > confettiCanvas.height + 30) {
           confettiPieces.splice(i, 1);
           continue;
         }
