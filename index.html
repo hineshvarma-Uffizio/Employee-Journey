@@ -9273,7 +9273,7 @@
       pointer-events: none;
       z-index: 1;
       overflow: hidden;
-      opacity: 0.07;
+      opacity: 0.055;
       transition: opacity 0.5s ease;
       animation: royalPatternGlimmer 14s infinite ease-in-out alternate;
       /* Soft Radial Vignette Mask: Concentrated around center, fading seamlessly into dark corners */
@@ -9283,13 +9283,13 @@
 
     @keyframes royalPatternGlimmer {
       0% {
-        opacity: 0.055;
+        opacity: 0.045;
       }
       50% {
-        opacity: 0.085;
+        opacity: 0.07;
       }
       100% {
-        opacity: 0.06;
+        opacity: 0.05;
       }
     }
 
@@ -9298,7 +9298,7 @@
       inset: 0;
       width: 100%;
       height: 100%;
-      background-color: var(--gold-primary);
+      background: linear-gradient(135deg, #70a9fc 0%, #589df6 50%, #7db6ff 100%);
       -webkit-mask-image: url('royal_damask_mask_512.png');
       mask-image: url('royal_damask_mask_512.png');
       -webkit-mask-repeat: repeat;
@@ -9318,16 +9318,16 @@
         115deg,
         transparent 0%,
         transparent 44%,
-        rgba(255, 255, 255, 0.15) 49%,
-        var(--gold-light) 50%,
-        rgba(255, 255, 255, 0.15) 51%,
+        rgba(255, 255, 255, 0.12) 49%,
+        #dbeafe 50%,
+        rgba(255, 255, 255, 0.12) 51%,
         transparent 56%,
         transparent 100%
       );
       mix-blend-mode: screen;
-      animation: royalEthnicShine 12s infinite ease-in-out;
+      animation: royalEthnicShine 14s infinite ease-in-out;
       pointer-events: none;
-      opacity: 0.25;
+      opacity: 0.18;
     }
 
     @keyframes royalEthnicShine {
@@ -9336,11 +9336,11 @@
         opacity: 0;
       }
       15% {
-        opacity: 0.35;
+        opacity: 0.22;
       }
       50% {
         transform: translate3d(35%, 35%, 0) rotate(0deg);
-        opacity: 0.35;
+        opacity: 0.22;
       }
       65%, 100% {
         transform: translate3d(35%, 35%, 0) rotate(0deg);
