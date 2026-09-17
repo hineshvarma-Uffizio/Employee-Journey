@@ -3179,7 +3179,7 @@
       pointer-events: none;
       z-index: 1;
     }
-    /* Deep Atmospheric Vignette: Seamlessly melts wall pattern into palace background */
+    /* Soft Natural Vignette: Smoothly melts outer wall perimeter into palace background */
     .room-wall::after {
       content: '';
       position: absolute;
@@ -3188,12 +3188,11 @@
       pointer-events: none;
       z-index: 2;
       background: radial-gradient(
-        ellipse 62% 56% at 50% 45%,
-        transparent 5%,
-        rgba(8, 12, 24, 0.45) 32%,
-        rgba(6, 9, 19, 0.85) 58%,
-        var(--bg-palace) 85%,
-        var(--bg-palace) 100%
+        ellipse 76% 68% at 50% 45%,
+        transparent 24%,
+        rgba(8, 12, 24, 0.3) 54%,
+        rgba(6, 9, 19, 0.72) 78%,
+        var(--bg-palace) 98%
       );
     }
     /* Overhead Chamber Spotlight (#002C6B Sapphire Atmosphere Glow) */
@@ -9408,10 +9407,10 @@
       height: 100%;
       pointer-events: none;
       background: radial-gradient(
-        ellipse 65% 58% at 50% 50%,
-        transparent 10%,
-        rgba(6, 9, 19, 0.45) 40%,
-        var(--bg-palace) 75%,
+        ellipse 72% 64% at 50% 50%,
+        transparent 18%,
+        rgba(6, 9, 19, 0.32) 50%,
+        var(--bg-palace) 84%,
         var(--bg-palace) 100%
       );
     }
