@@ -3162,7 +3162,7 @@
       transform: translateZ(-100px);
       overflow: hidden;
     }
-    /* Royal Victorian Damask Inlay on Chamber Walls (6% Opacity) */
+    /* Royal Victorian Damask Inlay on Chamber Walls (4% Opacity) */
     .room-wall::before {
       content: '';
       position: absolute;
@@ -3175,11 +3175,11 @@
       mask-repeat: repeat;
       -webkit-mask-size: 260px 260px;
       mask-size: 260px 260px;
-      opacity: 0.06;
+      opacity: 0.04;
       pointer-events: none;
       z-index: 1;
     }
-    /* Soft Atmospheric Vignette: Gently merges wall pattern into palace background */
+    /* Deep Atmospheric Vignette: Seamlessly melts wall pattern into palace background */
     .room-wall::after {
       content: '';
       position: absolute;
@@ -3188,10 +3188,11 @@
       pointer-events: none;
       z-index: 2;
       background: radial-gradient(
-        ellipse 75% 68% at 50% 45%,
-        transparent 15%,
-        rgba(10, 15, 29, 0.45) 50%,
-        rgba(8, 12, 24, 0.85) 75%,
+        ellipse 62% 56% at 50% 45%,
+        transparent 5%,
+        rgba(8, 12, 24, 0.45) 32%,
+        rgba(6, 9, 19, 0.85) 58%,
+        var(--bg-palace) 85%,
         var(--bg-palace) 100%
       );
     }
@@ -9334,13 +9335,13 @@
 
     @keyframes royalPatternGlimmerRooms {
       0% {
-        opacity: 0.05;
+        opacity: 0.035;
       }
       50% {
-        opacity: 0.068;
+        opacity: 0.052;
       }
       100% {
-        opacity: 0.058;
+        opacity: 0.042;
       }
     }
 
@@ -9407,10 +9408,10 @@
       height: 100%;
       pointer-events: none;
       background: radial-gradient(
-        ellipse 72% 65% at 50% 50%,
-        transparent 18%,
-        rgba(6, 9, 19, 0.35) 48%,
-        var(--bg-palace) 80%,
+        ellipse 65% 58% at 50% 50%,
+        transparent 10%,
+        rgba(6, 9, 19, 0.45) 40%,
+        var(--bg-palace) 75%,
         var(--bg-palace) 100%
       );
     }
