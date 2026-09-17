@@ -3160,6 +3160,24 @@
       border: 1px solid rgba(255, 255, 255, 0.05);
       box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.8);
       transform: translateZ(-100px);
+      overflow: hidden;
+    }
+    /* Royal Victorian Damask Inlay on Chamber Walls (Clearly visible inside rooms) */
+    .room-wall::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: linear-gradient(135deg, #70a9fc 0%, #589df6 50%, #7db6ff 100%);
+      -webkit-mask-image: url('royal_damask_mask_512.png');
+      mask-image: url('royal_damask_mask_512.png');
+      -webkit-mask-repeat: repeat;
+      mask-repeat: repeat;
+      -webkit-mask-size: 260px 260px;
+      mask-size: 260px 260px;
+      opacity: 0.14;
+      pointer-events: none;
+      z-index: 1;
     }
     /* Overhead Chamber Spotlight (#002C6B Sapphire Atmosphere Glow) */
     .room-spotlight {
@@ -9290,6 +9308,23 @@
       }
       100% {
         opacity: 0.05;
+      }
+    }
+
+    /* Elevated Pattern Presence when Inside Palace Chambers */
+    body.inside-palace-chambers .royal-ethnic-pattern-layer {
+      animation-name: royalPatternGlimmerRooms;
+    }
+
+    @keyframes royalPatternGlimmerRooms {
+      0% {
+        opacity: 0.09;
+      }
+      50% {
+        opacity: 0.13;
+      }
+      100% {
+        opacity: 0.10;
       }
     }
 
@@ -15677,6 +15712,13 @@
     initChamberPositions();
 
     function updateHUD(stage) {
+      if (document.body && document.body.classList) {
+        if (stage > 0) {
+          document.body.classList.add('inside-palace-chambers');
+        } else {
+          document.body.classList.remove('inside-palace-chambers');
+        }
+      }
       // Progress line
       const pct = (stage / (totalStages - 1)) * 100;
       headerProgressLine.style.width = `${pct}%`;
