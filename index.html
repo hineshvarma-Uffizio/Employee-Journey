@@ -7091,15 +7091,19 @@
       position: relative !important;
       left: auto !important;
       top: auto !important;
+      transform: none !important;
       width: 100% !important;
-      height: 200px !important;
+      height: auto !important;
+    }
+    .memories-scatter-board.is-scrollable .memories-uneven-card:hover {
+      transform: scale(1.06) rotate(0deg) !important;
     }
 
     /* Individual Uneven White-Frame Card */
     .memories-uneven-card {
       position: absolute;
       background: #ffffff;
-      padding: 8px 8px 11px 8px;
+      padding: 7px 7px 10px 7px;
       border-radius: 2px;
       box-shadow: 0 14px 30px rgba(0, 0, 0, 0.75), 0 4px 10px rgba(0, 0, 0, 0.45);
       cursor: pointer;
@@ -7109,35 +7113,41 @@
       user-select: none;
       transform-origin: center center;
       box-sizing: border-box;
-      display: flex;
+      display: inline-flex;
       flex-direction: column;
+      width: auto;
+      height: auto;
+      max-width: 95%;
+      max-height: 95%;
     }
 
     .memories-uneven-card:hover {
-      transform: scale(1.12) rotate(0deg) !important;
+      transform: translate(-50%, -50%) scale(1.12) rotate(0deg) !important;
       z-index: 100 !important;
       box-shadow: 0 26px 55px rgba(0, 0, 0, 0.92), 0 0 25px rgba(255, 255, 255, 0.4) !important;
     }
 
     .memories-uneven-img-wrap {
       width: 100%;
-      height: 100%;
+      height: auto;
       overflow: hidden;
-      background: #0b1120;
+      background: transparent;
       position: relative;
       border-radius: 1px;
+      display: block;
+      line-height: 0;
     }
 
     .memories-uneven-img-wrap img {
       width: 100%;
-      height: 100%;
-      object-fit: cover;
+      height: auto;
+      object-fit: contain;
       display: block;
       transition: transform 0.35s ease;
     }
 
     .memories-uneven-card:hover .memories-uneven-img-wrap img {
-      transform: scale(1.04);
+      transform: none;
     }
 
     .memories-uneven-zoom-btn {
@@ -7177,6 +7187,7 @@
       .memories-scatter-board {
         display: grid !important;
         grid-template-columns: repeat(2, 1fr) !important;
+        align-items: start !important;
         gap: 16px 12px !important;
         position: static !important;
         width: 100% !important;
@@ -7186,7 +7197,7 @@
       .memories-uneven-card {
         position: static !important;
         width: 100% !important;
-        height: 180px !important;
+        height: auto !important;
         padding: 6px 6px 8px 6px !important;
         margin: 0 !important;
       }
@@ -14929,6 +14940,47 @@
       return null;
     }
 
+    function adjustCardToImageAspect(card, imgEl, slot) {
+      if (!imgEl || !card || !slot) return;
+      const nw = imgEl.naturalWidth;
+      const nh = imgEl.naturalHeight;
+      if (!nw || !nh) return;
+
+      const ratio = nw / nh; // width / height
+      const board = document.getElementById('memoriesScatterBoard');
+      const boardW = (board && board.clientWidth) ? board.clientWidth : 1050;
+      const boardH = (board && board.clientHeight) ? board.clientHeight : 540;
+
+      // Base slot bounds in px
+      const slotW = (slot.width / 100) * boardW;
+      const slotH = (slot.height / 100) * boardH;
+
+      let targetW;
+      if (ratio >= 1.25) {
+        // Landscape / Wide photo: fit width, cap height to 1.15 * slotH
+        targetW = slotW;
+        const computedH = targetW / ratio;
+        if (computedH > slotH * 1.15) {
+          targetW = (slotH * 1.15) * ratio;
+        }
+      } else if (ratio <= 0.85) {
+        // Portrait / Vertical photo: generous height (~1.18 * slotH)
+        const targetH = Math.min(slotH * 1.18, boardH * 0.46);
+        targetW = targetH * ratio;
+        if (targetW < slotW * 0.62) {
+          targetW = slotW * 0.62;
+        }
+      } else {
+        // Square or near-square (0.85 < ratio < 1.25)
+        targetW = Math.min(slotW * 0.92, slotH * 1.05 * ratio);
+      }
+
+      // Percentage width relative to board for responsive scaling
+      const wPercent = (targetW / boardW) * 100;
+      card.style.width = `${wPercent.toFixed(2)}%`;
+      card.style.height = 'auto';
+    }
+
     function renderMemories2Uneven() {
       const board = document.getElementById('memoriesScatterBoard');
       if (!board) return;
@@ -14956,20 +15008,45 @@
           const card = document.createElement('div');
           card.className = 'memories-uneven-card';
           card.dataset.idx = idx;
-          card.style.left = `${slot.left}%`;
-          card.style.top = `${slot.top}%`;
+
+          const cx = slot.left + slot.width / 2;
+          const cy = slot.top + slot.height / 2;
+          card.style.left = `${cx.toFixed(2)}%`;
+          card.style.top = `${cy.toFixed(2)}%`;
+          card.style.transform = `translate(-50%, -50%) rotate(${slot.rot}deg)`;
+          card.style.zIndex = slot.z || 2;
           card.style.width = `${slot.width}%`;
-          card.style.height = `${slot.height}%`;
-          card.style.transform = `rotate(${slot.rot}deg)`;
-          card.style.zIndex = slot.z;
+          card.style.height = 'auto';
           card.setAttribute('title', `${m.title || 'Memory Photo'} (Click to zoom)`);
 
-          card.innerHTML = `
-            <div class="memories-uneven-img-wrap">
-              <img src="${escapeHtmlAttr(m.image || 'where_it_started.png')}" alt="${escapeHtmlAttr(m.title || 'Memory Photo')}" onerror="this.src='where_it_started.png'">
-              <div class="memories-uneven-zoom-btn">🔍</div>
-            </div>
-          `;
+          const imgEl = document.createElement('img');
+          imgEl.src = m.image || 'where_it_started.png';
+          imgEl.alt = m.title || 'Memory Photo';
+          imgEl.onerror = function() {
+            this.src = 'where_it_started.png';
+          };
+
+          const imgWrap = document.createElement('div');
+          imgWrap.className = 'memories-uneven-img-wrap';
+          imgWrap.appendChild(imgEl);
+
+          const zoomBtn = document.createElement('div');
+          zoomBtn.className = 'memories-uneven-zoom-btn';
+          zoomBtn.textContent = '🔍';
+          imgWrap.appendChild(zoomBtn);
+
+          card.appendChild(imgWrap);
+
+          // Dynamic frame adjustment based on image natural aspect ratio (height & width)
+          const applyAspect = () => {
+            adjustCardToImageAspect(card, imgEl, slot);
+          };
+
+          if (imgEl.complete && imgEl.naturalWidth > 0) {
+            applyAspect();
+          } else {
+            imgEl.addEventListener('load', applyAspect);
+          }
 
           card.addEventListener('click', () => {
             openCollageLightbox(idx, true);
@@ -14988,14 +15065,27 @@
           card.dataset.idx = idx;
           card.style.transform = `rotate(${rot}deg)`;
           card.style.zIndex = (idx % 5) + 2;
+          card.style.width = '100%';
+          card.style.height = 'auto';
           card.setAttribute('title', `${m.title || 'Memory Photo'} (Click to zoom)`);
 
-          card.innerHTML = `
-            <div class="memories-uneven-img-wrap">
-              <img src="${escapeHtmlAttr(m.image || 'where_it_started.png')}" alt="${escapeHtmlAttr(m.title || 'Memory Photo')}" onerror="this.src='where_it_started.png'">
-              <div class="memories-uneven-zoom-btn">🔍</div>
-            </div>
-          `;
+          const imgEl = document.createElement('img');
+          imgEl.src = m.image || 'where_it_started.png';
+          imgEl.alt = m.title || 'Memory Photo';
+          imgEl.onerror = function() {
+            this.src = 'where_it_started.png';
+          };
+
+          const imgWrap = document.createElement('div');
+          imgWrap.className = 'memories-uneven-img-wrap';
+          imgWrap.appendChild(imgEl);
+
+          const zoomBtn = document.createElement('div');
+          zoomBtn.className = 'memories-uneven-zoom-btn';
+          zoomBtn.textContent = '🔍';
+          imgWrap.appendChild(zoomBtn);
+
+          card.appendChild(imgWrap);
 
           card.addEventListener('click', () => {
             openCollageLightbox(idx, true);
@@ -15005,6 +15095,28 @@
         });
       }
     }
+
+    let _mem2ResizeDebounce = null;
+    window.addEventListener('resize', () => {
+      clearTimeout(_mem2ResizeDebounce);
+      _mem2ResizeDebounce = setTimeout(() => {
+        if (palaceState.memories2Mode === 'uneven' || !palaceState.memories2Mode) {
+          const board = document.getElementById('memoriesScatterBoard');
+          if (board && !board.classList.contains('is-scrollable') && board.offsetParent !== null) {
+            const cards = board.querySelectorAll('.memories-uneven-card');
+            const items = palaceState.memories2 || [];
+            const slots = getUnevenLayoutSlots(items.length);
+            if (slots && cards.length > 0) {
+              cards.forEach((card, idx) => {
+                const imgEl = card.querySelector('img');
+                const slot = slots[idx] || slots[slots.length - 1];
+                if (imgEl && slot) adjustCardToImageAspect(card, imgEl, slot);
+              });
+            }
+          }
+        }
+      }, 150);
+    });
 
     function renderMemories2Grid() {
       const grid = document.getElementById('collageMosaicGrid2');
@@ -18827,11 +18939,30 @@
           indexed.sort((a, b) => (a.slot.z || 0) - (b.slot.z || 0));
 
           indexed.forEach(({ slot, img }) => {
-            const pw = (slot.width * 1600) / 100;
-            const ph = (slot.height * 1200) / 100;
-            const cx = (slot.left * 1600) / 100 + pw / 2;
-            const cy = (slot.top * 1200) / 100 + ph / 2;
+            const slotW = (slot.width * 1600) / 100;
+            const slotH = (slot.height * 1200) / 100;
+            const cx = (slot.left * 1600) / 100 + slotW / 2;
+            const cy = (slot.top * 1200) / 100 + slotH / 2;
             const rotRad = (slot.rot * Math.PI) / 180;
+
+            const ratio = img.width / img.height;
+            let pw, ph;
+            if (ratio >= 1.25) {
+              pw = slotW;
+              ph = pw / ratio;
+              if (ph > slotH * 1.15) {
+                ph = slotH * 1.15;
+                pw = ph * ratio;
+              }
+            } else if (ratio <= 0.85) {
+              ph = Math.min(slotH * 1.18, 1200 * 0.46);
+              pw = ph * ratio;
+              if (pw < slotW * 0.62) pw = slotW * 0.62;
+              ph = pw / ratio;
+            } else {
+              pw = Math.min(slotW * 0.92, slotH * 1.05 * ratio);
+              ph = pw / ratio;
+            }
 
             ctx.save();
             ctx.translate(cx, cy);
@@ -18843,31 +18974,17 @@
             ctx.shadowOffsetX = 0;
             ctx.shadowOffsetY = 16;
 
-            // Crisp White Photo Frame
-            const framePad = 11;
+            // Crisp White Photo Frame matching photo's exact dimensions
+            const framePad = 10;
+            const frameBottomExtra = 4;
             ctx.fillStyle = '#ffffff';
-            ctx.fillRect(-pw / 2 - framePad, -ph / 2 - framePad, pw + framePad * 2, ph + framePad * 2 + 4);
+            ctx.fillRect(-pw / 2 - framePad, -ph / 2 - framePad, pw + framePad * 2, ph + framePad * 2 + frameBottomExtra);
 
             // Reset shadow before drawing photo
             ctx.shadowColor = 'transparent';
 
-            // Cover crop photo inside frame
-            const targetAspect = pw / ph;
-            const imgAspect = img.width / img.height;
-            let sx, sy, sw, sh;
-            if (imgAspect > targetAspect) {
-              sh = img.height;
-              sw = img.height * targetAspect;
-              sx = (img.width - sw) / 2;
-              sy = 0;
-            } else {
-              sw = img.width;
-              sh = img.width / targetAspect;
-              sx = 0;
-              sy = (img.height - sh) / 2;
-            }
-
-            ctx.drawImage(img, sx, sy, sw, sh, -pw / 2, -ph / 2, pw, ph);
+            // Draw full uncropped photo matching frame aspect ratio
+            ctx.drawImage(img, 0, 0, img.width, img.height, -pw / 2, -ph / 2, pw, ph);
             ctx.restore();
           });
         } else {
@@ -18887,6 +19004,14 @@
             const cy = pad + r * (ch + gap) + ch / 2;
             const rot = (rotPattern[i % rotPattern.length] * Math.PI) / 180;
 
+            const ratio = img.width / img.height;
+            let pw = cw - 16;
+            let ph = pw / ratio;
+            if (ph > ch - 16) {
+              ph = ch - 16;
+              pw = ph * ratio;
+            }
+
             ctx.save();
             ctx.translate(cx, cy);
             ctx.rotate(rot);
@@ -18897,20 +19022,10 @@
 
             const framePad = 8;
             ctx.fillStyle = '#ffffff';
-            ctx.fillRect(-cw / 2 - framePad, -ch / 2 - framePad, cw + framePad * 2, ch + framePad * 2 + 3);
+            ctx.fillRect(-pw / 2 - framePad, -ph / 2 - framePad, pw + framePad * 2, ph + framePad * 2 + 3);
 
             ctx.shadowColor = 'transparent';
-            const targetAspect = cw / ch;
-            const imgAspect = img.width / img.height;
-            let sx = 0, sy = 0, sw = img.width, sh = img.height;
-            if (imgAspect > targetAspect) {
-              sw = img.height * targetAspect;
-              sx = (img.width - sw) / 2;
-            } else {
-              sh = img.width / targetAspect;
-              sy = (img.height - sh) / 2;
-            }
-            ctx.drawImage(img, sx, sy, sw, sh, -cw / 2, -ch / 2, cw, ch);
+            ctx.drawImage(img, 0, 0, img.width, img.height, -pw / 2, -ph / 2, pw, ph);
             ctx.restore();
           }
         }
