@@ -1946,16 +1946,64 @@
       display: none;
     }
 
-    /* Dramatic Cinematic Zoom: Camera dollies forward in through the open doorway */
+    /* ==========================================================================
+       STAGE 0 -> 1 TRANSITION: CINEMATIC WALK-THROUGH DOORWAY (60FPS LIGHTWEIGHT)
+       ========================================================================== */
+
+    /* Phase 1: Inner Preview Visual dissolves cleanly in place WITHOUT zooming */
+    .doorway-next-screen.doorway-fade-out {
+      opacity: 0 !important;
+      transform: scale(1) !important;
+      transition: opacity 0.22s ease-out !important;
+      pointer-events: none !important;
+    }
+
+    .doorway-next-screen.doorway-fade-out * {
+      opacity: 0 !important;
+      transition: opacity 0.18s ease-out !important;
+    }
+
+    /* Aperture becomes clear glass as visual dissolves */
+    .portal-arch-structure.door-dissolving .portal-doorway-aperture,
+    .portal-arch-structure.zooming-through .portal-doorway-aperture {
+      background: transparent !important;
+      box-shadow: none !important;
+      transition: background 0.2s ease-out, box-shadow 0.2s ease-out !important;
+    }
+
+    /* Phase 2: Lightweight Door Zoom - ONLY the 434x500 Arch Scales (Zero Fullscreen Memory Overhead!) */
+    .portal-arch-structure.zooming-through {
+      transform: scale(4.8) translate3d(0, 0, 0);
+      transform-origin: 50% 50%;
+      pointer-events: none;
+      transition: transform 0.68s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    }
+
+    /* Door leaves swing slightly wider to clear camera path */
+    .portal-arch-structure.zooming-through .portal-doors-open .photo-door-leaf.left,
+    .portal-arch-structure.zooming-through.door-open .photo-door-leaf.left {
+      transform: rotateY(-118deg) translate3d(0, 0, 0) !important;
+      transition: transform 0.68s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    }
+    .portal-arch-structure.zooming-through .portal-doors-open .photo-door-leaf.right,
+    .portal-arch-structure.zooming-through.door-open .photo-door-leaf.right {
+      transform: rotateY(118deg) translate3d(0, 0, 0) !important;
+      transition: transform 0.68s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    }
+
+    /* Halo glow fades gently during zoom */
+    .portal-arch-structure.zooming-through .portal-arch-glow-backdrop {
+      opacity: 0 !important;
+      transition: opacity 0.25s ease-out !important;
+    }
+
+    /* Stage wrapper itself does NOT scale (prevents 100+ megapixel buffer stall) */
     .palace-portal-stage.zooming-through {
-      transform: translate3d(0, 0, 480px) scale(7.2);
-      transform-origin: 50% 53.4%;
       opacity: 0;
       visibility: visible;
       pointer-events: none;
       z-index: 45;
-      transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1),
-                  opacity 0.35s ease-out 0.35s;
+      transition: opacity 0.32s ease-out 0.32s;
     }
 
     .palace-portal-stage.zooming-through::after {
@@ -1963,41 +2011,8 @@
       transition: opacity 0.2s ease-out !important;
     }
 
-    .palace-portal-stage.zooming-through .portal-arch-glow-backdrop {
-      opacity: 0 !important;
-      transition: opacity 0.22s ease-out !important;
-    }
-
-    /* As soon as scroll/zoom begins: The doorway preview visual dissolves away smoothly in place WITHOUT zooming */
-    .palace-portal-stage.zooming-through .doorway-next-screen {
-      opacity: 0 !important;
-      transform: scale(0.138) !important;
-      transition: opacity 0.22s ease-out,
-                  transform 0.85s cubic-bezier(0.16, 1, 0.3, 1) !important;
-      pointer-events: none !important;
-    }
-
-    .palace-portal-stage.zooming-through .doorway-portrait-wrap,
-    .palace-portal-stage.zooming-through .doorway-editorial-wrap,
-    .palace-portal-stage.zooming-through .doorway-portrait-img,
-    .palace-portal-stage.zooming-through .doorway-main-title,
-    .palace-portal-stage.zooming-through .doorway-emp-name,
-    .palace-portal-stage.zooming-through .doorway-hall-backdrop,
-    .palace-portal-stage.zooming-through .doorway-hall-spotlight,
-    .palace-portal-stage.zooming-through .doorway-hall-floor {
-      opacity: 0 !important;
-      transform: none !important;
-      transition: opacity 0.18s ease-out !important;
-    }
-
-    /* The doorway aperture becomes clear glass during the zoom */
-    .palace-portal-stage.zooming-through .portal-doorway-aperture {
-      background: transparent !important;
-      box-shadow: none !important;
-      transition: background 0.2s ease-out, box-shadow 0.2s ease-out !important;
-    }
-
-    /* Floating entrance texts fade away cleanly before camera passes them */
+    /* Floating entrance texts fade away cleanly */
+    .portal-arch-structure.zooming-through .portal-arch-header,
     .palace-portal-stage.zooming-through .portal-arch-header {
       opacity: 0 !important;
       transform: translateY(-25px) scale(0.92) !important;
@@ -2011,31 +2026,23 @@
       transition: opacity 0.2s ease, transform 0.2s ease !important;
     }
 
-    /* Door leaves swing slightly wider as camera moves between them */
-    .palace-portal-stage.zooming-through .portal-doors-open .photo-door-leaf.left,
-    .palace-portal-stage.zooming-through.door-open .photo-door-leaf.left {
-      transform: rotateY(-118deg) translate3d(0, 0, 0) !important;
-      transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1) !important;
-    }
-    .palace-portal-stage.zooming-through .portal-doors-open .photo-door-leaf.right,
-    .palace-portal-stage.zooming-through.door-open .photo-door-leaf.right {
-      transform: rotateY(118deg) translate3d(0, 0, 0) !important;
-      transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1) !important;
-    }
-
     .palace-portal-stage.hidden-forward {
       opacity: 0;
       visibility: hidden;
       pointer-events: none;
-      transform: translate3d(0, 0, 480px) scale(7.2);
-      transform-origin: 50% 53.4%;
       z-index: 10;
+      transition: none;
+    }
+
+    .palace-portal-stage.hidden-forward .portal-arch-structure {
+      transform: scale(4.8) translate3d(0, 0, 0);
+      transform-origin: 50% 50%;
       transition: none;
     }
 
     /* Seamless doorway reveal for Stage 1 celebration chamber */
     #chamber-milestone.waiting-depth {
-      transform: translate3d(0, 0, -240px) scale(0.90);
+      transform: translate3d(0, 0, -220px) scale(0.92);
     }
 
     #chamber-milestone.entering-from-door {
@@ -2043,8 +2050,8 @@
       visibility: visible !important;
       pointer-events: auto !important;
       transform: translate3d(0, 0, 0px) scale(1) !important;
-      transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1),
-                  opacity 0.6s ease-out,
+      transition: transform 0.72s cubic-bezier(0.16, 1, 0.3, 1),
+                  opacity 0.55s ease-out,
                   visibility 0s 0s !important;
     }
 
@@ -15763,7 +15770,12 @@
     function initChamberPositions() {
       isDoorOpen = false;
       clearTimeout(doorAutoAdvanceTimer);
-      portalStage.classList.remove('hidden-forward');
+      portalStage.classList.remove('hidden-forward', 'zooming-through');
+      portalArch.classList.remove('zooming-through', 'door-dissolving');
+      const doorwayNextScreen = document.getElementById('doorwayNextScreen');
+      if (doorwayNextScreen) {
+        doorwayNextScreen.classList.remove('doorway-fade-out');
+      }
       portalDoorsWrapper.classList.remove('portal-doors-open');
 
       chambers.forEach((chamber) => {
@@ -15879,39 +15891,52 @@
       currentStage = 1;
       lastTransitionTime = performance.now();
 
-      // Step 1: Camera begins DOLLYING FORWARD IN THROUGH THE DOOR!
-      // The door expands massively (scale 1 -> 7.2), doorway visual dissolves, celebration screen emerges!
+      const doorwayNextScreen = document.getElementById('doorwayNextScreen');
+      const milestoneChamber = document.getElementById('chamber-milestone');
+
+      // PHASE 1: Immediate in-place fade out of the inner preview visual (Zero Zoom!)
       portalArch.removeAttribute('title');
-      portalStage.classList.remove('hidden-forward');
-      portalStage.classList.add('zooming-through');
+      portalArch.classList.add('door-dissolving');
+      if (doorwayNextScreen) {
+        doorwayNextScreen.classList.add('doorway-fade-out');
+      }
       palaceAudio.playFootstep();
 
-      // Step 2: Milestone celebration chamber emerges smoothly from depth through the expanding doorway
-      const milestoneChamber = document.getElementById('chamber-milestone');
-      if (milestoneChamber) {
-        milestoneChamber.classList.add('entering-from-door');
-      }
+      // PHASE 2: After inner image dissolves in place (140ms), camera steps through the open door!
+      setTimeout(() => {
+        portalStage.classList.remove('hidden-forward');
+        portalStage.classList.add('zooming-through');
+        portalArch.classList.add('zooming-through');
 
-      chambers.forEach((c, idx) => {
-        if (idx === 0) {
-          c.classList.remove('waiting-depth', 'exited-forward');
-          c.classList.add('active');
-        } else {
-          c.classList.remove('active', 'exited-forward');
-          c.classList.add('waiting-depth');
+        if (milestoneChamber) {
+          milestoneChamber.classList.add('entering-from-door');
         }
-      });
-      updateHUD(1);
 
-      // Step 3: Complete transition after camera has fully passed through the door (860ms synchronized with CSS)
+        chambers.forEach((c, idx) => {
+          if (idx === 0) {
+            c.classList.remove('waiting-depth', 'exited-forward');
+            c.classList.add('active');
+          } else {
+            c.classList.remove('active', 'exited-forward');
+            c.classList.add('waiting-depth');
+          }
+        });
+        updateHUD(1);
+      }, 140);
+
+      // PHASE 3: Complete transition after camera has fully passed through the door (820ms)
       setTimeout(() => {
         portalStage.classList.remove('zooming-through');
+        portalArch.classList.remove('zooming-through', 'door-dissolving');
+        if (doorwayNextScreen) {
+          doorwayNextScreen.classList.remove('doorway-fade-out');
+        }
         portalStage.classList.add('hidden-forward');
         if (milestoneChamber) {
           milestoneChamber.classList.remove('entering-from-door');
         }
         isTransitioning = false;
-      }, 860);
+      }, 820);
     }
 
     function goToStage(targetStage) {
@@ -15946,17 +15971,21 @@
           c.classList.add('waiting-depth');
         });
 
-        // Setup portal stage at zoomed-in scale without transition, then glide back out to scale 1
+        // Setup portal stage & arch at zoomed-in scale without transition, then glide back out to scale 1
         portalStage.style.transition = 'none';
+        portalArch.style.transition = 'none';
         portalStage.classList.remove('hidden-forward');
         portalStage.classList.add('zooming-through');
+        portalArch.classList.add('zooming-through');
         portalDoorsWrapper.classList.add('portal-doors-open');
         portalArch.classList.add('door-open');
-        void portalStage.offsetWidth; // force browser layout reflow
+        void portalArch.offsetWidth; // force browser layout reflow
 
         // Restore transition and dolly camera back out to normal view
         portalStage.style.transition = '';
+        portalArch.style.transition = '';
         portalStage.classList.remove('zooming-through');
+        portalArch.classList.remove('zooming-through');
         palaceAudio.playFootstep();
 
         // Swing doors closed after camera steps back outside
