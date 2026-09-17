@@ -16180,7 +16180,7 @@
 
         // SCENARIO 1: AT FINAL MILESTONE - scroll down advances into Room 02
         if (currentMilestoneStop >= maxIdx && delta > 0 && isStoppedAtMilestone) {
-          if (now - milestoneArrivalTime > 150) {
+          if (now - milestoneArrivalTime > 60) {
             goToStage(currentStage + 1); // Step to next active room
           }
           return;
@@ -16188,7 +16188,7 @@
 
         // SCENARIO 2: AT FIRST MILESTONE - scroll up returns to Celebration
         if (currentMilestoneStop <= 0 && delta < 0 && isStoppedAtMilestone) {
-          if (now - milestoneArrivalTime > 150) {
+          if (now - milestoneArrivalTime > 60) {
             goToStage(currentStage - 1); // Return to previous active room
           }
           return;
@@ -16197,8 +16197,8 @@
         // SCENARIO 3: SCROLLING FORWARD (DOWN / RIGHT)
         if (delta > 0) {
           if (isStoppedAtMilestone) {
-            // Absorb lingering momentum of arrival flick (140ms)
-            if (now - milestoneArrivalTime < 140) {
+            // Absorb lingering momentum of arrival flick (50ms snappy buffer)
+            if (now - milestoneArrivalTime < 50) {
               return;
             }
             // User scrolled again! Instantly unlock and advance to next achievement ceiling!
@@ -16216,7 +16216,7 @@
         // SCENARIO 4: SCROLLING BACKWARD (UP / LEFT)
         if (delta < 0) {
           if (isStoppedAtMilestone) {
-            if (now - milestoneArrivalTime < 140) {
+            if (now - milestoneArrivalTime < 50) {
               return;
             }
             // User scrolled up! Instantly unlock and retreat to previous achievement floor!
