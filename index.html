@@ -16853,78 +16853,64 @@
     window.addEventListener('resize', resizeConfetti);
     resizeConfetti();
 
-    function fireConfetti() {
+    function fireConfetti(customX, customY) {
       palaceAudio.init();
       palaceAudio.playChime();
 
       const colors = ['#f5c065', '#ffd700', '#00e5ff', '#ff4d6d', '#10b981', '#ffffff', '#f43f5e', '#c084fc', '#fb923c'];
-      const totalPieces = 260;
+      const totalPieces = 280;
+      const centerX = (typeof customX === 'number') ? customX : window.innerWidth * 0.5;
+      const centerY = (typeof customY === 'number') ? customY : window.innerHeight * 0.5;
+      const baseSpeed = Math.min(window.innerWidth, window.innerHeight) * 0.025 + 16;
+
       for (let i = 0; i < totalPieces; i++) {
-        // Uneven shapes: rectangles, long streamers/strips, round sequins, diamonds, and sparkle stars
-        const rand = Math.random();
-        let shape = 'rect';
-        let width = 0, height = 0, radius = 0, size = 0;
+        // Round circle confetti pieces - circular sequins replacing rectangles (lambchoras)
+        const radius = Math.random() * 4.2 + 3.2; // 3.2px to 7.4px radius round dots / sequins
 
-        if (rand < 0.35) {
-          shape = 'rect'; // Varied rectangles
-          width = Math.random() * 9 + 6;
-          height = Math.random() * 7 + 4;
-        } else if (rand < 0.60) {
-          shape = 'strip'; // Long ribbons / streamers
-          width = Math.random() * 14 + 12;
-          height = Math.random() * 3 + 3;
-        } else if (rand < 0.80) {
-          shape = 'circle'; // Round sequins / dots
-          radius = Math.random() * 3.5 + 2.5;
-        } else if (rand < 0.90) {
-          shape = 'diamond'; // Diamond gems
-          size = Math.random() * 5 + 5;
-        } else {
-          shape = 'star'; // 4-pointed sparkle stars
-          size = Math.random() * 5 + 5;
-        }
-
-        // Center explosive burst: all confetti blasts directly from the center
-        const originX = window.innerWidth * 0.5 + (Math.random() - 0.5) * 60;
-        const originY = window.innerHeight * 0.65;
-        const vx = (Math.random() - 0.5) * 58;
-        const vy = -Math.random() * 32 - 28;
+        // Round Circle Radial Cluster Burst: 360-degree isotropic circular explosion from center
+        const angle = Math.random() * Math.PI * 2;
+        // Evenly distributed velocity inside a circular disk pattern
+        const speed = (Math.sqrt(Math.random()) * 0.72 + 0.28) * baseSpeed;
+        const vx = Math.cos(angle) * speed;
+        const vy = Math.sin(angle) * speed;
 
         confettiPieces.push({
-          x: originX,
-          y: originY,
+          x: centerX,
+          y: centerY,
           vx: vx,
           vy: vy,
-          shape: shape,
-          width: width,
-          height: height,
+          shape: 'circle',
           radius: radius,
-          size: size,
           color: colors[Math.floor(Math.random() * colors.length)],
           rotation: Math.random() * 360,
-          rotationSpeed: (Math.random() - 0.5) * 48,
+          rotationSpeed: (Math.random() - 0.5) * 36,
           wobble: Math.random() * 10,
-          wobbleSpeed: Math.random() * 0.32 + 0.18,
-          gravity: Math.random() * 0.35 + 1.25,
+          wobbleSpeed: Math.random() * 0.28 + 0.16,
+          gravity: Math.random() * 0.25 + 0.48,
+          drag: 0.965,
           life: 1
         });
       }
     }
-    document.getElementById('btnFireConfetti').addEventListener('click', fireConfetti);
+    const btnFireConfettiEl = document.getElementById('btnFireConfetti');
+    if (btnFireConfettiEl) {
+      btnFireConfettiEl.addEventListener('click', () => fireConfetti());
+    }
 
     function renderConfetti() {
       cctx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
       for (let i = confettiPieces.length - 1; i >= 0; i--) {
         const p = confettiPieces[i];
+        p.vx *= (p.drag || 0.965);
+        p.vy *= (p.drag || 0.965);
         p.vy += p.gravity;
-        p.vx *= 0.988;
         p.x += p.vx;
         p.y += p.vy;
         p.rotation += p.rotationSpeed;
         p.wobble += p.wobbleSpeed;
-        p.life -= 0.015;
+        p.life -= 0.012;
 
-        if (p.life <= 0 || p.y > confettiCanvas.height + 30) {
+        if (p.life <= 0 || p.y > confettiCanvas.height + 40) {
           confettiPieces.splice(i, 1);
           continue;
         }
@@ -16932,37 +16918,15 @@
         cctx.save();
         cctx.translate(p.x, p.y);
         cctx.rotate((p.rotation * Math.PI) / 180);
-        // 3D flip flutter effect: compresses horizontally to simulate realistic tumbling paper
+        // 3D flip flutter effect: compresses horizontally to simulate realistic tumbling round coin / sequin
         cctx.scale(Math.cos(p.wobble), 1);
         cctx.globalAlpha = Math.max(0, p.life);
         cctx.fillStyle = p.color;
 
-        if (p.shape === 'circle') {
-          cctx.beginPath();
-          cctx.arc(0, 0, p.radius, 0, Math.PI * 2);
-          cctx.fill();
-        } else if (p.shape === 'diamond') {
-          cctx.beginPath();
-          cctx.moveTo(0, -p.size);
-          cctx.lineTo(p.size * 0.7, 0);
-          cctx.lineTo(0, p.size);
-          cctx.lineTo(-p.size * 0.7, 0);
-          cctx.closePath();
-          cctx.fill();
-        } else if (p.shape === 'star') {
-          cctx.beginPath();
-          const s = p.size;
-          cctx.moveTo(0, -s);
-          cctx.quadraticCurveTo(0, 0, s, 0);
-          cctx.quadraticCurveTo(0, 0, 0, s);
-          cctx.quadraticCurveTo(0, 0, -s, 0);
-          cctx.quadraticCurveTo(0, 0, 0, -s);
-          cctx.closePath();
-          cctx.fill();
-        } else {
-          // 'rect' and 'strip'
-          cctx.fillRect(-p.width / 2, -p.height / 2, p.width, p.height);
-        }
+        // Draw Round Circle shape (no lambchoras / rectangles)
+        cctx.beginPath();
+        cctx.arc(0, 0, p.radius || 4.5, 0, Math.PI * 2);
+        cctx.fill();
 
         cctx.restore();
       }
