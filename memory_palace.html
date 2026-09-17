@@ -11103,7 +11103,7 @@
 
         <div style="background:rgba(245,192,101,0.06); border:1px solid rgba(245,192,101,0.25); border-radius:10px; padding:14px;">
           <h5 style="color:var(--gold-primary); font-size:13px; margin:0 0 10px 0;">🎯 Button Labels</h5>
-          <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+          <div style="display:grid; grid-template-columns: 1fr; gap:10px;">
             <div class="form-group" style="display:none;">
               <label>Confetti Button</label>
               <input type="text" class="form-input" id="adminThankYouBtn1" placeholder="🎉 Shower Confetti & Applause">
@@ -11112,7 +11112,7 @@
               <label>Certificate Button</label>
               <input type="text" class="form-input" id="adminThankYouBtn2" placeholder="📜 View Souvenir Card">
             </div>
-            <div class="form-group">
+            <div class="form-group" style="display:none;">
               <label>Return Button</label>
               <input type="text" class="form-input" id="adminThankYouBtn3" placeholder="🏛️ Revisit Palace From Start">
             </div>
@@ -14051,9 +14051,6 @@
             <button class="btn-download-cert thankyou-souvenir-btn" id="btnThankYouCert" onclick="openCertificateModal()" title="View your official souvenir certificate">
               <span>${escapeHtml(ty.actionBtn2 || '📜 View Souvenir Card')}</span>
             </button>
-            <button class="thankyou-return-btn" id="btnThankYouReturn" title="Return to palace entrance">
-              <span>${escapeHtml(ty.actionBtn3 || '🏛️ Revisit Palace From Start')}</span>
-            </button>
           </div>
         </div>
       `;
@@ -14065,13 +14062,6 @@
         btnCert.addEventListener('click', (e) => {
           e.preventDefault();
           openCertificateModal();
-        });
-      }
-
-      const btnReturn = document.getElementById('btnThankYouReturn');
-      if (btnReturn) {
-        btnReturn.addEventListener('click', () => {
-          goToStage(0);
         });
       }
     }
