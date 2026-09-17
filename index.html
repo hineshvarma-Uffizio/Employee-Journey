@@ -183,7 +183,7 @@
     }
   ],
   "evolution": {
-    "thenTitle": "Day 01 • Starting Horizon",
+    "thenTitle": "Day 01",
     "thenPoints": [
       {
         "icon": "globe",
@@ -199,7 +199,7 @@
       }
     ],
     "growthLabel": "1 YEAR GROWTH",
-    "nowTitle": "Year 01 • Proven Mastery",
+    "nowTitle": "Year 01",
     "nowPoints": [
       {
         "icon": "shield",
@@ -9796,7 +9796,7 @@
               <!-- Left Card: Day 01 -->
               <div class="evolution-card evolution-then">
                 <div class="evolution-card-header">
-                  <h3 class="evolution-heading then-heading" contenteditable="true" data-editable="true" title="Click to edit heading">Day 01 • Starting Horizon</h3>
+                  <h3 class="evolution-heading then-heading" contenteditable="true" data-editable="true" title="Click to edit heading">Day 01</h3>
                 </div>
                 <div class="evolution-card-body">
                   <div class="evolution-point-item">
@@ -9831,7 +9831,7 @@
               <!-- Right Card: Year 01 -->
               <div class="evolution-card evolution-now">
                 <div class="evolution-card-header">
-                  <h3 class="evolution-heading now-heading" contenteditable="true" data-editable="true" title="Click to edit heading">Year 01 • Proven Mastery</h3>
+                  <h3 class="evolution-heading now-heading" contenteditable="true" data-editable="true" title="Click to edit heading">Year 01</h3>
                 </div>
                 <div class="evolution-card-body">
                   <div class="evolution-point-item">
@@ -10603,10 +10603,10 @@
         <div style="display:grid; grid-template-columns: 1fr 1fr; gap:16px; margin-bottom:14px;">
           <!-- Left Card: Day 01 -->
           <div style="background:rgba(15,23,42,0.8); border:1px solid rgba(245,192,101,0.3); border-radius:12px; padding:14px;">
-            <h5 style="color:var(--gold-primary); font-size:13px; margin:0 0 10px 0;">🌱 Day 01 • Starting Horizon</h5>
+            <h5 style="color:var(--gold-primary); font-size:13px; margin:0 0 10px 0;">🌱 Day 01</h5>
             <div class="form-group" style="margin-bottom:12px;">
               <label>Heading Title</label>
-              <input type="text" class="form-input" id="adminEvolThenTitle" placeholder="Day 01 • Starting Horizon">
+              <input type="text" class="form-input" id="adminEvolThenTitle" placeholder="Day 01">
             </div>
 
             <!-- Point 1 -->
@@ -10681,10 +10681,10 @@
 
           <!-- Right Card: Year 01 -->
           <div style="background:rgba(15,23,42,0.8); border:1px solid rgba(0,229,255,0.4); border-radius:12px; padding:14px;">
-            <h5 style="color:#38bdf8; font-size:13px; margin:0 0 10px 0;">🚀 Year 01 • Proven Mastery</h5>
+            <h5 style="color:#38bdf8; font-size:13px; margin:0 0 10px 0;">🚀 Year 01</h5>
             <div class="form-group" style="margin-bottom:12px;">
               <label>Heading Title</label>
-              <input type="text" class="form-input" id="adminEvolNowTitle" placeholder="Year 01 • Proven Mastery">
+              <input type="text" class="form-input" id="adminEvolNowTitle" placeholder="Year 01">
             </div>
 
             <!-- Point 1 -->
@@ -11996,7 +11996,7 @@
         }
       ],
       "evolution": {
-        "thenTitle": "Day 01 • Starting Horizon",
+        "thenTitle": "Day 01",
         "thenPoints": [
           {
             "icon": "globe",
@@ -12012,7 +12012,7 @@
           }
         ],
         "growthLabel": "1 YEAR GROWTH",
-        "nowTitle": "Year 01 • Proven Mastery",
+        "nowTitle": "Year 01",
         "nowPoints": [
           {
             "icon": "shield",
@@ -17891,14 +17891,14 @@
 
     function populateAdminEvolution() {
       const evo = palaceState.evolution || {
-        thenTitle: "Day 01 • Starting Horizon",
+        thenTitle: "Day 01",
         thenPoints: [
           { icon: "globe", text: "Learning the environment" },
           { icon: "box", text: "Understanding the product" },
           { icon: "compass", text: "Getting familiar with the role" }
         ],
         growthLabel: "1 YEAR GROWTH",
-        nowTitle: "Year 01 • Proven Mastery",
+        nowTitle: "Year 01",
         nowPoints: [
           { icon: "shield", text: "More confidence" },
           { icon: "target", text: "Better understanding" },
@@ -17907,7 +17907,7 @@
       };
 
       const adminThenTitle = document.getElementById('adminEvolThenTitle');
-      if (adminThenTitle) adminThenTitle.value = evo.thenTitle || "Day 01 • Starting Horizon";
+      if (adminThenTitle) adminThenTitle.value = evo.thenTitle || "Day 01";
 
       const thenFallbacks = ['globe', 'box', 'compass'];
       (evo.thenPoints || []).forEach((p, i) => {
@@ -17929,7 +17929,7 @@
       if (adminGrowth) adminGrowth.value = evo.growthLabel || "1 YEAR GROWTH";
 
       const adminNowTitle = document.getElementById('adminEvolNowTitle');
-      if (adminNowTitle) adminNowTitle.value = evo.nowTitle || "Year 01 • Proven Mastery";
+      if (adminNowTitle) adminNowTitle.value = evo.nowTitle || "Year 01";
 
       const nowFallbacks = ['shield', 'target', 'crown'];
       (evo.nowPoints || []).forEach((p, i) => {
@@ -18430,9 +18430,9 @@
           const thenFallbacks = ['globe', 'box', 'compass'];
           const nowFallbacks = ['shield', 'target', 'crown'];
           palaceState.evolution = palaceState.evolution || {};
-          palaceState.evolution.thenTitle = adminThenTitle ? adminThenTitle.value.trim() : "Day 01 • Starting Horizon";
+          palaceState.evolution.thenTitle = adminThenTitle ? adminThenTitle.value.trim() : "Day 01";
           palaceState.evolution.growthLabel = adminGrowth ? adminGrowth.value.trim() : "1 YEAR GROWTH";
-          palaceState.evolution.nowTitle = adminNowTitle ? adminNowTitle.value.trim() : "Year 01 • Proven Mastery";
+          palaceState.evolution.nowTitle = adminNowTitle ? adminNowTitle.value.trim() : "Year 01";
 
           palaceState.evolution.thenPoints = [0, 1, 2].map(i => {
             const existingIcon = (palaceState.evolution.thenPoints && palaceState.evolution.thenPoints[i] && palaceState.evolution.thenPoints[i].icon) || thenFallbacks[i];
