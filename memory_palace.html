@@ -634,6 +634,7 @@
       "desc": "Looking back at an incredible year of personal evolution, achievements, and strong bonds."
     }
   ],
+  "memories2Mode": "single",
   "memories2CollageImage": "memories_collage_part2.png",
   "memories2": [
     {
@@ -6979,6 +6980,30 @@
       }
     }
 
+    #memories2GridStage {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-mem2-mode {
+      background: rgba(255, 255, 255, 0.05);
+      color: #94a3b8;
+      border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    }
+    .btn-mem2-mode:hover {
+      color: #f1f5f9;
+      background: rgba(255, 255, 255, 0.1);
+    }
+    .btn-mem2-mode.active {
+      background: linear-gradient(135deg, rgba(245, 192, 101, 0.25), rgba(217, 119, 6, 0.2)) !important;
+      color: var(--gold-light) !important;
+      border: 1px solid var(--gold-primary) !important;
+      box-shadow: 0 0 14px rgba(245, 192, 101, 0.35);
+    }
+
     .collage-board-container {
       width: 100% !important;
       max-width: 1200px !important;
@@ -10036,8 +10061,15 @@
         </div>
 
         <div class="chamber-content">
-          <div class="memories-standalone-collage-stage">
+          <div class="memories-standalone-collage-stage" id="memories2SingleStage">
             <img id="memories2CollageImg" class="memories-standalone-collage-img" src="memories_collage_part2.png" alt="Year in Memories Collage" onclick="openSingleCollageLightbox(this.src)" title="Click to zoom collage in full screen">
+          </div>
+          <div class="room-memories" id="memories2GridStage" style="display: none;">
+            <div class="collage-board-container">
+              <div class="collage-mosaic-grid memories2-mosaic-grid" id="collageMosaicGrid2">
+                <!-- Rendered dynamically by renderMemories2() -->
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -10856,14 +10888,24 @@
       </div>
 
       <!-- Tab: Photo Collage (Part 2) -->
-      <!-- Tab: Photo Collage (Part 2) -->
       <div class="admin-tab-content" id="tab-memories-2">
         <div style="margin-bottom:14px;">
-          <h4 style="color:var(--gold-light); font-size:15px; margin:0 0 4px 0;">📸 Year of Memories Ready-made Collage (Part 2)</h4>
-          <p style="font-size:12px; color:#94a3b8; margin:0;">Upload your pre-designed single collage image. No inner boxes or photo grids needed — your graphic is displayed directly.</p>
+          <h4 style="color:var(--gold-light); font-size:15px; margin:0 0 4px 0;">📸 Year of Memories (Part 2) Collage Manager</h4>
+          <p style="font-size:12px; color:#94a3b8; margin:0;">Choose between a single ready-made collage image OR auto-collage from multiple individual photos.</p>
         </div>
 
-        <div style="background:rgba(15,23,42,0.6); border:1px solid rgba(245,192,101,0.25); border-radius:12px; padding:16px; display:flex; flex-direction:column; gap:16px;">
+        <!-- Mode Toggle Segmented Control -->
+        <div class="mem2-mode-selector" style="display:flex; gap:10px; margin-bottom:18px; background:rgba(15,23,42,0.7); padding:6px; border-radius:12px; border:1px solid rgba(245,192,101,0.25);">
+          <button type="button" class="btn-mem2-mode active" id="btnMem2ModeSingle" onclick="switchMemories2Mode('single')" style="flex:1; padding:10px 14px; border-radius:8px; font-size:13px; font-weight:700; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px; transition:all 0.2s ease;">
+            <span>🖼️ Mode 1: Single Ready-Made Image</span>
+          </button>
+          <button type="button" class="btn-mem2-mode" id="btnMem2ModeMulti" onclick="switchMemories2Mode('multi')" style="flex:1; padding:10px 14px; border-radius:8px; font-size:13px; font-weight:700; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px; transition:all 0.2s ease;">
+            <span>📸 Mode 2: Multi-Photo Auto-Collage</span>
+          </button>
+        </div>
+
+        <!-- Section 1: Single Image Mode -->
+        <div id="adminMem2SingleSection" style="background:rgba(15,23,42,0.6); border:1px solid rgba(245,192,101,0.25); border-radius:12px; padding:16px; display:flex; flex-direction:column; gap:16px;">
           <div style="display:flex; gap:18px; align-items:flex-start; flex-wrap:wrap;">
             <div style="width:220px; height:165px; border-radius:10px; overflow:hidden; border:1.5px solid var(--gold-primary); flex-shrink:0; background:#000; box-shadow:0 4px 14px rgba(0,0,0,0.6); display:flex; align-items:center; justify-content:center;">
               <img src="memories_collage_part2.png" id="adminMemories2Preview" style="max-width:100%; max-height:100%; object-fit:contain;" onerror="this.src='memories_collage_part2.png'">
@@ -10882,10 +10924,38 @@
                 <span id="mem2UploadStatus" style="font-size:12px; display:none;"></span>
               </div>
               <p style="font-size:11.5px; color:#64748b; margin-top:12px; line-height:1.4;">
-                💡 <em>Note: Upload your ready-made collage image here. It displays cleanly in Room 06 with click-to-zoom fullscreen view.</em>
+                💡 <em>Note: Upload your ready-made single collage image here. It displays cleanly in Chamber 05 with click-to-zoom fullscreen view.</em>
               </p>
             </div>
           </div>
+        </div>
+
+        <!-- Section 2: Multi-Photo Auto-Collage Mode -->
+        <div id="adminMem2MultiSection" style="display:none; flex-direction:column; gap:16px;">
+          <!-- Action Toolbar -->
+          <div style="background:rgba(15,23,42,0.7); border:1px solid rgba(245,192,101,0.25); border-radius:12px; padding:14px 16px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+            <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+              <!-- Bulk Upload Button -->
+              <label class="btn-add-item" style="font-size:12px; padding:8px 16px; cursor:pointer; display:inline-flex; align-items:center; gap:6px; margin:0;">
+                📁 Upload Multiple Photos (Bulk Select)
+                <input type="file" id="fileUploadMemories2Multi" accept="image/*" multiple style="display:none;" onchange="handleMemories2BulkUpload(event)">
+              </label>
+              <!-- Add Single Photo -->
+              <button type="button" class="btn-secondary" id="btnAddMemory2Single" onclick="addMemories2SinglePhoto()" style="font-size:12px; padding:8px 14px; display:inline-flex; align-items:center; gap:4px;">
+                ➕ Add Single Photo
+              </button>
+            </div>
+            <!-- Canvas Auto-Stitcher trigger -->
+            <button type="button" class="btn-secondary" id="btnStitchMemories2Canvas" onclick="openMemories2CanvasStitcherModal()" style="font-size:12px; padding:8px 16px; border-color:var(--gold-primary); color:var(--gold-light); display:inline-flex; align-items:center; gap:6px;">
+              🎨 Auto-Stitch into Single Image (Canvas)
+            </button>
+          </div>
+
+          <!-- Bulk Status / Counter -->
+          <div id="mem2MultiStatus" style="font-size:12px; display:none; padding:8px 12px; border-radius:8px; background:rgba(56,189,248,0.1); border:1px solid rgba(56,189,248,0.3); color:#38bdf8;"></div>
+
+          <!-- Dynamic List of Photos in Memories 2 -->
+          <div id="adminMemories2List" class="admin-dynamic-list"></div>
         </div>
       </div>
 
@@ -11490,6 +11560,32 @@
       <div class="collage-lightbox-footer" id="lightboxFooter">
         <p class="collage-lightbox-desc" id="lightboxDesc"></p>
         <span class="collage-lightbox-date" id="lightboxDate"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Canvas Collage Stitcher Modal (Auto-Stitch Multiple Photos into Single Collage) -->
+  <div class="palace-modal-backdrop" id="memories2StitcherModal" role="dialog" aria-modal="true" style="display:none; z-index:100001;" onclick="if(event.target===this)closeMemories2StitcherModal()">
+    <div class="palace-modal-card" style="max-width: 820px; width: 92%;">
+      <div class="modal-header">
+        <h3 class="modal-title">🎨 Auto-Stitched Collage Preview</h3>
+        <button class="modal-close" onclick="closeMemories2StitcherModal()">✕</button>
+      </div>
+      <div class="modal-body" style="padding: 18px; text-align: center;">
+        <div id="stitcherLoading" style="display:none; padding: 30px 20px; color: #38bdf8; font-size: 14px;">
+          ⏳ Generating high-resolution collage composite from your photos...
+        </div>
+        <div id="stitcherCanvasWrapper" style="width: 100%; max-height: 520px; overflow: hidden; border-radius: 12px; border: 1.5px solid var(--gold-primary); background: #060913; display: flex; align-items: center; justify-content: center; margin-bottom: 16px;">
+          <img id="stitchedResultImg" style="max-width: 100%; max-height: 520px; object-fit: contain; display: block;" alt="Stitched Collage">
+        </div>
+        <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+          <button type="button" class="btn-primary" id="btnApplyStitchedCollage" onclick="applyStitchedCollageAsSingle()" style="padding: 10px 20px; font-size: 13px; font-weight: 700;">
+            💾 Apply as Single Collage (Mode 1)
+          </button>
+          <button type="button" class="btn-secondary" id="btnDownloadStitchedCollage" onclick="downloadStitchedCollagePng()" style="padding: 10px 20px; font-size: 13px;">
+            📥 Download Collage PNG
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -12467,6 +12563,7 @@
           "desc": "Looking back at an incredible year of personal evolution, achievements, and strong bonds."
         }
       ],
+      "memories2Mode": "single",
       "memories2CollageImage": "memories_collage_part2.png",
       "memories2": [
         {
@@ -12651,6 +12748,9 @@
           if (embedded.contributions) palaceState.contributions = embedded.contributions;
           if (embedded.stickyNotes && Array.isArray(embedded.stickyNotes)) palaceState.stickyNotes = embedded.stickyNotes;
           if (embedded.memories && Array.isArray(embedded.memories)) palaceState.memories = embedded.memories;
+          if (embedded.memories2Mode) palaceState.memories2Mode = embedded.memories2Mode;
+          if (embedded.memories2CollageImage) palaceState.memories2CollageImage = embedded.memories2CollageImage;
+          if (embedded.memories2 && Array.isArray(embedded.memories2)) palaceState.memories2 = embedded.memories2;
           if (embedded.values && Array.isArray(embedded.values)) palaceState.values = embedded.values;
           if (embedded.proud) palaceState.proud = { ...palaceState.proud, ...embedded.proud };
           if (embedded.future) palaceState.future = { ...palaceState.future, ...embedded.future };
@@ -12737,6 +12837,9 @@
           if (parsed.memories && Array.isArray(parsed.memories) && parsed.memories.length > 0) {
             palaceState.memories = parsed.memories;
           }
+          if (parsed.memories2Mode) {
+            palaceState.memories2Mode = parsed.memories2Mode;
+          }
           if (parsed.memories2CollageImage) {
             palaceState.memories2CollageImage = parsed.memories2CollageImage;
           }
@@ -12784,16 +12887,19 @@
           renderMemories();
         }
       }
+      if (idbData && idbData.memories2Mode) {
+        palaceState.memories2Mode = idbData.memories2Mode;
+      }
       if (idbData && idbData.memories2CollageImage) {
         palaceState.memories2CollageImage = idbData.memories2CollageImage;
-        renderMemories2();
-      } else if (idbData && idbData.memories2 && Array.isArray(idbData.memories2) && idbData.memories2.length > 0) {
+      }
+      if (idbData && idbData.memories2 && Array.isArray(idbData.memories2) && idbData.memories2.length > 0) {
         palaceState.memories2 = idbData.memories2;
         if (!palaceState.memories2CollageImage && idbData.memories2[0] && idbData.memories2[0].image) {
           palaceState.memories2CollageImage = idbData.memories2[0].image;
         }
-        renderMemories2();
       }
+      renderMemories2();
       if (idbData && idbData.values && Array.isArray(idbData.values) && idbData.values.length > 0) {
         if (!palaceState.values || palaceState.values.length === 0) {
           palaceState.values = idbData.values;
@@ -14383,12 +14489,74 @@
     }
 
     function renderMemories2() {
-      const imgEl = document.getElementById('memories2CollageImg');
-      if (!imgEl) return;
-      const src = palaceState.memories2CollageImage || 
-        (palaceState.memories2 && palaceState.memories2[0] && palaceState.memories2[0].image) ||
-        'memories_collage_part2.png';
-      imgEl.src = src;
+      const singleStage = document.getElementById('memories2SingleStage');
+      const gridStage = document.getElementById('memories2GridStage');
+      const isMulti = palaceState.memories2Mode === 'multi';
+
+      if (isMulti) {
+        if (singleStage) singleStage.style.display = 'none';
+        if (gridStage) {
+          gridStage.style.display = 'flex';
+          renderMemories2Grid();
+        }
+      } else {
+        if (gridStage) gridStage.style.display = 'none';
+        if (singleStage) singleStage.style.display = 'flex';
+        const imgEl = document.getElementById('memories2CollageImg');
+        if (imgEl) {
+          const src = palaceState.memories2CollageImage || 
+            (palaceState.memories2 && palaceState.memories2[0] && palaceState.memories2[0].image) ||
+            'memories_collage_part2.png';
+          imgEl.src = src;
+        }
+      }
+    }
+
+    function renderMemories2Grid() {
+      const grid = document.getElementById('collageMosaicGrid2');
+      if (!grid) return;
+      if (!grid._hasScrollListener) {
+        grid._hasScrollListener = true;
+        grid.addEventListener('scroll', () => {
+          grid._isInternalScrolling = true;
+          clearTimeout(grid._scrollGestureTimer);
+          grid._scrollGestureTimer = setTimeout(() => {
+            grid._isInternalScrolling = false;
+          }, 320);
+        }, { passive: true });
+      }
+      grid.innerHTML = '';
+
+      const items = palaceState.memories2 || [];
+      if (items.length === 0) {
+        grid.innerHTML = `
+          <div style="grid-column: 1 / -1; text-align: center; padding: 40px 20px; color: #94a3b8;">
+            <p style="font-size: 16px; margin-bottom: 8px;">📸 No photos added to Memories 2 yet.</p>
+            <p style="font-size: 13px; color: #64748b;">Open the Admin Panel to bulk-select or upload photos to create your collage.</p>
+          </div>
+        `;
+        return;
+      }
+
+      items.forEach((m, idx) => {
+        const card = document.createElement('div');
+        card.className = 'collage-photo-card memories2-photo-card';
+        card.dataset.idx = idx;
+        card.setAttribute('title', 'Click to zoom photo');
+        card.innerHTML = `
+          <div class="collage-pin"></div>
+          <div class="collage-img-wrap">
+            <img src="${m.image || 'where_it_started.png'}" alt="Memory Photo ${idx + 1}" class="collage-img" onerror="this.src='where_it_started.png'">
+            <div class="collage-zoom-badge" title="Click to zoom">🔍</div>
+          </div>
+        `;
+
+        card.addEventListener('click', () => {
+          openCollageLightbox(idx, true);
+        });
+
+        grid.appendChild(card);
+      });
     }
 
     function openSingleCollageLightbox(src) {
@@ -16056,6 +16224,16 @@
           }
         } else if (targetChamber.id === 'chamber-memories-2') {
           setTimeout(() => palaceAudio.playChime(), 380);
+          const grid2 = document.getElementById('collageMosaicGrid2');
+          if (grid2) {
+            grid2._isInternalScrolling = false;
+            clearTimeout(grid2._scrollGestureTimer);
+            if (fromStage < targetStage) {
+              grid2.scrollTop = 0;
+            } else {
+              grid2.scrollTop = grid2.scrollHeight;
+            }
+          }
         } else if (targetChamber.id === 'chamber-thankyou') {
           setTimeout(() => {
             palaceAudio.playChime();
@@ -17787,16 +17965,448 @@
     }
 
     // Dynamic Memories Part 2 Collage Editor in Admin Panel
-    function populateAdminMemories2() {
-      const preview = document.getElementById('adminMemories2Preview');
-      const input = document.getElementById('inputMemories2CollageSrc');
-      const currentSrc = palaceState.memories2CollageImage || 
-        (palaceState.memories2 && palaceState.memories2[0] && palaceState.memories2[0].image) ||
-        'memories_collage_part2.png';
+    window.switchMemories2Mode = function(mode) {
+      palaceState.memories2Mode = mode;
+      persistPalaceState();
+      populateAdminMemories2();
+      renderMemories2();
+    };
 
-      if (preview) preview.src = currentSrc;
-      if (input) input.value = currentSrc;
+    function populateAdminMemories2() {
+      const mode = palaceState.memories2Mode || 'single';
+      const btnSingle = document.getElementById('btnMem2ModeSingle');
+      const btnMulti = document.getElementById('btnMem2ModeMulti');
+      const secSingle = document.getElementById('adminMem2SingleSection');
+      const secMulti = document.getElementById('adminMem2MultiSection');
+
+      if (btnSingle && btnMulti) {
+        if (mode === 'multi') {
+          btnSingle.classList.remove('active');
+          btnMulti.classList.add('active');
+        } else {
+          btnSingle.classList.add('active');
+          btnMulti.classList.remove('active');
+        }
+      }
+
+      if (secSingle && secMulti) {
+        if (mode === 'multi') {
+          secSingle.style.display = 'none';
+          secMulti.style.display = 'flex';
+          renderAdminMemories2List();
+        } else {
+          secSingle.style.display = 'flex';
+          secMulti.style.display = 'none';
+          const preview = document.getElementById('adminMemories2Preview');
+          const input = document.getElementById('inputMemories2CollageSrc');
+          const currentSrc = palaceState.memories2CollageImage || 
+            (palaceState.memories2 && palaceState.memories2[0] && palaceState.memories2[0].image) ||
+            'memories_collage_part2.png';
+          if (preview) preview.src = currentSrc;
+          if (input) input.value = currentSrc;
+        }
+      }
     }
+
+    function renderAdminMemories2List() {
+      const container = document.getElementById('adminMemories2List');
+      if (!container) return;
+      container.innerHTML = '';
+
+      const items = palaceState.memories2 || [];
+      if (items.length === 0) {
+        container.innerHTML = `
+          <div style="text-align: center; padding: 24px; color: #94a3b8; background: rgba(15,23,42,0.4); border-radius: 10px; border: 1px dashed rgba(245,192,101,0.25);">
+            <p style="font-size: 14px; margin-bottom: 6px;">No individual photos uploaded yet.</p>
+            <p style="font-size: 12px; color: #64748b;">Click <strong>"📁 Upload Multiple Photos (Bulk Select)"</strong> above to select 5–15 photos at once, or <strong>"➕ Add Single Photo"</strong>.</p>
+          </div>
+        `;
+        return;
+      }
+
+      items.forEach((m, idx) => {
+        const itemEl = document.createElement('div');
+        itemEl.className = 'admin-dynamic-item';
+        itemEl.dataset.idx = idx;
+        itemEl.innerHTML = `
+          <div class="admin-item-header">
+            <span class="admin-item-num">📸 PHOTO #${idx + 1}</span>
+            <div style="display:flex; align-items:center; gap:6px;">
+              <button type="button" class="btn-secondary" style="font-size:11px; padding:3px 8px;" onclick="moveMemories2Photo(${idx}, -1)" ${idx === 0 ? 'disabled' : ''} title="Move Up">⬆️</button>
+              <button type="button" class="btn-secondary" style="font-size:11px; padding:3px 8px;" onclick="moveMemories2Photo(${idx}, 1)" ${idx === items.length - 1 ? 'disabled' : ''} title="Move Down">⬇️</button>
+              <button type="button" class="btn-item-delete" onclick="deleteMemories2Photo(${idx})">🗑️ Delete</button>
+            </div>
+          </div>
+          <div style="display:flex; gap:16px; align-items:flex-start;">
+            <div style="width:90px; height:90px; border-radius:10px; overflow:hidden; border:1.5px solid var(--gold-primary); flex-shrink:0; background:#000; box-shadow:0 4px 12px rgba(0,0,0,0.5); margin-top:2px;">
+              <img src="${m.image || 'where_it_started.png'}" id="mem2Preview_${idx}" style="width:100%; height:100%; object-fit:cover;" onerror="this.src='where_it_started.png'">
+            </div>
+            <div style="flex:1;">
+              <label style="font-size:12px; color:#cbd5e1; display:block; margin-bottom:4px; font-weight:600;">Photo Source / Upload</label>
+              <div style="display:flex; gap:8px;">
+                <input type="text" class="form-input mem2-item-src" value="${escapeHtmlAttr(m.image || '')}" placeholder="Image URL or local file" oninput="updateMemories2PhotoSrc(${idx}, this.value)">
+                <label class="btn-secondary" style="font-size:11px; padding:7px 14px; cursor:pointer; white-space:nowrap; display:inline-flex; align-items:center; gap:4px;">
+                  📁 Browse
+                  <input type="file" accept="image/*" style="display:none;" onchange="handleMemories2SingleFileUpload(event, ${idx})">
+                </label>
+              </div>
+            </div>
+          </div>
+        `;
+        container.appendChild(itemEl);
+      });
+    }
+
+    window.addMemories2SinglePhoto = function() {
+      if (!palaceState.memories2) palaceState.memories2 = [];
+      palaceState.memories2.push({
+        id: Date.now(),
+        image: "where_it_started.png",
+        title: "Memory Photo",
+        desc: ""
+      });
+      palaceState.memories2Mode = 'multi';
+      persistPalaceState();
+      populateAdminMemories2();
+      renderMemories2();
+    };
+
+    window.deleteMemories2Photo = function(idx) {
+      if (confirm('Delete this photo from Memories 2 collage?')) {
+        palaceState.memories2.splice(idx, 1);
+        persistPalaceState();
+        populateAdminMemories2();
+        renderMemories2();
+      }
+    };
+
+    window.moveMemories2Photo = function(idx, dir) {
+      const targetIdx = idx + dir;
+      if (targetIdx < 0 || targetIdx >= palaceState.memories2.length) return;
+      const temp = palaceState.memories2[idx];
+      palaceState.memories2[idx] = palaceState.memories2[targetIdx];
+      palaceState.memories2[targetIdx] = temp;
+      persistPalaceState();
+      populateAdminMemories2();
+      renderMemories2();
+    };
+
+    window.updateMemories2PhotoSrc = function(idx, val) {
+      if (palaceState.memories2 && palaceState.memories2[idx]) {
+        palaceState.memories2[idx].image = val;
+        const preview = document.getElementById(`mem2Preview_${idx}`);
+        if (preview) preview.src = val;
+        persistPalaceState();
+        renderMemories2();
+      }
+    };
+
+    window.handleMemories2SingleFileUpload = function(e, idx) {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(evt) {
+        const rawData = evt.target.result;
+        const img = new Image();
+        img.onload = function() {
+          const maxDim = 1200;
+          let w = img.width, h = img.height;
+          if (w > maxDim || h > maxDim) {
+            if (w > h) { h = Math.round((h * maxDim) / w); w = maxDim; }
+            else { w = Math.round((w * maxDim) / h); h = maxDim; }
+          }
+          const canvas = document.createElement('canvas');
+          canvas.width = w; canvas.height = h;
+          canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+          const optUrl = canvas.toDataURL('image/jpeg', 0.88);
+          updateMemories2PhotoSrc(idx, optUrl);
+          populateAdminMemories2();
+        };
+        img.src = rawData;
+      };
+      reader.readAsDataURL(file);
+    };
+
+    window.handleMemories2BulkUpload = function(e) {
+      const files = Array.from(e.target.files || []);
+      if (files.length === 0) return;
+
+      const statusEl = document.getElementById('mem2MultiStatus');
+      if (statusEl) {
+        statusEl.style.display = 'block';
+        statusEl.textContent = `⏳ Processing 0 of ${files.length} photos...`;
+        statusEl.style.color = '#38bdf8';
+      }
+
+      let completed = 0;
+      const newItems = [];
+
+      function processNext(index) {
+        if (index >= files.length) {
+          if (!palaceState.memories2) palaceState.memories2 = [];
+          if (palaceState.memories2.length === 1 && (palaceState.memories2[0].image === 'memories_collage_part2.png' || palaceState.memories2[0].title === 'Year in Memories Collage')) {
+            palaceState.memories2 = newItems;
+          } else {
+            palaceState.memories2 = palaceState.memories2.concat(newItems);
+          }
+          palaceState.memories2Mode = 'multi';
+          persistPalaceState();
+          populateAdminMemories2();
+          renderMemories2();
+
+          if (statusEl) {
+            statusEl.textContent = `✅ Successfully added ${files.length} photos! Auto-collage updated.`;
+            statusEl.style.color = '#4ade80';
+            setTimeout(() => { statusEl.style.display = 'none'; }, 4000);
+          }
+          e.target.value = '';
+          return;
+        }
+
+        const file = files[index];
+        const reader = new FileReader();
+        reader.onload = function(evt) {
+          const img = new Image();
+          img.onload = function() {
+            const maxDim = 1200;
+            let w = img.width, h = img.height;
+            if (w > maxDim || h > maxDim) {
+              if (w > h) { h = Math.round((h * maxDim) / w); w = maxDim; }
+              else { w = Math.round((w * maxDim) / h); h = maxDim; }
+            }
+            const canvas = document.createElement('canvas');
+            canvas.width = w; canvas.height = h;
+            canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+            const optUrl = canvas.toDataURL('image/jpeg', 0.88);
+
+            newItems.push({
+              id: Date.now() + index,
+              image: optUrl,
+              title: file.name.replace(/\.[^/.]+$/, ""),
+              desc: ""
+            });
+
+            completed++;
+            if (statusEl) {
+              statusEl.textContent = `⏳ Processed ${completed} of ${files.length} photos...`;
+            }
+            processNext(index + 1);
+          };
+          img.onerror = function() {
+            processNext(index + 1);
+          };
+          img.src = evt.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+
+      processNext(0);
+    };
+
+    // Canvas Collage Auto-Stitcher Logic
+    window.openMemories2CanvasStitcherModal = function() {
+      const items = palaceState.memories2 || [];
+      if (items.length === 0) {
+        alert('Please upload or add some photos first before generating a stitched collage!');
+        return;
+      }
+      const modal = document.getElementById('memories2StitcherModal');
+      if (!modal) return;
+      modal.style.display = 'flex';
+      modal.classList.add('active');
+      generateMemories2CanvasComposite();
+    };
+
+    window.closeMemories2StitcherModal = function() {
+      const modal = document.getElementById('memories2StitcherModal');
+      if (modal) {
+        modal.classList.remove('active');
+        modal.style.display = 'none';
+      }
+    };
+
+    window.generateMemories2CanvasComposite = function() {
+      const loadingEl = document.getElementById('stitcherLoading');
+      const wrapperEl = document.getElementById('stitcherCanvasWrapper');
+      const resultImg = document.getElementById('stitchedResultImg');
+      if (loadingEl) loadingEl.style.display = 'block';
+      if (wrapperEl) wrapperEl.style.display = 'none';
+
+      const items = palaceState.memories2 || [];
+      const loadPromises = items.map(m => {
+        return new Promise(resolve => {
+          const img = new Image();
+          img.crossOrigin = "anonymous";
+          img.onload = () => resolve(img);
+          img.onerror = () => {
+            const fallback = new Image();
+            fallback.onload = () => resolve(fallback);
+            fallback.onerror = () => resolve(null);
+            fallback.src = 'where_it_started.png';
+          };
+          img.src = m.image || 'where_it_started.png';
+        });
+      });
+
+      Promise.all(loadPromises).then(images => {
+        const validImgs = images.filter(Boolean);
+        if (validImgs.length === 0) {
+          if (loadingEl) loadingEl.textContent = '❌ Failed to load images for collage.';
+          return;
+        }
+
+        const count = validImgs.length;
+        const canvas = document.createElement('canvas');
+        canvas.width = 1600;
+        canvas.height = 1200;
+        const ctx = canvas.getContext('2d');
+
+        // Draw deep luxury backdrop
+        const grad = ctx.createRadialGradient(800, 500, 80, 800, 600, 950);
+        grad.addColorStop(0, '#0a1d3d');
+        grad.addColorStop(0.65, '#060f22');
+        grad.addColorStop(1, '#02060f');
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, 1600, 1200);
+
+        // Gold frame
+        ctx.strokeStyle = 'rgba(245, 192, 101, 0.4)';
+        ctx.lineWidth = 4;
+        ctx.strokeRect(18, 18, 1564, 1164);
+
+        // Calculate layout rows
+        function getRowDistribution(n) {
+          if (n === 1) return [1];
+          if (n === 2) return [2];
+          if (n === 3) return [1, 2];
+          if (n === 4) return [2, 2];
+          if (n === 5) return [2, 3];
+          if (n === 6) return [3, 3];
+          if (n === 7) return [3, 4];
+          if (n === 8) return [4, 4];
+          if (n === 9) return [3, 3, 3];
+          if (n === 10) return [3, 4, 3];
+          if (n === 11) return [4, 3, 4];
+          if (n === 12) return [4, 4, 4];
+          const rows = Math.ceil(Math.sqrt(n));
+          const res = [];
+          let rem = n;
+          for (let r = 0; r < rows; r++) {
+            const cols = Math.ceil(rem / (rows - r));
+            res.push(cols);
+            rem -= cols;
+          }
+          return res;
+        }
+
+        const rowCounts = getRowDistribution(count);
+        const numRows = rowCounts.length;
+        const padX = 40, padY = 40, gap = 16;
+        const availH = 1200 - (padY * 2) - (gap * (numRows - 1));
+        const rowH = availH / numRows;
+
+        let imgIndex = 0;
+        for (let r = 0; r < numRows; r++) {
+          const colsInRow = rowCounts[r];
+          const availW = 1600 - (padX * 2) - (gap * (colsInRow - 1));
+          const colW = availW / colsInRow;
+          const y = padY + r * (rowH + gap);
+
+          for (let c = 0; c < colsInRow; c++) {
+            if (imgIndex >= count) break;
+            const img = validImgs[imgIndex];
+            const x = padX + c * (colW + gap);
+
+            // Aspect-ratio cover crop
+            const targetAspect = colW / rowH;
+            const imgAspect = img.width / img.height;
+            let sx, sy, sw, sh;
+            if (imgAspect > targetAspect) {
+              sh = img.height;
+              sw = img.height * targetAspect;
+              sx = (img.width - sw) / 2;
+              sy = 0;
+            } else {
+              sw = img.width;
+              sh = img.width / targetAspect;
+              sx = 0;
+              sy = (img.height - sh) / 2;
+            }
+
+            // Draw image with rounded corners
+            ctx.save();
+            ctx.beginPath();
+            if (ctx.roundRect) {
+              ctx.roundRect(x, y, colW, rowH, 10);
+            } else {
+              ctx.rect(x, y, colW, rowH);
+            }
+            ctx.clip();
+            ctx.drawImage(img, sx, sy, sw, sh, x, y, colW, rowH);
+            ctx.restore();
+
+            // Border
+            ctx.save();
+            ctx.beginPath();
+            if (ctx.roundRect) {
+              ctx.roundRect(x, y, colW, rowH, 10);
+            } else {
+              ctx.rect(x, y, colW, rowH);
+            }
+            ctx.strokeStyle = 'rgba(245, 192, 101, 0.45)';
+            ctx.lineWidth = 2.5;
+            ctx.stroke();
+            ctx.restore();
+
+            // Pin accent at top center
+            ctx.save();
+            ctx.beginPath();
+            ctx.arc(x + colW / 2, y + 10, 5, 0, Math.PI * 2);
+            ctx.fillStyle = '#f5c065';
+            ctx.shadowColor = 'rgba(0,0,0,0.8)';
+            ctx.shadowBlur = 4;
+            ctx.fill();
+            ctx.strokeStyle = '#fff';
+            ctx.lineWidth = 1;
+            ctx.stroke();
+            ctx.restore();
+
+            imgIndex++;
+          }
+        }
+
+        const stitchedDataUrl = canvas.toDataURL('image/png');
+        window._lastStitchedDataUrl = stitchedDataUrl;
+        if (resultImg) resultImg.src = stitchedDataUrl;
+        if (loadingEl) loadingEl.style.display = 'none';
+        if (wrapperEl) wrapperEl.style.display = 'flex';
+      }).catch(err => {
+        console.error("Canvas collage error", err);
+        if (loadingEl) loadingEl.textContent = '❌ Error generating collage. Please try again.';
+      });
+    };
+
+    window.applyStitchedCollageAsSingle = function() {
+      if (!window._lastStitchedDataUrl) return;
+      palaceState.memories2CollageImage = window._lastStitchedDataUrl;
+      palaceState.memories2Mode = 'single';
+      persistPalaceState();
+      populateAdminMemories2();
+      renderMemories2();
+      closeMemories2StitcherModal();
+      showPalaceToast("✅ Stitched collage applied as Single Collage (Mode 1)!", 3500);
+    };
+
+    window.downloadStitchedCollagePng = function() {
+      if (!window._lastStitchedDataUrl) return;
+      const a = document.createElement('a');
+      a.download = 'memories_2_auto_collage.png';
+      a.href = window._lastStitchedDataUrl;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    };
 
     const inputMem2Collage = document.getElementById('inputMemories2CollageSrc');
     if (inputMem2Collage) {
@@ -17848,7 +18458,8 @@
             canvas.height = h;
             const ctx = canvas.getContext('2d');
             ctx.drawImage(img, 0, 0, w, h);
-            const outMime = (file.type === 'image/png' || file.name.endsWith('.png')) ? 'image/png' : 'image/png'; const optimizedDataUrl = canvas.toDataURL(outMime);
+            const outMime = (file.type === 'image/png' || file.name.endsWith('.png')) ? 'image/png' : 'image/png';
+            const optimizedDataUrl = canvas.toDataURL(outMime);
 
             palaceState.memories2CollageImage = optimizedDataUrl;
             if (!palaceState.memories2) palaceState.memories2 = [];
