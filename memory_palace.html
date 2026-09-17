@@ -3162,7 +3162,7 @@
       transform: translateZ(-100px);
       overflow: hidden;
     }
-    /* Royal Victorian Damask Inlay on Chamber Walls (Clearly visible inside rooms) */
+    /* Royal Victorian Damask Inlay on Chamber Walls (8% Opacity) */
     .room-wall::before {
       content: '';
       position: absolute;
@@ -3175,9 +3175,25 @@
       mask-repeat: repeat;
       -webkit-mask-size: 260px 260px;
       mask-size: 260px 260px;
-      opacity: 0.14;
+      opacity: 0.08;
       pointer-events: none;
       z-index: 1;
+    }
+    /* Soft Atmospheric Vignette: Gently merges wall pattern into palace background */
+    .room-wall::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      pointer-events: none;
+      z-index: 2;
+      background: radial-gradient(
+        ellipse 75% 68% at 50% 45%,
+        transparent 15%,
+        rgba(10, 15, 29, 0.45) 50%,
+        rgba(8, 12, 24, 0.85) 75%,
+        var(--bg-palace) 100%
+      );
     }
     /* Overhead Chamber Spotlight (#002C6B Sapphire Atmosphere Glow) */
     .room-spotlight {
@@ -9318,13 +9334,13 @@
 
     @keyframes royalPatternGlimmerRooms {
       0% {
-        opacity: 0.09;
+        opacity: 0.065;
       }
       50% {
-        opacity: 0.13;
+        opacity: 0.085;
       }
       100% {
-        opacity: 0.10;
+        opacity: 0.075;
       }
     }
 
