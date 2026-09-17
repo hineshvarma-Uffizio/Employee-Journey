@@ -8915,21 +8915,20 @@
 
     .svg-journey-drawn-line {
       fill: none;
+      stroke: #00e5ff;
       stroke: url(#journeyGlowGradient);
-      stroke-width: 4.5px;
+      stroke-width: 4px;
       stroke-linecap: round;
-      filter: drop-shadow(0 0 10px rgba(0, 229, 255, 0.85)) drop-shadow(0 0 18px rgba(245, 192, 101, 0.6));
-      will-change: stroke-dashoffset;
+      stroke-linejoin: round;
+      filter: drop-shadow(0 0 8px #00e5ff) drop-shadow(0 0 16px rgba(245, 192, 101, 0.6));
     }
 
     .svg-journey-comet {
       fill: #ffffff;
-      stroke: var(--cyan-accent);
-      stroke-width: 3px;
-      opacity: 0;
+      stroke: #00e5ff;
+      stroke-width: 2.5px;
+      opacity: 1;
       filter: drop-shadow(0 0 8px #00e5ff) drop-shadow(0 0 16px #f5c065);
-      transition: opacity 0.3s ease;
-      will-change: cx, cy;
     }
 
     .svg-journey-comet.is-active {
@@ -9694,10 +9693,10 @@
                 <!-- SVG Dynamic Animated Journey Line & Particle Light Trail -->
                 <svg class="timeline-journey-svg" id="timelineJourneySvg" aria-hidden="true">
                   <defs>
-                    <linearGradient id="journeyGlowGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                      <stop offset="0%" stop-color="#f5c065" stop-opacity="0.35" />
+                    <linearGradient id="journeyGlowGradient" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="1000" y2="0">
+                      <stop offset="0%" stop-color="#f5c065" stop-opacity="0.85" />
                       <stop offset="35%" stop-color="#00e5ff" stop-opacity="1" />
-                      <stop offset="70%" stop-color="#38bdf8" stop-opacity="0.9" />
+                      <stop offset="70%" stop-color="#38bdf8" stop-opacity="0.95" />
                       <stop offset="100%" stop-color="#ffe8b5" stop-opacity="1" />
                     </linearGradient>
                     <filter id="cometGlowFilter" x="-60%" y="-60%" width="220%" height="220%">
@@ -12845,16 +12844,16 @@
     let milestoneSilenceTimer = null;
 
     // Helper: Compute layout-stable pin center immune to 3D chamber scales/perspectives
-    function getStablePinCenter(pin, wrap) {
+    function getStablePinCenter(anchor, wrap) {
       let x = 0, y = 0;
-      let el = pin;
+      let el = anchor;
       while (el && el !== wrap) {
         x += el.offsetLeft;
         y += el.offsetTop;
         el = el.offsetParent;
       }
-      x += (pin.offsetWidth || 14) / 2;
-      y += (pin.offsetHeight || 14) / 2;
+      x += (anchor.offsetWidth || 36) / 2;
+      y += (anchor.offsetHeight || 36) / 2;
       return { x, y };
     }
 
@@ -12870,12 +12869,12 @@
       const items = document.querySelectorAll('.horizontal-milestone-item');
       if (items.length === 0) return;
 
-      // Collect layout-stable pin center positions
+      // Collect layout-stable pin center positions from fixed-size anchors
       const pinPoints = [];
       items.forEach(item => {
-        const pin = item.querySelector('.milestone-node-pin');
-        if (!pin) return;
-        pinPoints.push(getStablePinCenter(pin, wrap));
+        const anchor = item.querySelector('.milestone-node-anchor') || item.querySelector('.milestone-node-pin');
+        if (!anchor) return;
+        pinPoints.push(getStablePinCenter(anchor, wrap));
       });
 
       if (pinPoints.length === 0) return;
@@ -12893,6 +12892,15 @@
         fullPathD += ` L ${pinPoints[i].x} ${pinPoints[i].y}`;
       }
       baseLine.setAttribute('d', fullPathD);
+
+      // Keep gradient aligned to the full track in userSpaceOnUse
+      const grad = document.getElementById('journeyGlowGradient');
+      if (grad && pinPoints.length > 1) {
+        grad.setAttribute('x1', pinPoints[0].x);
+        grad.setAttribute('x2', pinPoints[pinPoints.length - 1].x);
+        grad.setAttribute('y1', pinPoints[0].y);
+        grad.setAttribute('y2', pinPoints[0].y);
+      }
 
       const maxIdx = pinPoints.length - 1;
       const clampedP = Math.max(0, Math.min(maxIdx, p));
@@ -12913,8 +12921,6 @@
       activeLineD += ` L ${cx} ${cy}`;
 
       drawnLine.setAttribute('d', activeLineD);
-      drawnLine.style.strokeDasharray = 'none';
-      drawnLine.style.strokeDashoffset = '0';
 
       // 3. ACTIVE LIVE NODE (Comet): Positioned exactly at (cx, cy)
       if (comet) {
@@ -12923,22 +12929,20 @@
         comet.setAttribute('cy', cy);
       }
 
-      // 4. Physical Arrival Achievement Activation:
-      let activeNodeIdx = -1;
-      if (clampedP <= 0.12) {
-        activeNodeIdx = 0;
-      } else {
-        for (let i = 1; i <= maxIdx; i++) {
-          if (Math.abs(clampedP - i) <= 0.12 || (i === maxIdx && clampedP >= maxIdx - 0.12)) {
-            activeNodeIdx = i;
-            break;
-          }
-        }
-      }
+      // 4. Physical Arrival Achievement Activation (clean midpoint switch):
+      const activeNodeIdx = Math.max(0, Math.min(maxIdx, Math.round(clampedP)));
 
-      if (activeNodeIdx !== -1 && activeNodeIdx !== currentFocusMilestoneIdx) {
+      if (activeNodeIdx !== currentFocusMilestoneIdx) {
         currentFocusMilestoneIdx = activeNodeIdx;
         palaceAudio.playChime();
+
+        if (wrap && wrap.scrollWidth > wrap.clientWidth + 10) {
+          const targetItem = items[activeNodeIdx];
+          if (targetItem) {
+            const scrollTarget = targetItem.offsetLeft - (wrap.clientWidth - targetItem.offsetWidth) / 2;
+            wrap.scrollTo({ left: scrollTarget, behavior: 'smooth' });
+          }
+        }
       }
 
       items.forEach((item, idx) => {
@@ -12947,7 +12951,7 @@
         if (idx === activeNodeIdx) {
           item.classList.add('is-current');
           if (tag) tag.textContent = '⚡ Current Milestone';
-        } else if (idx < clampedP - 0.12) {
+        } else if (idx < activeNodeIdx) {
           item.classList.add('is-past');
           if (tag) tag.textContent = '✓ Milestone Reached';
         } else {
@@ -12955,14 +12959,6 @@
           if (tag) tag.textContent = '⏳ Upcoming';
         }
       });
-
-      if (activeNodeIdx !== -1) {
-        const targetItem = items[activeNodeIdx];
-        if (wrap && targetItem && wrap.scrollWidth > wrap.clientWidth + 10) {
-          const scrollTarget = targetItem.offsetLeft - (wrap.clientWidth - targetItem.offsetWidth) / 2;
-          wrap.scrollTo({ left: scrollTarget, behavior: 'smooth' });
-        }
-      }
     }
 
     // Update Milestone Card & Node State Classes
