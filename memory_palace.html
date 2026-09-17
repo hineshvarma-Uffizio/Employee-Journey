@@ -18461,7 +18461,7 @@
     // Dynamic Memories Part 2 Collage Editor in Admin Panel
     window.switchMemories2Mode = function(mode) {
       palaceState.memories2Mode = mode;
-      if ((mode === 'uneven' || mode === 'multi') && (!palaceState.memories2 || palaceState.memories2.length <= 1)) {
+      if ((mode === 'uneven' || mode === 'multi' || mode === 'grid') && (!palaceState.memories2 || palaceState.memories2.length === 0)) {
         palaceState.memories2 = [
           { id: 201, image: 'where_it_started.png', title: 'Beginning the Journey', desc: '' },
           { id: 202, image: 'creations_showcase_team.png', title: 'Creative Collaboration', desc: '' },
@@ -18565,7 +18565,7 @@
             <div style="flex:1;">
               <label style="font-size:12px; color:#cbd5e1; display:block; margin-bottom:4px; font-weight:600;">Photo Source / Upload</label>
               <div style="display:flex; gap:8px;">
-                <input type="text" class="form-input mem2-item-src" value="${escapeHtmlAttr(m.image || '')}" placeholder="Image URL or local file" oninput="updateMemories2PhotoSrc(${idx}, this.value)">
+                <input type="text" class="form-input mem2-item-src" value="${escapeHtmlAttr(m.image || '')}" placeholder="Image URL or local file" oninput="updateMemories2PhotoSrc(${idx}, this.value)" onchange="updateMemories2PhotoSrc(${idx}, this.value)">
                 <label class="btn-secondary" style="font-size:11px; padding:7px 14px; cursor:pointer; white-space:nowrap; display:inline-flex; align-items:center; gap:4px;">
                   📁 Browse
                   <input type="file" accept="image/*" style="display:none;" onchange="handleMemories2SingleFileUpload(event, ${idx})">
@@ -18583,10 +18583,12 @@
       palaceState.memories2.push({
         id: Date.now(),
         image: "where_it_started.png",
-        title: "Memory Photo",
+        title: `Memory Photo ${palaceState.memories2.length + 1}`,
         desc: ""
       });
-      palaceState.memories2Mode = 'multi';
+      if (palaceState.memories2Mode !== 'grid') {
+        palaceState.memories2Mode = 'uneven';
+      }
       persistPalaceState();
       populateAdminMemories2();
       renderMemories2();
@@ -18613,13 +18615,15 @@
     };
 
     window.updateMemories2PhotoSrc = function(idx, val) {
-      if (palaceState.memories2 && palaceState.memories2[idx]) {
-        palaceState.memories2[idx].image = val;
-        const preview = document.getElementById(`mem2Preview_${idx}`);
-        if (preview) preview.src = val;
-        persistPalaceState();
-        renderMemories2();
+      if (!palaceState.memories2) palaceState.memories2 = [];
+      if (!palaceState.memories2[idx]) {
+        palaceState.memories2[idx] = { id: Date.now() + idx, title: `Memory Photo ${idx + 1}`, desc: '' };
       }
+      palaceState.memories2[idx].image = val;
+      const preview = document.getElementById(`mem2Preview_${idx}`);
+      if (preview) preview.src = val;
+      persistPalaceState();
+      renderMemories2();
     };
 
     window.handleMemories2SingleFileUpload = function(e, idx) {
@@ -18631,7 +18635,7 @@
         const rawData = evt.target.result;
         const img = new Image();
         img.onload = function() {
-          const maxDim = 1200;
+          const maxDim = 960;
           let w = img.width, h = img.height;
           if (w > maxDim || h > maxDim) {
             if (w > h) { h = Math.round((h * maxDim) / w); w = maxDim; }
@@ -18640,13 +18644,41 @@
           const canvas = document.createElement('canvas');
           canvas.width = w; canvas.height = h;
           canvas.getContext('2d').drawImage(img, 0, 0, w, h);
-          const optUrl = canvas.toDataURL('image/jpeg', 0.88);
-          updateMemories2PhotoSrc(idx, optUrl);
-          populateAdminMemories2();
+          const optUrl = canvas.toDataURL('image/jpeg', 0.82);
+
+          if (!palaceState.memories2) palaceState.memories2 = [];
+          if (!palaceState.memories2[idx]) {
+            palaceState.memories2[idx] = { id: Date.now() + idx, title: file.name.replace(/\.[^/.]+$/, ""), desc: '' };
+          }
+          palaceState.memories2[idx].image = optUrl;
+
+          const preview = document.getElementById(`mem2Preview_${idx}`);
+          if (preview) preview.src = optUrl;
+          const inputEl = document.querySelectorAll('#adminMemories2List .admin-dynamic-item')[idx]?.querySelector('.mem2-item-src');
+          if (inputEl) inputEl.value = optUrl;
+
+          persistPalaceState();
+          renderMemories2();
+        };
+        img.onerror = function() {
+          if (!palaceState.memories2) palaceState.memories2 = [];
+          if (!palaceState.memories2[idx]) {
+            palaceState.memories2[idx] = { id: Date.now() + idx, title: file.name.replace(/\.[^/.]+$/, ""), desc: '' };
+          }
+          palaceState.memories2[idx].image = rawData;
+
+          const preview = document.getElementById(`mem2Preview_${idx}`);
+          if (preview) preview.src = rawData;
+          const inputEl = document.querySelectorAll('#adminMemories2List .admin-dynamic-item')[idx]?.querySelector('.mem2-item-src');
+          if (inputEl) inputEl.value = rawData;
+
+          persistPalaceState();
+          renderMemories2();
         };
         img.src = rawData;
       };
       reader.readAsDataURL(file);
+      e.target.value = '';
     };
 
     window.handleMemories2BulkUpload = function(e) {
@@ -18671,7 +18703,9 @@
           } else {
             palaceState.memories2 = palaceState.memories2.concat(newItems);
           }
-          palaceState.memories2Mode = 'multi';
+          if (palaceState.memories2Mode !== 'grid') {
+            palaceState.memories2Mode = 'uneven';
+          }
           persistPalaceState();
           populateAdminMemories2();
           renderMemories2();
@@ -18919,8 +18953,6 @@
         const val = e.target.value.trim();
         if (val) {
           palaceState.memories2CollageImage = val;
-          if (!palaceState.memories2) palaceState.memories2 = [];
-          palaceState.memories2[0] = { id: 101, image: val, title: "Year in Memories Collage" };
           const preview = document.getElementById('adminMemories2Preview');
           if (preview) preview.src = val;
           persistPalaceState();
@@ -18946,7 +18978,7 @@
           const rawData = evt.target.result;
           const img = new Image();
           img.onload = function() {
-            const maxDim = 1600;
+            const maxDim = 1400;
             let w = img.width;
             let h = img.height;
             if (w > maxDim || h > maxDim) {
@@ -18963,12 +18995,10 @@
             canvas.height = h;
             const ctx = canvas.getContext('2d');
             ctx.drawImage(img, 0, 0, w, h);
-            const outMime = (file.type === 'image/png' || file.name.endsWith('.png')) ? 'image/png' : 'image/png';
-            const optimizedDataUrl = canvas.toDataURL(outMime);
+            const isPng = file.type === 'image/png' || file.name.toLowerCase().endsWith('.png');
+            const optimizedDataUrl = isPng ? canvas.toDataURL('image/png') : canvas.toDataURL('image/jpeg', 0.85);
 
             palaceState.memories2CollageImage = optimizedDataUrl;
-            if (!palaceState.memories2) palaceState.memories2 = [];
-            palaceState.memories2[0] = { id: 101, image: optimizedDataUrl, title: "Year in Memories Collage" };
 
             const preview = document.getElementById('adminMemories2Preview');
             if (preview) preview.src = optimizedDataUrl;
@@ -18985,8 +19015,6 @@
           };
           img.onerror = function() {
             palaceState.memories2CollageImage = rawData;
-            if (!palaceState.memories2) palaceState.memories2 = [];
-            palaceState.memories2[0] = { id: 101, image: rawData, title: "Year in Memories Collage" };
             const preview = document.getElementById('adminMemories2Preview');
             if (preview) preview.src = rawData;
             if (inputMem2Collage) inputMem2Collage.value = rawData;
@@ -18996,6 +19024,7 @@
           img.src = rawData;
         };
         reader.readAsDataURL(file);
+        e.target.value = '';
       });
     }
 
@@ -19003,8 +19032,9 @@
     if (btnResetMem2Collage) {
       btnResetMem2Collage.addEventListener('click', () => {
         palaceState.memories2CollageImage = 'memories_collage_part2.png';
-        if (!palaceState.memories2) palaceState.memories2 = [];
-        palaceState.memories2[0] = { id: 101, image: 'memories_collage_part2.png', title: "Year in Memories Collage" };
+        const preview = document.getElementById('adminMemories2Preview');
+        if (preview) preview.src = 'memories_collage_part2.png';
+        if (inputMem2Collage) inputMem2Collage.value = 'memories_collage_part2.png';
         populateAdminMemories2();
         persistPalaceState();
         renderMemories2();
@@ -19815,13 +19845,43 @@
           }
         }
 
-        // Collect Photo Memories Part 2 Single Ready-made Collage
+        // Collect Photo Memories Part 2 Mode
+        const btnMem2Single = document.getElementById('btnMem2ModeSingle');
+        const btnMem2Grid = document.getElementById('btnMem2ModeGrid');
+        if (btnMem2Single && btnMem2Single.classList.contains('active')) {
+          palaceState.memories2Mode = 'single';
+        } else if (btnMem2Grid && btnMem2Grid.classList.contains('active')) {
+          palaceState.memories2Mode = 'grid';
+        } else {
+          palaceState.memories2Mode = 'uneven';
+        }
+
+        // Collect Photo Memories Part 2 Single Ready-made Collage Image
         const mem2CollageInput = document.getElementById('inputMemories2CollageSrc');
         if (mem2CollageInput && mem2CollageInput.value.trim()) {
-          const cSrc = mem2CollageInput.value.trim();
-          palaceState.memories2CollageImage = cSrc;
-          if (!palaceState.memories2) palaceState.memories2 = [];
-          palaceState.memories2[0] = { id: 101, image: cSrc, title: "Year in Memories Collage" };
+          palaceState.memories2CollageImage = mem2CollageInput.value.trim();
+        }
+
+        // Collect Photo Memories Part 2 dynamic multi-photo list
+        const mem2Items = document.querySelectorAll('#adminMemories2List .admin-dynamic-item');
+        if (mem2Items && mem2Items.length > 0) {
+          const newMemories2 = [];
+          mem2Items.forEach((item, idx) => {
+            const imgSrc = item.querySelector('.mem2-item-src')?.value.trim();
+            const existing = (palaceState.memories2 && palaceState.memories2[idx]) || {};
+            if (imgSrc) {
+              newMemories2.push({
+                ...existing,
+                id: existing.id || (Date.now() + idx),
+                image: imgSrc,
+                title: existing.title || `Memory Photo ${idx + 1}`,
+                desc: existing.desc || ''
+              });
+            }
+          });
+          if (newMemories2.length > 0) {
+            palaceState.memories2 = newMemories2;
+          }
         }
 
         // Collect Chamber Placards & sync with Rooms Manager
