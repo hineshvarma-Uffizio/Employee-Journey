@@ -714,7 +714,7 @@
     "ch3Sub": "The achievements shipped, architectures scaled, and client milestones delivered.",
     "ch4Title": "The People & Bonds",
     "ch4Sub": "Warm words, memories, and shared laughs with the team who walked with you.",
-    "chValTitle": "Your Values",
+    "chValTitle": "The Values You Bring",
     "chValDesc": "The Values You Bring — How Your Everyday Actions Define Our Culture",
     "ch6Wish": "To a year defined by bold initiatives, late-night breakthroughs, and continuous excellence. Happy 1st Work Anniversary!"
   }
@@ -9945,7 +9945,7 @@
         </div>
 
         <div class="chamber-placard">
-          <h2 class="chamber-name" id="chamberValuesTitle">Your Values</h2>
+          <h2 class="chamber-name" id="chamberValuesTitle">The Values You Bring</h2>
           <p class="chamber-desc" id="chamberValuesDesc">The Values You Bring — How Your Everyday Actions Define Our Culture</p>
         </div>
 
@@ -10232,7 +10232,7 @@
         <button class="admin-tab-btn" data-tab="tab-notes">💌 Team Notes (Ch.5)</button>
         <button class="admin-tab-btn" data-tab="tab-memories">📸 Photo Collage (Part 1)</button>
         <button class="admin-tab-btn" data-tab="tab-memories-2">📸 Photo Collage (Part 2)</button>
-        <button class="admin-tab-btn" data-tab="tab-values">💎 Your Values (Ch.Values)</button>
+        <button class="admin-tab-btn" data-tab="tab-values">💎 The Values You Bring (Ch.Values)</button>
         <button class="admin-tab-btn" data-tab="tab-proud">🏆 Proud Moments (Ch.7)</button>
         <button class="admin-tab-btn" data-tab="tab-future">🔮 The Future (Ch.8)</button>
         <button class="admin-tab-btn" data-tab="tab-thankyou">💖 Thank You (Final)</button>
@@ -10790,7 +10790,7 @@
       <div class="admin-tab-content" id="tab-values">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:8px;">
           <div>
-            <h4 style="color:var(--gold-light); font-size:15px; margin:0 0 4px 0;">💎 Your Values & Behavioral Manifestation</h4>
+            <h4 style="color:var(--gold-light); font-size:15px; margin:0 0 4px 0;">💎 The Values You Bring & Behavioral Manifestation</h4>
             <p style="font-size:12px; color:#94a3b8; margin:0;">Define the employee's living values, personal behavioral axioms, and concrete actions.</p>
           </div>
           <button type="button" class="btn-add-item" id="btnAddValue">➕ Add New Value</button>
@@ -12443,7 +12443,7 @@
         "ch3Sub": "The achievements shipped, architectures scaled, and client milestones delivered.",
         "ch4Title": "The People & Bonds",
         "ch4Sub": "Warm words, memories, and shared laughs with the team who walked with you.",
-        "chValTitle": "Your Values",
+        "chValTitle": "The Values You Bring",
         "chValDesc": "The Values You Bring — How Your Everyday Actions Define Our Culture",
         "ch6Wish": "To a year defined by bold initiatives, late-night breakthroughs, and continuous excellence. Happy 1st Work Anniversary!"
       }
@@ -14515,6 +14515,9 @@
 
       const chValTitle = document.getElementById('chamberValuesTitle');
       const chValDesc = document.getElementById('chamberValuesDesc');
+      if (cs.chValTitle === 'Your Values' || !cs.chValTitle) {
+        cs.chValTitle = 'The Values You Bring';
+      }
       if (chValTitle && cs.chValTitle) chValTitle.textContent = cs.chValTitle;
       if (chValDesc && cs.chValDesc) chValDesc.textContent = cs.chValDesc;
 
@@ -17472,7 +17475,7 @@
     }
 
     window.deleteValueItem = function(idx) {
-      if (confirm('Delete this value from Your Values room?')) {
+      if (confirm('Delete this value from The Values You Bring room?')) {
         palaceState.values.splice(idx, 1);
         persistPalaceState();
         populateAdminValues();
