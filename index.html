@@ -1938,48 +1938,56 @@
         rgba(3, 7, 18, 0.8) 100%
       );
       pointer-events: none;
-      z-index: 0;
+      z-index: 5;
     }
 
-    /* Dramatic Cinematic Zoom: Camera dollies forward in through the open doorway */
+    /* Dynamic Portal Occlusion Mask: Ensures Celebration Room is ONLY seen through the door opening */
     .portal-door-occlusion-mask {
-      display: none; /* Removed 1200px solid shadow so royal vector flourishes can bloom freely behind the frame */
+      position: absolute;
+      top: 80px;
+      left: 80px;
+      width: 266px;
+      height: 374px;
+      border-radius: 133px 133px 0 0;
+      box-shadow: 0 0 0 3500px var(--bg-palace);
+      pointer-events: none;
+      z-index: 0;
+      transform: translate3d(0, 0, 0);
+      will-change: transform;
     }
 
     /* Dramatic Cinematic Zoom: Camera dollies forward in through the open doorway */
     .palace-portal-stage.zooming-through {
-      transform: translate3d(0, 0, 520px) scale(7.5);
+      transform: translate3d(0, 0, 420px) scale(6.5);
       transform-origin: 50% 53.4%;
       opacity: 0;
       visibility: visible;
       pointer-events: none;
       z-index: 45;
       transition: transform 0.92s cubic-bezier(0.16, 1, 0.3, 1),
-                  opacity 0.42s ease-in 0.48s;
+                  opacity 0.38s ease-in 0.52s;
     }
 
-    /* As soon as zoom begins: The doorway visual dissolves away smoothly with gentle expansion and soft blur */
+    /* As soon as zoom begins: The doorway visual dissolves away smoothly with gentle forward expansion */
     .palace-portal-stage.zooming-through .doorway-next-screen {
       opacity: 0 !important;
-      transform: scale(1.1) !important;
-      filter: blur(4px);
-      transition: opacity 0.42s cubic-bezier(0.2, 0.8, 0.3, 1),
-                  transform 0.48s cubic-bezier(0.2, 0.8, 0.3, 1),
-                  filter 0.42s ease-out !important;
+      transform: scale(1.08) !important;
+      transition: opacity 0.35s ease-out,
+                  transform 0.42s ease-out !important;
       pointer-events: none !important;
     }
 
     .palace-portal-stage.zooming-through .doorway-portrait-wrap,
     .palace-portal-stage.zooming-through .doorway-editorial-wrap {
       opacity: 0 !important;
-      transition: opacity 0.38s ease-out !important;
+      transition: opacity 0.32s ease-out !important;
     }
 
     /* The doorway aperture becomes clear glass during the zoom */
     .palace-portal-stage.zooming-through .portal-doorway-aperture {
       background: transparent !important;
       box-shadow: none !important;
-      transition: background 0.45s ease, box-shadow 0.45s ease !important;
+      transition: background 0.32s ease, box-shadow 0.32s ease !important;
     }
 
     /* Floating entrance texts fade away cleanly before camera passes them */
@@ -2000,7 +2008,7 @@
       opacity: 0;
       visibility: hidden;
       pointer-events: none;
-      transform: translate3d(0, 0, 520px) scale(7.5);
+      transform: translate3d(0, 0, 420px) scale(6.5);
       transform-origin: 50% 53.4%;
       z-index: 10;
       transition: none;
@@ -2009,7 +2017,7 @@
     /* Seamless doorway reveal for Stage 1 celebration chamber */
     #chamber-milestone.entering-from-door {
       transition: transform 0.92s cubic-bezier(0.16, 1, 0.3, 1),
-                  opacity 0.58s ease-out 0.22s,
+                  opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.08s,
                   visibility 0s 0s !important;
     }
 
