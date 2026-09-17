@@ -10245,7 +10245,7 @@
         <div class="rooms-manager-header">
           <div>
             <h3 style="font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 4px;">Palace Chamber & Employee Visibility Manager</h3>
-            <p style="font-size: 12px; color: #cbd5e1; margin: 0;">Employee મુજબ જે રૂમ લાગુ ના પડતો હોય તેને <strong>Hide</strong> કરો, અને લાગુ પડતો હોય તેને <strong>Show / Add</strong> કરો. બદલાવ Journey માં તરત જ લાગુ થશે.</p>
+            <p style="font-size: 12px; color: #cbd5e1; margin: 0;">Selectively <strong>Hide</strong> rooms that do not apply to this employee, or <strong>Show / Add</strong> relevant rooms. Changes will apply to the Journey immediately.</p>
           </div>
           <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
             <button type="button" class="btn-primary-add" id="btnToggleAddRoom">➕ Add New Room</button>
@@ -10259,7 +10259,7 @@
             <!-- Populated dynamically by renderAdminRoomsManager() -->
           </div>
           <button type="button" class="btn-show-all-rooms" onclick="window.showAllPalaceRooms()">
-            👁️ Show All Rooms (બધા રૂમ ચાલુ કરો)
+            👁️ Show All Rooms (Enable All)
           </button>
         </div>
 
@@ -10345,7 +10345,7 @@
       <div class="admin-tab-content" id="tab-entrance">
         <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:14px; gap:10px;">
           <div>
-            <h4 style="font-size:14px; color:#fff; font-weight:700; margin:0 0 4px 0;">🚪 First Screen / Grand Entrance (પ્રથમ સ્ક્રીન)</h4>
+            <h4 style="font-size:14px; color:#fff; font-weight:700; margin:0 0 4px 0;">🚪 First Screen / Grand Entrance</h4>
             <p style="font-size:12px; color:#94a3b8; margin:0;">Customize the entrance logo, memory palace main title, subtitle tagline, enter prompt, and door seals.</p>
           </div>
           <button type="button" class="btn-primary-add" onclick="window.previewRoomStage('entrance')" style="white-space:nowrap; padding:6px 12px; font-size:12px;">👁️ View Screen</button>
@@ -10387,14 +10387,14 @@
 
         <!-- Door Wings Section -->
         <div style="background:rgba(245,192,101,0.06); border:1px solid rgba(245,192,101,0.25); border-radius:10px; padding:14px;">
-          <h5 style="color:var(--gold-primary); font-size:13px; margin:0 0 10px 0;">🚪 Inner Door Seals (દરવાજાની અંદરનું લખાણ)</h5>
+          <h5 style="color:var(--gold-primary); font-size:13px; margin:0 0 10px 0;">🚪 Inner Door Seals (Door Inscriptions)</h5>
           <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px;">
             <div class="form-group" style="margin:0;">
-              <label>Left Wing Seal (દા.ત. UFFIZIO)</label>
+              <label>Left Wing Seal (e.g. UFFIZIO)</label>
               <input type="text" class="form-input" id="adminEntranceDoorLeft" placeholder="UFFIZIO">
             </div>
             <div class="form-group" style="margin:0;">
-              <label>Right Wing Seal (દા.ત. 2025 → 2026)</label>
+              <label>Right Wing Seal (e.g. 2025 → 2026)</label>
               <input type="text" class="form-input" id="adminEntranceDoorRight" placeholder="2025 → 2026">
             </div>
           </div>
@@ -10437,7 +10437,7 @@
                 <option value="20yr">👑 20 Years • Heritage Icon (Imperial Purple & 24K Gold)</option>
               </select>
               <div style="display:flex; justify-content:space-between; align-items:center; margin-top:6px;">
-                <span style="font-size: 10.5px; color: #94a3b8;">પસંદ કરેલ વર્ષ મુજબ મહેલની કલર થીમ આપોઆપ બદલાઈ જશે.</span>
+                <span style="font-size: 10.5px; color: #94a3b8;">Palace color theme automatically adapts to the selected milestone year.</span>
                 <button type="button" id="btnApplyTierTitles" style="background: rgba(56,189,248,0.18); border: 1px solid rgba(56,189,248,0.4); color: #38bdf8; font-size: 10px; padding: 3px 8px; border-radius: 4px; cursor: pointer; font-weight: 600;">
                   ✨ Auto-Suggest Titles
                 </button>
@@ -10447,16 +10447,16 @@
             <!-- Door Wings Customization (Left & Right Door Leaves) -->
             <div style="background: rgba(245, 192, 101, 0.06); border: 1px solid rgba(245, 192, 101, 0.25); border-radius: 8px; padding: 10px 12px; margin-top: 10px;">
               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-                <label style="font-size: 11px; font-weight: 700; color: var(--gold-light); text-transform: uppercase; margin: 0;">🚪 Door Wings Text (દરવાજાની પાંખો પરનું લખાણ)</label>
+                <label style="font-size: 11px; font-weight: 700; color: var(--gold-light); text-transform: uppercase; margin: 0;">🚪 Door Wings Text (Door Panel Inscriptions)</label>
                 <span style="font-size: 10px; color: #94a3b8;">Customizable per employee</span>
               </div>
               <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
                 <div class="form-group" style="margin: 0;">
-                  <label for="inputDoorLeftText" style="font-size: 10.5px;">Left Wing (દા.ત. UFFIZIO)</label>
+                  <label for="inputDoorLeftText" style="font-size: 10.5px;">Left Wing (e.g. UFFIZIO)</label>
                   <input type="text" id="inputDoorLeftText" class="form-input" value="UFFIZIO" placeholder="e.g., UFFIZIO" style="font-size: 12px; padding: 6px 10px;">
                 </div>
                 <div class="form-group" style="margin: 0;">
-                  <label for="inputDoorRightText" style="font-size: 10.5px;">Right Wing (દા.ત. 2025 → 2026)</label>
+                  <label for="inputDoorRightText" style="font-size: 10.5px;">Right Wing (e.g. 2025 → 2026)</label>
                   <input type="text" id="inputDoorRightText" class="form-input" value="2025 → 2026" placeholder="e.g., 2025 → 2026" style="font-size: 12px; padding: 6px 10px;">
                 </div>
               </div>
@@ -11123,7 +11123,7 @@
             </button>
           </div>
           <p style="font-size:12px; color:#cbd5e1; margin-bottom:12px; line-height:1.45;">
-            દરેક કર્મચારીની પોતાની અલગ લિંક અને અલગ ડેટા રહેશે જેથી કોઈનો પણ ડેટા Replace ન થાય. અહીંથી તમે સહેલાઈથી પ્રોફાઇલ સ્વિચ કરી શકો છો:
+            Each employee has their own unique link and isolated data profile so no data gets overwritten. Easily switch profiles here:
           </p>
           <div style="display:flex; flex-wrap:wrap; gap:10px; align-items:center;">
             <label style="font-size:12px; color:#94a3b8; white-space:nowrap;">Active Profile:</label>
@@ -11144,7 +11144,7 @@
             <span style="font-size:10px; background:rgba(16,185,129,0.3); padding:2px 8px; border-radius:10px; color:#fff;">Permanent / Cross-Device</span>
           </h4>
           <p style="font-size:12px; color:#cbd5e1; line-height:1.5; margin-bottom:14px;">
-            આ બટન દબાવવાથી તમારા બધા જ અપલોડ કરેલા ફોટા, કસ્ટમ યાદો, અને લખાણ <strong>HTML ફાઇલમાં કાયમ માટે સેવ થઈ જશે</strong>. આ ડાઉનલોડ કરેલી ફાઇલને તમે ગમે ત્યાં મોકલી શકશો કે <strong>ઇન્કોગ્નિટો (Incognito)</strong> માં પણ ખોલશો તો બધા ફોટા અને ફેરફારો હંમેશા પરમેનન્ટ દેખાશે!
+            Clicking this button saves all your uploaded photos, memories, and edits <strong>permanently into this standalone HTML file</strong>. You can share this downloaded file anywhere or open it in <strong>Incognito mode</strong>, and all changes will remain permanently preserved!
           </p>
           <div style="display:flex; flex-wrap:wrap; gap:10px;">
             <button class="btn-primary-add" id="btnAdminDownloadHtml" style="background: linear-gradient(135deg, #10b981, #059669); color:#fff; font-weight:700; padding:11px 20px; border-radius:8px; border:none; cursor:pointer; display:flex; align-items:center; gap:8px; font-size:13px; box-shadow:0 4px 15px rgba(16,185,129,0.35);">
@@ -11161,7 +11161,7 @@
           <h4 style="color:var(--gold-light); font-size:14px; margin-bottom:6px; display:flex; align-items:center; gap:6px;">
             <span>📋 Profile Data Backup & Restore (JSON)</span>
           </h4>
-          <p style="font-size:12px; color:#94a3b8; line-height:1.5; margin-bottom:14px;">તમારો સંપૂર્ણ ડેટા 1 ક્લિકમાં કોપી કરો અથવા ફાઇલ તરીકે સેવ/રિસ્ટોર કરો.</p>
+          <p style="font-size:12px; color:#94a3b8; line-height:1.5; margin-bottom:14px;">Copy your complete journey data in 1 click or save/restore as a file.</p>
           
           <div class="admin-btn-row" style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:14px;">
             <button class="btn-secondary" id="btnCopyJsonClipboard" style="background:rgba(245,192,101,0.15); border-color:var(--gold-primary); color:var(--gold-light); font-weight:600;">
@@ -11181,7 +11181,7 @@
 
           <div style="margin-top:12px; border-top:1px solid rgba(255,255,255,0.08); padding-top:12px;">
             <label style="display:block; font-size:11px; color:#94a3b8; margin-bottom:4px;">Direct JSON Quick-Paste:</label>
-            <textarea id="directJsonPasteArea" placeholder="અહીં JSON કોડ પેસ્ટ કરીને નીચે 'Apply Pasted JSON' દબાવો..." style="width:100%; height:60px; background:rgba(0,0,0,0.4); border:1px solid rgba(255,255,255,0.15); border-radius:6px; color:#e2e8f0; font-family:monospace; font-size:11px; padding:8px; resize:vertical;"></textarea>
+            <textarea id="directJsonPasteArea" placeholder="Paste JSON code here and click 'Apply Pasted JSON' below..." style="width:100%; height:60px; background:rgba(0,0,0,0.4); border:1px solid rgba(255,255,255,0.15); border-radius:6px; color:#e2e8f0; font-family:monospace; font-size:11px; padding:8px; resize:vertical;"></textarea>
             <button class="btn-secondary" id="btnApplyPastedJson" style="margin-top:6px; font-size:11px; padding:6px 12px;">⚡ Apply Pasted JSON</button>
           </div>
         </div>
@@ -11226,10 +11226,10 @@
       <!-- Rights Tabs / Selector -->
       <div class="share-tabs-nav" style="display: flex; gap: 8px; margin-bottom: 16px;">
         <button type="button" class="share-tab-btn active" id="btnTabShareView">
-          👁️ View-Only Link (જોવાનો અધિકાર)
+          👁️ View-Only Link
         </button>
         <button type="button" class="share-tab-btn" id="btnTabShareEdit">
-          ✏️ Edit Rights Link (સુધારા કરવાનો અધિકાર)
+          ✏️ Edit Rights Link
         </button>
       </div>
 
@@ -14879,8 +14879,8 @@
 
       if (countersContainer) {
         countersContainer.innerHTML = `
-          <span class="vis-count-chip active-chip">● ${activeCount} Active (ચાલુ રૂમ)</span>
-          <span class="vis-count-chip hidden-chip">${hiddenCount > 0 ? `🚫 ${hiddenCount} Hidden (છુપાવેલ રૂમ)` : '○ 0 Hidden'}</span>
+          <span class="vis-count-chip active-chip">● ${activeCount} Active</span>
+          <span class="vis-count-chip hidden-chip">${hiddenCount > 0 ? `🚫 ${hiddenCount} Hidden` : '○ 0 Hidden'}</span>
         `;
       }
 
@@ -14921,7 +14921,7 @@
 
             ${!isEnabled ? `
               <div class="room-hidden-badge-banner">
-                <span>🚫 <strong>આ રૂમ આ Employee માટે Hidden છે</strong> (Journey માં સ્કિપ થશે).</span>
+                <span>🚫 <strong>This room is Hidden for this employee</strong> (will be skipped during the Journey).</span>
                 <button type="button" class="btn-quick-show-room" onclick="window.togglePalaceRoomVisibility('${c.id}', true)">👁️ Enable / Show</button>
               </div>
             ` : ''}
@@ -15001,8 +15001,8 @@
               alertBanner = document.createElement('div');
               alertBanner.className = 'tab-room-hidden-alert';
               alertBanner.innerHTML = `
-                <p>🚫 <strong>આ રૂમ આ Employee માટે હાલ Hidden છે.</strong> તે Palace Journey માં દેખાશે નહીં.</p>
-                <button type="button" class="btn-quick-show-room" onclick="window.togglePalaceRoomVisibility('${roomId}', true)">👁️ Enable / Show This Room (રૂમ ચાલુ કરો)</button>
+                <p>🚫 <strong>This room is currently Hidden for this employee.</strong> It will not appear in the Palace Journey.</p>
+                <button type="button" class="btn-quick-show-room" onclick="window.togglePalaceRoomVisibility('${roomId}', true)">👁️ Enable / Show This Room</button>
               `;
               tabContent.insertBefore(alertBanner, tabContent.firstChild);
             }
@@ -18629,7 +18629,7 @@
             adminCelebQuote.value = "“Twenty years of extraordinary dedication, enduring wisdom, and a legacy that inspires us all.”";
           }
           
-          alert(`✨ ${tier.toUpperCase()} માટે યોગ્ય ટાઇટલ અને ક્વોટ આપમેળે સેટ થઈ ગયા છે!`);
+          alert(`✨ Titles and quotes for ${tier.toUpperCase()} milestone have been automatically set!`);
         });
       }
 
@@ -18653,15 +18653,15 @@
 
       if (btnCreateNewEmpProfile) {
         btnCreateNewEmpProfile.addEventListener('click', async () => {
-          const empName = prompt("નવા કર્મચારીનું પૂરું નામ લખો (e.g. Priya Patel):");
+          const empName = prompt("Enter new employee full name (e.g. Priya Patel):");
           if (!empName || !empName.trim()) return;
           const slug = empName.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
           if (!slug) return;
           
-          const confirmCreate = confirm(`નવા કર્મચારી '${empName}' (${slug}) માટે નવી જર્ની શરૂ કરવી છે?\nજૂના કર્મચારીનો ડેટા સહેજ પણ Replace કે Overwrite થશે નહીં.`);
+          const confirmCreate = confirm(`Create a new journey profile for '${empName}' (${slug})?\nExisting employee data will not be overwritten.`);
           if (!confirmCreate) return;
 
-          const tierChoice = prompt("એનિવર્સરી વર્ષ પસંદ કરો (1, 3, 5, 10, 15, 20):", "1");
+          const tierChoice = prompt("Select anniversary milestone year (1, 3, 5, 10, 15, 20):", "1");
           let chosenTier = "1yr";
           if (tierChoice === '3') chosenTier = "3yr";
           else if (tierChoice === '5') chosenTier = "5yr";
@@ -18703,7 +18703,7 @@
           } catch(e) {}
           
           const baseUrl = window.location.href.split('?')[0].split('#')[0];
-          alert(`✅ '${empName}' માટે નવી પ્રોફાઇલ તૈયાર છે! હવે તમે એમની વિગતો અને ફોટા ભરી શકો છો.`);
+          alert(`✅ Profile for '${empName}' is ready! You can now customize details and photos.`);
           window.location.href = `${baseUrl}?emp=${encodeURIComponent(slug)}&access=edit`;
         });
       }
@@ -19389,7 +19389,7 @@
         document.body.removeChild(a);
         setTimeout(() => URL.revokeObjectURL(blobUrl), 2000);
 
-        showPalaceToast('💾 "' + targetFilename + '" સફળતાપૂર્વક ડાઉનલોડ થઈ ગયું છે!', 4000);
+        showPalaceToast('💾 "' + targetFilename + '" downloaded successfully!', 4000);
       } catch (err) {
         console.error("Error downloading updated HTML:", err);
         showPalaceToast("Error downloading file: " + err.message, 5000);
@@ -19402,7 +19402,7 @@
         const jsonStr = JSON.stringify(palaceState, null, 2);
         if (navigator.clipboard && navigator.clipboard.writeText) {
           navigator.clipboard.writeText(jsonStr).then(() => {
-            showPalaceToast("📋 ડેટા ક્લિપબોર્ડમાં કોપી થઈ ગયો છે!", 3500);
+            showPalaceToast("📋 Data copied to clipboard!", 3500);
           }).catch(() => {
             prompt("Copy this JSON data:", jsonStr);
           });
