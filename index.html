@@ -1955,29 +1955,46 @@
       pointer-events: none;
       z-index: 45;
       transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1),
-                  opacity 0.4s ease-out 0.32s;
+                  opacity 0.35s ease-out 0.35s;
     }
 
-    /* As soon as zoom begins: The doorway visual dissolves away smoothly with gentle forward expansion */
+    .palace-portal-stage.zooming-through::after {
+      opacity: 0 !important;
+      transition: opacity 0.2s ease-out !important;
+    }
+
+    .palace-portal-stage.zooming-through .portal-arch-glow-backdrop {
+      opacity: 0 !important;
+      transition: opacity 0.22s ease-out !important;
+    }
+
+    /* As soon as scroll/zoom begins: The doorway preview visual dissolves away smoothly in place WITHOUT zooming */
     .palace-portal-stage.zooming-through .doorway-next-screen {
       opacity: 0 !important;
-      transform: scale(1.15) !important;
-      transition: opacity 0.32s ease-out,
-                  transform 0.38s ease-out !important;
+      transform: scale(0.138) !important;
+      transition: opacity 0.22s ease-out,
+                  transform 0.85s cubic-bezier(0.16, 1, 0.3, 1) !important;
       pointer-events: none !important;
     }
 
     .palace-portal-stage.zooming-through .doorway-portrait-wrap,
-    .palace-portal-stage.zooming-through .doorway-editorial-wrap {
+    .palace-portal-stage.zooming-through .doorway-editorial-wrap,
+    .palace-portal-stage.zooming-through .doorway-portrait-img,
+    .palace-portal-stage.zooming-through .doorway-main-title,
+    .palace-portal-stage.zooming-through .doorway-emp-name,
+    .palace-portal-stage.zooming-through .doorway-hall-backdrop,
+    .palace-portal-stage.zooming-through .doorway-hall-spotlight,
+    .palace-portal-stage.zooming-through .doorway-hall-floor {
       opacity: 0 !important;
-      transition: opacity 0.28s ease-out !important;
+      transform: none !important;
+      transition: opacity 0.18s ease-out !important;
     }
 
     /* The doorway aperture becomes clear glass during the zoom */
     .palace-portal-stage.zooming-through .portal-doorway-aperture {
       background: transparent !important;
       box-shadow: none !important;
-      transition: background 0.3s ease, box-shadow 0.3s ease !important;
+      transition: background 0.2s ease-out, box-shadow 0.2s ease-out !important;
     }
 
     /* Floating entrance texts fade away cleanly before camera passes them */
@@ -1994,6 +2011,18 @@
       transition: opacity 0.2s ease, transform 0.2s ease !important;
     }
 
+    /* Door leaves swing slightly wider as camera moves between them */
+    .palace-portal-stage.zooming-through .portal-doors-open .photo-door-leaf.left,
+    .palace-portal-stage.zooming-through.door-open .photo-door-leaf.left {
+      transform: rotateY(-118deg) translate3d(0, 0, 0) !important;
+      transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    }
+    .palace-portal-stage.zooming-through .portal-doors-open .photo-door-leaf.right,
+    .palace-portal-stage.zooming-through.door-open .photo-door-leaf.right {
+      transform: rotateY(118deg) translate3d(0, 0, 0) !important;
+      transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    }
+
     .palace-portal-stage.hidden-forward {
       opacity: 0;
       visibility: hidden;
@@ -2005,9 +2034,17 @@
     }
 
     /* Seamless doorway reveal for Stage 1 celebration chamber */
+    #chamber-milestone.waiting-depth {
+      transform: translate3d(0, 0, -240px) scale(0.90);
+    }
+
     #chamber-milestone.entering-from-door {
+      opacity: 1 !important;
+      visibility: visible !important;
+      pointer-events: auto !important;
+      transform: translate3d(0, 0, 0px) scale(1) !important;
       transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1),
-                  opacity 0.55s ease-out,
+                  opacity 0.6s ease-out,
                   visibility 0s 0s !important;
     }
 
