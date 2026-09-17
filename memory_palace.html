@@ -11103,8 +11103,8 @@
 
         <div style="background:rgba(245,192,101,0.06); border:1px solid rgba(245,192,101,0.25); border-radius:10px; padding:14px;">
           <h5 style="color:var(--gold-primary); font-size:13px; margin:0 0 10px 0;">🎯 Button Labels</h5>
-          <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:10px;">
-            <div class="form-group">
+          <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+            <div class="form-group" style="display:none;">
               <label>Confetti Button</label>
               <input type="text" class="form-input" id="adminThankYouBtn1" placeholder="🎉 Shower Confetti & Applause">
             </div>
@@ -14048,9 +14048,6 @@
           </div>
 
           <div class="thankyou-actions-row">
-            <button class="btn-fire-confetti thankyou-confetti-btn" id="btnThankYouConfetti" title="Fire grand celebratory confetti!">
-              <span>${escapeHtml(ty.actionBtn1 || '🎉 Shower Confetti & Applause')}</span>
-            </button>
             <button class="btn-download-cert thankyou-souvenir-btn" id="btnThankYouCert" onclick="openCertificateModal()" title="View your official souvenir certificate">
               <span>${escapeHtml(ty.actionBtn2 || '📜 View Souvenir Card')}</span>
             </button>
@@ -14062,13 +14059,6 @@
       `;
 
       // Attach button events
-      const btnConfetti = document.getElementById('btnThankYouConfetti');
-      if (btnConfetti) {
-        btnConfetti.addEventListener('click', () => {
-          fireConfetti();
-          showPalaceToast("🎉 Celebrating " + (emp.name || "Dhara Patel") + " & 1 Year with Uffizio!", 3500);
-        });
-      }
 
       const btnCert = document.getElementById('btnThankYouCert');
       if (btnCert) {
@@ -16058,7 +16048,13 @@
         } else if (targetChamber.id === 'chamber-memories-2') {
           setTimeout(() => palaceAudio.playChime(), 380);
         } else if (targetChamber.id === 'chamber-thankyou') {
-          setTimeout(() => palaceAudio.playChime(), 380);
+          setTimeout(() => {
+            palaceAudio.playChime();
+            fireConfetti();
+          }, 380);
+          setTimeout(() => {
+            fireConfetti();
+          }, 820);
         }
       }
 
