@@ -16858,30 +16858,30 @@
       palaceAudio.playChime();
 
       const colors = ['#f5c065', '#ffd700', '#00e5ff', '#ff4d6d', '#10b981', '#ffffff', '#f43f5e', '#c084fc', '#fb923c'];
-      const totalPieces = 260;
+      const totalPieces = 300;
       for (let i = 0; i < totalPieces; i++) {
-        // Uneven shapes: rectangles, long streamers/strips, round sequins, diamonds, and sparkle stars
+        // Delicate smaller festive confetti pieces
         const rand = Math.random();
         let shape = 'rect';
         let width = 0, height = 0, radius = 0, size = 0;
 
         if (rand < 0.35) {
-          shape = 'rect'; // Varied rectangles
-          width = Math.random() * 9 + 6;
-          height = Math.random() * 7 + 4;
+          shape = 'rect'; // Varied smaller rectangles
+          width = Math.random() * 5 + 4; // 4px to 9px
+          height = Math.random() * 3.5 + 2.5; // 2.5px to 6px
         } else if (rand < 0.60) {
-          shape = 'strip'; // Long ribbons / streamers
-          width = Math.random() * 14 + 12;
-          height = Math.random() * 3 + 3;
+          shape = 'strip'; // Smaller ribbon strips
+          width = Math.random() * 7 + 7; // 7px to 14px
+          height = Math.random() * 1.8 + 1.8; // 1.8px to 3.6px
         } else if (rand < 0.80) {
-          shape = 'circle'; // Round sequins / dots
-          radius = Math.random() * 3.5 + 2.5;
+          shape = 'circle'; // Small round sequins / dots
+          radius = Math.random() * 1.8 + 1.6; // 1.6px to 3.4px radius
         } else if (rand < 0.90) {
-          shape = 'diamond'; // Diamond gems
-          size = Math.random() * 5 + 5;
+          shape = 'diamond'; // Small diamond gems
+          size = Math.random() * 3 + 3.2; // 3.2px to 6.2px
         } else {
-          shape = 'star'; // 4-pointed sparkle stars
-          size = Math.random() * 5 + 5;
+          shape = 'star'; // Small 4-pointed sparkle stars
+          size = Math.random() * 3 + 3.2; // 3.2px to 6.2px
         }
 
         // Center explosive burst: all confetti blasts directly from the center
