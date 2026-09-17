@@ -12837,10 +12837,12 @@
     let room01ScrollReady = false;
 
     // Milestone Stop & Instant-Resume State
-    let currentMilestoneStop = 0; // 0, 1, or 2
+    let currentMilestoneStop = 0; // 0, 1, 2, or 3
     let isStoppedAtMilestone = true;
     let milestoneArrivalTime = 0;
-    let lastMilestoneStepTime = 0;
+    let milestoneStepStartTime = 0;
+    let milestoneGestureActive = false;
+    let milestoneSilenceTimer = null;
 
     // Helper: Compute layout-stable pin center immune to 3D chamber scales/perspectives
     function getStablePinCenter(pin, wrap) {
@@ -13007,7 +13009,9 @@
       if (targetIdx < 0 || targetIdx >= items.length) return;
       currentMilestoneStop = targetIdx;
       isStoppedAtMilestone = false;
-      lastMilestoneStepTime = performance.now();
+      milestoneStepStartTime = performance.now();
+      milestoneGestureActive = false;
+      if (milestoneSilenceTimer) clearTimeout(milestoneSilenceTimer);
       queueTimelineProgress(targetIdx);
     }
 
@@ -13040,7 +13044,9 @@
       currentMilestoneStop = currentFocusMilestoneIdx;
       isStoppedAtMilestone = true;
       milestoneArrivalTime = performance.now();
-      lastMilestoneStepTime = performance.now();
+      milestoneStepStartTime = performance.now();
+      milestoneGestureActive = false;
+      if (milestoneSilenceTimer) clearTimeout(milestoneSilenceTimer);
 
       targetTimelineProgress = currentFocusMilestoneIdx;
       currentTimelineProgress = currentFocusMilestoneIdx;
@@ -16159,7 +16165,7 @@
       clearTimeout(wheelSilenceTimer);
       wheelSilenceTimer = setTimeout(() => { wheelDeltaAccumulator = 0; }, 240);
 
-      // Room 01: Timeline navigation - 1 deliberate scroll = 1 milestone step, zero lag!
+      // Room 01: Timeline navigation - Guaranteed stop on each milestone, instant advance on next scroll!
       if (isCurrentRoom('chamber-0')) {
         if (!room01ScrollReady) {
           wheelDeltaAccumulator = 0;
@@ -16179,14 +16185,26 @@
         if (Math.abs(delta) < 6) return;
 
         const now = performance.now();
-        // Cooldown measured from gesture start: absorbs inertial momentum, zero wait after arrival!
-        if (now - lastMilestoneStepTime < 140) {
+
+        // Maintain gesture silence timer: 90ms of no wheel events marks the end of this scroll gesture
+        clearTimeout(milestoneSilenceTimer);
+        milestoneSilenceTimer = setTimeout(() => {
+          milestoneGestureActive = false;
+        }, 90);
+
+        // If the current scroll gesture has already triggered a step:
+        // Lock momentum so it NEVER skips past the target milestone!
+        // (Allows next step only after 90ms silence, or after 380ms if continuous drag)
+        if (milestoneGestureActive && (now - milestoneStepStartTime < 380)) {
           return;
         }
 
+        // Distinct, intentional scroll gesture detected!
+        milestoneGestureActive = true;
+        milestoneStepStartTime = now;
+
         // SCENARIO 1: SCROLLING FORWARD (DOWN / RIGHT)
         if (delta > 0) {
-          lastMilestoneStepTime = now;
           if (currentMilestoneStop < maxIdx) {
             currentMilestoneStop += 1;
             isStoppedAtMilestone = false;
@@ -16202,7 +16220,6 @@
 
         // SCENARIO 2: SCROLLING BACKWARD (UP / LEFT)
         if (delta < 0) {
-          lastMilestoneStepTime = now;
           if (currentMilestoneStop > 0) {
             currentMilestoneStop -= 1;
             isStoppedAtMilestone = false;
@@ -16283,6 +16300,8 @@
         const deltaTouch = Math.abs(diffX) > Math.abs(diffY) ? diffX : diffY;
 
         if (deltaTouch > 30) {
+          milestoneGestureActive = false;
+          if (milestoneSilenceTimer) clearTimeout(milestoneSilenceTimer);
           if (currentMilestoneStop < maxIdx) {
             currentMilestoneStop += 1;
             isStoppedAtMilestone = false;
@@ -16294,6 +16313,8 @@
             return;
           }
         } else if (deltaTouch < -30) {
+          milestoneGestureActive = false;
+          if (milestoneSilenceTimer) clearTimeout(milestoneSilenceTimer);
           if (currentMilestoneStop > 0) {
             currentMilestoneStop -= 1;
             isStoppedAtMilestone = false;
@@ -16352,6 +16373,8 @@
 
       if (e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === 'd' || e.key === 'D' || e.key === 's' || e.key === 'S' || e.key === ' ' || (isCurrentRoom('chamber-0') && e.key === 'ArrowRight')) {
         if (isCurrentRoom('chamber-0')) {
+          milestoneGestureActive = false;
+          if (milestoneSilenceTimer) clearTimeout(milestoneSilenceTimer);
           const maxIdx = (palaceState.milestones || []).length - 1;
           if (currentMilestoneStop < maxIdx) {
             currentMilestoneStop += 1;
@@ -16369,6 +16392,8 @@
         }
       } else if (e.key === 'ArrowUp' || e.key === 'PageUp' || e.key === 'a' || e.key === 'A' || e.key === 'w' || e.key === 'W' || (isCurrentRoom('chamber-0') && e.key === 'ArrowLeft')) {
         if (isCurrentRoom('chamber-0')) {
+          milestoneGestureActive = false;
+          if (milestoneSilenceTimer) clearTimeout(milestoneSilenceTimer);
           if (currentMilestoneStop > 0) {
             currentMilestoneStop -= 1;
             isStoppedAtMilestone = false;
@@ -16402,6 +16427,8 @@
     // Walk forward / back buttons
     btnWalkNext.addEventListener('click', () => {
       if (isCurrentRoom('chamber-0')) {
+        milestoneGestureActive = false;
+        if (milestoneSilenceTimer) clearTimeout(milestoneSilenceTimer);
         const maxIdx = (palaceState.milestones || []).length - 1;
         if (currentMilestoneStop < maxIdx) {
           currentMilestoneStop += 1;
@@ -16416,6 +16443,8 @@
 
     btnWalkPrev.addEventListener('click', () => {
       if (isCurrentRoom('chamber-0')) {
+        milestoneGestureActive = false;
+        if (milestoneSilenceTimer) clearTimeout(milestoneSilenceTimer);
         if (currentMilestoneStop > 0) {
           currentMilestoneStop -= 1;
           isStoppedAtMilestone = false;
