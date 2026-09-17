@@ -12840,6 +12840,7 @@
     let currentMilestoneStop = 0; // 0, 1, or 2
     let isStoppedAtMilestone = true;
     let milestoneArrivalTime = 0;
+    let lastMilestoneStepTime = 0;
 
     // Helper: Compute layout-stable pin center immune to 3D chamber scales/perspectives
     function getStablePinCenter(pin, wrap) {
@@ -12970,8 +12971,8 @@
     // Smooth RAF Loop: Direct, snappy interpolation with immediate achievement stop
     function stepTimelineAnimation() {
       const diff = targetTimelineProgress - currentTimelineProgress;
-      if (Math.abs(diff) > 0.001) {
-        currentTimelineProgress += diff * 0.22; // responsive, buttery smooth glide
+      if (Math.abs(diff) > 0.003) {
+        currentTimelineProgress += diff * 0.28; // responsive, buttery smooth glide
         renderTimelineProgress(currentTimelineProgress);
         timelineAnimFrameId = requestAnimationFrame(stepTimelineAnimation);
       } else {
@@ -12980,14 +12981,10 @@
         timelineAnimFrameId = null;
 
         // When arrived at an integer achievement stop:
-        if (Math.abs(currentTimelineProgress - Math.round(currentTimelineProgress)) < 0.01) {
-          const reachedStop = Math.round(currentTimelineProgress);
-          if (!isStoppedAtMilestone || currentMilestoneStop !== reachedStop) {
-            isStoppedAtMilestone = true;
-            currentMilestoneStop = reachedStop;
-            milestoneArrivalTime = performance.now();
-          }
-        }
+        const reachedStop = Math.round(currentTimelineProgress);
+        isStoppedAtMilestone = true;
+        currentMilestoneStop = reachedStop;
+        milestoneArrivalTime = performance.now();
       }
     }
 
@@ -13010,6 +13007,7 @@
       if (targetIdx < 0 || targetIdx >= items.length) return;
       currentMilestoneStop = targetIdx;
       isStoppedAtMilestone = false;
+      lastMilestoneStepTime = performance.now();
       queueTimelineProgress(targetIdx);
     }
 
@@ -13042,6 +13040,7 @@
       currentMilestoneStop = currentFocusMilestoneIdx;
       isStoppedAtMilestone = true;
       milestoneArrivalTime = performance.now();
+      lastMilestoneStepTime = performance.now();
 
       targetTimelineProgress = currentFocusMilestoneIdx;
       currentTimelineProgress = currentFocusMilestoneIdx;
@@ -16160,7 +16159,7 @@
       clearTimeout(wheelSilenceTimer);
       wheelSilenceTimer = setTimeout(() => { wheelDeltaAccumulator = 0; }, 240);
 
-      // Room 01: Timeline navigation - Stops at each achievement, resumes INSTANTLY on next scroll
+      // Room 01: Timeline navigation - 1 deliberate scroll = 1 milestone step, zero lag!
       if (isCurrentRoom('chamber-0')) {
         if (!room01ScrollReady) {
           wheelDeltaAccumulator = 0;
@@ -16176,59 +16175,45 @@
         if (e.deltaMode === 1) delta *= 24;
         else if (e.deltaMode === 2) delta *= 80;
 
+        // Filter out microscopic trackpad jitter
+        if (Math.abs(delta) < 6) return;
+
         const now = performance.now();
-
-        // SCENARIO 1: AT FINAL MILESTONE - scroll down advances into Room 02
-        if (currentMilestoneStop >= maxIdx && delta > 0 && isStoppedAtMilestone) {
-          if (now - milestoneArrivalTime > 60) {
-            goToStage(currentStage + 1); // Step to next active room
-          }
+        // Cooldown measured from gesture start: absorbs inertial momentum, zero wait after arrival!
+        if (now - lastMilestoneStepTime < 140) {
           return;
         }
 
-        // SCENARIO 2: AT FIRST MILESTONE - scroll up returns to Celebration
-        if (currentMilestoneStop <= 0 && delta < 0 && isStoppedAtMilestone) {
-          if (now - milestoneArrivalTime > 60) {
-            goToStage(currentStage - 1); // Return to previous active room
-          }
-          return;
-        }
-
-        // SCENARIO 3: SCROLLING FORWARD (DOWN / RIGHT)
+        // SCENARIO 1: SCROLLING FORWARD (DOWN / RIGHT)
         if (delta > 0) {
-          if (isStoppedAtMilestone) {
-            // Absorb lingering momentum of arrival flick (50ms snappy buffer)
-            if (now - milestoneArrivalTime < 50) {
-              return;
-            }
-            // User scrolled again! Instantly unlock and advance to next achievement ceiling!
+          lastMilestoneStepTime = now;
+          if (currentMilestoneStop < maxIdx) {
+            currentMilestoneStop += 1;
             isStoppedAtMilestone = false;
-            currentMilestoneStop = Math.min(maxIdx, currentMilestoneStop + 1);
+            targetTimelineProgress = currentMilestoneStop;
+            queueTimelineProgress(targetTimelineProgress);
+            return;
+          } else {
+            // At final milestone -> advance into Room 02
+            goToStage(currentStage + 1);
+            return;
           }
-
-          // Progress immediately with user's scroll, strictly capped at currentMilestoneStop
-          const DELTA_SCALE = 140;
-          targetTimelineProgress = Math.min(currentMilestoneStop, targetTimelineProgress + (delta / DELTA_SCALE));
-          queueTimelineProgress(targetTimelineProgress);
-          return;
         }
 
-        // SCENARIO 4: SCROLLING BACKWARD (UP / LEFT)
+        // SCENARIO 2: SCROLLING BACKWARD (UP / LEFT)
         if (delta < 0) {
-          if (isStoppedAtMilestone) {
-            if (now - milestoneArrivalTime < 50) {
-              return;
-            }
-            // User scrolled up! Instantly unlock and retreat to previous achievement floor!
+          lastMilestoneStepTime = now;
+          if (currentMilestoneStop > 0) {
+            currentMilestoneStop -= 1;
             isStoppedAtMilestone = false;
-            currentMilestoneStop = Math.max(0, currentMilestoneStop - 1);
+            targetTimelineProgress = currentMilestoneStop;
+            queueTimelineProgress(targetTimelineProgress);
+            return;
+          } else {
+            // At first milestone -> return to Celebration
+            goToStage(currentStage - 1);
+            return;
           }
-
-          // Progress immediately backwards, strictly floored at currentMilestoneStop
-          const DELTA_SCALE = 140;
-          targetTimelineProgress = Math.max(currentMilestoneStop, targetTimelineProgress + (delta / DELTA_SCALE));
-          queueTimelineProgress(targetTimelineProgress);
-          return;
         }
         return;
       }
