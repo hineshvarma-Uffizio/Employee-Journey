@@ -635,7 +635,7 @@
     }
   ],
   "memories2Mode": "uneven",
-  "memories2CollageImage": "memories_collage_part2.jpg",
+  "memories2CollageImage": "memories_collage_part2.png",
   "memories2": [
     {
       "id": 201,
@@ -7051,6 +7051,7 @@
       overflow: visible;
       padding: 6px;
       box-sizing: border-box;
+      background: transparent !important;
     }
 
     .memories-scatter-board {
@@ -7062,6 +7063,7 @@
       min-height: 440px;
       margin: 0 auto;
       box-sizing: border-box;
+      background: transparent !important;
     }
 
     /* Scrollable mode when photo count > 12 */
@@ -10281,7 +10283,7 @@
 
         <div class="chamber-content">
           <div class="memories-standalone-collage-stage" id="memories2SingleStage" style="display: none;">
-            <img id="memories2CollageImg" class="memories-standalone-collage-img" src="memories_collage_part2.jpg" alt="Year in Memories Collage" onclick="openSingleCollageLightbox(this.src)" title="Click to zoom collage in full screen">
+            <img id="memories2CollageImg" class="memories-standalone-collage-img" src="memories_collage_part2.png" alt="Year in Memories Collage" onclick="openSingleCollageLightbox(this.src)" title="Click to zoom collage in full screen">
           </div>
           <div class="memories2-uneven-stage" id="memories2UnevenStage">
             <div class="memories-scatter-board" id="memoriesScatterBoard">
@@ -11805,7 +11807,7 @@
         <div id="stitcherLoading" style="display:none; padding: 30px 20px; color: #38bdf8; font-size: 14px;">
           ⏳ Generating high-resolution collage composite from your photos...
         </div>
-        <div id="stitcherCanvasWrapper" style="width: 100%; max-height: 520px; overflow: hidden; border-radius: 12px; border: 1.5px solid var(--gold-primary); background: #060913; display: flex; align-items: center; justify-content: center; margin-bottom: 16px;">
+        <div id="stitcherCanvasWrapper" style="width: 100%; max-height: 520px; overflow: hidden; border-radius: 12px; border: 1.5px solid var(--gold-primary); background: repeating-conic-gradient(rgba(255,255,255,0.05) 0% 25%, transparent 0% 50%) 50% / 20px 20px, #070d1e; display: flex; align-items: center; justify-content: center; margin-bottom: 16px;">
           <img id="stitchedResultImg" style="max-width: 100%; max-height: 520px; object-fit: contain; display: block;" alt="Stitched Collage">
         </div>
         <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
@@ -12794,7 +12796,7 @@
         }
       ],
       "memories2Mode": "uneven",
-      "memories2CollageImage": "memories_collage_part2.jpg",
+      "memories2CollageImage": "memories_collage_part2.png",
       "memories2": [
         {
           "id": 201,
@@ -13127,7 +13129,7 @@
             palaceState.memories2Mode = parsed.memories2Mode;
           }
           if (parsed.memories2CollageImage) {
-            palaceState.memories2CollageImage = parsed.memories2CollageImage;
+            palaceState.memories2CollageImage = parsed.memories2CollageImage === 'memories_collage_part2.jpg' ? 'memories_collage_part2.png' : parsed.memories2CollageImage;
           }
           if (parsed.memories2 && Array.isArray(parsed.memories2) && parsed.memories2.length > 0) {
             palaceState.memories2 = parsed.memories2;
@@ -13177,7 +13179,7 @@
         palaceState.memories2Mode = idbData.memories2Mode;
       }
       if (idbData && idbData.memories2CollageImage) {
-        palaceState.memories2CollageImage = idbData.memories2CollageImage;
+        palaceState.memories2CollageImage = idbData.memories2CollageImage === 'memories_collage_part2.jpg' ? 'memories_collage_part2.png' : idbData.memories2CollageImage;
       }
       if (idbData && idbData.memories2 && Array.isArray(idbData.memories2) && idbData.memories2.length > 0) {
         palaceState.memories2 = idbData.memories2;
@@ -14794,9 +14796,10 @@
           singleStage.style.display = 'flex';
           const imgEl = document.getElementById('memories2CollageImg');
           if (imgEl) {
-            const src = palaceState.memories2CollageImage || 
+            let src = palaceState.memories2CollageImage || 
               (palaceState.memories2 && palaceState.memories2[0] && palaceState.memories2[0].image) ||
-              'memories_collage_part2.jpg';
+              'memories_collage_part2.png';
+            if (src === 'memories_collage_part2.jpg') src = 'memories_collage_part2.png';
             imgEl.src = src;
           }
         }
@@ -18494,9 +18497,10 @@
           secMulti.style.display = 'none';
           const preview = document.getElementById('adminMemories2Preview');
           const input = document.getElementById('inputMemories2CollageSrc');
-          const currentSrc = palaceState.memories2CollageImage || 
+          let currentSrc = palaceState.memories2CollageImage || 
             (palaceState.memories2 && palaceState.memories2[0] && palaceState.memories2[0].image) ||
-            'memories_collage_part2.jpg';
+            'memories_collage_part2.png';
+          if (currentSrc === 'memories_collage_part2.jpg') currentSrc = 'memories_collage_part2.png';
           if (preview) preview.src = currentSrc;
           if (input) input.value = currentSrc;
         } else {
@@ -18779,13 +18783,8 @@
         canvas.height = 1200;
         const ctx = canvas.getContext('2d');
 
-        // Draw deep luxury backdrop matching reference dark background
-        const grad = ctx.createRadialGradient(800, 600, 100, 800, 600, 950);
-        grad.addColorStop(0, '#0a1426');
-        grad.addColorStop(0.65, '#040813');
-        grad.addColorStop(1, '#010308');
-        ctx.fillStyle = grad;
-        ctx.fillRect(0, 0, 1600, 1200);
+        // 100% Transparent Background - collage photos float cleanly over chamber wallpaper
+        ctx.clearRect(0, 0, 1600, 1200);
 
         const slots = getUnevenLayoutSlots(count);
         if (slots) {
