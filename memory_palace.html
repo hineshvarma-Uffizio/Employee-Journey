@@ -12841,7 +12841,7 @@
     let isStoppedAtMilestone = true;
     let milestoneArrivalTime = 0;
     let milestoneStepStartTime = 0;
-    let milestoneGestureActive = false;
+    let isWheelSilent = true;
     let milestoneSilenceTimer = null;
 
     // Helper: Compute layout-stable pin center immune to 3D chamber scales/perspectives
@@ -13009,8 +13009,8 @@
       if (targetIdx < 0 || targetIdx >= items.length) return;
       currentMilestoneStop = targetIdx;
       isStoppedAtMilestone = false;
+      isWheelSilent = true;
       milestoneStepStartTime = performance.now();
-      milestoneGestureActive = false;
       if (milestoneSilenceTimer) clearTimeout(milestoneSilenceTimer);
       queueTimelineProgress(targetIdx);
     }
@@ -13043,9 +13043,9 @@
       currentFocusMilestoneIdx = (startFromLast && items.length > 0) ? maxIdx : 0;
       currentMilestoneStop = currentFocusMilestoneIdx;
       isStoppedAtMilestone = true;
+      isWheelSilent = true;
       milestoneArrivalTime = performance.now();
       milestoneStepStartTime = performance.now();
-      milestoneGestureActive = false;
       if (milestoneSilenceTimer) clearTimeout(milestoneSilenceTimer);
 
       targetTimelineProgress = currentFocusMilestoneIdx;
@@ -16186,33 +16186,36 @@
 
         const now = performance.now();
 
-        // Maintain gesture silence timer: 90ms of no wheel events marks the end of this scroll gesture
+        // Maintain gesture silence timer: 100ms with zero wheel events indicates user has finished their scroll flick
         clearTimeout(milestoneSilenceTimer);
         milestoneSilenceTimer = setTimeout(() => {
-          milestoneGestureActive = false;
-        }, 90);
+          isWheelSilent = true;
+        }, 100);
 
-        // If the current scroll gesture has already triggered a step:
-        // Lock momentum so it NEVER skips past the target milestone!
-        // (Allows next step only after 90ms silence, or after 380ms if continuous drag)
-        if (milestoneGestureActive && (now - milestoneStepStartTime < 380)) {
+        // Can only advance to next milestone if:
+        // 1. Line is fully stopped at the current milestone (never allows skipping while in motion)
+        // 2. AND previous scroll flick has ended (100ms silence), or continuous drag exceeded 550ms
+        const canAdvance = isStoppedAtMilestone && (isWheelSilent || (now - milestoneStepStartTime > 550));
+
+        if (!canAdvance) {
+          // Locked to current milestone! Absorbs ALL remaining momentum/inertia so it NEVER skips!
           return;
         }
-
-        // Distinct, intentional scroll gesture detected!
-        milestoneGestureActive = true;
-        milestoneStepStartTime = now;
 
         // SCENARIO 1: SCROLLING FORWARD (DOWN / RIGHT)
         if (delta > 0) {
           if (currentMilestoneStop < maxIdx) {
-            currentMilestoneStop += 1;
             isStoppedAtMilestone = false;
+            isWheelSilent = false;
+            milestoneStepStartTime = now;
+            currentMilestoneStop += 1;
             targetTimelineProgress = currentMilestoneStop;
             queueTimelineProgress(targetTimelineProgress);
             return;
           } else {
             // At final milestone -> advance into Room 02
+            isStoppedAtMilestone = false;
+            isWheelSilent = false;
             goToStage(currentStage + 1);
             return;
           }
@@ -16221,13 +16224,17 @@
         // SCENARIO 2: SCROLLING BACKWARD (UP / LEFT)
         if (delta < 0) {
           if (currentMilestoneStop > 0) {
-            currentMilestoneStop -= 1;
             isStoppedAtMilestone = false;
+            isWheelSilent = false;
+            milestoneStepStartTime = now;
+            currentMilestoneStop -= 1;
             targetTimelineProgress = currentMilestoneStop;
             queueTimelineProgress(targetTimelineProgress);
             return;
           } else {
             // At first milestone -> return to Celebration
+            isStoppedAtMilestone = false;
+            isWheelSilent = false;
             goToStage(currentStage - 1);
             return;
           }
