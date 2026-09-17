@@ -652,7 +652,7 @@
       "icon": "shield",
       "quote": "You step forward when something needs to be done.",
       "desc": "Taking autonomous initiative, closing loops, and owning outcomes from start to finish.",
-      "badge": "Accountability"
+      "badge": ""
     },
     {
       "id": 2,
@@ -660,7 +660,7 @@
       "icon": "sprout",
       "quote": "You turn every challenge into an opportunity to improve.",
       "desc": "Embracing complex problems, mastering new systems, and turning feedback into growth.",
-      "badge": "Continuous Evolution"
+      "badge": ""
     },
     {
       "id": 3,
@@ -668,7 +668,7 @@
       "icon": "users",
       "quote": "You grow by working with and supporting others.",
       "desc": "Lifting teammates, fostering trust, and driving cross-functional alignment across all teams.",
-      "badge": "Team Synergy"
+      "badge": ""
     },
     {
       "id": 4,
@@ -676,7 +676,7 @@
       "icon": "target",
       "quote": "You keep the people we serve at the centre of your work.",
       "desc": "Deep empathy for partner needs, swift resolution, and elevating customer experience.",
-      "badge": "Customer Centricity"
+      "badge": ""
     }
   ],
   "stickyNotes": [
@@ -1074,7 +1074,7 @@
     }
 
     .nucleus-name {
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
       font-size: 13px;
       font-weight: 700;
       color: #ffffff;
@@ -1082,7 +1082,7 @@
     }
 
     .nucleus-tag {
-      font-family: 'Space Grotesk', sans-serif;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
       font-size: 12.5px;
       font-weight: 700;
       color: var(--gold-light);
@@ -1205,7 +1205,7 @@
     }
 
     .value-title {
-      font-family: 'Space Grotesk', sans-serif;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
       font-size: 15px;
       font-weight: 800;
       color: #ffffff;
@@ -1215,20 +1215,11 @@
     }
 
     .value-badge-pill {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 12.5px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.6px;
-      color: var(--gold-light);
-      background: rgba(245, 192, 101, 0.14);
-      border: 1px solid rgba(245, 192, 101, 0.3);
-      border-radius: 12px;
-      padding: 1px 7px;
+      display: none !important;
     }
 
     .value-quote-text {
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
       font-size: 15px;
       font-weight: 700;
       font-style: italic;
@@ -1238,6 +1229,7 @@
     }
 
     .value-desc-text {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
       font-size: 14px;
       color: #94a3b8;
       line-height: 1.45;
@@ -12482,7 +12474,7 @@
           "icon": "shield",
           "quote": "You step forward when something needs to be done.",
           "desc": "Taking autonomous initiative, closing loops, and owning outcomes from start to finish.",
-          "badge": "Accountability"
+          "badge": ""
         },
         {
           "id": 2,
@@ -12490,7 +12482,7 @@
           "icon": "sprout",
           "quote": "You turn every challenge into an opportunity to improve.",
           "desc": "Embracing complex problems, mastering new systems, and turning feedback into growth.",
-          "badge": "Continuous Evolution"
+          "badge": ""
         },
         {
           "id": 3,
@@ -12498,7 +12490,7 @@
           "icon": "users",
           "quote": "You grow by working with and supporting others.",
           "desc": "Lifting teammates, fostering trust, and driving cross-functional alignment across all teams.",
-          "badge": "Team Synergy"
+          "badge": ""
         },
         {
           "id": 4,
@@ -12506,7 +12498,7 @@
           "icon": "target",
           "quote": "You keep the people we serve at the centre of your work.",
           "desc": "Deep empathy for partner needs, swift resolution, and elevating customer experience.",
-          "badge": "Customer Centricity"
+          "badge": ""
         }
       ],
       "stickyNotes": [
@@ -13923,7 +13915,6 @@
             </div>
             <div class="value-title-wrap">
               <h3 class="value-title" data-editable="true">${escapeHtml(v.title || 'VALUE')}</h3>
-              ${v.badge ? `<span class="value-badge-pill" data-editable="true">${escapeHtml(v.badge)}</span>` : ''}
             </div>
           </div>
           <div class="value-quote-text" data-editable="true">“${escapeHtml(v.quote || '')}”</div>

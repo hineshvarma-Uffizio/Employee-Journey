@@ -647,7 +647,7 @@
       "icon": "shield",
       "quote": "You step forward when something needs to be done.",
       "desc": "Taking autonomous initiative, closing loops, and owning outcomes from start to finish.",
-      "badge": "Accountability"
+      "badge": ""
     },
     {
       "id": 2,
@@ -655,7 +655,7 @@
       "icon": "sprout",
       "quote": "You turn every challenge into an opportunity to improve.",
       "desc": "Embracing complex problems, mastering new systems, and turning feedback into growth.",
-      "badge": "Continuous Evolution"
+      "badge": ""
     },
     {
       "id": 3,
@@ -663,7 +663,7 @@
       "icon": "users",
       "quote": "You grow by working with and supporting others.",
       "desc": "Lifting teammates, fostering trust, and driving cross-functional alignment across all teams.",
-      "badge": "Team Synergy"
+      "badge": ""
     },
     {
       "id": 4,
@@ -671,7 +671,7 @@
       "icon": "target",
       "quote": "You keep the people we serve at the centre of your work.",
       "desc": "Deep empathy for partner needs, swift resolution, and elevating customer experience.",
-      "badge": "Customer Centricity"
+      "badge": ""
     }
   ],
   "stickyNotes": [
