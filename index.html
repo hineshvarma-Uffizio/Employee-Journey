@@ -634,16 +634,72 @@
       "desc": "Looking back at an incredible year of personal evolution, achievements, and strong bonds."
     }
   ],
-  "memories2Mode": "single",
-  "memories2CollageImage": "memories_collage_part2.png",
+  "memories2Mode": "uneven",
+  "memories2CollageImage": "memories_collage_part2.jpg",
   "memories2": [
     {
-      "id": 101,
-      "title": "Year in Memories Collage",
+      "id": 201,
+      "title": "Beginning the Journey",
+      "date": "2025",
+      "tag": "📸 Moments",
+      "image": "where_it_started.png",
+      "desc": "Where the vision and energy first came together."
+    },
+    {
+      "id": 202,
+      "title": "Creative Collaboration",
+      "date": "2025",
+      "tag": "📸 Team",
+      "image": "creations_showcase_team.png",
+      "desc": "Brainstorming and building cross-functional solutions."
+    },
+    {
+      "id": 203,
+      "title": "Sprint Milestones",
+      "date": "2025",
+      "tag": "📸 Milestone",
+      "image": "memory_1_photo.jpg",
+      "desc": "Dedicated sessions delivering impact on schedule."
+    },
+    {
+      "id": 204,
+      "title": "Team Leadership",
+      "date": "2025",
+      "tag": "📸 Core",
+      "image": "manushi_hero.jpg",
+      "desc": "Empowering peers and driving impactful project outcomes."
+    },
+    {
+      "id": 205,
+      "title": "Looking to the Future",
+      "date": "2026",
+      "tag": "📸 Vision",
+      "image": "future_vision_board.png",
+      "desc": "Mapping ambitious horizons and long-term milestones."
+    },
+    {
+      "id": 206,
+      "title": "Annual Celebrations",
+      "date": "2025",
+      "tag": "📸 Gala",
+      "image": "memory_6_photo.jpg",
+      "desc": "Unwinding and celebrating shared annual victories."
+    },
+    {
+      "id": 207,
+      "title": "Tech Innovations",
+      "date": "2025",
+      "tag": "📸 Tech",
+      "image": "creations_showcase_tech.png",
+      "desc": "Architectural excellence and technical craftsmanship."
+    },
+    {
+      "id": 208,
+      "title": "Cherished Moments",
       "date": "2025 → 2026",
-      "tag": "📸 Collage",
-      "image": "memories_collage_part2.png",
-      "desc": "Curated moments, team laughter, and workplace milestones."
+      "tag": "📸 Joy",
+      "image": "manushi_portrait.jpg",
+      "desc": "Friendship, camaraderie, and smiles across the floor."
     }
   ],
   "values": [
@@ -6980,6 +7036,169 @@
       }
     }
 
+    /* ==========================================================================
+       ROOM: YEAR IN MEMORIES (PART 2) - UNEVEN WHITE-FRAME PHOTO COLLAGE
+       ========================================================================== */
+    .memories2-uneven-stage {
+      width: 100%;
+      height: 100%;
+      max-width: 1220px;
+      max-height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: visible;
+      padding: 6px;
+      box-sizing: border-box;
+    }
+
+    .memories-scatter-board {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      max-width: 1140px;
+      max-height: 600px;
+      min-height: 440px;
+      margin: 0 auto;
+      box-sizing: border-box;
+    }
+
+    /* Scrollable mode when photo count > 12 */
+    .memories-scatter-board.is-scrollable {
+      max-height: 100% !important;
+      overflow-y: auto !important;
+      overflow-x: hidden !important;
+      padding: 18px 16px 45px 16px !important;
+      display: grid !important;
+      grid-template-columns: repeat(4, 1fr) !important;
+      gap: 22px 16px !important;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(245, 192, 101, 0.4) rgba(255, 255, 255, 0.03);
+    }
+
+    .memories-scatter-board.is-scrollable::-webkit-scrollbar {
+      width: 6px;
+    }
+    .memories-scatter-board.is-scrollable::-webkit-scrollbar-thumb {
+      background: rgba(245, 192, 101, 0.4);
+      border-radius: 6px;
+    }
+
+    .memories-scatter-board.is-scrollable .memories-uneven-card {
+      position: relative !important;
+      left: auto !important;
+      top: auto !important;
+      width: 100% !important;
+      height: 200px !important;
+    }
+
+    /* Individual Uneven White-Frame Card */
+    .memories-uneven-card {
+      position: absolute;
+      background: #ffffff;
+      padding: 8px 8px 11px 8px;
+      border-radius: 2px;
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.75), 0 4px 10px rgba(0, 0, 0, 0.45);
+      cursor: pointer;
+      transition: transform 0.35s cubic-bezier(0.2, 0.9, 0.3, 1),
+                  box-shadow 0.35s ease,
+                  z-index 0.35s ease;
+      user-select: none;
+      transform-origin: center center;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .memories-uneven-card:hover {
+      transform: scale(1.12) rotate(0deg) !important;
+      z-index: 100 !important;
+      box-shadow: 0 26px 55px rgba(0, 0, 0, 0.92), 0 0 25px rgba(255, 255, 255, 0.4) !important;
+    }
+
+    .memories-uneven-img-wrap {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #0b1120;
+      position: relative;
+      border-radius: 1px;
+    }
+
+    .memories-uneven-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.35s ease;
+    }
+
+    .memories-uneven-card:hover .memories-uneven-img-wrap img {
+      transform: scale(1.04);
+    }
+
+    .memories-uneven-zoom-btn {
+      position: absolute;
+      bottom: 8px;
+      right: 8px;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(15, 23, 42, 0.85);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      opacity: 0;
+      transform: scale(0.7);
+      transition: all 0.25s ease;
+      pointer-events: none;
+    }
+
+    .memories-uneven-card:hover .memories-uneven-zoom-btn {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    @media (max-width: 768px) {
+      .memories2-uneven-stage {
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+        display: block !important;
+        height: 100% !important;
+        padding: 10px 8px 45px 8px !important;
+        -webkit-overflow-scrolling: touch;
+      }
+      .memories-scatter-board {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 16px 12px !important;
+        position: static !important;
+        width: 100% !important;
+        max-height: none !important;
+        min-height: auto !important;
+      }
+      .memories-uneven-card {
+        position: static !important;
+        width: 100% !important;
+        height: 180px !important;
+        padding: 6px 6px 8px 6px !important;
+        margin: 0 !important;
+      }
+      .memories-uneven-card:nth-child(even) {
+        transform: rotate(2.5deg);
+      }
+      .memories-uneven-card:nth-child(odd) {
+        transform: rotate(-2.5deg);
+      }
+      .memories-uneven-card:hover {
+        transform: scale(1.05) rotate(0deg) !important;
+      }
+    }
+
     #memories2GridStage {
       width: 100%;
       height: 100%;
@@ -10061,13 +10280,18 @@
         </div>
 
         <div class="chamber-content">
-          <div class="memories-standalone-collage-stage" id="memories2SingleStage">
-            <img id="memories2CollageImg" class="memories-standalone-collage-img" src="memories_collage_part2.png" alt="Year in Memories Collage" onclick="openSingleCollageLightbox(this.src)" title="Click to zoom collage in full screen">
+          <div class="memories-standalone-collage-stage" id="memories2SingleStage" style="display: none;">
+            <img id="memories2CollageImg" class="memories-standalone-collage-img" src="memories_collage_part2.jpg" alt="Year in Memories Collage" onclick="openSingleCollageLightbox(this.src)" title="Click to zoom collage in full screen">
+          </div>
+          <div class="memories2-uneven-stage" id="memories2UnevenStage">
+            <div class="memories-scatter-board" id="memoriesScatterBoard">
+              <!-- Rendered dynamically by renderMemories2Uneven() -->
+            </div>
           </div>
           <div class="room-memories" id="memories2GridStage" style="display: none;">
             <div class="collage-board-container">
               <div class="collage-mosaic-grid memories2-mosaic-grid" id="collageMosaicGrid2">
-                <!-- Rendered dynamically by renderMemories2() -->
+                <!-- Rendered dynamically by renderMemories2Grid() -->
               </div>
             </div>
           </div>
@@ -10895,14 +11119,20 @@
         </div>
 
         <!-- Mode Toggle Segmented Control -->
-        <div class="mem2-mode-selector" style="display:flex; gap:10px; margin-bottom:18px; background:rgba(15,23,42,0.7); padding:6px; border-radius:12px; border:1px solid rgba(245,192,101,0.25);">
-          <button type="button" class="btn-mem2-mode active" id="btnMem2ModeSingle" onclick="switchMemories2Mode('single')" style="flex:1; padding:10px 14px; border-radius:8px; font-size:13px; font-weight:700; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px; transition:all 0.2s ease;">
-            <span>🖼️ Mode 1: Single Ready-Made Image</span>
+        <div class="mem2-mode-selector" style="display:flex; gap:10px; margin-bottom:14px; background:rgba(15,23,42,0.7); padding:6px; border-radius:12px; border:1px solid rgba(245,192,101,0.25);">
+          <button type="button" class="btn-mem2-mode" id="btnMem2ModeSingle" onclick="switchMemories2Mode('single')" style="flex:1; padding:10px 10px; border-radius:8px; font-size:12px; font-weight:700; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:6px; transition:all 0.2s ease;">
+            <span>🖼️ Mode 1: Single Image</span>
           </button>
-          <button type="button" class="btn-mem2-mode" id="btnMem2ModeMulti" onclick="switchMemories2Mode('multi')" style="flex:1; padding:10px 14px; border-radius:8px; font-size:13px; font-weight:700; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px; transition:all 0.2s ease;">
-            <span>📸 Mode 2: Multi-Photo Auto-Collage</span>
+          <button type="button" class="btn-mem2-mode active" id="btnMem2ModeUneven" onclick="switchMemories2Mode('uneven')" style="flex:1; padding:10px 10px; border-radius:8px; font-size:12px; font-weight:700; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:6px; transition:all 0.2s ease;">
+            <span>📸 Mode 2: Uneven White-Frame Collage</span>
+          </button>
+          <button type="button" class="btn-mem2-mode" id="btnMem2ModeGrid" onclick="switchMemories2Mode('grid')" style="flex:1; padding:10px 10px; border-radius:8px; font-size:12px; font-weight:700; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:6px; transition:all 0.2s ease;">
+            <span>🔲 Mode 3: Mosaic Grid</span>
           </button>
         </div>
+
+        <!-- Mode Information Notice -->
+        <div id="mem2ModeNotice" style="margin-bottom:16px; padding:10px 14px; border-radius:8px; font-size:12px; line-height:1.4; display:flex; align-items:center; gap:8px;"></div>
 
         <!-- Section 1: Single Image Mode -->
         <div id="adminMem2SingleSection" style="background:rgba(15,23,42,0.6); border:1px solid rgba(245,192,101,0.25); border-radius:12px; padding:16px; display:flex; flex-direction:column; gap:16px;">
@@ -12563,16 +12793,72 @@
           "desc": "Looking back at an incredible year of personal evolution, achievements, and strong bonds."
         }
       ],
-      "memories2Mode": "single",
-      "memories2CollageImage": "memories_collage_part2.png",
+      "memories2Mode": "uneven",
+      "memories2CollageImage": "memories_collage_part2.jpg",
       "memories2": [
         {
-          "id": 101,
-          "title": "Year in Memories Collage",
+          "id": 201,
+          "title": "Beginning the Journey",
+          "date": "2025",
+          "tag": "📸 Moments",
+          "image": "where_it_started.png",
+          "desc": "Where the vision and energy first came together."
+        },
+        {
+          "id": 202,
+          "title": "Creative Collaboration",
+          "date": "2025",
+          "tag": "📸 Team",
+          "image": "creations_showcase_team.png",
+          "desc": "Brainstorming and building cross-functional solutions."
+        },
+        {
+          "id": 203,
+          "title": "Sprint Milestones",
+          "date": "2025",
+          "tag": "📸 Milestone",
+          "image": "memory_1_photo.jpg",
+          "desc": "Dedicated sessions delivering impact on schedule."
+        },
+        {
+          "id": 204,
+          "title": "Team Leadership",
+          "date": "2025",
+          "tag": "📸 Core",
+          "image": "manushi_hero.jpg",
+          "desc": "Empowering peers and driving impactful project outcomes."
+        },
+        {
+          "id": 205,
+          "title": "Looking to the Future",
+          "date": "2026",
+          "tag": "📸 Vision",
+          "image": "future_vision_board.png",
+          "desc": "Mapping ambitious horizons and long-term milestones."
+        },
+        {
+          "id": 206,
+          "title": "Annual Celebrations",
+          "date": "2025",
+          "tag": "📸 Gala",
+          "image": "memory_6_photo.jpg",
+          "desc": "Unwinding and celebrating shared annual victories."
+        },
+        {
+          "id": 207,
+          "title": "Tech Innovations",
+          "date": "2025",
+          "tag": "📸 Tech",
+          "image": "creations_showcase_tech.png",
+          "desc": "Architectural excellence and technical craftsmanship."
+        },
+        {
+          "id": 208,
+          "title": "Cherished Moments",
           "date": "2025 → 2026",
-          "tag": "📸 Collage",
-          "image": "memories_collage_part2.png",
-          "desc": "Curated moments, team laughter, and workplace milestones."
+          "tag": "📸 Joy",
+          "image": "manushi_portrait.jpg",
+          "desc": "Friendship, camaraderie, and smiles across the floor."
         }
       ],
       "values": [
@@ -14490,25 +14776,230 @@
 
     function renderMemories2() {
       const singleStage = document.getElementById('memories2SingleStage');
+      const unevenStage = document.getElementById('memories2UnevenStage');
       const gridStage = document.getElementById('memories2GridStage');
-      const isMulti = palaceState.memories2Mode === 'multi';
+      const mode = palaceState.memories2Mode || 'uneven';
 
-      if (isMulti) {
+      if (mode === 'grid') {
         if (singleStage) singleStage.style.display = 'none';
+        if (unevenStage) unevenStage.style.display = 'none';
         if (gridStage) {
           gridStage.style.display = 'flex';
           renderMemories2Grid();
         }
-      } else {
+      } else if (mode === 'single') {
+        if (unevenStage) unevenStage.style.display = 'none';
         if (gridStage) gridStage.style.display = 'none';
-        if (singleStage) singleStage.style.display = 'flex';
-        const imgEl = document.getElementById('memories2CollageImg');
-        if (imgEl) {
-          const src = palaceState.memories2CollageImage || 
-            (palaceState.memories2 && palaceState.memories2[0] && palaceState.memories2[0].image) ||
-            'memories_collage_part2.png';
-          imgEl.src = src;
+        if (singleStage) {
+          singleStage.style.display = 'flex';
+          const imgEl = document.getElementById('memories2CollageImg');
+          if (imgEl) {
+            const src = palaceState.memories2CollageImage || 
+              (palaceState.memories2 && palaceState.memories2[0] && palaceState.memories2[0].image) ||
+              'memories_collage_part2.jpg';
+            imgEl.src = src;
+          }
         }
+      } else {
+        // Mode 2: Uneven White-Frame Collage (Default / Recommended)
+        if (singleStage) singleStage.style.display = 'none';
+        if (gridStage) gridStage.style.display = 'none';
+        if (unevenStage) {
+          unevenStage.style.display = 'flex';
+          renderMemories2Uneven();
+        }
+      }
+    }
+
+    function getUnevenLayoutSlots(count) {
+      if (count <= 1) {
+        return [{ left: 25, top: 12, width: 50, height: 76, rot: -1, z: 1 }];
+      }
+      if (count === 2) {
+        return [
+          { left: 8,  top: 16, width: 44, height: 68, rot: -5.5, z: 2 },
+          { left: 48, top: 18, width: 44, height: 68, rot: 4.5,  z: 3 }
+        ];
+      }
+      if (count === 3) {
+        return [
+          { left: 4,  top: 18, width: 33, height: 64, rot: -7,   z: 2 },
+          { left: 33, top: 14, width: 34, height: 68, rot: 2,    z: 4 },
+          { left: 63, top: 20, width: 33, height: 64, rot: -5.5, z: 3 }
+        ];
+      }
+      if (count === 4) {
+        return [
+          { left: 8,  top: 5,  width: 41, height: 43, rot: -6.5, z: 2 },
+          { left: 51, top: 4,  width: 41, height: 43, rot: 5,    z: 3 },
+          { left: 6,  top: 50, width: 41, height: 43, rot: 4,    z: 4 },
+          { left: 53, top: 52, width: 41, height: 43, rot: -5.5, z: 5 }
+        ];
+      }
+      if (count === 5) {
+        return [
+          { left: 4,  top: 4,  width: 33, height: 42, rot: -7.5, z: 2 },
+          { left: 63, top: 4,  width: 33, height: 42, rot: 6,    z: 2 },
+          { left: 32, top: 28, width: 36, height: 44, rot: -1.5, z: 5 },
+          { left: 4,  top: 54, width: 33, height: 42, rot: 5,    z: 3 },
+          { left: 63, top: 54, width: 33, height: 42, rot: -6,   z: 4 }
+        ];
+      }
+      if (count === 6) {
+        return [
+          { left: 4,  top: 4,  width: 30, height: 42, rot: -8,   z: 2 },
+          { left: 35, top: 2,  width: 30, height: 42, rot: 3,    z: 3 },
+          { left: 66, top: 4,  width: 30, height: 42, rot: -6.5, z: 2 },
+          { left: 3,  top: 52, width: 30, height: 42, rot: 5,    z: 4 },
+          { left: 34, top: 54, width: 30, height: 42, rot: -3,   z: 5 },
+          { left: 67, top: 52, width: 30, height: 42, rot: 7,    z: 4 }
+        ];
+      }
+      if (count === 7) {
+        return [
+          { left: 4,  top: 2,  width: 29, height: 38, rot: -8.5, z: 2 },
+          { left: 35, top: 0,  width: 31, height: 38, rot: 3.5,  z: 3 },
+          { left: 67, top: 2,  width: 29, height: 38, rot: -7,   z: 2 },
+          { left: 33, top: 32, width: 35, height: 40, rot: -2,   z: 5 },
+          { left: 2,  top: 54, width: 28, height: 38, rot: 5.5,  z: 4 },
+          { left: 35, top: 60, width: 30, height: 38, rot: -4,   z: 6 },
+          { left: 68, top: 54, width: 28, height: 38, rot: 7,    z: 4 }
+        ];
+      }
+      if (count === 8) {
+        // Exact reference collage layout from media_1789647671540.jpg
+        return [
+          { left: 3,  top: 2,  width: 27, height: 35, rot: -9.5, z: 2 },
+          { left: 32, top: 0,  width: 34, height: 36, rot: 3.5,  z: 3 },
+          { left: 67, top: 2,  width: 29, height: 35, rot: -7,   z: 2 },
+          { left: 0,  top: 38, width: 26, height: 33, rot: 2,    z: 4 },
+          { left: 33, top: 31, width: 35, height: 38, rot: -2,   z: 5 },
+          { left: 70, top: 38, width: 28, height: 34, rot: 6.5,  z: 3 },
+          { left: 18, top: 58, width: 28, height: 35, rot: -8,   z: 6 },
+          { left: 49, top: 60, width: 26, height: 34, rot: 3.5,  z: 7 }
+        ];
+      }
+      if (count === 9) {
+        return [
+          { left: 3,  top: 2,  width: 27, height: 35, rot: -9.5, z: 2 },
+          { left: 32, top: 0,  width: 34, height: 36, rot: 3.5,  z: 3 },
+          { left: 67, top: 2,  width: 29, height: 35, rot: -7,   z: 2 },
+          { left: 0,  top: 38, width: 26, height: 33, rot: 2,    z: 4 },
+          { left: 33, top: 31, width: 35, height: 38, rot: -2,   z: 5 },
+          { left: 70, top: 38, width: 28, height: 34, rot: 6.5,  z: 3 },
+          { left: 16, top: 58, width: 27, height: 35, rot: -8,   z: 6 },
+          { left: 45, top: 60, width: 26, height: 34, rot: 3.5,  z: 7 },
+          { left: 73, top: 56, width: 25, height: 34, rot: -5.5, z: 6 }
+        ];
+      }
+      if (count === 10) {
+        return [
+          { left: 2,  top: 2,  width: 26, height: 34, rot: -9.5, z: 2 },
+          { left: 29, top: 0,  width: 27, height: 34, rot: 3.5,  z: 3 },
+          { left: 57, top: 1,  width: 26, height: 34, rot: -6,   z: 2 },
+          { left: 75, top: 12, width: 24, height: 32, rot: 7,    z: 3 },
+          { left: 0,  top: 36, width: 25, height: 32, rot: 2,    z: 4 },
+          { left: 28, top: 31, width: 32, height: 36, rot: -2,   z: 5 },
+          { left: 63, top: 35, width: 26, height: 32, rot: 5.5,  z: 3 },
+          { left: 12, top: 58, width: 26, height: 34, rot: -8,   z: 6 },
+          { left: 40, top: 60, width: 26, height: 34, rot: 3.5,  z: 7 },
+          { left: 68, top: 57, width: 26, height: 34, rot: -5,   z: 6 }
+        ];
+      }
+      if (count <= 12) {
+        return [
+          { left: 2,  top: 1,  width: 25, height: 32, rot: -9,   z: 2 },
+          { left: 28, top: 0,  width: 26, height: 33, rot: 3,    z: 3 },
+          { left: 55, top: 1,  width: 25, height: 32, rot: -6,   z: 2 },
+          { left: 76, top: 8,  width: 23, height: 31, rot: 7.5,  z: 3 },
+          { left: 0,  top: 34, width: 24, height: 31, rot: 2,    z: 4 },
+          { left: 27, top: 30, width: 31, height: 35, rot: -2,   z: 5 },
+          { left: 61, top: 33, width: 25, height: 31, rot: 5,    z: 4 },
+          { left: 77, top: 39, width: 22, height: 30, rot: -4.5, z: 3 },
+          { left: 8,  top: 57, width: 25, height: 33, rot: -8,   z: 6 },
+          { left: 35, top: 59, width: 25, height: 33, rot: 3.5,  z: 7 },
+          { left: 62, top: 57, width: 25, height: 33, rot: -5.5, z: 6 },
+          { left: 76, top: 62, width: 22, height: 30, rot: 6,    z: 5 }
+        ].slice(0, count);
+      }
+      // count > 12: Scrollable layout
+      return null;
+    }
+
+    function renderMemories2Uneven() {
+      const board = document.getElementById('memoriesScatterBoard');
+      if (!board) return;
+      board.innerHTML = '';
+
+      const items = palaceState.memories2 || [];
+      if (items.length === 0) {
+        board.classList.remove('is-scrollable');
+        board.innerHTML = `
+          <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; color: #94a3b8; background: rgba(15,23,42,0.85); padding: 28px 36px; border-radius: 12px; border: 1.5px dashed rgba(245,192,101,0.3);">
+            <p style="font-size: 16px; margin-bottom: 8px; color: var(--gold-light);">📸 No photos in Memories 2 yet.</p>
+            <p style="font-size: 13px; color: #94a3b8; margin: 0;">Open the Admin Panel to bulk-upload photos or add memories.</p>
+          </div>
+        `;
+        return;
+      }
+
+      const count = items.length;
+      const slots = getUnevenLayoutSlots(count);
+
+      if (slots) {
+        board.classList.remove('is-scrollable');
+        items.forEach((m, idx) => {
+          const slot = slots[idx] || slots[slots.length - 1];
+          const card = document.createElement('div');
+          card.className = 'memories-uneven-card';
+          card.dataset.idx = idx;
+          card.style.left = `${slot.left}%`;
+          card.style.top = `${slot.top}%`;
+          card.style.width = `${slot.width}%`;
+          card.style.height = `${slot.height}%`;
+          card.style.transform = `rotate(${slot.rot}deg)`;
+          card.style.zIndex = slot.z;
+          card.setAttribute('title', `${m.title || 'Memory Photo'} (Click to zoom)`);
+
+          card.innerHTML = `
+            <div class="memories-uneven-img-wrap">
+              <img src="${escapeHtmlAttr(m.image || 'where_it_started.png')}" alt="${escapeHtmlAttr(m.title || 'Memory Photo')}" onerror="this.src='where_it_started.png'">
+              <div class="memories-uneven-zoom-btn">🔍</div>
+            </div>
+          `;
+
+          card.addEventListener('click', () => {
+            openCollageLightbox(idx, true);
+          });
+
+          board.appendChild(card);
+        });
+      } else {
+        // More than 12 photos: Organic scrollable scrapbook scatter-wall!
+        board.classList.add('is-scrollable');
+        const rotPattern = [-6, 4.5, -4, 5.5, -5, 3.5, -7, 4, -3.5, 6, -5.5, 4.5];
+        items.forEach((m, idx) => {
+          const rot = rotPattern[idx % rotPattern.length];
+          const card = document.createElement('div');
+          card.className = 'memories-uneven-card';
+          card.dataset.idx = idx;
+          card.style.transform = `rotate(${rot}deg)`;
+          card.style.zIndex = (idx % 5) + 2;
+          card.setAttribute('title', `${m.title || 'Memory Photo'} (Click to zoom)`);
+
+          card.innerHTML = `
+            <div class="memories-uneven-img-wrap">
+              <img src="${escapeHtmlAttr(m.image || 'where_it_started.png')}" alt="${escapeHtmlAttr(m.title || 'Memory Photo')}" onerror="this.src='where_it_started.png'">
+              <div class="memories-uneven-zoom-btn">🔍</div>
+            </div>
+          `;
+
+          card.addEventListener('click', () => {
+            openCollageLightbox(idx, true);
+          });
+
+          board.appendChild(card);
+        });
       }
     }
 
@@ -17967,43 +18458,69 @@
     // Dynamic Memories Part 2 Collage Editor in Admin Panel
     window.switchMemories2Mode = function(mode) {
       palaceState.memories2Mode = mode;
+      if ((mode === 'uneven' || mode === 'multi') && (!palaceState.memories2 || palaceState.memories2.length <= 1)) {
+        palaceState.memories2 = [
+          { id: 201, image: 'where_it_started.png', title: 'Beginning the Journey', desc: '' },
+          { id: 202, image: 'creations_showcase_team.png', title: 'Creative Collaboration', desc: '' },
+          { id: 203, image: 'memory_1_photo.jpg', title: 'Sprint Milestones', desc: '' },
+          { id: 204, image: 'manushi_hero.jpg', title: 'Team Leadership', desc: '' },
+          { id: 205, image: 'future_vision_board.png', title: 'Looking to the Future', desc: '' },
+          { id: 206, image: 'memory_6_photo.jpg', title: 'Annual Celebrations', desc: '' },
+          { id: 207, image: 'creations_showcase_tech.png', title: 'Tech Innovations', desc: '' },
+          { id: 208, image: 'manushi_portrait.jpg', title: 'Cherished Moments', desc: '' }
+        ];
+      }
       persistPalaceState();
       populateAdminMemories2();
       renderMemories2();
     };
 
     function populateAdminMemories2() {
-      const mode = palaceState.memories2Mode || 'single';
+      const mode = palaceState.memories2Mode || 'uneven';
       const btnSingle = document.getElementById('btnMem2ModeSingle');
-      const btnMulti = document.getElementById('btnMem2ModeMulti');
+      const btnUneven = document.getElementById('btnMem2ModeUneven');
+      const btnGrid = document.getElementById('btnMem2ModeGrid');
       const secSingle = document.getElementById('adminMem2SingleSection');
       const secMulti = document.getElementById('adminMem2MultiSection');
+      const noticeEl = document.getElementById('mem2ModeNotice');
 
-      if (btnSingle && btnMulti) {
-        if (mode === 'multi') {
-          btnSingle.classList.remove('active');
-          btnMulti.classList.add('active');
-        } else {
-          btnSingle.classList.add('active');
-          btnMulti.classList.remove('active');
-        }
-      }
+      if (btnSingle) btnSingle.classList.toggle('active', mode === 'single');
+      if (btnUneven) btnUneven.classList.toggle('active', mode === 'uneven' || mode === 'multi');
+      if (btnGrid) btnGrid.classList.toggle('active', mode === 'grid');
 
       if (secSingle && secMulti) {
-        if (mode === 'multi') {
-          secSingle.style.display = 'none';
-          secMulti.style.display = 'flex';
-          renderAdminMemories2List();
-        } else {
+        if (mode === 'single') {
           secSingle.style.display = 'flex';
           secMulti.style.display = 'none';
           const preview = document.getElementById('adminMemories2Preview');
           const input = document.getElementById('inputMemories2CollageSrc');
           const currentSrc = palaceState.memories2CollageImage || 
             (palaceState.memories2 && palaceState.memories2[0] && palaceState.memories2[0].image) ||
-            'memories_collage_part2.png';
+            'memories_collage_part2.jpg';
           if (preview) preview.src = currentSrc;
           if (input) input.value = currentSrc;
+        } else {
+          secSingle.style.display = 'none';
+          secMulti.style.display = 'flex';
+          renderAdminMemories2List();
+        }
+      }
+
+      if (noticeEl) {
+        if (mode === 'uneven' || mode === 'multi') {
+          noticeEl.style.display = 'flex';
+          noticeEl.style.background = 'rgba(245, 192, 101, 0.12)';
+          noticeEl.style.border = '1px solid rgba(245, 192, 101, 0.3)';
+          noticeEl.style.color = '#fde68a';
+          noticeEl.innerHTML = `📸 <strong>Mode 2 Active:</strong> Dynamic White-Frame Uneven Photo Collage (matching reference design). Adapts smoothly to any photo count (2 to 10+ photos).`;
+        } else if (mode === 'grid') {
+          noticeEl.style.display = 'flex';
+          noticeEl.style.background = 'rgba(56, 189, 248, 0.12)';
+          noticeEl.style.border = '1px solid rgba(56, 189, 248, 0.3)';
+          noticeEl.style.color = '#bae6fd';
+          noticeEl.innerHTML = `🔲 <strong>Mode 3 Active:</strong> Classic aligned mosaic grid.`;
+        } else {
+          noticeEl.style.display = 'none';
         }
       }
     }
@@ -18262,64 +18779,47 @@
         canvas.height = 1200;
         const ctx = canvas.getContext('2d');
 
-        // Draw deep luxury backdrop
-        const grad = ctx.createRadialGradient(800, 500, 80, 800, 600, 950);
-        grad.addColorStop(0, '#0a1d3d');
-        grad.addColorStop(0.65, '#060f22');
-        grad.addColorStop(1, '#02060f');
+        // Draw deep luxury backdrop matching reference dark background
+        const grad = ctx.createRadialGradient(800, 600, 100, 800, 600, 950);
+        grad.addColorStop(0, '#0a1426');
+        grad.addColorStop(0.65, '#040813');
+        grad.addColorStop(1, '#010308');
         ctx.fillStyle = grad;
         ctx.fillRect(0, 0, 1600, 1200);
 
-        // Gold frame
-        ctx.strokeStyle = 'rgba(245, 192, 101, 0.4)';
-        ctx.lineWidth = 4;
-        ctx.strokeRect(18, 18, 1564, 1164);
+        const slots = getUnevenLayoutSlots(count);
+        if (slots) {
+          // Sort items by z-index so layers overlap properly on canvas
+          const indexed = slots.map((s, idx) => ({ slot: s, img: validImgs[idx], idx })).filter(item => !!item.img);
+          indexed.sort((a, b) => (a.slot.z || 0) - (b.slot.z || 0));
 
-        // Calculate layout rows
-        function getRowDistribution(n) {
-          if (n === 1) return [1];
-          if (n === 2) return [2];
-          if (n === 3) return [1, 2];
-          if (n === 4) return [2, 2];
-          if (n === 5) return [2, 3];
-          if (n === 6) return [3, 3];
-          if (n === 7) return [3, 4];
-          if (n === 8) return [4, 4];
-          if (n === 9) return [3, 3, 3];
-          if (n === 10) return [3, 4, 3];
-          if (n === 11) return [4, 3, 4];
-          if (n === 12) return [4, 4, 4];
-          const rows = Math.ceil(Math.sqrt(n));
-          const res = [];
-          let rem = n;
-          for (let r = 0; r < rows; r++) {
-            const cols = Math.ceil(rem / (rows - r));
-            res.push(cols);
-            rem -= cols;
-          }
-          return res;
-        }
+          indexed.forEach(({ slot, img }) => {
+            const pw = (slot.width * 1600) / 100;
+            const ph = (slot.height * 1200) / 100;
+            const cx = (slot.left * 1600) / 100 + pw / 2;
+            const cy = (slot.top * 1200) / 100 + ph / 2;
+            const rotRad = (slot.rot * Math.PI) / 180;
 
-        const rowCounts = getRowDistribution(count);
-        const numRows = rowCounts.length;
-        const padX = 40, padY = 40, gap = 16;
-        const availH = 1200 - (padY * 2) - (gap * (numRows - 1));
-        const rowH = availH / numRows;
+            ctx.save();
+            ctx.translate(cx, cy);
+            ctx.rotate(rotRad);
 
-        let imgIndex = 0;
-        for (let r = 0; r < numRows; r++) {
-          const colsInRow = rowCounts[r];
-          const availW = 1600 - (padX * 2) - (gap * (colsInRow - 1));
-          const colW = availW / colsInRow;
-          const y = padY + r * (rowH + gap);
+            // Realistic drop shadow
+            ctx.shadowColor = 'rgba(0, 0, 0, 0.75)';
+            ctx.shadowBlur = 32;
+            ctx.shadowOffsetX = 0;
+            ctx.shadowOffsetY = 16;
 
-          for (let c = 0; c < colsInRow; c++) {
-            if (imgIndex >= count) break;
-            const img = validImgs[imgIndex];
-            const x = padX + c * (colW + gap);
+            // Crisp White Photo Frame
+            const framePad = 11;
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(-pw / 2 - framePad, -ph / 2 - framePad, pw + framePad * 2, ph + framePad * 2 + 4);
 
-            // Aspect-ratio cover crop
-            const targetAspect = colW / rowH;
+            // Reset shadow before drawing photo
+            ctx.shadowColor = 'transparent';
+
+            // Cover crop photo inside frame
+            const targetAspect = pw / ph;
             const imgAspect = img.width / img.height;
             let sx, sy, sw, sh;
             if (imgAspect > targetAspect) {
@@ -18334,45 +18834,51 @@
               sy = (img.height - sh) / 2;
             }
 
-            // Draw image with rounded corners
+            ctx.drawImage(img, sx, sy, sw, sh, -pw / 2, -ph / 2, pw, ph);
+            ctx.restore();
+          });
+        } else {
+          // Fallback multi-row uneven for count > 12
+          const cols = Math.ceil(Math.sqrt(count));
+          const rows = Math.ceil(count / cols);
+          const pad = 40, gap = 20;
+          const cw = (1600 - pad * 2 - gap * (cols - 1)) / cols;
+          const ch = (1200 - pad * 2 - gap * (rows - 1)) / rows;
+          const rotPattern = [-5, 4, -4, 5, -3, 3];
+
+          for (let i = 0; i < count; i++) {
+            const img = validImgs[i];
+            const r = Math.floor(i / cols);
+            const c = i % cols;
+            const cx = pad + c * (cw + gap) + cw / 2;
+            const cy = pad + r * (ch + gap) + ch / 2;
+            const rot = (rotPattern[i % rotPattern.length] * Math.PI) / 180;
+
             ctx.save();
-            ctx.beginPath();
-            if (ctx.roundRect) {
-              ctx.roundRect(x, y, colW, rowH, 10);
+            ctx.translate(cx, cy);
+            ctx.rotate(rot);
+
+            ctx.shadowColor = 'rgba(0, 0, 0, 0.7)';
+            ctx.shadowBlur = 24;
+            ctx.shadowOffsetY = 12;
+
+            const framePad = 8;
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(-cw / 2 - framePad, -ch / 2 - framePad, cw + framePad * 2, ch + framePad * 2 + 3);
+
+            ctx.shadowColor = 'transparent';
+            const targetAspect = cw / ch;
+            const imgAspect = img.width / img.height;
+            let sx = 0, sy = 0, sw = img.width, sh = img.height;
+            if (imgAspect > targetAspect) {
+              sw = img.height * targetAspect;
+              sx = (img.width - sw) / 2;
             } else {
-              ctx.rect(x, y, colW, rowH);
+              sh = img.width / targetAspect;
+              sy = (img.height - sh) / 2;
             }
-            ctx.clip();
-            ctx.drawImage(img, sx, sy, sw, sh, x, y, colW, rowH);
+            ctx.drawImage(img, sx, sy, sw, sh, -cw / 2, -ch / 2, cw, ch);
             ctx.restore();
-
-            // Border
-            ctx.save();
-            ctx.beginPath();
-            if (ctx.roundRect) {
-              ctx.roundRect(x, y, colW, rowH, 10);
-            } else {
-              ctx.rect(x, y, colW, rowH);
-            }
-            ctx.strokeStyle = 'rgba(245, 192, 101, 0.45)';
-            ctx.lineWidth = 2.5;
-            ctx.stroke();
-            ctx.restore();
-
-            // Pin accent at top center
-            ctx.save();
-            ctx.beginPath();
-            ctx.arc(x + colW / 2, y + 10, 5, 0, Math.PI * 2);
-            ctx.fillStyle = '#f5c065';
-            ctx.shadowColor = 'rgba(0,0,0,0.8)';
-            ctx.shadowBlur = 4;
-            ctx.fill();
-            ctx.strokeStyle = '#fff';
-            ctx.lineWidth = 1;
-            ctx.stroke();
-            ctx.restore();
-
-            imgIndex++;
           }
         }
 
