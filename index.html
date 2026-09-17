@@ -16884,28 +16884,11 @@
           size = Math.random() * 5 + 5;
         }
 
-        // Multi-cannon explosive burst: fast launch velocity across full screen
-        let originX, originY, vx, vy;
-        const cannon = i % 3;
-        if (cannon === 0) {
-          // Left cannon: shoots up-right fast
-          originX = window.innerWidth * 0.15;
-          originY = window.innerHeight * 0.72;
-          vx = Math.random() * 32 + 14;
-          vy = -Math.random() * 26 - 26;
-        } else if (cannon === 1) {
-          // Right cannon: shoots up-left fast
-          originX = window.innerWidth * 0.85;
-          originY = window.innerHeight * 0.72;
-          vx = -Math.random() * 32 - 14;
-          vy = -Math.random() * 26 - 26;
-        } else {
-          // Center cannon: high-speed vertical fountain
-          originX = window.innerWidth * 0.5 + (Math.random() - 0.5) * 100;
-          originY = window.innerHeight * 0.68;
-          vx = (Math.random() - 0.5) * 56;
-          vy = -Math.random() * 28 - 28;
-        }
+        // Center explosive burst: all confetti blasts directly from the center
+        const originX = window.innerWidth * 0.5 + (Math.random() - 0.5) * 60;
+        const originY = window.innerHeight * 0.65;
+        const vx = (Math.random() - 0.5) * 58;
+        const vy = -Math.random() * 32 - 28;
 
         confettiPieces.push({
           x: originX,
