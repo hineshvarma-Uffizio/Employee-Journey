@@ -4291,26 +4291,34 @@
     .creations-split-left {
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      height: 100%;
     }
 
+    /* Single Unified Projects Card */
     .creations-split-cards-grid {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
       width: 100%;
       height: 100%;
-      max-height: 480px;
+      min-height: 430px;
+      background: rgba(8, 18, 38, 0.85);
+      border: 1px solid rgba(2, 132, 199, 0.28);
+      border-radius: 16px;
+      padding: 24px 28px;
+      box-sizing: border-box;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), 0 0 24px rgba(2, 132, 199, 0.12);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      gap: 12px;
+      position: relative;
       overflow-y: auto;
       overflow-x: hidden;
-      padding-right: 6px;
-      justify-content: space-between;
     }
 
-    /* Adaptive vertical centering when 1, 2, or 3 cards */
-    .creations-split-cards-grid.has-few-cards {
-      justify-content: center;
-      gap: 16px;
+    .creations-split-cards-grid.has-many-projects {
+      justify-content: flex-start;
+      gap: 14px;
     }
 
     /* Sleek scrollbar when 5+ projects exist */
@@ -4329,154 +4337,77 @@
       background: rgba(2, 132, 199, 0.6);
     }
 
-    /* Minimal Elegant Ocean Blue Split Cards (Calm, Deep Oceanic Glow - No Harsh Neon) */
-    .split-creation-card {
-      background: rgba(8, 18, 38, 0.82);
-      border: 1px solid rgba(2, 132, 199, 0.22);
-      border-radius: 14px;
-      padding: 14px 22px;
+    /* Project Row Item inside Single Card */
+    .split-project-row {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      gap: 18px;
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
-      transition: border-color 0.28s ease, box-shadow 0.28s ease, background 0.28s ease;
-      cursor: default;
+      gap: 16px;
+      padding: 16px 20px;
+      border-radius: 12px;
+      background: rgba(14, 27, 54, 0.5);
+      border: 1px solid rgba(2, 132, 199, 0.16);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: pointer;
       position: relative;
-      overflow: hidden;
-      min-height: 86px;
-      flex: 0 0 auto;
-      transform: none !important;
+      box-sizing: border-box;
+      width: 100%;
     }
 
-    /* Featured look when only 1 single major project exists */
-    .split-creation-card.is-single-card {
-      min-height: 120px;
-      padding: 22px 26px;
-      background: linear-gradient(135deg, rgba(10, 24, 52, 0.9) 0%, rgba(6, 14, 30, 0.95) 100%);
-      border: 1px solid rgba(2, 132, 199, 0.36);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.55), 0 0 20px rgba(2, 132, 199, 0.16);
+    .split-project-row:hover {
+      background: rgba(2, 132, 199, 0.15);
+      border-color: rgba(2, 132, 199, 0.45);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35), 0 0 16px rgba(2, 132, 199, 0.18);
+      transform: translateX(4px);
     }
 
-    .split-creation-card.is-single-card .split-card-title {
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
-      font-size: 17px;
-    }
-
-    .single-card-feature-desc {
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
-      font-size: 14px;
-      color: #94a3b8;
-      margin: 4px 0 0 0;
-      line-height: 1.45;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-
-    .split-creation-card:hover {
-      transform: none !important;
-      background: rgba(12, 25, 52, 0.92);
-      border-color: rgba(2, 132, 199, 0.5);
-      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.6), 0 0 20px rgba(2, 132, 199, 0.22);
-    }
-
-    /* Left column: Project badge top, Heading below */
-    .split-card-col-left {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 6px;
-      min-width: 0;
-      flex: 1;
-    }
-
-    .split-card-badge-row {
+    .split-project-arrow-wrap {
+      width: 32px;
+      height: 32px;
+      min-width: 32px;
+      border-radius: 8px;
+      background: rgba(2, 132, 199, 0.15);
+      border: 1px solid rgba(2, 132, 199, 0.32);
       display: flex;
       align-items: center;
-    }
-
-    .split-card-task-badge {
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      padding: 3px 8px;
-      border-radius: 6px;
-      background: rgba(2, 132, 199, 0.14);
-      border: 1px solid rgba(2, 132, 199, 0.32);
-      color: #60a5fa;
-      line-height: 1.2;
-    }
-
-    .split-card-title {
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
-      font-size: 15px;
-      font-weight: 700;
-      color: #ffffff;
-      line-height: 1.3;
-      margin: 0;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      max-width: 100%;
-    }
-
-    /* Right column: Stat pill top, Story button below */
-    .split-card-col-right {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 6px;
+      justify-content: center;
+      color: #38bdf8;
+      transition: all 0.25s ease;
       flex-shrink: 0;
     }
 
-    .split-card-pill-row {
-      display: flex;
-      justify-content: flex-end;
+    .split-project-row:hover .split-project-arrow-wrap {
+      background: rgba(2, 132, 199, 0.32);
+      border-color: #38bdf8;
+      color: #ffffff;
+      box-shadow: 0 0 12px rgba(56, 189, 248, 0.5);
+      transform: translateX(2px);
     }
 
-    .split-card-stat-pill {
-      font-size: 12.5px;
-      font-weight: 800;
-      color: #e2e8f0;
-      background: rgba(255, 255, 255, 0.06);
-      padding: 4px 10px;
-      border-radius: 7px;
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      white-space: nowrap;
-      line-height: 1.2;
+    .split-project-arrow-svg {
+      width: 16px;
+      height: 16px;
+      stroke: currentColor;
     }
 
-    .split-card-btn-row {
-      display: flex;
-      justify-content: flex-end;
+    .split-project-text-wrap {
+      flex: 1;
+      min-width: 0;
     }
 
-    .split-card-explore-btn {
-      font-size: 13px;
+    .split-project-row .split-card-title {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+      font-size: 16px;
       font-weight: 700;
-      color: #60a5fa;
-      white-space: nowrap;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      padding: 2px 8px;
-      border-radius: 6px;
-      background: rgba(2, 132, 199, 0.1);
-      border: 1px solid rgba(2, 132, 199, 0.25);
-      transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
-      line-height: 1.2;
+      color: #ffffff;
+      line-height: 1.4;
+      margin: 0;
+      letter-spacing: 0.01em;
+      transition: color 0.2s ease;
     }
 
-    .split-creation-card:hover .split-card-explore-btn {
-      background: rgba(2, 132, 199, 0.22);
-      border-color: rgba(2, 132, 199, 0.48);
-      color: #93c5fd;
+    .split-project-row:hover .split-card-title {
+      color: #f0f9ff;
     }
 
     /* Right Column: Common Image Card */
@@ -4484,6 +4415,7 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
+      height: 100%;
     }
 
     .creations-common-image-card {
@@ -4579,6 +4511,9 @@
       .creations-split-container {
         grid-template-columns: 1fr;
         max-height: none;
+      }
+      .creations-split-cards-grid {
+        min-height: auto;
       }
       .creations-common-image-card {
         min-height: 280px;
@@ -14166,14 +14101,14 @@
       setTimeout(updateArrows, 150);
     }
 
-    // Chamber 2b: Split View Creations Showcase (Dynamically adapts to 1, 2-3, 4, or 5+ projects)
+    // Chamber 2b: Split View Creations Showcase (Single Unified Card with Project Arrows)
     function renderProjects2() {
       const grid = document.getElementById('creationsCardsGrid2');
       const contributions = palaceState.contributions2 || [];
 
       if (grid) {
         if (contributions.length === 0) {
-          grid.classList.remove('has-few-cards');
+          grid.classList.remove('has-many-projects');
           grid.innerHTML = `
             <div style="text-align:center; padding: 48px 20px; color: #64748b; font-style: italic;">
               No creations listed yet for this employee.<br>
@@ -14181,44 +14116,25 @@
             </div>
           `;
         } else {
-          // If 1, 2, or 3 cards, center them gracefully
-          if (contributions.length <= 3) {
-            grid.classList.add('has-few-cards');
+          if (contributions.length > 5) {
+            grid.classList.add('has-many-projects');
           } else {
-            grid.classList.remove('has-few-cards');
+            grid.classList.remove('has-many-projects');
           }
 
-          const isSingle = contributions.length === 1;
-
           grid.innerHTML = contributions.map((c, idx) => {
-            const taskNumStr = String(idx + 1).padStart(2, '0');
             const pTitle = c.project?.title || `Project ${idx + 1}`;
-            const pDesc = (c.project?.desc || c.contribution?.desc || '').trim();
-
-            let rawVal = (c.impact?.metricVal1 || '').trim();
-            let rawLbl = (c.impact?.metricLbl1 || '').trim();
-
-            let mVal = rawVal;
-            let mLbl = rawLbl;
-
-            if (!mVal) {
-              if (idx === 0) { mVal = '99.9%'; mLbl = 'Accuracy'; }
-              else if (idx === 1) { mVal = '35%'; mLbl = 'Faster MTTR'; }
-              else if (idx === 2) { mVal = '120+'; mLbl = 'Fleets'; }
-              else { mVal = '98%'; mLbl = 'Resolution'; }
-            }
-
-            const metricDisplay = mLbl ? `${mVal} ${mLbl}` : mVal;
-            const badgeText = isSingle ? '⭐ KEY INITIATIVE' : `PROJECT ${taskNumStr}`;
 
             return `
-              <div class="split-creation-card ${isSingle ? 'is-single-card' : ''}" data-card-index="${idx}">
-                <div class="split-card-col-left">
-                  <div class="split-card-badge-row">
-                    <span class="split-card-task-badge">${badgeText}</span>
-                  </div>
-                  <h3 class="split-card-title" data-editable="true" title="${escapeHtmlAttr(pTitle)}">${escapeHtml(pTitle)}</h3>
-                  ${isSingle && pDesc ? `<p class="single-card-feature-desc" data-editable="true">${escapeHtml(pDesc)}</p>` : ''}
+              <div class="split-project-row split-creation-card" data-card-index="${idx}" onclick="openProjectLightbox(${idx}, 2)">
+                <div class="split-project-arrow-wrap">
+                  <svg class="split-project-arrow-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14"></path>
+                    <path d="m13 5 7 7-7 7"></path>
+                  </svg>
+                </div>
+                <div class="split-project-text-wrap">
+                  <h3 class="split-card-title" data-editable="true" onclick="event.stopPropagation()" title="${escapeHtmlAttr(pTitle)}">${escapeHtml(pTitle)}</h3>
                 </div>
               </div>
             `;
