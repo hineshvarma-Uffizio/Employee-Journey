@@ -8329,19 +8329,25 @@
     body.view-mode-active #floatingAdminBtn,
     body.view-mode-active #liveEditToggleBtn,
     body.view-mode-active #saveDownloadBtn,
-    body.view-mode-active #palaceModeBadge,
     body.view-mode-active .live-edit-toolbar,
     body.view-mode-active #profileModalBackdrop {
       display: none !important;
     }
 
+    body.view-mode-active .note-author-avatar-wrap,
+    body.view-mode-active .point-icon-box,
+    body.view-mode-active .polaroid-img-box,
+    body.view-mode-active .value-icon-box,
     body.view-mode-active .values-avatar-frame,
-    body.view-mode-active .thankyou-avatar-halo {
+    body.view-mode-active .thankyou-avatar-halo,
+    body.view-mode-active .btn-upload-avatar,
+    body.view-mode-active .btn-primary-add,
+    body.view-mode-active .admin-btn {
       pointer-events: none !important;
       cursor: default !important;
     }
 
-    body.view-mode-active [contenteditable="true"] {
+    body.view-mode-active [contenteditable] {
       pointer-events: none !important;
       user-select: text !important;
     }
@@ -13036,29 +13042,15 @@
       if (embeddedText) {
         const embedded = JSON.parse(embeddedText);
         if (embedded && typeof embedded === 'object') {
-          if (embedded.employee) palaceState.employee = { ...palaceState.employee, ...embedded.employee };
-          if (embedded.celebration) palaceState.celebration = { ...palaceState.celebration, ...embedded.celebration };
-          if (embedded.milestones) palaceState.milestones = embedded.milestones;
-          if (embedded.evolution) palaceState.evolution = embedded.evolution;
-          if (embedded.skills) palaceState.skills = embedded.skills;
-          if (embedded.projects) palaceState.projects = embedded.projects;
-          if (embedded.contributions) palaceState.contributions = embedded.contributions;
-          if (embedded.stickyNotes && Array.isArray(embedded.stickyNotes)) palaceState.stickyNotes = embedded.stickyNotes;
-          if (embedded.memories && Array.isArray(embedded.memories)) palaceState.memories = embedded.memories;
-          if (embedded.memories2Mode) palaceState.memories2Mode = embedded.memories2Mode;
-          if (embedded.memories2CollageImage) palaceState.memories2CollageImage = embedded.memories2CollageImage;
-          if (embedded.memories2 && Array.isArray(embedded.memories2)) palaceState.memories2 = embedded.memories2;
-          if (embedded.values && Array.isArray(embedded.values)) palaceState.values = embedded.values;
-          if (embedded.proud) palaceState.proud = { ...palaceState.proud, ...embedded.proud };
-          if (embedded.future) palaceState.future = { ...palaceState.future, ...embedded.future };
-          if (embedded.chamberStories) palaceState.chamberStories = { ...palaceState.chamberStories, ...embedded.chamberStories };
-          if (embedded.chambers && Array.isArray(embedded.chambers) && embedded.chambers.length > 0) {
-            palaceState.chambers = embedded.chambers;
-          }
-          if (embedded.doorWingLeft) palaceState.doorWingLeft = embedded.doorWingLeft;
-          if (embedded.doorWingRight) palaceState.doorWingRight = embedded.doorWingRight;
-          if (embedded.editorPasscode) palaceState.editorPasscode = embedded.editorPasscode;
-          if (embedded.entrance) palaceState.entrance = { ...palaceState.entrance, ...embedded.entrance };
+          Object.keys(embedded).forEach(k => {
+            if (embedded[k] !== undefined && embedded[k] !== null) {
+              if (typeof embedded[k] === 'object' && !Array.isArray(embedded[k])) {
+                palaceState[k] = { ...palaceState[k], ...embedded[k] };
+              } else {
+                palaceState[k] = embedded[k];
+              }
+            }
+          });
           console.log("Loaded embedded palace state from HTML file!");
         }
       }
@@ -13092,10 +13084,10 @@
       console.warn("Early URL hash payload parsing error", e);
     }
 
-    // Load from localStorage if present
+    // Load from localStorage if present (only when not in baked view-only mode from an exported presentation)
     const activeStorageKey = getStorageKeyForProfile(currentEmpSlug);
     const savedFullProfile = localStorage.getItem(activeStorageKey);
-    if (savedFullProfile) {
+    if (savedFullProfile && palaceState.defaultAccessMode !== 'view') {
       try {
         const parsed = JSON.parse(savedFullProfile);
         if (!parsed.profileVersion || parsed.profileVersion < (palaceState.profileVersion || 1)) {
@@ -13591,6 +13583,7 @@
 
     // Direct click-to-upload SVG or PNG icon from device
     window.triggerEvolutionIconUpload = function(type, idx) {
+      if (typeof palaceAccessMode !== 'undefined' && palaceAccessMode === 'view') return;
       let fileInput = document.getElementById('evolutionIconFileInput');
       if (!fileInput) {
         fileInput = document.createElement('input');
@@ -14112,6 +14105,7 @@
     ];
 
     window.triggerStickyPhotoUpload = function(idx) {
+      if (typeof palaceAccessMode !== 'undefined' && palaceAccessMode === 'view') return;
       let fileInput = document.getElementById('stickyPhotoFileInput');
       if (!fileInput) {
         fileInput = document.createElement('input');
@@ -14666,6 +14660,7 @@
 
     // Direct click-to-upload Polaroid Photo
     window.triggerProudPhotoUpload = function(idx) {
+      if (typeof palaceAccessMode !== 'undefined' && palaceAccessMode === 'view') return;
       let fileInput = document.getElementById('proudPhotoFileInput');
       if (!fileInput) {
         fileInput = document.createElement('input');
@@ -14710,6 +14705,7 @@
 
     // Direct click-to-upload Trophy Image
     window.triggerProudTrophyUpload = function() {
+      if (typeof palaceAccessMode !== 'undefined' && palaceAccessMode === 'view') return;
       let fileInput = document.getElementById('proudTrophyFileInput');
       if (!fileInput) {
         fileInput = document.createElement('input');
@@ -15957,6 +15953,7 @@
        SHARE LINKS & ROLE-BASED ACCESS CONTROL (RBAC) ENGINE
        ========================================================================== */
     let palaceAccessMode = 'edit';
+    var isLiveEditActive = false;
 
     // State compression for URL hash payload
     function compressStateToHash(state) {
@@ -16000,16 +15997,33 @@
         document.body.classList.add('view-mode-active');
         document.body.classList.remove('edit-mode-active');
 
-        // Completely hide all editing, badge, and download buttons in View Mode
-        if (modeBadge) modeBadge.style.display = 'none';
+        // Hide edit tools in View Mode
         if (profileEditBtn) profileEditBtn.style.display = 'none';
         if (floatingAdminBtn) floatingAdminBtn.style.display = 'none';
         if (liveEditToggleBtn) liveEditToggleBtn.style.display = 'none';
         if (saveDownloadBtn) saveDownloadBtn.style.display = 'none';
 
+        // Check if this is a shared recipient view (baked defaultAccessMode === 'view' or url ?access=view)
+        const urlParams = (typeof window !== 'undefined' && window.location) ? new URLSearchParams(window.location.search) : null;
+        const requestedAccess = urlParams ? (urlParams.get('access') || urlParams.get('mode')) : null;
+        if (palaceState.defaultAccessMode === 'view' || requestedAccess === 'view') {
+          // Strictly hide mode badge for recipients of shared presentation
+          if (modeBadge) modeBadge.style.display = 'none';
+        } else {
+          // Keep mode badge for local author so author can click to return to Edit Mode
+          if (modeBadgeIcon) modeBadgeIcon.textContent = '👁️';
+          if (modeBadgeText) modeBadgeText.textContent = 'View Mode';
+          if (modeBadge) {
+            modeBadge.style.display = '';
+            modeBadge.title = 'View Mode Active. Click to switch to Edit Mode.';
+            modeBadge.className = 'action-pill mode-badge-pill badge-view';
+          }
+        }
+
         if (typeof disableLiveEditMode === 'function') {
           disableLiveEditMode();
         }
+        document.querySelectorAll('[contenteditable]').forEach(el => el.setAttribute('contenteditable', 'false'));
       } else {
         document.body.classList.remove('view-mode-active');
         document.body.classList.add('edit-mode-active');
@@ -16026,6 +16040,7 @@
         if (floatingAdminBtn) floatingAdminBtn.style.display = '';
         if (liveEditToggleBtn) liveEditToggleBtn.style.display = '';
         if (saveDownloadBtn) saveDownloadBtn.style.display = '';
+        document.querySelectorAll('[data-editable="true"]').forEach(el => el.setAttribute('contenteditable', 'true'));
       }
     }
 
@@ -16079,22 +16094,21 @@
           applyAccessMode('view');
         } else if (requestedAccess === 'edit') {
           applyAccessMode('edit');
+        } else if (palaceState.defaultAccessMode === 'view') {
+          // Exported presentation opened by recipient -> lock in View Mode
+          applyAccessMode('view');
         } else {
-          // If no URL parameter, check defaultAccessMode from file, else default to 'view' for safety
-          if (palaceState.defaultAccessMode === 'view') {
-            applyAccessMode('view');
-          } else {
-            const savedMode = localStorage.getItem('palace_user_access_mode');
-            if (savedMode === 'edit') {
-              applyAccessMode('edit');
-            } else {
-              applyAccessMode('view');
-            }
-          }
+          // Local author working on index.html:
+          const savedMode = localStorage.getItem('palace_user_access_mode');
+          applyAccessMode(savedMode === 'view' ? 'view' : 'edit');
         }
       } catch (e) {
         console.warn("Could not init access mode", e);
-        applyAccessMode('view');
+        if (palaceState && palaceState.defaultAccessMode === 'view') {
+          applyAccessMode('view');
+        } else {
+          applyAccessMode('edit');
+        }
       }
     }
 
@@ -16249,7 +16263,11 @@
       if (palaceModeBadge) {
         palaceModeBadge.addEventListener('click', () => {
           if (palaceAccessMode === 'view') {
-            promptUnlockEditor();
+            if (palaceState.defaultAccessMode === 'view') {
+              promptUnlockEditor();
+            } else {
+              applyAccessMode('edit');
+            }
           } else {
             if (confirm("Switch to View-Only Presentation Mode?\n(This cleanly hides all admin and edit buttons for presentation).")) {
               applyAccessMode('view');
@@ -17948,6 +17966,7 @@
 
     // Upload custom project screenshot or photo from device
     window.triggerProjectImageUpload = function(idx) {
+      if (typeof palaceAccessMode !== 'undefined' && palaceAccessMode === 'view') return;
       let fileInput = document.getElementById('projectPhotoFileInput');
       if (!fileInput) {
         fileInput = document.createElement('input');
@@ -17982,6 +18001,7 @@
     };
 
     window.triggerProjectImageUpload2 = function(idx) {
+      if (typeof palaceAccessMode !== 'undefined' && palaceAccessMode === 'view') return;
       let fileInput = document.getElementById('projectPhotoFileInput2');
       if (!fileInput) {
         fileInput = document.createElement('input');
@@ -19227,6 +19247,7 @@
 
     // Direct upload for Entrance Brand Logo
     window.triggerEntranceLogoUpload = function() {
+      if (typeof palaceAccessMode !== 'undefined' && palaceAccessMode === 'view') return;
       let fileInput = document.getElementById('entranceLogoFileInput');
       if (!fileInput) {
         fileInput = document.createElement('input');
@@ -20239,7 +20260,7 @@
     const liveEditToolbar = document.getElementById('liveEditToolbar');
     const btnLiveCancel = document.getElementById('btnLiveCancel');
     const btnLiveSave = document.getElementById('btnLiveSave');
-    let isLiveEditActive = false;
+    isLiveEditActive = false;
 
     function enableLiveEditMode() {
       if (typeof palaceAccessMode !== 'undefined' && palaceAccessMode === 'view') return;
@@ -20302,10 +20323,11 @@
     }
 
     function disableLiveEditMode() {
-      isLiveEditActive = false;
-      document.body.classList.remove('live-edit-mode');
-      if (liveEditToolbar) liveEditToolbar.classList.remove('active');
-      document.querySelectorAll('[contenteditable="true"]').forEach(el => {
+      if (typeof isLiveEditActive !== 'undefined') isLiveEditActive = false;
+      if (document.body && document.body.classList) document.body.classList.remove('live-edit-mode');
+      const toolbar = document.getElementById('liveEditToolbar');
+      if (toolbar && toolbar.classList) toolbar.classList.remove('active');
+      document.querySelectorAll('[contenteditable]').forEach(el => {
         el.removeAttribute('contenteditable');
       });
     }
@@ -20816,33 +20838,27 @@
         const exportState = JSON.parse(JSON.stringify(palaceState));
         exportState.defaultAccessMode = 'view';
 
-        // 3. Safe JSON string (prevent </script> from breaking HTML parser)
+        // 3. Safe JSON string (prevent closing script tag from breaking HTML parser)
         const closeScriptPattern = new RegExp('<' + '/script', 'gi');
         const stateJson = JSON.stringify(exportState, null, 2).replace(closeScriptPattern, () => '<\\/' + 'script');
 
-        // 4. Update the live DOM script tag first
-        const domScript = document.getElementById('initialPalaceState');
-        if (domScript) {
-          domScript.textContent = '\n' + stateJson + '\n';
-        }
-
-        // 5. Get entire outer HTML
+        // 4. Get entire outer HTML
         let fullHtml = '<!DOCTYPE html>\n<html lang="en">\n' + document.documentElement.outerHTML + '\n</html>';
 
-        // 6. Clean open modal classes and set body to view-mode-active
+        // 5. Clean open modal classes and set body to view-mode-active in exported file
         fullHtml = fullHtml.replace(/class="palace-modal-backdrop active"/g, 'class="palace-modal-backdrop"');
         fullHtml = fullHtml.replace(/class="collage-lightbox-backdrop active"/g, 'class="collage-lightbox-backdrop"');
         fullHtml = fullHtml.replace(/live-edit-mode/g, '');
         fullHtml = fullHtml.replace(/edit-mode-active/g, 'view-mode-active');
 
-        // 7. Inject or replace initialPalaceState script tag safely using literal regex
-        const stateRegex = /<script\s+id=["']initialPalaceState["'][^>]*>[\s\S]*?<\/script>/gi;
-        const newScriptTag = '<script id="initialPalaceState" type="application/json">\n' + stateJson + '\n<' + '/script>';
+        // 6. Inject or replace initialPalaceState script tag safely using dynamic RegExp (single match in head)
+        const stateRegex = new RegExp('<' + 'script\\s+id=["\']initialPalaceState["\'][^>]*>[\\s\\S]*?<\\/' + 'script>', 'i');
+        const newScriptTag = '<' + 'script id="initialPalaceState" type="application/json">\n' + stateJson + '\n<' + '/script>';
 
         if (stateRegex.test(fullHtml)) {
-          fullHtml = fullHtml.replace(stateRegex, newScriptTag);
+          fullHtml = fullHtml.replace(stateRegex, () => newScriptTag);
         } else {
-          fullHtml = fullHtml.replace('</head>', '  ' + newScriptTag + '\n</head>');
+          fullHtml = fullHtml.replace('</head>', () => '  ' + newScriptTag + '\n</head>');
         }
 
         // 8. Trigger download
