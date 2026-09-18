@@ -5708,20 +5708,27 @@
 
     .proud-gallery-area {
       flex: 1.3;
-      max-width: 560px;
+      max-width: 620px;
       display: flex;
       flex-direction: column;
       gap: 16px;
+      justify-content: center;
+      align-items: center;
     }
 
-    .polaroids-row { display: flex; gap: 14px; justify-content: center; }
+    .polaroids-row {
+      display: flex;
+      gap: 18px;
+      justify-content: center;
+      align-items: center;
+    }
 
     .polaroid-frame {
-      width: 155px;
+      width: 175px;
       background: #f8fafc;
-      padding: 10px 10px 24px 10px;
-      border-radius: 4px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+      padding: 12px 12px 26px 12px;
+      border-radius: 6px;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.65), 0 2px 8px rgba(255, 255, 255, 0.05);
       transition: all 0.3s ease;
       cursor: pointer;
       transform: rotate(-3deg);
@@ -5731,14 +5738,14 @@
     .polaroid-frame:nth-child(3) { transform: rotate(-1deg); }
 
     .polaroid-frame:hover {
-      transform: scale(1.1) rotate(0deg) !important;
+      transform: scale(1.08) rotate(0deg) !important;
       z-index: 10;
       box-shadow: 0 18px 40px rgba(0, 0, 0, 0.8), 0 0 35px rgba(0, 44, 107, 0.7);
     }
 
     .polaroid-img-box {
       width: 100%;
-      height: 115px;
+      height: 135px;
       background: #1e293b;
       border-radius: 2px;
       overflow: hidden;
@@ -10524,16 +10531,6 @@
                   </div>
                   <div class="polaroid-caption" contenteditable="true" data-editable="true" title="Click to edit caption">All-Hands Demo Day 🎤</div>
                 </div>
-              </div>
-
-              <div class="celebration-action-bar">
-                <div class="celebration-text">
-                  <h4 contenteditable="true" data-editable="true" title="Click to edit heading">Celebrate This Milestone</h4>
-                  <p contenteditable="true" data-editable="true" title="Click to edit description">Trigger the palace confetti cannon and commemorate your incredible achievements.</p>
-                </div>
-                <button class="btn-fire-confetti" id="btnFireConfetti" title="Fire celebration confetti">
-                  <span>🎉 Fire Confetti!</span>
-                </button>
               </div>
             </div>
 
@@ -17926,7 +17923,8 @@
         });
       }
     }
-    document.getElementById('btnFireConfetti').addEventListener('click', fireConfetti);
+    const btnFireConfettiEl = document.getElementById('btnFireConfetti');
+    if (btnFireConfettiEl) btnFireConfettiEl.addEventListener('click', fireConfetti);
 
     function renderConfetti() {
       cctx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
