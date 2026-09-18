@@ -20020,19 +20020,13 @@
         const liveTySig = document.querySelector('#chamber-thankyou .thankyou-signature-line');
 
         palaceState.thankYou = palaceState.thankYou || {};
-        if (adminTyBadgeInp && adminTyBadgeInp.value.trim()) {
-          palaceState.thankYou.headerBadge = adminTyBadgeInp.value.trim();
-        } else if (liveTyBadge) {
-          palaceState.thankYou.headerBadge = liveTyBadge.textContent.trim();
-        }
-
         if (adminTyTitleInp && adminTyTitleInp.value.trim()) {
           palaceState.thankYou.title = adminTyTitleInp.value.trim();
         } else if (liveTyTitle) {
           palaceState.thankYou.title = liveTyTitle.textContent.trim();
         }
 
-        if (adminTySubInp && adminTySubInp.value.trim()) {
+        if (adminTySubInp) {
           palaceState.thankYou.subtitle = adminTySubInp.value.trim();
         } else if (liveTySub) {
           palaceState.thankYou.subtitle = liveTySub.textContent.trim();
@@ -20049,10 +20043,6 @@
         } else if (liveTySig) {
           palaceState.thankYou.signature = liveTySig.textContent.trim();
         }
-
-        if (adminTyBtn1Inp && adminTyBtn1Inp.value.trim()) palaceState.thankYou.actionBtn1 = adminTyBtn1Inp.value.trim();
-        if (adminTyBtn2Inp && adminTyBtn2Inp.value.trim()) palaceState.thankYou.actionBtn2 = adminTyBtn2Inp.value.trim();
-        if (adminTyBtn3Inp && adminTyBtn3Inp.value.trim()) palaceState.thankYou.actionBtn3 = adminTyBtn3Inp.value.trim();
 
                 // Collect Proud Moments (Chamber 7 / Room 05)
         const adminPlaqueT = document.getElementById('adminProudPlaqueTitle');
@@ -20878,18 +20868,38 @@
         if (liveDoorRight) palaceState.doorWingRight = liveDoorRight.textContent.trim();
 
         // 8c. Thank You Room (Final Chamber)
-        const capTyBadge = document.querySelector('#chamber-thankyou .thankyou-tag-pill');
-        const capTyTitle = document.querySelector('#chamber-thankyou .thankyou-main-title');
-        const capTySub = document.querySelector('#chamber-thankyou .thankyou-subtitle');
-        const capTyMsg = document.querySelector('#chamber-thankyou .thankyou-letter-text');
-        const capTySig = document.querySelector('#chamber-thankyou .thankyou-signature-line');
-        if (capTyBadge || capTyTitle || capTyMsg) {
-          palaceState.thankYou = palaceState.thankYou || {};
-          if (capTyBadge) palaceState.thankYou.headerBadge = capTyBadge.textContent.trim();
-          if (capTyTitle) palaceState.thankYou.title = capTyTitle.textContent.trim();
+        palaceState.thankYou = palaceState.thankYou || {};
+        const adminTyTitleInp = document.getElementById('adminThankYouTitle');
+        const adminTySubInp = document.getElementById('adminThankYouSub');
+        const adminTyMsgInp = document.getElementById('adminThankYouMsg');
+        const adminTySigInp = document.getElementById('adminThankYouSig');
+
+        if (adminTyTitleInp && adminTyTitleInp.value && adminTyTitleInp.value.trim()) {
+          palaceState.thankYou.title = adminTyTitleInp.value.trim();
+        } else {
+          const capTyTitle = document.querySelector('#chamber-thankyou .thankyou-main-title');
+          if (capTyTitle && capTyTitle.textContent.trim()) palaceState.thankYou.title = capTyTitle.textContent.trim();
+        }
+
+        if (adminTySubInp && adminTySubInp.value !== undefined && adminTySubInp.value !== null && adminTySubInp.value.trim()) {
+          palaceState.thankYou.subtitle = adminTySubInp.value.trim();
+        } else {
+          const capTySub = document.querySelector('#chamber-thankyou .thankyou-subtitle');
           if (capTySub) palaceState.thankYou.subtitle = capTySub.textContent.trim();
-          if (capTyMsg) palaceState.thankYou.message = capTyMsg.textContent.trim();
-          if (capTySig) palaceState.thankYou.signature = capTySig.textContent.trim();
+        }
+
+        if (adminTyMsgInp && adminTyMsgInp.value && adminTyMsgInp.value.trim()) {
+          palaceState.thankYou.message = adminTyMsgInp.value.trim();
+        } else {
+          const capTyMsg = document.querySelector('#chamber-thankyou .thankyou-letter-text');
+          if (capTyMsg && capTyMsg.textContent.trim()) palaceState.thankYou.message = capTyMsg.textContent.trim();
+        }
+
+        if (adminTySigInp && adminTySigInp.value && adminTySigInp.value.trim()) {
+          palaceState.thankYou.signature = adminTySigInp.value.trim();
+        } else {
+          const capTySig = document.querySelector('#chamber-thankyou .thankyou-signature-line');
+          if (capTySig && capTySig.textContent.trim()) palaceState.thankYou.signature = capTySig.textContent.trim();
         }
 
         // 8b. Proud Moments (Chamber 7 / Room 05)
