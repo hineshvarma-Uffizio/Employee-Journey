@@ -11130,53 +11130,21 @@
       <div class="admin-tab-content" id="tab-memories-2">
         <div style="margin-bottom:14px;">
           <h4 style="color:var(--gold-light); font-size:15px; margin:0 0 4px 0;">📸 Year of Memories (Part 2) Collage Manager</h4>
-          <p style="font-size:12px; color:#94a3b8; margin:0;">Choose between a single ready-made collage image OR auto-collage from multiple individual photos.</p>
+          <p style="font-size:12px; color:#94a3b8; margin:0;">Manage photos for the Uneven White-Frame Photo Collage in Chamber 05.</p>
         </div>
 
-        <!-- Mode Toggle Segmented Control -->
-        <div class="mem2-mode-selector" style="display:flex; gap:10px; margin-bottom:14px; background:rgba(15,23,42,0.7); padding:6px; border-radius:12px; border:1px solid rgba(245,192,101,0.25);">
-          <button type="button" class="btn-mem2-mode" id="btnMem2ModeSingle" onclick="switchMemories2Mode('single')" style="flex:1; padding:10px 10px; border-radius:8px; font-size:12px; font-weight:700; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:6px; transition:all 0.2s ease;">
-            <span>🖼️ Mode 1: Single Image</span>
-          </button>
+        <!-- Mode Toggle Segmented Control (Mode 2 Only) -->
+        <div class="mem2-mode-selector" style="display:flex; margin-bottom:14px; background:rgba(15,23,42,0.7); padding:6px; border-radius:12px; border:1px solid rgba(245,192,101,0.25);">
           <button type="button" class="btn-mem2-mode active" id="btnMem2ModeUneven" onclick="switchMemories2Mode('uneven')" style="flex:1; padding:10px 10px; border-radius:8px; font-size:12px; font-weight:700; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:6px; transition:all 0.2s ease;">
             <span>📸 Mode 2: Uneven White-Frame Collage</span>
-          </button>
-          <button type="button" class="btn-mem2-mode" id="btnMem2ModeGrid" onclick="switchMemories2Mode('grid')" style="flex:1; padding:10px 10px; border-radius:8px; font-size:12px; font-weight:700; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:6px; transition:all 0.2s ease;">
-            <span>🔲 Mode 3: Mosaic Grid</span>
           </button>
         </div>
 
         <!-- Mode Information Notice -->
         <div id="mem2ModeNotice" style="margin-bottom:16px; padding:10px 14px; border-radius:8px; font-size:12px; line-height:1.4; display:flex; align-items:center; gap:8px;"></div>
 
-        <!-- Section 1: Single Image Mode -->
-        <div id="adminMem2SingleSection" style="background:rgba(15,23,42,0.6); border:1px solid rgba(245,192,101,0.25); border-radius:12px; padding:16px; display:flex; flex-direction:column; gap:16px;">
-          <div style="display:flex; gap:18px; align-items:flex-start; flex-wrap:wrap;">
-            <div style="width:220px; height:165px; border-radius:10px; overflow:hidden; border:1.5px solid var(--gold-primary); flex-shrink:0; background:#000; box-shadow:0 4px 14px rgba(0,0,0,0.6); display:flex; align-items:center; justify-content:center;">
-              <img src="memories_collage_part2.png" id="adminMemories2Preview" style="max-width:100%; max-height:100%; object-fit:contain;" onerror="this.src='memories_collage_part2.png'">
-            </div>
-            <div style="flex:1; min-width:240px;">
-              <label style="font-size:12px; font-weight:600; color:#e2e8f0; display:block; margin-bottom:6px;">Collage Image Source / Upload</label>
-              <div style="display:flex; gap:8px; margin-bottom:10px;">
-                <input type="text" id="inputMemories2CollageSrc" class="form-input mem-img-input" value="memories_collage_part2.png" placeholder="Image URL, path or upload..." style="flex:1;">
-                <label class="btn-secondary" style="font-size:12px; padding:8px 16px; cursor:pointer; white-space:nowrap; display:inline-flex; align-items:center; gap:6px;">
-                  📁 Browse Image
-                  <input type="file" id="fileUploadMemories2Collage" accept="image/*" style="display:none;">
-                </label>
-              </div>
-              <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
-                <button type="button" class="btn-secondary" id="btnResetMemories2Collage" style="font-size:11px; padding:5px 12px;">↺ Reset to Default</button>
-                <span id="mem2UploadStatus" style="font-size:12px; display:none;"></span>
-              </div>
-              <p style="font-size:11.5px; color:#64748b; margin-top:12px; line-height:1.4;">
-                💡 <em>Note: Upload your ready-made single collage image here. It displays cleanly in Chamber 05 with click-to-zoom fullscreen view.</em>
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Section 2: Multi-Photo Auto-Collage Mode -->
-        <div id="adminMem2MultiSection" style="display:none; flex-direction:column; gap:16px;">
+        <!-- Section 2: Multi-Photo Auto-Collage Mode (Always Active) -->
+        <div id="adminMem2MultiSection" style="display:flex; flex-direction:column; gap:16px;">
           <!-- Action Toolbar -->
           <div style="background:rgba(15,23,42,0.7); border:1px solid rgba(245,192,101,0.25); border-radius:12px; padding:14px 16px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
             <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
@@ -11190,10 +11158,6 @@
                 ➕ Add Single Photo
               </button>
             </div>
-            <!-- Canvas Auto-Stitcher trigger -->
-            <button type="button" class="btn-secondary" id="btnStitchMemories2Canvas" onclick="openMemories2CanvasStitcherModal()" style="font-size:12px; padding:8px 16px; border-color:var(--gold-primary); color:var(--gold-light); display:inline-flex; align-items:center; gap:6px;">
-              🎨 Auto-Stitch into Single Image (Canvas)
-            </button>
           </div>
 
           <!-- Bulk Status / Counter -->
@@ -18604,8 +18568,8 @@
 
     // Dynamic Memories Part 2 Collage Editor in Admin Panel
     window.switchMemories2Mode = function(mode) {
-      palaceState.memories2Mode = mode;
-      if ((mode === 'uneven' || mode === 'multi' || mode === 'grid') && (!palaceState.memories2 || palaceState.memories2.length === 0)) {
+      palaceState.memories2Mode = 'uneven';
+      if (!palaceState.memories2 || palaceState.memories2.length === 0) {
         palaceState.memories2 = [
           { id: 201, image: 'where_it_started.png', title: 'Beginning the Journey', desc: '' },
           { id: 202, image: 'creations_showcase_team.png', title: 'Creative Collaboration', desc: '' },
@@ -18623,53 +18587,26 @@
     };
 
     function populateAdminMemories2() {
-      const mode = palaceState.memories2Mode || 'uneven';
-      const btnSingle = document.getElementById('btnMem2ModeSingle');
+      palaceState.memories2Mode = 'uneven';
       const btnUneven = document.getElementById('btnMem2ModeUneven');
-      const btnGrid = document.getElementById('btnMem2ModeGrid');
       const secSingle = document.getElementById('adminMem2SingleSection');
       const secMulti = document.getElementById('adminMem2MultiSection');
       const noticeEl = document.getElementById('mem2ModeNotice');
 
-      if (btnSingle) btnSingle.classList.toggle('active', mode === 'single');
-      if (btnUneven) btnUneven.classList.toggle('active', mode === 'uneven' || mode === 'multi');
-      if (btnGrid) btnGrid.classList.toggle('active', mode === 'grid');
+      if (btnUneven) btnUneven.classList.add('active');
+      if (secSingle) secSingle.style.display = 'none';
 
-      if (secSingle && secMulti) {
-        if (mode === 'single') {
-          secSingle.style.display = 'flex';
-          secMulti.style.display = 'none';
-          const preview = document.getElementById('adminMemories2Preview');
-          const input = document.getElementById('inputMemories2CollageSrc');
-          let currentSrc = palaceState.memories2CollageImage || 
-            (palaceState.memories2 && palaceState.memories2[0] && palaceState.memories2[0].image) ||
-            'memories_collage_part2.png';
-          if (currentSrc === 'memories_collage_part2.jpg') currentSrc = 'memories_collage_part2.png';
-          if (preview) preview.src = currentSrc;
-          if (input) input.value = currentSrc;
-        } else {
-          secSingle.style.display = 'none';
-          secMulti.style.display = 'flex';
-          renderAdminMemories2List();
-        }
+      if (secMulti) {
+        secMulti.style.display = 'flex';
+        renderAdminMemories2List();
       }
 
       if (noticeEl) {
-        if (mode === 'uneven' || mode === 'multi') {
-          noticeEl.style.display = 'flex';
-          noticeEl.style.background = 'rgba(245, 192, 101, 0.12)';
-          noticeEl.style.border = '1px solid rgba(245, 192, 101, 0.3)';
-          noticeEl.style.color = '#fde68a';
-          noticeEl.innerHTML = `📸 <strong>Mode 2 Active:</strong> Dynamic White-Frame Uneven Photo Collage (matching reference design). Adapts smoothly to any photo count (2 to 10+ photos).`;
-        } else if (mode === 'grid') {
-          noticeEl.style.display = 'flex';
-          noticeEl.style.background = 'rgba(56, 189, 248, 0.12)';
-          noticeEl.style.border = '1px solid rgba(56, 189, 248, 0.3)';
-          noticeEl.style.color = '#bae6fd';
-          noticeEl.innerHTML = `🔲 <strong>Mode 3 Active:</strong> Classic aligned mosaic grid.`;
-        } else {
-          noticeEl.style.display = 'none';
-        }
+        noticeEl.style.display = 'flex';
+        noticeEl.style.background = 'rgba(245, 192, 101, 0.12)';
+        noticeEl.style.border = '1px solid rgba(245, 192, 101, 0.3)';
+        noticeEl.style.color = '#fde68a';
+        noticeEl.innerHTML = `📸 <strong>Mode 2 Active:</strong> Dynamic White-Frame Uneven Photo Collage. Adapts smoothly to all photos with auto-aspect-ratio frames.`;
       }
     }
 
@@ -19992,16 +19929,8 @@
           }
         }
 
-        // Collect Photo Memories Part 2 Mode
-        const btnMem2Single = document.getElementById('btnMem2ModeSingle');
-        const btnMem2Grid = document.getElementById('btnMem2ModeGrid');
-        if (btnMem2Single && btnMem2Single.classList.contains('active')) {
-          palaceState.memories2Mode = 'single';
-        } else if (btnMem2Grid && btnMem2Grid.classList.contains('active')) {
-          palaceState.memories2Mode = 'grid';
-        } else {
-          palaceState.memories2Mode = 'uneven';
-        }
+        // Collect Photo Memories Part 2 Mode (Locked to Mode 2: Uneven White-Frame Collage)
+        palaceState.memories2Mode = 'uneven';
 
         // Collect Photo Memories Part 2 Single Ready-made Collage Image
         const mem2CollageInput = document.getElementById('inputMemories2CollageSrc');
