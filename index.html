@@ -2829,6 +2829,18 @@
                   visibility 0s 0.95s;
     }
 
+    /* Completely hidden or deleted chamber state (Screen, Stage & 3D stack) */
+    .palace-chamber.chamber-hidden,
+    .palace-chamber[style*="display: none"],
+    .palace-chamber[style*="display:none"] {
+      display: none !important;
+      opacity: 0 !important;
+      visibility: hidden !important;
+      pointer-events: none !important;
+      transform: translate3d(0, 0, -9999px) scale(0.001) !important;
+      z-index: -100 !important;
+    }
+
     
     /* ==========================================================================
        STAGE 1: MILESTONE CELEBRATION STAGE (HERO SCREEN AFTER DOOR OPENS)
@@ -14248,6 +14260,13 @@
         palaceState.future = { ...palaceState.future, ...idbData.future };
         if (typeof renderFutureRoom === 'function') renderFutureRoom();
       }
+      if (idbData && idbData.chambers && Array.isArray(idbData.chambers) && idbData.chambers.length > 0) {
+        if (!savedFullProfile) {
+          palaceState.chambers = idbData.chambers;
+          syncPalaceNavigation();
+          if (typeof renderAdminRoomsManager === 'function') renderAdminRoomsManager();
+        }
+      }
     });
 
     /* ==========================================================================
@@ -16587,17 +16606,27 @@
       if (!palaceStageEl) return;
 
       const activeIds = new Set(activeChambers.map(c => c.id));
+      const registeredIds = new Set((palaceState.chambers || []).map(c => c.id));
 
-      // 1. Hide any built-in chamber that has been removed/disabled
-      defaultChambers.forEach(dc => {
-        const el = document.getElementById(dc.id);
-        if (el) {
-          if (activeIds.has(dc.id)) {
-            el.style.display = '';
-          } else {
-            el.style.display = 'none';
-            el.classList.remove('active', 'waiting-depth', 'exited-forward');
+      // 1. Hide/remove any chamber in the DOM that has been removed or disabled
+      document.querySelectorAll('.palace-chamber').forEach(el => {
+        if (!activeIds.has(el.id)) {
+          el.classList.add('chamber-hidden', 'pdf-page-hidden');
+          el.classList.remove('active', 'waiting-depth', 'exited-forward', 'pdf-page-active');
+          el.style.display = 'none';
+          el.style.visibility = 'hidden';
+          el.style.opacity = '0';
+          el.style.pointerEvents = 'none';
+          // Detach custom rooms that were completely deleted
+          if ((el.dataset && el.dataset.customRoom === 'true') && !registeredIds.has(el.id)) {
+            el.remove();
           }
+        } else {
+          el.classList.remove('chamber-hidden', 'pdf-page-hidden');
+          el.style.display = '';
+          el.style.visibility = '';
+          el.style.opacity = '';
+          el.style.pointerEvents = '';
         }
       });
 
@@ -16608,7 +16637,9 @@
           el = createCustomChamberElement(c);
           palaceStageEl.appendChild(el);
         } else {
+          el.classList.remove('chamber-hidden', 'pdf-page-hidden');
           el.style.display = '';
+          el.style.visibility = '';
           // Update placard if present
           const titleEl = el.querySelector('.chamber-name');
           const descEl = el.querySelector('.chamber-desc');
@@ -16684,7 +16715,7 @@
       });
     }
 
-    // Master sync function: updates chambers array, totalStages, stageTitles, and DOM nav
+    // Master sync function: updates chambers array, totalStages, stageTitles, DOM nav & 3D positioning
     function syncPalaceNavigation() {
       if (!palaceState.chambers || palaceState.chambers.length === 0) {
         palaceState.chambers = JSON.parse(JSON.stringify(defaultChambers));
@@ -16730,14 +16761,48 @@
         currentStage = Math.max(0, totalStages - 1);
       }
 
+      // Synchronize 3D stage chamber positions with currentStage
+      if (currentStage <= 0) {
+        chambers.forEach(c => {
+          if (c) {
+            c.classList.remove('active', 'exited-forward');
+            c.classList.add('waiting-depth');
+          }
+        });
+      } else {
+        const targetRoomIdx = currentStage - 1;
+        chambers.forEach((c, idx) => {
+          if (!c) return;
+          if (idx < targetRoomIdx) {
+            c.classList.remove('active', 'waiting-depth');
+            c.classList.add('exited-forward');
+          } else if (idx === targetRoomIdx) {
+            c.classList.remove('waiting-depth', 'exited-forward');
+            c.classList.add('active');
+          } else {
+            c.classList.remove('active', 'exited-forward');
+            c.classList.add('waiting-depth');
+          }
+        });
+        const targetChamber = chambers[targetRoomIdx];
+        if (targetChamber) {
+          if (targetChamber.id === 'chamber-0') {
+            activateRoom01Motion(false);
+          } else if (targetChamber.id === 'chamber-1') {
+            if (window.updateSkillsFadeMask) window.updateSkillsFadeMask();
+          } else if (targetChamber.id === 'chamber-2b') {
+            if (typeof resetChamber2bCommonImage === 'function') resetChamber2bCommonImage();
+          }
+        }
+      }
+
       // Update HUD
       updateHUD(currentStage);
 
       // Keep PDF active print chamber classes in sync
-      const printActiveIds = activeChambers.map(c => c.id);
-      printActiveIds.push('chamber-thankyou');
+      const printActiveIds = new Set(activeChambers.map(c => c.id));
       document.querySelectorAll('.palace-chamber').forEach(ch => {
-        if (printActiveIds.includes(ch.id) && ch.style.display !== 'none') {
+        if (printActiveIds.has(ch.id) && ch.style.display !== 'none' && !ch.classList.contains('chamber-hidden')) {
           ch.classList.add('pdf-page-active');
           ch.classList.remove('pdf-page-hidden');
         } else {
@@ -16850,10 +16915,45 @@
         `;
       }).join('');
 
+      // Attach real-time input listeners to room cards
+      container.querySelectorAll('.room-input-title').forEach(inp => {
+        inp.addEventListener('input', (e) => {
+          const id = e.target.dataset.id;
+          const r = palaceState.chambers.find(c => c.id === id);
+          if (r) {
+            r.title = e.target.value;
+            syncPalaceNavigation();
+            persistPalaceState();
+          }
+        });
+      });
+      container.querySelectorAll('.room-input-navlabel').forEach(inp => {
+        inp.addEventListener('input', (e) => {
+          const id = e.target.dataset.id;
+          const r = palaceState.chambers.find(c => c.id === id);
+          if (r) {
+            r.navLabel = e.target.value;
+            syncPalaceNavigation();
+            persistPalaceState();
+          }
+        });
+      });
+      container.querySelectorAll('.room-input-sub').forEach(inp => {
+        inp.addEventListener('input', (e) => {
+          const id = e.target.dataset.id;
+          const r = palaceState.chambers.find(c => c.id === id);
+          if (r) {
+            r.sub = e.target.value;
+            syncPalaceNavigation();
+            persistPalaceState();
+          }
+        });
+      });
+
       updateAdminTabHiddenIndicators();
     }
 
-    // Update tab header badges and in-tab warning banners when rooms are hidden
+    // Update tab header badges and in-tab warning banners when rooms are hidden or removed
     function updateAdminTabHiddenIndicators() {
       const list = palaceState.chambers || [];
       const tabTargetMap = {
@@ -16880,8 +16980,18 @@
         const existingIndicator = tabBtn.querySelector('.tab-hidden-indicator');
         if (existingIndicator) existingIndicator.remove();
 
+        const isDeleted = !room;
         const isHidden = room && room.enabled === false;
-        if (isHidden) {
+
+        if (isDeleted) {
+          const badge = document.createElement('span');
+          badge.className = 'tab-hidden-indicator tab-deleted-indicator';
+          badge.style.background = 'rgba(239, 68, 68, 0.2)';
+          badge.style.color = '#f87171';
+          badge.style.border = '1px solid rgba(239, 68, 68, 0.4)';
+          badge.textContent = 'Removed';
+          tabBtn.appendChild(badge);
+        } else if (isHidden) {
           const badge = document.createElement('span');
           badge.className = 'tab-hidden-indicator';
           badge.textContent = 'Hidden';
@@ -16890,7 +17000,18 @@
 
         if (tabContent) {
           let alertBanner = tabContent.querySelector('.tab-room-hidden-alert');
-          if (isHidden) {
+          if (isDeleted) {
+            if (!alertBanner) {
+              alertBanner = document.createElement('div');
+              alertBanner.className = 'tab-room-hidden-alert tab-room-deleted-alert';
+              alertBanner.style.borderColor = 'rgba(239, 68, 68, 0.5)';
+              alertBanner.style.background = 'rgba(239, 68, 68, 0.12)';
+              alertBanner.innerHTML = `
+                <p>🗑️ <strong>This room has been removed from the Palace.</strong> It will not appear in the Palace Journey or PDF export.</p>
+              `;
+              tabContent.insertBefore(alertBanner, tabContent.firstChild);
+            }
+          } else if (isHidden) {
             if (!alertBanner) {
               alertBanner = document.createElement('div');
               alertBanner.className = 'tab-room-hidden-alert';
@@ -16912,16 +17033,57 @@
       const room = palaceState.chambers.find(c => c.id === roomId);
       if (!room) return;
       room.enabled = isEnabled;
+
+      // Immediately hide/show element on stage
+      const targetEl = document.getElementById(roomId);
+      if (targetEl) {
+        if (!isEnabled) {
+          targetEl.style.display = 'none';
+          targetEl.style.visibility = 'hidden';
+          targetEl.style.opacity = '0';
+          targetEl.style.pointerEvents = 'none';
+          targetEl.classList.remove('active', 'waiting-depth', 'exited-forward', 'pdf-page-active');
+          targetEl.classList.add('chamber-hidden', 'pdf-page-hidden');
+        } else {
+          targetEl.classList.remove('chamber-hidden', 'pdf-page-hidden');
+          targetEl.style.display = '';
+          targetEl.style.visibility = '';
+          targetEl.style.pointerEvents = '';
+        }
+      }
+
+      // Persist state to localStorage & IndexedDB
+      persistPalaceState();
+
+      const domInitScript = document.getElementById('initialPalaceState');
+      if (domInitScript) {
+        try {
+          const closeScriptPattern = new RegExp('<' + '/script', 'gi');
+          domInitScript.textContent = '\n' + JSON.stringify(palaceState, null, 2).replace(closeScriptPattern, () => '<\\/' + 'script') + '\n';
+        } catch (e) {}
+      }
+
       syncPalaceNavigation();
       renderAdminRoomsManager();
+
+      showPalaceToast(isEnabled ? `👁️ "${room.title || room.navLabel}" is now Visible!` : `🚫 "${room.title || room.navLabel}" is now Hidden from Palace!`, 3000);
     };
 
     window.showAllPalaceRooms = function() {
       (palaceState.chambers || []).forEach(c => {
         c.enabled = true;
       });
+      persistPalaceState();
+      const domInitScript = document.getElementById('initialPalaceState');
+      if (domInitScript) {
+        try {
+          const closeScriptPattern = new RegExp('<' + '/script', 'gi');
+          domInitScript.textContent = '\n' + JSON.stringify(palaceState, null, 2).replace(closeScriptPattern, () => '<\\/' + 'script') + '\n';
+        } catch (e) {}
+      }
       syncPalaceNavigation();
       renderAdminRoomsManager();
+      showPalaceToast("👁️ All rooms are now visible!", 3000);
     };
 
     window.movePalaceRoom = function(idx, direction) {
@@ -16931,6 +17093,14 @@
       const temp = list[idx];
       list[idx] = list[targetIdx];
       list[targetIdx] = temp;
+      persistPalaceState();
+      const domInitScript = document.getElementById('initialPalaceState');
+      if (domInitScript) {
+        try {
+          const closeScriptPattern = new RegExp('<' + '/script', 'gi');
+          domInitScript.textContent = '\n' + JSON.stringify(palaceState, null, 2).replace(closeScriptPattern, () => '<\\/' + 'script') + '\n';
+        } catch (e) {}
+      }
       syncPalaceNavigation();
       renderAdminRoomsManager();
     };
@@ -16939,15 +17109,47 @@
       const room = palaceState.chambers.find(c => c.id === roomId);
       if (!room) return;
       if (room.canDelete === false || room.type === 'celebration') {
-        alert("The core celebration screen cannot be deleted.");
+        showPalaceToast("⚠️ The core celebration screen cannot be deleted.", 3000);
         return;
       }
       const confirmDelete = confirm(`Are you sure you want to remove "${room.title || room.navLabel}" from the palace?`);
       if (!confirmDelete) return;
 
+      // 1. Immediately hide & detach the chamber element on stage
+      const targetEl = document.getElementById(roomId);
+      if (targetEl) {
+        targetEl.style.display = 'none';
+        targetEl.style.visibility = 'hidden';
+        targetEl.style.opacity = '0';
+        targetEl.style.pointerEvents = 'none';
+        targetEl.classList.remove('active', 'waiting-depth', 'exited-forward', 'pdf-page-active');
+        targetEl.classList.add('chamber-hidden', 'pdf-page-hidden');
+        if (room.isCustom || roomId.startsWith('custom-') || (targetEl.dataset && targetEl.dataset.customRoom)) {
+          targetEl.remove();
+        }
+      }
+
+      // 2. Filter from palaceState.chambers
       palaceState.chambers = palaceState.chambers.filter(c => c.id !== roomId);
+
+      // 3. Persist state immediately to localStorage & IndexedDB
+      persistPalaceState();
+
+      // 4. Sync initialPalaceState in DOM
+      const domInitScript = document.getElementById('initialPalaceState');
+      if (domInitScript) {
+        try {
+          const closeScriptPattern = new RegExp('<' + '/script', 'gi');
+          domInitScript.textContent = '\n' + JSON.stringify(palaceState, null, 2).replace(closeScriptPattern, () => '<\\/' + 'script') + '\n';
+        } catch (e) {}
+      }
+
+      // 5. Re-sync Palace navigation, stage titles, dots, and 3D chamber positions
       syncPalaceNavigation();
       renderAdminRoomsManager();
+
+      // 6. Provide user confirmation toast
+      showPalaceToast(`🗑️ "${room.title || room.navLabel}" removed from Palace!`, 3500);
     };
 
     window.switchAdminTab = function(tabId) {
@@ -17463,13 +17665,12 @@
       }
 
       // Identify strictly the active, enabled chambers
-      const activeIds = (palaceState.chambers || [])
+      const activeIds = new Set((palaceState.chambers || [])
         .filter(c => c.enabled !== false)
-        .map(c => c.id);
-      activeIds.push('chamber-thankyou');
+        .map(c => c.id));
 
       document.querySelectorAll('.palace-chamber').forEach(ch => {
-        if (activeIds.includes(ch.id) && ch.style.display !== 'none') {
+        if (activeIds.has(ch.id) && ch.style.display !== 'none' && !ch.classList.contains('chamber-hidden')) {
           ch.classList.add('pdf-page-active');
           ch.classList.remove('pdf-page-hidden');
         } else {
@@ -21054,15 +21255,16 @@
         };
 
         palaceState.chambers.push(newRoom);
+        persistPalaceState();
+        const domInitScript = document.getElementById('initialPalaceState');
+        if (domInitScript) {
+          try {
+            const closeScriptPattern = new RegExp('<' + '/script', 'gi');
+            domInitScript.textContent = '\n' + JSON.stringify(palaceState, null, 2).replace(closeScriptPattern, () => '<\\/' + 'script') + '\n';
+          } catch (e) {}
+        }
         syncPalaceNavigation();
         renderAdminRoomsManager();
-
-        // Save immediately
-        try {
-          localStorage.setItem('palace_full_profile', JSON.stringify(palaceState));
-        } catch (e) {
-          console.warn(e);
-        }
 
         // Reset inputs
         titleInput.value = '';
@@ -21071,7 +21273,7 @@
         if (addRoomPanel) addRoomPanel.style.display = 'none';
         if (btnToggleAddRoom) btnToggleAddRoom.textContent = '➕ Add New Room';
 
-        alert(`✨ Room "${title}" successfully added to the palace!`);
+        showPalaceToast(`✨ Room "${title}" successfully added to the palace!`, 3500);
       });
     }
 
@@ -21080,14 +21282,17 @@
         const confirmed = confirm("Are you sure you want to reset all palace rooms back to the default 8 chambers?");
         if (!confirmed) return;
         palaceState.chambers = JSON.parse(JSON.stringify(defaultChambers));
+        persistPalaceState();
+        const domInitScript = document.getElementById('initialPalaceState');
+        if (domInitScript) {
+          try {
+            const closeScriptPattern = new RegExp('<' + '/script', 'gi');
+            domInitScript.textContent = '\n' + JSON.stringify(palaceState, null, 2).replace(closeScriptPattern, () => '<\\/' + 'script') + '\n';
+          } catch (e) {}
+        }
         syncPalaceNavigation();
         renderAdminRoomsManager();
-        try {
-          localStorage.setItem('palace_full_profile', JSON.stringify(palaceState));
-        } catch (e) {
-          console.warn(e);
-        }
-        alert("🔄 Rooms reset to default!");
+        showPalaceToast("🔄 Rooms reset to default!", 3500);
       });
     }
 
