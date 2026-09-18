@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <!-- Embedded Palace State (Self-Contained Cross-Device & Incognito Support) -->
   <script id="initialPalaceState" type="application/json">
 {
@@ -13336,7 +13341,9 @@
     // Load from localStorage if present (only when not in baked view-only mode from an exported presentation)
     const activeStorageKey = getStorageKeyForProfile(currentEmpSlug);
     const savedFullProfile = localStorage.getItem(activeStorageKey);
-    if (savedFullProfile && palaceState.defaultAccessMode !== 'view') {
+    const _reqAccess = _urlParams.get('access') || _urlParams.get('mode');
+    const _isViewRecipient = _reqAccess === 'view' || palaceState.defaultAccessMode === 'view';
+    if (savedFullProfile && !_isViewRecipient) {
       try {
         const parsed = JSON.parse(savedFullProfile);
         if (!parsed.profileVersion || parsed.profileVersion < (palaceState.profileVersion || 1)) {
@@ -13353,6 +13360,7 @@
             if (parsed.evolution.nowTitle === 'Year 01' || parsed.evolution.nowTitle === 'Year 01 • Proven Mastery') {
               parsed.evolution.nowTitle = 'Today';
             }
+            parsed.evolution.growthLabel = '';
             palaceState.evolution = parsed.evolution;
           }
           if (parsed.entrance) {
@@ -16442,9 +16450,12 @@
         const inputEditorPasscode = document.getElementById('inputEditorPasscode');
 
         const slug = currentEmpSlug;
+        const cacheBuster = `v=${Date.now()}`;
         const empQuery = slug ? `?emp=${encodeURIComponent(slug)}&` : '?';
+        const directViewUrl = `${baseUrl}${empQuery}access=view&${cacheBuster}`;
+
         if (shareViewUrlInput) {
-          shareViewUrlInput.value = `${baseUrl}${empQuery}access=view`;
+          shareViewUrlInput.value = directViewUrl;
         }
         if (palaceAccessMode === 'view') {
           // If current session is View Mode, recipient must never see or access edit URL or passcode
@@ -16452,7 +16463,7 @@
           if (inputEditorPasscode) inputEditorPasscode.value = '';
         } else {
           if (shareEditUrlInput) {
-            shareEditUrlInput.value = `${baseUrl}${empQuery}access=edit`;
+            shareEditUrlInput.value = `${baseUrl}${empQuery}access=edit&${cacheBuster}`;
           }
           if (inputEditorPasscode) {
             inputEditorPasscode.value = palaceState.editorPasscode || "uffizio";
@@ -16460,13 +16471,7 @@
         }
         const shareTinyInp = document.getElementById('shareTinyUrlInput');
         if (shareTinyInp) {
-          if (!slug || slug === 'dhara') {
-            shareTinyInp.value = 'https://tinyurl.com/uffizio-dhara';
-          } else if (slug === 'rahul') {
-            shareTinyInp.value = 'https://tinyurl.com/uffizio-rahul';
-          } else {
-            shareTinyInp.value = `${baseUrl}?emp=${encodeURIComponent(slug)}&access=view`;
-          }
+          shareTinyInp.value = directViewUrl;
         }
       };
 
@@ -16688,17 +16693,23 @@
     async function initEmployeeProfile() {
       if (!currentEmpSlug) return;
       const localKey = getStorageKeyForProfile(currentEmpSlug);
-      try {
-        const cached = localStorage.getItem(localKey);
-        if (cached) {
-          const parsed = JSON.parse(cached);
-          if (parsed && parsed.employee) {
-            applyLoadedProfile(parsed);
-            console.log(`Loaded active profile for ${currentEmpSlug} from local storage cache.`);
-            return;
+      const urlParams = (typeof window !== 'undefined' && window.location) ? new URLSearchParams(window.location.search) : null;
+      const isView = (urlParams && (urlParams.get('access') === 'view' || urlParams.get('mode') === 'view')) || (typeof palaceAccessMode !== 'undefined' && palaceAccessMode === 'view');
+
+      // For editors on localhost/file, check cache; for view recipients, always fetch latest fresh profile!
+      if (!isView) {
+        try {
+          const cached = localStorage.getItem(localKey);
+          if (cached) {
+            const parsed = JSON.parse(cached);
+            if (parsed && parsed.employee && (parsed.profileVersion || 1) >= (palaceState.profileVersion || 1)) {
+              applyLoadedProfile(parsed);
+              console.log(`Loaded active profile for ${currentEmpSlug} from local storage cache.`);
+              return;
+            }
           }
-        }
-      } catch(e) {}
+        } catch(e) {}
+      }
 
       try {
         const resp = await fetch(`profiles/${encodeURIComponent(currentEmpSlug)}.json?v=${Date.now()}`);
@@ -16714,11 +16725,22 @@
         }
       } catch(err) {
         console.warn(`Could not load profiles/${currentEmpSlug}.json:`, err);
+        // Fallback to cache if offline
+        try {
+          const cached = localStorage.getItem(localKey);
+          if (cached) applyLoadedProfile(JSON.parse(cached));
+        } catch(e) {}
       }
     }
 
     function applyLoadedProfile(data) {
       if (!data || typeof data !== 'object') return;
+      if (data.evolution) {
+        if (data.evolution.nowTitle === 'Year 01' || data.evolution.nowTitle === 'Year 01 • Proven Mastery') {
+          data.evolution.nowTitle = 'Today';
+        }
+        data.evolution.growthLabel = '';
+      }
       Object.keys(data).forEach(k => {
         if (data[k] !== undefined && data[k] !== null) {
           if (typeof data[k] === 'object' && !Array.isArray(data[k]) && palaceState[k] && typeof palaceState[k] === 'object' && !Array.isArray(palaceState[k])) {
