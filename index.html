@@ -4019,64 +4019,25 @@
       100% { left: calc(100% - 14px); opacity: 0; transform: scaleX(0.5); }
     }
 
-    /* Central arrow node */
-    .conduit-arrow-badge {
-      position: relative;
-      z-index: 2;
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      background: rgba(9, 14, 28, 0.95);
-      border: 1.5px solid var(--gold-primary);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 0 14px rgba(245, 192, 101, 0.35);
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    /* Track Hover Glow Enhancements */
+    .conduit-track:hover .conduit-line-glow {
+      filter: blur(6px);
+      opacity: 0.9;
     }
 
-    .conduit-track:hover .conduit-arrow-badge {
-      transform: scale(1.18) translateX(2px);
-      box-shadow: 0 0 20px rgba(0, 229, 255, 0.6);
+    .conduit-track:hover .conduit-line-core {
+      height: 3px;
+      box-shadow: 0 0 14px rgba(255, 255, 255, 0.8);
     }
 
-    .conduit-track[data-track="0"] .conduit-arrow-badge {
-      border-color: rgba(245, 192, 101, 0.85);
-      box-shadow: 0 0 12px rgba(245, 192, 101, 0.35);
+    .conduit-wire::before,
+    .conduit-wire::after {
+      transition: transform 0.25s ease;
     }
 
-    .conduit-track[data-track="1"] .conduit-arrow-badge {
-      border-color: rgba(0, 229, 255, 0.85);
-      box-shadow: 0 0 12px rgba(0, 229, 255, 0.35);
-    }
-
-    .conduit-track[data-track="2"] .conduit-arrow-badge {
-      border-color: rgba(16, 185, 129, 0.85);
-      box-shadow: 0 0 12px rgba(16, 185, 129, 0.35);
-    }
-
-    .conduit-arrow-svg {
-      width: 14px;
-      height: 14px;
-      color: var(--gold-primary);
-      animation: conduitArrowPulse 1.8s infinite alternate ease-in-out;
-    }
-
-    .conduit-track[data-track="0"] .conduit-arrow-svg {
-      color: #ffe8b5;
-    }
-
-    .conduit-track[data-track="1"] .conduit-arrow-svg {
-      color: #00e5ff;
-    }
-
-    .conduit-track[data-track="2"] .conduit-arrow-svg {
-      color: #6ee7b7;
-    }
-
-    @keyframes conduitArrowPulse {
-      0% { transform: translateX(-1px); }
-      100% { transform: translateX(2px); }
+    .conduit-track:hover .conduit-wire::before,
+    .conduit-track:hover .conduit-wire::after {
+      transform: scale(1.4);
     }
 
 
@@ -4275,38 +4236,7 @@
         gap: 12px;
       }
       .evolution-bridge-conduit {
-        flex-direction: row;
-        flex: 0 0 auto;
-        padding: 6px 0;
-        width: 100%;
-      }
-      .conduit-header-spacer {
         display: none;
-      }
-      .conduit-track-list {
-        flex-direction: row;
-        width: 100%;
-        justify-content: space-around;
-      }
-      .conduit-track {
-        padding: 0;
-      }
-      .conduit-wire::before,
-      .conduit-wire::after,
-      .conduit-line-core,
-      .conduit-line-glow,
-      .conduit-pulse-particle {
-        display: none;
-      }
-      .conduit-wire {
-        width: auto;
-        height: auto;
-      }
-      .conduit-arrow-badge {
-        transform: rotate(90deg);
-      }
-      .conduit-track:hover .conduit-arrow-badge {
-        transform: rotate(90deg) scale(1.15);
       }
 
       .skill-visual-icons-grid {
@@ -10337,12 +10267,6 @@
                       <div class="conduit-line-glow"></div>
                       <div class="conduit-line-core"></div>
                       <div class="conduit-pulse-particle"></div>
-                      <div class="conduit-arrow-badge">
-                        <svg class="conduit-arrow-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                          <path d="M5 12h14"></path>
-                          <path d="m13 5 7 7-7 7"></path>
-                        </svg>
-                      </div>
                     </div>
                   </div>
                   <div class="conduit-track" data-track="1" title="Understanding to Mastery">
@@ -10350,12 +10274,6 @@
                       <div class="conduit-line-glow"></div>
                       <div class="conduit-line-core"></div>
                       <div class="conduit-pulse-particle"></div>
-                      <div class="conduit-arrow-badge">
-                        <svg class="conduit-arrow-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                          <path d="M5 12h14"></path>
-                          <path d="m13 5 7 7-7 7"></path>
-                        </svg>
-                      </div>
                     </div>
                   </div>
                   <div class="conduit-track" data-track="2" title="Role to Ownership">
@@ -10363,12 +10281,6 @@
                       <div class="conduit-line-glow"></div>
                       <div class="conduit-line-core"></div>
                       <div class="conduit-pulse-particle"></div>
-                      <div class="conduit-arrow-badge">
-                        <svg class="conduit-arrow-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                          <path d="M5 12h14"></path>
-                          <path d="m13 5 7 7-7 7"></path>
-                        </svg>
-                      </div>
                     </div>
                   </div>
                 </div>
