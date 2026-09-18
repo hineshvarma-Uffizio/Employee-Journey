@@ -6989,6 +6989,7 @@
       align-items: center;
       justify-content: center;
       pointer-events: auto;
+      overflow: visible;
     }
 
     .memories-standalone-collage-stage {
@@ -7063,6 +7064,7 @@
       min-height: 480px;
       margin: 0 auto;
       box-sizing: border-box;
+      overflow: visible;
       background: transparent !important;
     }
 
@@ -15010,9 +15012,9 @@
           card.dataset.idx = idx;
 
           const cx = slot.left + slot.width / 2;
-          // Add topOffset so cards never overlap the heading (heading ~154px, board starts ~190px)
-          const topOffset = 14;
-          const cy = Math.max(slot.top + slot.height / 2 + topOffset, topOffset + 8);
+          // Scale cy so cards always stay within [12%, 80%] of board — breathing space top & bottom
+          const rawCy = slot.top + slot.height / 2;
+          const cy = 12 + rawCy * 0.68;
           card.style.left = `${cx.toFixed(2)}%`;
           card.style.top = `${cy.toFixed(2)}%`;
           card.style.transform = `translate(-50%, -50%) rotate(${slot.rot}deg)`;
@@ -15056,6 +15058,18 @@
 
           board.appendChild(card);
         });
+
+        // Boost z-index of the card closest to center so it appears on top
+        const allCards = board.querySelectorAll('.memories-uneven-card');
+        let minDist = Infinity, centerCard = null;
+        allCards.forEach(c => {
+          const cl = parseFloat(c.style.left);
+          const ct = parseFloat(c.style.top);
+          const dist = (cl - 50) * (cl - 50) + (ct - 50) * (ct - 50);
+          if (dist < minDist) { minDist = dist; centerCard = c; }
+        });
+        if (centerCard) centerCard.style.zIndex = '9';
+
       } else {
         // More than 12 photos: Organic scrollable scrapbook scatter-wall!
         board.classList.add('is-scrollable');
