@@ -16443,7 +16443,10 @@
       const btnShareDownloadHtml = document.getElementById('btnShareDownloadHtml');
       if (btnShareDownloadHtml) {
         btnShareDownloadHtml.addEventListener('click', () => {
-          downloadUpdatedHtml('index.html');
+          const empSafeName = (palaceState.employee && palaceState.employee.name)
+            ? (palaceState.employee.name.trim().replace(/[^a-zA-Z0-9_-]/g, '_') + '_Journey.html')
+            : 'Employee_Journey.html';
+          downloadUpdatedHtml(empSafeName);
         });
       }
 
@@ -20978,7 +20981,10 @@
     }
 
     function downloadUpdatedHtml(filename) {
-      const targetFilename = filename || 'index.html';
+      const empSafeName = (palaceState.employee && palaceState.employee.name)
+        ? `${palaceState.employee.name.trim().replace(/[^a-zA-Z0-9_-]/g, '_')}_Journey.html`
+        : 'index.html';
+      const targetFilename = filename || empSafeName;
       try {
         // 1. Capture current live edits and persist
         captureLiveEditsToState();
