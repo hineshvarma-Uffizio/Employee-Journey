@@ -1,5 +1,5 @@
 {
-  "profileVersion": 5,
+  "profileVersion": 6,
   "chambers": [
     {
       "id": "chamber-milestone",
@@ -217,7 +217,7 @@
     "headerBadge": "",
     "title": "Thank You, Dhara!",
     "subtitle": "",
-    "message": "Thank you for bringing your dedication, energy, and brilliant spirit to Uffizio every single day. Your presence strengthens our team, elevates our culture, and turns every challenge into an inspiring milestone. We are deeply proud of your growth and honored to walk this journey together.",
+    "message": "Thank you for your dedication, energy, and spirit at Uffizio. Your contributions strengthen our team, and we’re proud of your growth and journey with us.",
     "signature": "— With heartfelt gratitude & best wishes, Team Uffizio 🌟",
     "actionBtn1": "🎉 Shower Confetti & Applause",
     "actionBtn2": "",
