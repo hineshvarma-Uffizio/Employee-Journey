@@ -1438,7 +1438,7 @@
       position: relative;
       width: 104px;
       height: 104px;
-      margin: 0 auto 28px auto;
+      margin: 0 auto 20px auto;
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -14544,7 +14544,6 @@
               <div class="thankyou-avatar-glow"></div>
               <div class="thankyou-wreath-icon">🏆</div>
             </div>
-            <div class="thankyou-tag-pill" contenteditable="true" data-editable="true" title="Click to edit badge">${escapeHtml(ty.headerBadge || '✨ HEARTFELT APPRECIATION • 1 YEAR MILESTONE ✨')}</div>
             <h1 class="thankyou-main-title" contenteditable="true" data-editable="true" title="Click to edit title">${escapeHtml(titleText)}</h1>
             ${(ty.subtitle && ty.subtitle !== "For an extraordinary year of passion, impact, and shared success with Uffizio.") ? `<p class="thankyou-subtitle" contenteditable="true" data-editable="true" title="Click to edit subtitle">${escapeHtml(ty.subtitle)}</p>` : ''}
           </div>
@@ -14554,24 +14553,8 @@
             <p class="thankyou-letter-text" contenteditable="true" data-editable="true" title="Click to edit letter">${escapeHtml(ty.message || '')}</p>
             <div class="thankyou-signature-line" contenteditable="true" data-editable="true" title="Click to edit signature">${escapeHtml(ty.signature || '')}</div>
           </div>
-
-          <div class="thankyou-actions-row">
-            <button class="btn-download-cert thankyou-souvenir-btn" id="btnThankYouCert" onclick="openCertificateModal()" title="View your official souvenir certificate">
-              <span>${escapeHtml(ty.actionBtn2 || '📜 View Souvenir Card')}</span>
-            </button>
-          </div>
         </div>
       `;
-
-      // Attach button events
-
-      const btnCert = document.getElementById('btnThankYouCert');
-      if (btnCert) {
-        btnCert.addEventListener('click', (e) => {
-          e.preventDefault();
-          openCertificateModal();
-        });
-      }
     }
 
     // ==========================================================================
