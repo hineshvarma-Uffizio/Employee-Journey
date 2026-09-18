@@ -10010,91 +10010,153 @@
        ========================================================================== */
     @media print {
       @page {
-        size: A4 portrait;
-        margin: 12mm 15mm;
+        size: A4 landscape;
+        margin: 0;
       }
 
-      header.palace-nav-bar,
+      /* 1. Strictly hide Top Header, Bottom Footer, Navigation, and all UI overlays */
+      header.palace-header,
+      .palace-header,
+      footer.palace-footer,
+      .palace-footer,
+      .corridor-stepper,
+      .floorplan-nav,
+      .header-actions,
+      #headerProgressLine,
+      .palace-header-brand,
+      .palace-portal-stage,
+      #portalStage,
       .palace-floating-admin,
-      .palace-progress-line,
-      .room-transition-arrows,
       .palace-modal-backdrop,
       .collage-lightbox-backdrop,
-      #ambientCanvas,
-      #headerProgressLine,
-      .nav-arrow-left,
-      .nav-arrow-right,
-      .chamber-return-banner,
-      .thankyou-share-hub-card,
       .palace-toast-container,
       .palace-toast-monument,
-      .btn-primary-add,
-      .btn-save-profile,
-      .btn-secondary,
-      .btn-danger,
-      #portalStage,
-      .palace-portal-stage,
+      .room-transition-arrows,
       .ambient-sparks-container,
       .palace-hotspot,
       .cursor-glow,
       .action-pill,
       .music-pill-btn,
-      .sound-pill-btn {
+      .sound-pill-btn,
+      .portal-scroll-prompt,
+      #portalScrollPrompt,
+      .nav-arrow-left,
+      .nav-arrow-right,
+      .chamber-return-banner,
+      .thankyou-share-hub-card,
+      .btn-primary-add,
+      .btn-save-profile,
+      .btn-secondary,
+      .btn-danger,
+      .timeline-camera-hint,
+      .btn-reset-camera,
+      .palace-chamber.pdf-page-hidden,
+      .palace-chamber[style*="display: none"],
+      .palace-chamber[style*="display:none"] {
         display: none !important;
       }
 
+      /* 2. Authentic Royal Dark Palace Background */
       html, body {
-        background: #ffffff !important;
-        color: #0f172a !important;
+        width: 297mm !important;
+        min-width: 297mm !important;
+        background-color: #030712 !important;
+        background: #030712 radial-gradient(ellipse 120% 90% at 50% 25%, #0c1a3b 0%, #030712 100%) !important;
+        color: #f8fafc !important;
+        margin: 0 !important;
+        padding: 0 !important;
         overflow: visible !important;
-        height: auto !important;
-        font-size: 11pt !important;
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
+        color-adjust: exact !important;
       }
 
+      /* 3. Stage flattening */
       .palace-viewport,
       .palace-stage {
         position: static !important;
         display: block !important;
-        width: 100% !important;
+        width: 297mm !important;
         height: auto !important;
+        margin: 0 !important;
+        padding: 0 !important;
         transform: none !important;
         perspective: none !important;
         overflow: visible !important;
+        background: transparent !important;
       }
 
-      .palace-chamber,
-      .palace-chamber.active,
-      .palace-chamber.exited-forward,
-      .palace-chamber.waiting-depth {
-        position: static !important;
-        display: block !important;
+      /* 4. Only active chambers display - each formatted as 1 full A4 landscape page */
+      .palace-chamber.pdf-page-active {
+        position: relative !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
+        width: 297mm !important;
+        height: 210mm !important;
+        min-height: 210mm !important;
+        max-height: 210mm !important;
+        box-sizing: border-box !important;
+        padding: 12mm 18mm !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+        page-break-after: always !important;
+        break-after: page !important;
+        overflow: hidden !important;
         opacity: 1 !important;
         visibility: visible !important;
         transform: none !important;
-        width: 100% !important;
-        height: auto !important;
-        padding: 24px 0 !important;
-        page-break-after: always !important;
-        break-after: page !important;
-        page-break-inside: avoid !important;
-        break-inside: avoid !important;
+        background: #030712 radial-gradient(ellipse 120% 90% at 50% 20%, #081a3d 0%, #020617 100%) !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        color-adjust: exact !important;
       }
 
-      #chamber-thankyou {
+      /* Last active chamber should avoid trailing blank page */
+      .palace-chamber.pdf-page-active:last-of-type,
+      #chamber-thankyou.pdf-page-active {
         page-break-after: auto !important;
         break-after: auto !important;
       }
 
-      .chamber-content {
-        max-width: 100% !important;
+      /* 5. Chamber content centering and typography */
+      .palace-chamber.pdf-page-active .chamber-content {
+        width: 100% !important;
+        max-width: 265mm !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
         transform: none !important;
+        margin: 0 auto !important;
         padding: 0 !important;
       }
 
-      /* Clean luxury styling for cards in print */
+      .palace-chamber.pdf-page-active .chamber-placard {
+        margin-bottom: 5mm !important;
+        text-align: center !important;
+      }
+
+      .palace-chamber.pdf-page-active .chamber-name {
+        font-size: 22pt !important;
+        color: #f5c065 !important;
+        text-shadow: 0 2px 10px rgba(245, 192, 101, 0.4) !important;
+        margin-bottom: 2mm !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+
+      .palace-chamber.pdf-page-active .chamber-desc {
+        font-size: 10.5pt !important;
+        color: #94a3b8 !important;
+        max-width: 720px !important;
+        margin: 0 auto !important;
+      }
+
+      /* 6. Luxury Card Aesthetics Preservation */
       .milestone-horizontal-card,
+      .evolution-card,
       .evolution-dual-card,
       .creation-visual-card,
       .split-creation-card,
@@ -10106,36 +10168,164 @@
       .polaroid-frame,
       .future-card,
       .thankyou-card-monument,
-      .pedestal-plaque {
-        background: #ffffff !important;
-        border: 1px solid #cbd5e1 !important;
-        box-shadow: none !important;
-        color: #0f172a !important;
-        page-break-inside: avoid;
-        break-inside: avoid;
+      .pedestal-plaque,
+      .celebration-quote-card,
+      .room-wall,
+      .room-floor {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        color-adjust: exact !important;
+      }
+
+      .milestone-horizontal-card,
+      .evolution-card,
+      .split-creation-card,
+      .creations-common-image-card,
+      .value-card,
+      .future-card,
+      .thankyou-card-monument {
+        background: rgba(15, 23, 42, 0.88) !important;
+        border: 1.5px solid rgba(245, 192, 101, 0.35) !important;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6) !important;
+        color: #f8fafc !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
       }
 
       h1, h2, h3, h4, h5, h6,
-      .chamber-name,
       .thankyou-main-title,
-      .celebration-hero-title,
+      .celebration-main-title,
       .serif-gold {
-        color: #0f172a !important;
-        text-shadow: none !important;
+        color: #f5c065 !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
       }
 
       p, span, div,
       .thankyou-letter-text,
       .thankyou-signature-line,
       .celebration-quote-text {
-        color: #334155 !important;
-        text-shadow: none !important;
+        color: #e2e8f0 !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+
+      .celebration-employee-name {
+        color: #ffffff !important;
+        text-shadow: 0 0 20px rgba(245, 192, 101, 0.5) !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
       }
 
       img {
         max-width: 100% !important;
-        print-color-adjust: exact !important;
         -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+
+      /* 7. Chamber-Specific Fine Tuning for A4 Landscape */
+      .celebration-stage-container {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 12mm !important;
+        width: 100% !important;
+      }
+      .celebration-portrait-column {
+        flex: 0 0 75mm !important;
+        max-width: 75mm !important;
+      }
+      .celebration-portrait-frame {
+        height: 105mm !important;
+      }
+      .celebration-content-column {
+        flex: 1 1 auto !important;
+        max-width: 150mm !important;
+      }
+
+      .horizontal-journey-stage {
+        width: 100% !important;
+        max-width: 260mm !important;
+      }
+      .horizontal-milestones-list {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: stretch !important;
+        justify-content: center !important;
+        gap: 8mm !important;
+        width: 100% !important;
+      }
+      .horizontal-milestone-item {
+        flex: 1 1 0 !important;
+        max-width: 78mm !important;
+      }
+
+      .evolution-comparison-stage {
+        display: flex !important;
+        flex-direction: row !important;
+        gap: 10mm !important;
+        width: 100% !important;
+        justify-content: center !important;
+      }
+      .evolution-card {
+        flex: 1 1 0 !important;
+        max-width: 115mm !important;
+      }
+
+      .creations-split-layout {
+        display: flex !important;
+        flex-direction: row !important;
+        gap: 10mm !important;
+        width: 100% !important;
+        justify-content: center !important;
+        align-items: center !important;
+      }
+      .creations-split-left {
+        flex: 1 1 0 !important;
+        max-width: 120mm !important;
+      }
+      .creations-split-right {
+        flex: 1 1 0 !important;
+        max-width: 120mm !important;
+      }
+
+      .room-proud {
+        display: flex !important;
+        flex-direction: row !important;
+        gap: 10mm !important;
+        width: 100% !important;
+        align-items: center !important;
+        justify-content: center !important;
+      }
+      .trophy-pedestal-area {
+        flex: 0 0 70mm !important;
+      }
+      .proud-gallery-area {
+        flex: 1 1 0 !important;
+      }
+
+      .future-split-layout {
+        display: flex !important;
+        flex-direction: row !important;
+        gap: 10mm !important;
+        width: 100% !important;
+        align-items: center !important;
+        justify-content: center !important;
+      }
+      .future-col-left {
+        flex: 1 1 0 !important;
+        max-width: 130mm !important;
+      }
+      .future-col-right {
+        flex: 0 0 95mm !important;
+        max-width: 95mm !important;
+      }
+
+      .thankyou-card-monument {
+        max-width: 190mm !important;
+        margin: 0 auto !important;
+        padding: 8mm 16mm !important;
       }
     }
 
@@ -16542,6 +16732,19 @@
 
       // Update HUD
       updateHUD(currentStage);
+
+      // Keep PDF active print chamber classes in sync
+      const printActiveIds = activeChambers.map(c => c.id);
+      printActiveIds.push('chamber-thankyou');
+      document.querySelectorAll('.palace-chamber').forEach(ch => {
+        if (printActiveIds.includes(ch.id) && ch.style.display !== 'none') {
+          ch.classList.add('pdf-page-active');
+          ch.classList.remove('pdf-page-hidden');
+        } else {
+          ch.classList.remove('pdf-page-active');
+          ch.classList.add('pdf-page-hidden');
+        }
+      });
     }
 
     // Render Admin Rooms Manager tab content
@@ -17234,7 +17437,10 @@
       return `${baseUrl}${empQuery}access=view&v=${Date.now()}${dataHash}`;
     };
 
-    window.printJourneyPDF = function() {
+    function preparePrintMode() {
+      document.body.classList.add('printing-journey-pdf');
+
+      // Close all active modals/lightboxes
       const shareModal = document.getElementById('shareModalBackdrop');
       if (shareModal) shareModal.classList.remove('active');
       const adminModal = document.getElementById('adminModalBackdrop');
@@ -17244,20 +17450,57 @@
       const collageModal = document.getElementById('collageLightboxBackdrop');
       if (collageModal) collageModal.classList.remove('active');
 
+      // Ensure all chambers are freshly rendered with latest text/photos
       try {
         if (typeof renderAllChambers === 'function') renderAllChambers();
         if (typeof renderThankYouRoom === 'function') renderThankYouRoom();
         if (typeof renderFutureRoom === 'function') renderFutureRoom();
+        if (typeof renderValuesRoom === 'function') renderValuesRoom();
+        if (typeof renderMemories === 'function') renderMemories();
+        if (typeof renderMemories2 === 'function') renderMemories2();
       } catch(e) {
         console.warn("Print prep render error:", e);
       }
 
-      showPalaceToast("📄 Preparing multi-page PDF print view...", 2500);
+      // Identify strictly the active, enabled chambers
+      const activeIds = (palaceState.chambers || [])
+        .filter(c => c.enabled !== false)
+        .map(c => c.id);
+      activeIds.push('chamber-thankyou');
 
+      document.querySelectorAll('.palace-chamber').forEach(ch => {
+        if (activeIds.includes(ch.id) && ch.style.display !== 'none') {
+          ch.classList.add('pdf-page-active');
+          ch.classList.remove('pdf-page-hidden');
+        } else {
+          ch.classList.remove('pdf-page-active');
+          ch.classList.add('pdf-page-hidden');
+        }
+      });
+
+      const portal = document.getElementById('portalStage');
+      if (portal) portal.classList.add('pdf-page-hidden');
+    }
+
+    function cleanupPrintMode() {
+      document.body.classList.remove('printing-journey-pdf');
+      document.querySelectorAll('.palace-chamber').forEach(ch => {
+        ch.classList.remove('pdf-page-active', 'pdf-page-hidden');
+      });
+      const portal = document.getElementById('portalStage');
+      if (portal) portal.classList.remove('pdf-page-hidden');
+    }
+
+    window.addEventListener('beforeprint', preparePrintMode);
+    window.addEventListener('afterprint', cleanupPrintMode);
+
+    window.printJourneyPDF = function() {
+      preparePrintMode();
+      showPalaceToast("📄 Preparing luxury landscape PDF presentation view...", 2000);
       setTimeout(() => {
         window.focus();
         window.print();
-      }, 400);
+      }, 350);
     };
 
     window.shareToLinkedIn = function() {
