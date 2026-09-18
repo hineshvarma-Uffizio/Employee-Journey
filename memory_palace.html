@@ -8324,11 +8324,26 @@
       box-shadow: 0 0 14px rgba(245, 192, 101, 0.2);
     }
 
-    /* View Mode Lock Enforcement */
+    /* View Mode Lock Enforcement: Strictly Read-Only Presentation */
     body.view-mode-active #profileEditBtn,
     body.view-mode-active #floatingAdminBtn,
-    body.view-mode-active #liveEditToggleBtn {
+    body.view-mode-active #liveEditToggleBtn,
+    body.view-mode-active #saveDownloadBtn,
+    body.view-mode-active #palaceModeBadge,
+    body.view-mode-active .live-edit-toolbar,
+    body.view-mode-active #profileModalBackdrop {
       display: none !important;
+    }
+
+    body.view-mode-active .values-avatar-frame,
+    body.view-mode-active .thankyou-avatar-halo {
+      pointer-events: none !important;
+      cursor: default !important;
+    }
+
+    body.view-mode-active [contenteditable="true"] {
+      pointer-events: none !important;
+      user-select: text !important;
     }
 
   
@@ -11637,6 +11652,15 @@
           </div>
         </div>
 
+        <!-- Self-Contained Download for Sharing -->
+        <div style="background: rgba(16, 185, 129, 0.12); border: 1.5px solid rgba(16, 185, 129, 0.35); border-radius: 12px; padding: 14px; margin-bottom: 14px; text-align: center;">
+          <div style="font-size: 13px; font-weight: 700; color: #6ee7b7; margin-bottom: 4px;">📥 Download Self-Contained Presentation File</div>
+          <p style="font-size: 11.5px; color: #cbd5e1; margin: 0 0 10px 0;">Share this file directly on WhatsApp, Email, or Drive. All your latest photos & edits are permanently saved inside it, and it opens strictly in View-Only Mode for the recipient!</p>
+          <button type="button" class="btn-save-profile" id="btnShareDownloadHtml" style="width: 100%; background: linear-gradient(135deg, #059669, #047857); font-weight: 700; font-size: 13px; padding: 10px 18px;">
+            💾 Download View-Only File (.html)
+          </button>
+        </div>
+
         <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 14px;">
           <span style="font-size: 12px; color: #94a3b8;" id="copyViewFeedback">Ready to share</span>
           <button type="button" class="btn-subtle-reset" id="btnTestViewLink" style="color: var(--gold-light); border-color: rgba(245,192,101,0.3);">👁️ Switch to View Mode ›</button>
@@ -14069,6 +14093,7 @@
     }
 
     function openAdminPanelToTab(tabName) {
+      if (typeof palaceAccessMode !== 'undefined' && palaceAccessMode === 'view') return;
       if (typeof openAdminPanel === 'function') openAdminPanel();
       const targetTab = document.querySelector(`.admin-tab-btn[data-tab="${tabName}"]`);
       if (targetTab) {
@@ -14207,6 +14232,7 @@
 
     // Direct click-to-upload SVG or PNG icon for a Value Card
     window.triggerValueIconUpload = function(idx) {
+      if (typeof palaceAccessMode !== 'undefined' && palaceAccessMode === 'view') return;
       let fileInput = document.getElementById('valueIconFileInput');
       if (!fileInput) {
         fileInput = document.createElement('input');
@@ -14313,6 +14339,7 @@
     }
 
     window.openAdminPanelToValuesTab = function() {
+      if (typeof palaceAccessMode !== 'undefined' && palaceAccessMode === 'view') return;
       openAdminPanel();
       const valTabBtn = document.querySelector('.admin-tab-btn[data-tab="tab-values"]');
       if (valTabBtn) valTabBtn.click();
@@ -15967,21 +15994,18 @@
       const profileEditBtn = document.getElementById('profileEditBtn');
       const floatingAdminBtn = document.getElementById('floatingAdminBtn');
       const liveEditToggleBtn = document.getElementById('liveEditToggleBtn');
+      const saveDownloadBtn = document.getElementById('saveDownloadBtn');
 
       if (mode === 'view') {
         document.body.classList.add('view-mode-active');
         document.body.classList.remove('edit-mode-active');
 
-        if (modeBadgeIcon) modeBadgeIcon.textContent = '👁️';
-        if (modeBadgeText) modeBadgeText.textContent = 'View Mode';
-        if (modeBadge) {
-          modeBadge.title = 'View-Only Presentation Mode. Click to enter Editor Passcode to unlock editing.';
-          modeBadge.className = 'action-pill mode-badge-pill badge-view';
-        }
-
+        // Completely hide all editing, badge, and download buttons in View Mode
+        if (modeBadge) modeBadge.style.display = 'none';
         if (profileEditBtn) profileEditBtn.style.display = 'none';
         if (floatingAdminBtn) floatingAdminBtn.style.display = 'none';
         if (liveEditToggleBtn) liveEditToggleBtn.style.display = 'none';
+        if (saveDownloadBtn) saveDownloadBtn.style.display = 'none';
 
         if (typeof disableLiveEditMode === 'function') {
           disableLiveEditMode();
@@ -15993,18 +16017,20 @@
         if (modeBadgeIcon) modeBadgeIcon.textContent = '✏️';
         if (modeBadgeText) modeBadgeText.textContent = 'Edit Mode';
         if (modeBadge) {
-          modeBadge.title = 'Full Edit Mode Active. Click to switch to View Mode.';
+          modeBadge.style.display = '';
+          modeBadge.title = 'Edit Mode Active. Click to switch to View Mode.';
           modeBadge.className = 'action-pill mode-badge-pill badge-edit';
         }
 
         if (profileEditBtn) profileEditBtn.style.display = '';
         if (floatingAdminBtn) floatingAdminBtn.style.display = '';
         if (liveEditToggleBtn) liveEditToggleBtn.style.display = '';
+        if (saveDownloadBtn) saveDownloadBtn.style.display = '';
       }
     }
 
     function promptUnlockEditor() {
-      const enteredPin = prompt("🔐 Enter Editor Passcode to unlock editing privileges:\n(Default: uffizio)");
+      const enteredPin = prompt("🔐 Enter Editor Passcode to unlock editing privileges:");
       if (enteredPin === null) return;
       const validPin = palaceState.editorPasscode || "uffizio";
       if (enteredPin.trim().toLowerCase() === validPin.trim().toLowerCase()) {
@@ -16054,12 +16080,21 @@
         } else if (requestedAccess === 'edit') {
           applyAccessMode('edit');
         } else {
-          const savedMode = localStorage.getItem('palace_user_access_mode');
-          applyAccessMode(savedMode || 'edit');
+          // If no URL parameter, check defaultAccessMode from file, else default to 'view' for safety
+          if (palaceState.defaultAccessMode === 'view') {
+            applyAccessMode('view');
+          } else {
+            const savedMode = localStorage.getItem('palace_user_access_mode');
+            if (savedMode === 'edit') {
+              applyAccessMode('edit');
+            } else {
+              applyAccessMode('view');
+            }
+          }
         }
       } catch (e) {
         console.warn("Could not init access mode", e);
-        applyAccessMode('edit');
+        applyAccessMode('view');
       }
     }
 
@@ -16268,6 +16303,13 @@
         btnCopyEditLink.addEventListener('click', () => {
           const url = document.getElementById('shareEditUrlInput')?.value;
           if (url) copyToClipboard(url, copyEditFeedback, "Ready to share");
+        });
+      }
+
+      const btnShareDownloadHtml = document.getElementById('btnShareDownloadHtml');
+      if (btnShareDownloadHtml) {
+        btnShareDownloadHtml.addEventListener('click', () => {
+          downloadUpdatedHtml('index.html');
         });
       }
 
@@ -19451,6 +19493,10 @@
     }
 
     function openAdminPanel() {
+      if (typeof palaceAccessMode !== 'undefined' && palaceAccessMode === 'view') {
+        console.warn("Editing locked in View Mode.");
+        return;
+      }
       populateAdminInputs();
       profileModalBackdrop.classList.add('active');
     }
@@ -19976,6 +20022,17 @@
         // Persist to localStorage & IndexedDB
         persistPalaceState();
 
+        // Also update live DOM initialPalaceState tag with latest edited state
+        const domInitScript = document.getElementById('initialPalaceState');
+        if (domInitScript) {
+          try {
+            const closeScriptPattern = new RegExp('<' + '/script', 'gi');
+            domInitScript.textContent = '\n' + JSON.stringify(palaceState, null, 2).replace(closeScriptPattern, () => '<\\/' + 'script') + '\n';
+          } catch (e) {
+            console.warn("Could not sync live initialPalaceState DOM", e);
+          }
+        }
+
         updatePalaceFromState();
         closeAdminPanel();
 
@@ -20185,6 +20242,7 @@
     let isLiveEditActive = false;
 
     function enableLiveEditMode() {
+      if (typeof palaceAccessMode !== 'undefined' && palaceAccessMode === 'view') return;
       isLiveEditActive = true;
       document.body.classList.add('live-edit-mode');
       if (liveEditToolbar) liveEditToolbar.classList.add('active');
@@ -20750,33 +20808,44 @@
     function downloadUpdatedHtml(filename) {
       const targetFilename = filename || 'index.html';
       try {
-        // 1. Capture current live edits
+        // 1. Capture current live edits and persist
         captureLiveEditsToState();
         persistPalaceState();
 
-        // 2. Safe JSON string (prevent closing script tags from breaking HTML parser)
-        const closeScriptPattern = new RegExp('<' + '/script', 'gi');
-        const stateJson = JSON.stringify(palaceState).replace(closeScriptPattern, () => '<\/' + 'script');
+        // 2. Prepare export state with defaultAccessMode set to 'view' so it is guaranteed locked in View Mode for recipients
+        const exportState = JSON.parse(JSON.stringify(palaceState));
+        exportState.defaultAccessMode = 'view';
 
-        // 3. Get entire HTML
+        // 3. Safe JSON string (prevent </script> from breaking HTML parser)
+        const closeScriptPattern = new RegExp('<' + '/script', 'gi');
+        const stateJson = JSON.stringify(exportState, null, 2).replace(closeScriptPattern, () => '<\\/' + 'script');
+
+        // 4. Update the live DOM script tag first
+        const domScript = document.getElementById('initialPalaceState');
+        if (domScript) {
+          domScript.textContent = '\n' + stateJson + '\n';
+        }
+
+        // 5. Get entire outer HTML
         let fullHtml = '<!DOCTYPE html>\n<html lang="en">\n' + document.documentElement.outerHTML + '\n</html>';
 
-        // 4. Clean open modal classes so page starts clean
+        // 6. Clean open modal classes and set body to view-mode-active
         fullHtml = fullHtml.replace(/class="palace-modal-backdrop active"/g, 'class="palace-modal-backdrop"');
         fullHtml = fullHtml.replace(/class="collage-lightbox-backdrop active"/g, 'class="collage-lightbox-backdrop"');
         fullHtml = fullHtml.replace(/live-edit-mode/g, '');
+        fullHtml = fullHtml.replace(/edit-mode-active/g, 'view-mode-active');
 
-        // 5. Inject or update script tag safely without inline closing tags
-        const scriptRegex = new RegExp('<script id="initialPalaceState" type="application\/json">[\s\S]*?<\/' + 'script>');
-        const newScriptTag = '<script id="initialPalaceState" type="application/json">' + stateJson + '<' + '/script>';
+        // 7. Inject or replace initialPalaceState script tag safely using literal regex
+        const stateRegex = /<script\s+id=["']initialPalaceState["'][^>]*>[\s\S]*?<\/script>/gi;
+        const newScriptTag = '<script id="initialPalaceState" type="application/json">\n' + stateJson + '\n<' + '/script>';
 
-        if (scriptRegex.test(fullHtml)) {
-          fullHtml = fullHtml.replace(scriptRegex, () => newScriptTag);
+        if (stateRegex.test(fullHtml)) {
+          fullHtml = fullHtml.replace(stateRegex, newScriptTag);
         } else {
-          fullHtml = fullHtml.replace('</head>', () => '  ' + newScriptTag + '\n</head>');
+          fullHtml = fullHtml.replace('</head>', '  ' + newScriptTag + '\n</head>');
         }
 
-        // 6. Trigger download
+        // 8. Trigger download
         const blob = new Blob([fullHtml], { type: 'text/html;charset=utf-8' });
         const blobUrl = URL.createObjectURL(blob);
         const a = document.createElement('a');
@@ -20787,7 +20856,7 @@
         document.body.removeChild(a);
         setTimeout(() => URL.revokeObjectURL(blobUrl), 2000);
 
-        showPalaceToast('💾 "' + targetFilename + '" downloaded successfully!', 4000);
+        showPalaceToast('💾 "' + targetFilename + '" saved with latest edits & locked in View Mode!', 4500);
       } catch (err) {
         console.error("Error downloading updated HTML:", err);
         showPalaceToast("Error downloading file: " + err.message, 5000);
