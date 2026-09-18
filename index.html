@@ -9859,6 +9859,284 @@
         -webkit-mask-image: radial-gradient(ellipse 90% 75% at 50% 50%, #000 15%, rgba(0, 0, 0, 0.7) 45%, rgba(0, 0, 0, 0.2) 70%, transparent 95%);
         mask-image: radial-gradient(ellipse 90% 75% at 50% 50%, #000 15%, rgba(0, 0, 0, 0.7) 45%, rgba(0, 0, 0, 0.2) 70%, transparent 95%);
       }
+    /* ==========================================================================
+       SOCIAL MEDIA SHARING HUB & PDF STYLING
+       ========================================================================== */
+    .thankyou-share-hub-card {
+      margin-top: 24px;
+      padding: 20px 24px;
+      background: rgba(15, 23, 42, 0.55);
+      border: 1px solid rgba(245, 192, 101, 0.25);
+      border-radius: 16px;
+      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(12px);
+      text-align: center;
+    }
+    .share-hub-header {
+      margin-bottom: 16px;
+    }
+    .share-hub-badge {
+      display: inline-block;
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      background: rgba(245, 192, 101, 0.12);
+      border: 1px solid rgba(245, 192, 101, 0.3);
+      padding: 3px 12px;
+      border-radius: 20px;
+      margin-bottom: 8px;
+    }
+    .share-hub-title {
+      font-family: var(--font-serif);
+      font-size: 18px;
+      font-weight: 700;
+      color: #f8fafc;
+      margin: 0 0 4px 0;
+    }
+    .share-hub-subtitle {
+      font-size: 12px;
+      color: #94a3b8;
+      max-width: 540px;
+      margin: 0 auto;
+      line-height: 1.45;
+    }
+    .share-hub-actions-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 10px;
+      align-items: center;
+      justify-content: center;
+    }
+    .btn-share-action {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 14px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.05);
+      color: #f1f5f9;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      text-decoration: none;
+    }
+    .btn-share-action:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    }
+    .btn-action-icon {
+      font-size: 15px;
+      line-height: 1;
+    }
+    .btn-pdf-action {
+      background: linear-gradient(135deg, #ea580c, #c2410c);
+      border-color: rgba(251, 146, 60, 0.4);
+      color: #ffffff;
+      box-shadow: 0 4px 14px rgba(234, 88, 12, 0.3);
+    }
+    .btn-pdf-action:hover {
+      background: linear-gradient(135deg, #f97316, #ea580c);
+      box-shadow: 0 6px 22px rgba(234, 88, 12, 0.45);
+    }
+    .btn-linkedin-action {
+      background: rgba(10, 102, 194, 0.2);
+      border-color: rgba(10, 102, 194, 0.5);
+      color: #70b5f9;
+    }
+    .btn-linkedin-action:hover {
+      background: #0a66c2;
+      color: #ffffff;
+      border-color: #0a66c2;
+    }
+    .btn-instagram-action {
+      background: rgba(225, 48, 108, 0.2);
+      border-color: rgba(225, 48, 108, 0.5);
+      color: #f472b6;
+    }
+    .btn-instagram-action:hover {
+      background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+      color: #ffffff;
+      border-color: transparent;
+    }
+    .btn-twitter-action {
+      background: rgba(29, 155, 240, 0.15);
+      border-color: rgba(29, 155, 240, 0.45);
+      color: #38bdf8;
+    }
+    .btn-twitter-action:hover {
+      background: #1d9bf0;
+      color: #ffffff;
+      border-color: #1d9bf0;
+    }
+    .btn-whatsapp-action {
+      background: rgba(37, 211, 102, 0.18);
+      border-color: rgba(37, 211, 102, 0.5);
+      color: #4ade80;
+    }
+    .btn-whatsapp-action:hover {
+      background: #16a34a;
+      color: #ffffff;
+      border-color: #16a34a;
+    }
+    .btn-facebook-action {
+      background: rgba(24, 119, 242, 0.18);
+      border-color: rgba(24, 119, 242, 0.5);
+      color: #60a5fa;
+    }
+    .btn-facebook-action:hover {
+      background: #1877f2;
+      color: #ffffff;
+      border-color: #1877f2;
+    }
+
+    .pdf-pill-btn {
+      background: linear-gradient(135deg, rgba(234, 88, 12, 0.2), rgba(194, 65, 12, 0.25));
+      border-color: rgba(251, 146, 60, 0.45);
+      color: #fdba74;
+    }
+    .pdf-pill-btn:hover {
+      background: linear-gradient(135deg, #ea580c, #c2410c);
+      color: #ffffff;
+      box-shadow: 0 4px 15px rgba(234, 88, 12, 0.35);
+    }
+
+    /* ==========================================================================
+       EXECUTIVE PRINT & MULTI-PAGE PDF STYLESHEET
+       ========================================================================== */
+    @media print {
+      @page {
+        size: A4 portrait;
+        margin: 12mm 15mm;
+      }
+
+      header.palace-nav-bar,
+      .palace-floating-admin,
+      .palace-progress-line,
+      .room-transition-arrows,
+      .palace-modal-backdrop,
+      .collage-lightbox-backdrop,
+      #ambientCanvas,
+      #headerProgressLine,
+      .nav-arrow-left,
+      .nav-arrow-right,
+      .chamber-return-banner,
+      .thankyou-share-hub-card,
+      .palace-toast-container,
+      .palace-toast-monument,
+      .btn-primary-add,
+      .btn-save-profile,
+      .btn-secondary,
+      .btn-danger,
+      #portalStage,
+      .palace-portal-stage,
+      .ambient-sparks-container,
+      .palace-hotspot,
+      .cursor-glow,
+      .action-pill,
+      .music-pill-btn,
+      .sound-pill-btn {
+        display: none !important;
+      }
+
+      html, body {
+        background: #ffffff !important;
+        color: #0f172a !important;
+        overflow: visible !important;
+        height: auto !important;
+        font-size: 11pt !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+
+      .palace-viewport,
+      .palace-stage {
+        position: static !important;
+        display: block !important;
+        width: 100% !important;
+        height: auto !important;
+        transform: none !important;
+        perspective: none !important;
+        overflow: visible !important;
+      }
+
+      .palace-chamber,
+      .palace-chamber.active,
+      .palace-chamber.exited-forward,
+      .palace-chamber.waiting-depth {
+        position: static !important;
+        display: block !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: none !important;
+        width: 100% !important;
+        height: auto !important;
+        padding: 24px 0 !important;
+        page-break-after: always !important;
+        break-after: page !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+      }
+
+      #chamber-thankyou {
+        page-break-after: auto !important;
+        break-after: auto !important;
+      }
+
+      .chamber-content {
+        max-width: 100% !important;
+        transform: none !important;
+        padding: 0 !important;
+      }
+
+      /* Clean luxury styling for cards in print */
+      .milestone-horizontal-card,
+      .evolution-dual-card,
+      .creation-visual-card,
+      .split-creation-card,
+      .creations-split-cards-grid,
+      .creations-common-image-card,
+      .collage-photo-card,
+      .value-card,
+      .sticky-note,
+      .polaroid-frame,
+      .future-card,
+      .thankyou-card-monument,
+      .pedestal-plaque {
+        background: #ffffff !important;
+        border: 1px solid #cbd5e1 !important;
+        box-shadow: none !important;
+        color: #0f172a !important;
+        page-break-inside: avoid;
+        break-inside: avoid;
+      }
+
+      h1, h2, h3, h4, h5, h6,
+      .chamber-name,
+      .thankyou-main-title,
+      .celebration-hero-title,
+      .serif-gold {
+        color: #0f172a !important;
+        text-shadow: none !important;
+      }
+
+      p, span, div,
+      .thankyou-letter-text,
+      .thankyou-signature-line,
+      .celebration-quote-text {
+        color: #334155 !important;
+        text-shadow: none !important;
+      }
+
+      img {
+        max-width: 100% !important;
+        print-color-adjust: exact !important;
+        -webkit-print-color-adjust: exact !important;
+      }
     }
 
   </style>
@@ -9907,6 +10185,9 @@
       </div>
       <button class="action-pill share-pill-btn" id="shareJourneyBtn" title="Share presentation link with View or Edit rights">
         <span>🔗 Share Link</span>
+      </button>
+      <button class="action-pill pdf-pill-btn" id="pdfExportTopBtn" onclick="window.printJourneyPDF()" title="Download entire Journey as PDF">
+        <span>📄 Export PDF</span>
       </button>
       <button class="action-pill save-download-pill-btn" id="saveDownloadBtn" title="Save all custom photos, text & changes permanently and download updated HTML file">
         <span>💾 Save & Download</span>
@@ -11762,6 +12043,40 @@
           <button type="button" class="btn-save-profile" id="btnShareDownloadHtml" style="width: 100%; background: linear-gradient(135deg, #059669, #047857); font-weight: 700; font-size: 13px; padding: 10px 18px;">
             💾 Download View-Only File (.html)
           </button>
+        </div>
+
+        <!-- Social Media Sharing & PDF Export Hub -->
+        <div style="background: rgba(245, 192, 101, 0.08); border: 1px solid rgba(245, 192, 101, 0.3); border-radius: 12px; padding: 14px; margin-bottom: 14px;">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
+            <span style="font-size: 11px; font-weight: 700; color: #f5c065; text-transform: uppercase; letter-spacing: 0.5px;">🌟 Share on Social Media & Download PDF</span>
+          </div>
+          <p style="font-size: 11.5px; color: #cbd5e1; margin: 0 0 10px 0;">Post celebratory journey directly to LinkedIn, WhatsApp, Twitter, Facebook, or Instagram, or export as clean PDF.</p>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 8px;">
+            <button type="button" class="btn-share-action btn-pdf-action" onclick="window.printJourneyPDF()" style="padding: 8px 10px; font-size: 11.5px;">
+              <span class="btn-action-icon">📄</span>
+              <span>Export PDF</span>
+            </button>
+            <button type="button" class="btn-share-action btn-linkedin-action" onclick="window.shareToLinkedIn()" style="padding: 8px 10px; font-size: 11.5px;">
+              <span class="btn-action-icon">💼</span>
+              <span>LinkedIn</span>
+            </button>
+            <button type="button" class="btn-share-action btn-whatsapp-action" onclick="window.shareToWhatsApp()" style="padding: 8px 10px; font-size: 11.5px;">
+              <span class="btn-action-icon">💬</span>
+              <span>WhatsApp</span>
+            </button>
+            <button type="button" class="btn-share-action btn-twitter-action" onclick="window.shareToTwitter()" style="padding: 8px 10px; font-size: 11.5px;">
+              <span class="btn-action-icon">🐦</span>
+              <span>Twitter / X</span>
+            </button>
+            <button type="button" class="btn-share-action btn-facebook-action" onclick="window.shareToFacebook()" style="padding: 8px 10px; font-size: 11.5px;">
+              <span class="btn-action-icon">📘</span>
+              <span>Facebook</span>
+            </button>
+            <button type="button" class="btn-share-action btn-instagram-action" onclick="window.downloadInstagramCard()" style="padding: 8px 10px; font-size: 11.5px;">
+              <span class="btn-action-icon">📸</span>
+              <span>Instagram</span>
+            </button>
+          </div>
         </div>
 
         <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 14px;">
@@ -14986,6 +15301,40 @@
             <div class="thankyou-signature-line" contenteditable="true" data-editable="true" title="Click to edit signature">${escapeHtml(ty.signature || '')}</div>
           </div>
         </div>
+
+        <div class="thankyou-share-hub-card">
+          <div class="share-hub-header">
+            <div class="share-hub-badge">🌟 SHARE & CELEBRATE YOUR JOURNEY</div>
+            <h3 class="share-hub-title">Commemorate Your Milestone</h3>
+            <p class="share-hub-subtitle">Download the complete presentation as a PDF report or share your career milestone across your social media channels.</p>
+          </div>
+          <div class="share-hub-actions-grid">
+            <button type="button" class="btn-share-action btn-pdf-action" onclick="window.printJourneyPDF()" title="Download entire Journey as clean multi-page PDF">
+              <span class="btn-action-icon">📄</span>
+              <span>Export PDF</span>
+            </button>
+            <button type="button" class="btn-share-action btn-linkedin-action" onclick="window.shareToLinkedIn()" title="Share celebration post on LinkedIn">
+              <span class="btn-action-icon">💼</span>
+              <span>LinkedIn</span>
+            </button>
+            <button type="button" class="btn-share-action btn-whatsapp-action" onclick="window.shareToWhatsApp()" title="Share journey on WhatsApp">
+              <span class="btn-action-icon">💬</span>
+              <span>WhatsApp</span>
+            </button>
+            <button type="button" class="btn-share-action btn-twitter-action" onclick="window.shareToTwitter()" title="Post milestone on Twitter / X">
+              <span class="btn-action-icon">🐦</span>
+              <span>Twitter / X</span>
+            </button>
+            <button type="button" class="btn-share-action btn-facebook-action" onclick="window.shareToFacebook()" title="Share journey on Facebook">
+              <span class="btn-action-icon">📘</span>
+              <span>Facebook</span>
+            </button>
+            <button type="button" class="btn-share-action btn-instagram-action" onclick="window.downloadInstagramCard()" title="Download square celebration card for Instagram Story/Post">
+              <span class="btn-action-icon">📸</span>
+              <span>Instagram Card</span>
+            </button>
+          </div>
+        </div>
       `;
     }
 
@@ -16901,6 +17250,345 @@
         });
       }
     }
+
+    // ==========================================================================
+    // SOCIAL MEDIA SHARING & PDF EXPORT CONTROLLERS
+    // ==========================================================================
+
+    window.getSocialShareUrl = function() {
+      const shareViewInp = document.getElementById('shareViewUrlInput');
+      if (shareViewInp && shareViewInp.value && shareViewInp.value.startsWith('http')) {
+        return shareViewInp.value;
+      }
+      const baseUrl = getShareBaseUrl();
+      const encodedData = (typeof compressStateToHash === 'function') ? compressStateToHash(palaceState) : '';
+      const slug = (typeof currentEmpSlug !== 'undefined') ? currentEmpSlug : '';
+      const empQuery = slug ? `?emp=${encodeURIComponent(slug)}&` : '?';
+      const dataHash = encodedData ? `#data=${encodedData}` : '';
+      return `${baseUrl}${empQuery}access=view&v=${Date.now()}${dataHash}`;
+    };
+
+    window.printJourneyPDF = function() {
+      const shareModal = document.getElementById('shareModalBackdrop');
+      if (shareModal) shareModal.classList.remove('active');
+      const adminModal = document.getElementById('adminModalBackdrop');
+      if (adminModal) adminModal.classList.remove('active');
+      const certModal = document.getElementById('certModalBackdrop');
+      if (certModal) certModal.classList.remove('active');
+      const collageModal = document.getElementById('collageLightboxBackdrop');
+      if (collageModal) collageModal.classList.remove('active');
+
+      try {
+        if (typeof renderAllChambers === 'function') renderAllChambers();
+        if (typeof renderThankYouRoom === 'function') renderThankYouRoom();
+        if (typeof renderFutureRoom === 'function') renderFutureRoom();
+      } catch(e) {
+        console.warn("Print prep render error:", e);
+      }
+
+      showPalaceToast("📄 Preparing multi-page PDF print view...", 2500);
+
+      setTimeout(() => {
+        window.focus();
+        window.print();
+      }, 400);
+    };
+
+    window.shareToLinkedIn = function() {
+      const shareUrl = window.getSocialShareUrl();
+      const emp = palaceState.employee || {};
+      const name = emp.name || 'My';
+      const years = emp.milestoneYears || '1';
+      const caption = `Proud to celebrate my ${years}-Year Work Anniversary journey at Uffizio! 🌟\n\nExplore my interactive 3D memory palace and career milestones here: ${shareUrl}\n\n#Uffizio #WorkAnniversary #CareerJourney #LifeAtUffizio #Milestone`;
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(caption).catch(() => {});
+      }
+      showPalaceToast("💼 Celebration text copied! Opening LinkedIn...", 3500);
+
+      const linkedInUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`;
+      window.open(linkedInUrl, '_blank', 'noopener,noreferrer,width=650,height=600');
+    };
+
+    window.shareToTwitter = function() {
+      const shareUrl = window.getSocialShareUrl();
+      const emp = palaceState.employee || {};
+      const years = emp.milestoneYears || '1';
+      const tweetText = `Proud to celebrate my ${years}-Year Work Anniversary journey at @Uffizio! 🌟 Explore my interactive 3D digital memory palace:`;
+
+      showPalaceToast("🐦 Opening Twitter / X...", 2500);
+      const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}&url=${encodeURIComponent(shareUrl)}&hashtags=Uffizio,WorkAnniversary,CareerMilestone`;
+      window.open(twitterUrl, '_blank', 'noopener,noreferrer,width=600,height=500');
+    };
+
+    window.shareToFacebook = function() {
+      const shareUrl = window.getSocialShareUrl();
+      showPalaceToast("📘 Opening Facebook share...", 2500);
+      const fbUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`;
+      window.open(fbUrl, '_blank', 'noopener,noreferrer,width=650,height=550');
+    };
+
+    window.shareToWhatsApp = function() {
+      const shareUrl = window.getSocialShareUrl();
+      const emp = palaceState.employee || {};
+      const name = emp.name || 'My';
+      const years = emp.milestoneYears || '1';
+      const msg = `🎉 Celebrating ${name}'s ${years}-Year Work Anniversary Journey at Uffizio! ✨\n\nExplore the interactive 3D digital memory palace here:\n${shareUrl}`;
+
+      showPalaceToast("💬 Opening WhatsApp...", 2500);
+      const waUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(msg)}`;
+      window.open(waUrl, '_blank', 'noopener,noreferrer');
+    };
+
+    window.downloadInstagramCard = function() {
+      showPalaceToast("🎨 Rendering high-res Instagram celebration card...", 3000);
+
+      const canvas = document.createElement('canvas');
+      canvas.width = 1080;
+      canvas.height = 1080;
+      const ctx = canvas.getContext('2d');
+      if (!ctx) {
+        showPalaceToast("Canvas not supported.", 3000);
+        return;
+      }
+
+      const emp = palaceState.employee || {};
+      const ty = palaceState.thankYou || {};
+      const empName = emp.name || "Dhara Hirpara";
+      const empRole = emp.role || "Technical Content Writer";
+      const milestoneYears = emp.milestoneYears || "1";
+      const photoUrl = emp.photo || 'manushi_hero.jpg';
+
+      const renderCardGraphics = (imgObj) => {
+        // 1. Dark Luxury Gradient Background
+        const bgGrad = ctx.createLinearGradient(0, 0, 1080, 1080);
+        bgGrad.addColorStop(0, '#030712');
+        bgGrad.addColorStop(0.5, '#0a192f');
+        bgGrad.addColorStop(1, '#020617');
+        ctx.fillStyle = bgGrad;
+        ctx.fillRect(0, 0, 1080, 1080);
+
+        // 2. Radial Ambient Glow behind Avatar
+        const glowGrad = ctx.createRadialGradient(540, 350, 40, 540, 350, 360);
+        glowGrad.addColorStop(0, 'rgba(245, 192, 101, 0.18)');
+        glowGrad.addColorStop(0.6, 'rgba(56, 189, 248, 0.08)');
+        glowGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+        ctx.fillStyle = glowGrad;
+        ctx.fillRect(0, 0, 1080, 1080);
+
+        // 3. Double Luxury Border Frame
+        ctx.strokeStyle = '#f5c065';
+        ctx.lineWidth = 4;
+        ctx.strokeRect(36, 36, 1008, 1008);
+
+        ctx.strokeStyle = 'rgba(245, 192, 101, 0.35)';
+        ctx.lineWidth = 1;
+        ctx.strokeRect(48, 48, 984, 984);
+
+        // Corner Ornaments
+        const cornerSize = 12;
+        const corners = [
+          [36, 36], [1044, 36], [36, 1044], [1044, 1044]
+        ];
+        ctx.fillStyle = '#f5c065';
+        corners.forEach(([cx, cy]) => {
+          ctx.fillRect(cx - cornerSize/2, cy - cornerSize/2, cornerSize, cornerSize);
+        });
+
+        // 4. Header Branding
+        ctx.textAlign = 'center';
+        ctx.fillStyle = '#f5c065';
+        ctx.font = '700 16px "Space Grotesk", sans-serif';
+        ctx.fillText('✦   U F F I Z I O   •   M E M O R Y   P A L A C E   ✦', 540, 95);
+
+        // Milestone Badge Pill
+        const badgeText = `🏆  ${milestoneYears.toUpperCase()} YEAR WORK ANNIVERSARY  🏆`;
+        ctx.fillStyle = 'rgba(245, 192, 101, 0.12)';
+        ctx.strokeStyle = 'rgba(245, 192, 101, 0.4)';
+        ctx.lineWidth = 1.5;
+        const pillW = 420;
+        const pillH = 38;
+        const pillX = 540 - pillW / 2;
+        const pillY = 120;
+        ctx.beginPath();
+        if (ctx.roundRect) {
+          ctx.roundRect(pillX, pillY, pillW, pillH, 19);
+        } else {
+          ctx.rect(pillX, pillY, pillW, pillH);
+        }
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.fillStyle = '#ffe8b5';
+        ctx.font = '700 14px "Space Grotesk", sans-serif';
+        ctx.fillText(badgeText, 540, 144);
+
+        // 5. Circular Avatar Frame
+        const avatarCenterX = 540;
+        const avatarCenterY = 345;
+        const avatarRadius = 145;
+
+        // Outer Golden Ring
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(avatarCenterX, avatarCenterY, avatarRadius + 6, 0, Math.PI * 2);
+        ctx.strokeStyle = '#f5c065';
+        ctx.lineWidth = 5;
+        ctx.shadowColor = 'rgba(245, 192, 101, 0.6)';
+        ctx.shadowBlur = 24;
+        ctx.stroke();
+        ctx.restore();
+
+        // Clip circle and draw Image or Monogram
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(avatarCenterX, avatarCenterY, avatarRadius, 0, Math.PI * 2);
+        ctx.clip();
+
+        if (imgObj && imgObj.width > 0) {
+          const iw = imgObj.width;
+          const ih = imgObj.height;
+          const diameter = avatarRadius * 2;
+          const scale = Math.max(diameter / iw, diameter / ih);
+          const dw = iw * scale;
+          const dh = ih * scale;
+          const dx = avatarCenterX - dw / 2;
+          const dy = avatarCenterY - dh / 2;
+          ctx.drawImage(imgObj, dx, dy, dw, dh);
+        } else {
+          const monoGrad = ctx.createLinearGradient(0, avatarCenterY - avatarRadius, 0, avatarCenterY + avatarRadius);
+          monoGrad.addColorStop(0, '#1e293b');
+          monoGrad.addColorStop(1, '#0f172a');
+          ctx.fillStyle = monoGrad;
+          ctx.fillRect(avatarCenterX - avatarRadius, avatarCenterY - avatarRadius, avatarRadius * 2, avatarRadius * 2);
+          ctx.fillStyle = '#f5c065';
+          ctx.font = '700 80px "DM Serif Display", serif';
+          ctx.textAlign = 'center';
+          ctx.fillText((empName[0] || 'U').toUpperCase(), avatarCenterX, avatarCenterY + 28);
+        }
+        ctx.restore();
+
+        // 6. Employee Name & Role Typography
+        ctx.textAlign = 'center';
+        ctx.fillStyle = '#ffffff';
+        ctx.font = '700 44px "DM Serif Display", Georgia, serif';
+        ctx.fillText(empName, 540, 560);
+
+        ctx.fillStyle = '#38bdf8';
+        ctx.font = '600 20px "Plus Jakarta Sans", sans-serif';
+        ctx.fillText(empRole, 540, 600);
+
+        const subInfo = (emp.department ? `${emp.department} • ` : '') + (emp.date ? `Joined ${emp.date}` : 'Team Uffizio');
+        ctx.fillStyle = '#94a3b8';
+        ctx.font = '500 15px "Space Grotesk", sans-serif';
+        ctx.fillText(subInfo, 540, 630);
+
+        // 7. Appreciation Message Box
+        const boxW = 820;
+        const boxH = 190;
+        const boxX = 540 - boxW / 2;
+        const boxY = 675;
+
+        ctx.fillStyle = 'rgba(15, 23, 42, 0.7)';
+        ctx.strokeStyle = 'rgba(245, 192, 101, 0.28)';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        if (ctx.roundRect) {
+          ctx.roundRect(boxX, boxY, boxW, boxH, 16);
+        } else {
+          ctx.rect(boxX, boxY, boxW, boxH);
+        }
+        ctx.fill();
+        ctx.stroke();
+
+        // Decorative quote mark
+        ctx.font = '700 48px "DM Serif Display", serif';
+        ctx.fillStyle = 'rgba(245, 192, 101, 0.4)';
+        ctx.fillText('“', 540, 715);
+
+        // Appreciation letter snippet
+        const msgText = ty.message || "Thank you for your dedication, energy, and spirit at Uffizio. Your contributions strengthen our team, and we’re proud of your growth and journey with us.";
+        ctx.font = '16px "Plus Jakarta Sans", sans-serif';
+        ctx.fillStyle = '#e2e8f0';
+
+        function wrapCardText(text, x, y, maxWidth, lineHeight, maxLines) {
+          const words = text.split(' ');
+          let line = '';
+          let curY = y;
+          let count = 0;
+          for (let n = 0; n < words.length; n++) {
+            const test = line + words[n] + ' ';
+            if (ctx.measureText(test).width > maxWidth && n > 0) {
+              count++;
+              if (count >= maxLines) {
+                ctx.fillText(line.trim() + '...', x, curY);
+                return curY;
+              }
+              ctx.fillText(line.trim(), x, curY);
+              line = words[n] + ' ';
+              curY += lineHeight;
+            } else {
+              line = test;
+            }
+          }
+          ctx.fillText(line.trim(), x, curY);
+          return curY;
+        }
+
+        const lastY = wrapCardText(msgText, 540, 745, 740, 24, 3);
+
+        // Signature
+        const sigText = ty.signature || "— With heartfelt gratitude & best wishes, Team Uffizio 🌟";
+        ctx.font = 'italic 500 15px "Plus Jakarta Sans", sans-serif';
+        ctx.fillStyle = '#f5c065';
+        ctx.fillText(sigText, 540, lastY + 34);
+
+        // 8. Footer Citations
+        ctx.fillStyle = '#64748b';
+        ctx.font = '600 12px "Space Grotesk", sans-serif';
+        ctx.fillText('UFFIZIO DIGITAL MEMORY PALACE • OFFICIALLY CELEBRATED', 540, 930);
+
+        ctx.fillStyle = 'rgba(245, 192, 101, 0.5)';
+        ctx.font = '11px "Space Grotesk", sans-serif';
+        ctx.fillText('www.uffizio.com  •  CONNECTING DEDICATION TO SUCCESS', 540, 955);
+
+        // 9. Trigger Download
+        try {
+          canvas.toBlob((blob) => {
+            if (!blob) {
+              showPalaceToast("Could not generate image blob.", 3500);
+              return;
+            }
+            const blobUrl = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            const safeName = empName.trim().replace(/[^a-zA-Z0-9_-]/g, '_');
+            a.download = `Uffizio_${safeName}_Instagram_Card.png`;
+            a.href = blobUrl;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(blobUrl);
+            showPalaceToast("📸 Instagram celebration card downloaded! Ready to share on Instagram Feed or Story.", 4500);
+          }, 'image/png');
+        } catch(err) {
+          console.error("Canvas blob error:", err);
+          showPalaceToast("Error downloading Instagram card: " + err.message, 4000);
+        }
+      };
+
+      if (photoUrl) {
+        const img = new Image();
+        img.crossOrigin = 'anonymous';
+        img.onload = () => renderCardGraphics(img);
+        img.onerror = () => {
+          console.warn("Avatar image could not be loaded on canvas, using monogram fallback.");
+          renderCardGraphics(null);
+        };
+        img.src = photoUrl;
+      } else {
+        renderCardGraphics(null);
+      }
+    };
 
 
     // ==========================================================================
