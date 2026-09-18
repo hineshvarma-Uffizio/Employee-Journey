@@ -1,5 +1,5 @@
 {
-  "profileVersion": 3,
+  "profileVersion": 5,
   "chambers": [
     {
       "id": "chamber-milestone",
@@ -214,13 +214,13 @@
     ]
   },
   "thankYou": {
-    "headerBadge": "✨ HEARTFELT APPRECIATION • 1 YEAR MILESTONE ✨",
+    "headerBadge": "",
     "title": "Thank You, Dhara!",
     "subtitle": "",
     "message": "Thank you for bringing your dedication, energy, and brilliant spirit to Uffizio every single day. Your presence strengthens our team, elevates our culture, and turns every challenge into an inspiring milestone. We are deeply proud of your growth and honored to walk this journey together.",
     "signature": "— With heartfelt gratitude & best wishes, Team Uffizio 🌟",
     "actionBtn1": "🎉 Shower Confetti & Applause",
-    "actionBtn2": "📜 View Souvenir Card",
+    "actionBtn2": "",
     "actionBtn3": "🏛️ Revisit Palace From Start",
     "badges": [
       {
@@ -257,10 +257,7 @@
         "image": "proud_polaroid_3.png",
         "caption": "All-Hands Demo Day 🎤"
       }
-    ],
-    "celebrateTitle": "Celebrate This Milestone",
-    "celebrateDesc": "Trigger the palace confetti cannon and commemorate your incredible achievements.",
-    "celebrateBtn": "🎉 Fire Confetti!"
+    ]
   },
   "future": {
     "title": "My Vision for What's Next",
