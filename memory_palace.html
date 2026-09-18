@@ -10341,6 +10341,196 @@
       }
     }
 
+    /* ==========================================================================
+       HIGH-RES PRESENTATION PDF & JPEG CAPTURE SYSTEM
+       ========================================================================== */
+    body.pdf-capturing-mode {
+      overflow: hidden !important;
+    }
+
+    /* 1. Strictly hide all UI navigation, headers, footers, toasts, and overlays */
+    body.pdf-capturing-mode header.palace-header,
+    body.pdf-capturing-mode footer.palace-footer,
+    body.pdf-capturing-mode .floorplan-nav,
+    body.pdf-capturing-mode .corridor-stepper,
+    body.pdf-capturing-mode .palace-floating-admin,
+    body.pdf-capturing-mode .palace-hotspot,
+    body.pdf-capturing-mode .room-transition-arrows,
+    body.pdf-capturing-mode .palace-toast-container,
+    body.pdf-capturing-mode .ambient-sparks-container,
+    body.pdf-capturing-mode .cursor-glow,
+    body.pdf-capturing-mode .portal-scroll-prompt,
+    body.pdf-capturing-mode #portalStage,
+    body.pdf-capturing-mode .timeline-camera-hint,
+    body.pdf-capturing-mode .chamber-confetti-sparkles,
+    body.pdf-capturing-mode .header-actions {
+      display: none !important;
+    }
+
+    /* 2. Freeze transitions during capture so DOM state updates instantly */
+    body.pdf-capturing-mode * {
+      animation: none !important;
+      transition: none !important;
+    }
+
+    /* 3. Standardize Palace Viewport & Stage to Landscape Presentation proportions */
+    body.pdf-capturing-mode .palace-viewport {
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 1440px !important;
+      height: 960px !important;
+      max-width: 1440px !important;
+      max-height: 960px !important;
+      perspective: none !important;
+      transform: none !important;
+      overflow: hidden !important;
+      background: #030712 radial-gradient(ellipse 120% 90% at 50% 25%, #0c1a3b 0%, #030712 100%) !important;
+      z-index: 99990 !important;
+    }
+
+    body.pdf-capturing-mode .palace-stage {
+      width: 1440px !important;
+      height: 960px !important;
+      position: absolute !important;
+      top: 0 !important;
+      left: 0 !important;
+      transform: none !important;
+      perspective: none !important;
+    }
+
+    /* 4. Chamber Capture Isolation: only active target chamber displays */
+    body.pdf-capturing-mode .palace-chamber {
+      position: absolute !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 1440px !important;
+      height: 960px !important;
+      min-height: 960px !important;
+      max-height: 960px !important;
+      transform: none !important;
+      box-sizing: border-box !important;
+      padding: 30px 48px !important;
+      display: none !important;
+      opacity: 0 !important;
+      visibility: hidden !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      justify-content: center !important;
+      background: #030712 radial-gradient(ellipse 120% 90% at 50% 25%, #0c1a3b 0%, #030712 100%) !important;
+    }
+
+    body.pdf-capturing-mode .palace-chamber.capture-target-active {
+      display: flex !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+      pointer-events: auto !important;
+      transform: none !important;
+      z-index: 99995 !important;
+    }
+
+    body.pdf-capturing-mode .room-shell {
+      position: absolute !important;
+      inset: 0 !important;
+      width: 100% !important;
+      height: 100% !important;
+      pointer-events: none !important;
+    }
+
+    body.pdf-capturing-mode .room-wall {
+      position: absolute !important;
+      top: 3% !important;
+      left: 3% !important;
+      width: 94% !important;
+      height: 94% !important;
+      transform: none !important;
+      border-radius: 24px !important;
+      border: 1px solid rgba(255, 255, 255, 0.05) !important;
+      box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.8) !important;
+      overflow: hidden !important;
+    }
+
+    body.pdf-capturing-mode .room-floor {
+      display: none !important;
+    }
+
+    body.pdf-capturing-mode .chamber-placard {
+      position: relative !important;
+      z-index: 10 !important;
+      text-align: center !important;
+      margin-bottom: 24px !important;
+      transform: none !important;
+    }
+
+    body.pdf-capturing-mode .chamber-name {
+      font-size: 26pt !important;
+      color: #f5c065 !important;
+      text-shadow: 0 2px 14px rgba(245, 192, 101, 0.45) !important;
+      margin-bottom: 6px !important;
+    }
+
+    body.pdf-capturing-mode .chamber-desc {
+      font-size: 11pt !important;
+      color: #94a3b8 !important;
+      max-width: 840px !important;
+      margin: 0 auto !important;
+    }
+
+    body.pdf-capturing-mode .chamber-content {
+      width: 100% !important;
+      max-width: 1360px !important;
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      justify-content: center !important;
+      transform: none !important;
+      margin: 0 auto !important;
+      position: relative !important;
+      z-index: 12 !important;
+    }
+
+    /* Preserve rich dark theme card styles with authentic gradients */
+    body.pdf-capturing-mode .milestone-horizontal-card,
+    body.pdf-capturing-mode .evolution-card,
+    body.pdf-capturing-mode .split-creation-card,
+    body.pdf-capturing-mode .creations-common-image-card,
+    body.pdf-capturing-mode .value-card,
+    body.pdf-capturing-mode .future-card,
+    body.pdf-capturing-mode .thankyou-card-monument {
+      background: linear-gradient(145deg, rgba(17, 26, 48, 0.95), rgba(8, 13, 26, 0.98)) !important;
+      border: 1px solid rgba(245, 192, 101, 0.35) !important;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.75), 0 0 25px rgba(0, 44, 107, 0.45) !important;
+      color: #f8fafc !important;
+    }
+
+    body.pdf-capturing-mode .values-orbital-stage {
+      width: 100% !important;
+      max-width: 1260px !important;
+      transform: none !important;
+    }
+
+    body.pdf-capturing-mode .celebration-stage-container {
+      display: flex !important;
+      flex-direction: row !important;
+      align-items: center !important;
+      justify-content: center !important;
+      gap: 50px !important;
+      width: 100% !important;
+      max-width: 1260px !important;
+      transform: none !important;
+    }
+
+    body.pdf-capturing-mode .horizontal-milestones-list {
+      display: flex !important;
+      flex-direction: row !important;
+      align-items: stretch !important;
+      justify-content: center !important;
+      gap: 20px !important;
+      width: 100% !important;
+      max-width: 1300px !important;
+      transform: none !important;
+    }
+
   </style>
 </head>
 <body>
@@ -12266,9 +12456,13 @@
           </div>
           <p style="font-size: 11.5px; color: #cbd5e1; margin: 0 0 10px 0;">Post celebratory journey directly to LinkedIn, WhatsApp, Twitter, Facebook, or Instagram, or export as clean PDF.</p>
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 8px;">
-            <button type="button" class="btn-share-action btn-pdf-action" onclick="window.printJourneyPDF()" style="padding: 8px 10px; font-size: 11.5px;">
+            <button type="button" class="btn-share-action btn-pdf-action" onclick="window.exportJourneyPDF()" style="padding: 8px 10px; font-size: 11.5px;">
               <span class="btn-action-icon">📄</span>
               <span>Export PDF</span>
+            </button>
+            <button type="button" class="btn-share-action" onclick="window.downloadSlideJpegs()" style="padding: 8px 10px; font-size: 11.5px; background: rgba(56, 189, 248, 0.15); border-color: rgba(56, 189, 248, 0.4); color: #38bdf8;" title="Download individual high-res slide images">
+              <span class="btn-action-icon">🖼️</span>
+              <span>Slide JPEGs</span>
             </button>
             <button type="button" class="btn-share-action btn-linkedin-action" onclick="window.shareToLinkedIn()" style="padding: 8px 10px; font-size: 11.5px;">
               <span class="btn-action-icon">💼</span>
@@ -12446,6 +12640,43 @@
       </div>
     </div>
   </div>
+
+  <!-- High-Fidelity Presentation PDF / JPEG Export Progress Modal Overlay -->
+  <div class="palace-modal-backdrop" id="pdfExportProgressModal" style="z-index: 100000; align-items: center; justify-content: center;">
+    <div class="admin-modal-card" style="max-width: 500px; text-align: center; padding: 36px 30px; border: 1.5px solid rgba(245, 192, 101, 0.45); box-shadow: 0 24px 70px rgba(0,0,0,0.88), 0 0 40px rgba(0,44,107,0.7); background: linear-gradient(145deg, rgba(11, 19, 38, 0.98), rgba(4, 8, 19, 0.99));">
+      <div style="font-size: 42px; margin-bottom: 12px; filter: drop-shadow(0 0 16px rgba(245, 192, 101, 0.6));">📄✨</div>
+      <h3 style="font-family: 'DM Serif Display', Georgia, serif; font-size: 24px; color: #f5c065; margin: 0 0 8px 0; letter-spacing: 0.5px;">Generating Presentation PDF</h3>
+      <p id="pdfExportProgressDesc" style="font-size: 13px; color: #94a3b8; margin: 0 0 20px 0;">Capturing all active rooms with authentic live background & graphics...</p>
+      
+      <div style="background: rgba(15, 23, 42, 0.9); border: 1px solid rgba(245, 192, 101, 0.25); border-radius: 999px; height: 12px; width: 100%; overflow: hidden; margin-bottom: 14px; position: relative;">
+        <div id="pdfExportProgressBar" style="background: linear-gradient(90deg, #f5c065, #fbbf24, #38bdf8); height: 100%; width: 0%; border-radius: 999px; transition: width 0.3s ease;"></div>
+      </div>
+      
+      <div id="pdfExportProgressText" style="font-size: 14px; font-weight: 600; color: #f8fafc; margin-bottom: 6px;">Initializing slide engine...</div>
+      <div id="pdfExportProgressSub" style="font-size: 11.5px; color: #64748b;">Processing high-resolution JPEG slides...</div>
+      
+      <div id="pdfExportActionBtns" style="display: none; margin-top: 24px; gap: 12px; justify-content: center; flex-wrap: wrap;">
+        <button type="button" class="btn-primary-add" id="btnDownloadJpegsDirect" style="padding: 10px 18px; font-size: 12.5px; background: linear-gradient(135deg, rgba(56, 189, 248, 0.2), rgba(14, 165, 233, 0.25)); border-color: rgba(56, 189, 248, 0.5); color: #38bdf8;">
+          <span>🖼️ Download Slide JPEGs</span>
+        </button>
+        <button type="button" class="btn-primary-add" id="btnPdfExportDone" style="padding: 10px 24px; font-size: 12.5px;">
+          <span>✓ Done</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- High-Fidelity Client-Side JPEG & Presentation PDF Generation Engines -->
+  <script src="html2canvas.min.js"></script>
+  <script src="jspdf.umd.min.js"></script>
+  <script>
+    if (typeof html2canvas === 'undefined' && typeof window.html2canvas === 'undefined') {
+      document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"><\\/script>');
+    }
+    if (typeof jspdf === 'undefined' && typeof window.jspdf === 'undefined') {
+      document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"><\\/script>');
+    }
+  </script>
 
   <!-- ==========================================================================
        STAGE-LOCKED 3D ZOOM & FADE ENGINE SCRIPT
@@ -17789,14 +18020,235 @@
     window.addEventListener('beforeprint', preparePrintMode);
     window.addEventListener('afterprint', cleanupPrintMode);
 
-    window.printJourneyPDF = function() {
-      preparePrintMode();
-      showPalaceToast("📄 Preparing luxury landscape PDF presentation view...", 2000);
-      setTimeout(() => {
-        window.focus();
-        window.print();
-      }, 350);
+    // ==========================================================================
+    // CLIENT-SIDE HIGH-RESOLUTION JPEG MULTI-PAGE PRESENTATION PDF ENGINE
+    // ==========================================================================
+    window.cachedSlideJpegs = [];
+
+    window.exportJourneyPDF = async function() {
+      // 1. Check library availability
+      const hasHtml2Canvas = typeof html2canvas !== 'undefined' || typeof window.html2canvas !== 'undefined';
+      const jsPDFModule = (window.jspdf && window.jspdf.jsPDF) || window.jsPDF;
+
+      if (!hasHtml2Canvas || !jsPDFModule) {
+        console.warn("High-res canvas/PDF engine still loading, falling back to browser print...");
+        preparePrintMode();
+        setTimeout(() => { window.focus(); window.print(); }, 200);
+        return;
+      }
+
+      const h2c = window.html2canvas || html2canvas;
+      const jsPDFClass = jsPDFModule;
+
+      // 2. Open Progress Modal
+      const modal = document.getElementById('pdfExportProgressModal');
+      const bar = document.getElementById('pdfExportProgressBar');
+      const title = document.getElementById('pdfExportProgressText');
+      const sub = document.getElementById('pdfExportProgressSub');
+      const actions = document.getElementById('pdfExportActionBtns');
+
+      if (actions) actions.style.display = 'none';
+      if (bar) bar.style.width = '5%';
+      if (title) title.textContent = 'Initializing slide capture engine...';
+      if (sub) sub.textContent = 'Preparing live themes and high-res rooms...';
+      if (modal) modal.classList.add('active');
+
+      // Close all open dialogs & toast
+      if (typeof closeShareModalDialog === 'function') closeShareModalDialog();
+      if (typeof closeAdminPanel === 'function') closeAdminPanel();
+      const toast = document.getElementById('palaceToast');
+      if (toast) toast.classList.remove('show');
+
+      // Ensure dynamic chambers are rendered
+      try {
+        if (typeof renderAllChambers === 'function') renderAllChambers();
+        if (typeof renderThankYouRoom === 'function') renderThankYouRoom();
+        if (typeof renderFutureRoom === 'function') renderFutureRoom();
+        if (typeof renderValuesRoom === 'function') renderValuesRoom();
+        if (typeof renderMemories === 'function') renderMemories();
+        if (typeof renderMemories2 === 'function') renderMemories2();
+      } catch (e) {
+        console.warn("Render pre-pass warning:", e);
+      }
+
+      // Wait for fonts
+      if (document.fonts && document.fonts.ready) {
+        try { await document.fonts.ready; } catch(e){}
+      }
+
+      // 3. Filter active chambers strictly in sequence
+      const activeChambers = (palaceState.chambers || []).filter(c => c.enabled !== false);
+      if (activeChambers.length === 0) {
+        alert("No active chambers found to export.");
+        if (modal) modal.classList.remove('active');
+        return;
+      }
+
+      const originalStage = (typeof currentStage !== 'undefined') ? currentStage : 0;
+      window.cachedSlideJpegs = [];
+
+      // Enter PDF capturing mode
+      document.body.classList.add('pdf-capturing-mode');
+
+      // Setup jsPDF (A4 Landscape)
+      const pdf = new jsPDFClass({
+        orientation: 'landscape',
+        unit: 'mm',
+        format: 'a4',
+        compress: true
+      });
+
+      const totalSlides = activeChambers.length;
+
+      try {
+        for (let i = 0; i < totalSlides; i++) {
+          const chConfig = activeChambers[i];
+          const pct = Math.round(10 + ((i / totalSlides) * 80));
+          if (bar) bar.style.width = pct + '%';
+          if (title) title.textContent = `Capturing Slide ${i + 1} of ${totalSlides}: ${chConfig.title}`;
+          if (sub) sub.textContent = `Processing high-resolution JPEG graphics...`;
+
+          // Deactivate all chambers
+          document.querySelectorAll('.palace-chamber').forEach(el => {
+            el.classList.remove('capture-target-active');
+            el.style.display = 'none';
+          });
+
+          // Activate target chamber
+          const targetEl = document.getElementById(chConfig.id);
+          if (!targetEl) continue;
+
+          targetEl.classList.add('capture-target-active');
+          targetEl.style.display = 'flex';
+
+          // Trigger custom room motion/render updates
+          try {
+            if (chConfig.id === 'chamber-0' && typeof activateRoom01Motion === 'function') {
+              activateRoom01Motion(false);
+            } else if (chConfig.id === 'chamber-1' && typeof window.updateSkillsFadeMask === 'function') {
+              window.updateSkillsFadeMask();
+            } else if (chConfig.id === 'chamber-2b' && typeof resetChamber2bCommonImage === 'function') {
+              resetChamber2bCommonImage();
+            } else if (chConfig.id === 'chamber-values' && typeof renderValuesRoom === 'function') {
+              renderValuesRoom();
+            } else if (chConfig.id === 'chamber-thankyou' && typeof renderThankYouRoom === 'function') {
+              renderThankYouRoom();
+            }
+          } catch(e) {}
+
+          // Ensure images inside targetEl are fully loaded
+          const imgs = Array.from(targetEl.querySelectorAll('img'));
+          await Promise.all(imgs.map(img => {
+            if (img.complete) return Promise.resolve();
+            return new Promise(res => {
+              img.onload = res;
+              img.onerror = res;
+            });
+          }));
+
+          // Allow DOM to settle
+          await new Promise(r => setTimeout(r, 60));
+
+          // Capture chamber with html2canvas (1440x960, dark royal background)
+          const canvas = await h2c(targetEl, {
+            width: 1440,
+            height: 960,
+            scale: 1.5,
+            backgroundColor: '#030712',
+            useCORS: true,
+            allowTaint: true,
+            logging: false
+          });
+
+          const jpegData = canvas.toDataURL('image/jpeg', 0.95);
+          window.cachedSlideJpegs.push({
+            num: String(i + 1).padStart(2, '0'),
+            id: chConfig.id,
+            title: chConfig.title || `Slide_${i + 1}`,
+            dataUrl: jpegData
+          });
+
+          if (i > 0) {
+            pdf.addPage('a4', 'landscape');
+          }
+          pdf.addImage(jpegData, 'JPEG', 0, 0, 297, 210, undefined, 'FAST');
+        }
+
+        // Finalize PDF
+        if (bar) bar.style.width = '95%';
+        if (title) title.textContent = 'Assembling Multi-Page PDF Document...';
+        if (sub) sub.textContent = 'Optimizing compression and metadata...';
+        await new Promise(r => setTimeout(r, 100));
+
+        const emp = palaceState.employee || {};
+        const safeName = (emp.name || 'Employee_Journey').trim().replace(/[^a-zA-Z0-9_-]/g, '_');
+        const pdfFileName = `${safeName}_Memory_Palace_Journey.pdf`;
+        pdf.save(pdfFileName);
+
+        if (bar) bar.style.width = '100%';
+        if (title) title.textContent = '🎉 PDF Download Complete!';
+        if (sub) sub.textContent = `All ${totalSlides} slides successfully saved to ${pdfFileName}`;
+        if (actions) actions.style.display = 'flex';
+
+      } catch (err) {
+        console.error("PDF Export failed:", err);
+        alert("An error occurred during high-res PDF generation: " + (err.message || err) + "\nFalling back to browser print.");
+        document.body.classList.remove('pdf-capturing-mode');
+        if (modal) modal.classList.remove('active');
+        preparePrintMode();
+        setTimeout(() => { window.focus(); window.print(); }, 200);
+      } finally {
+        // Clean up target active classes
+        document.querySelectorAll('.palace-chamber').forEach(el => {
+          el.classList.remove('capture-target-active');
+          el.style.display = '';
+        });
+        document.body.classList.remove('pdf-capturing-mode');
+        if (typeof syncPalaceNavigation === 'function') {
+          syncPalaceNavigation();
+        }
+      }
     };
+
+    window.downloadSlideJpegs = function() {
+      if (!window.cachedSlideJpegs || window.cachedSlideJpegs.length === 0) {
+        window.exportJourneyPDF();
+        return;
+      }
+      const emp = palaceState.employee || {};
+      const safeName = (emp.name || 'Employee').trim().replace(/[^a-zA-Z0-9_-]/g, '_');
+      window.cachedSlideJpegs.forEach((slide, idx) => {
+        setTimeout(() => {
+          const a = document.createElement('a');
+          a.download = `${safeName}_Slide_${slide.num}_${(slide.title || 'room').replace(/[^a-zA-Z0-9_-]/g, '_')}.jpg`;
+          a.href = slide.dataUrl;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+        }, idx * 250);
+      });
+    };
+
+    // Alias for backwards compatibility with top bar and buttons
+    window.printJourneyPDF = window.exportJourneyPDF;
+
+    // Listeners for progress modal actions
+    document.addEventListener('DOMContentLoaded', () => {
+      const btnDone = document.getElementById('btnPdfExportDone');
+      if (btnDone) {
+        btnDone.addEventListener('click', () => {
+          const modal = document.getElementById('pdfExportProgressModal');
+          if (modal) modal.classList.remove('active');
+          document.body.classList.remove('pdf-capturing-mode');
+        });
+      }
+      const btnJpegs = document.getElementById('btnDownloadJpegsDirect');
+      if (btnJpegs) {
+        btnJpegs.addEventListener('click', () => {
+          if (typeof window.downloadSlideJpegs === 'function') window.downloadSlideJpegs();
+        });
+      }
+    });
 
     window.shareToLinkedIn = function() {
       const shareUrl = window.getSocialShareUrl();
