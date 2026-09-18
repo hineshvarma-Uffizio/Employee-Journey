@@ -4,7 +4,7 @@
   <!-- Embedded Palace State (Self-Contained Cross-Device & Incognito Support) -->
   <script id="initialPalaceState" type="application/json">
 {
-  "profileVersion": 3,
+  "profileVersion": 4,
   "chambers": [
     {
       "id": "chamber-milestone",
@@ -198,8 +198,8 @@
         "text": "Getting familiar with the role"
       }
     ],
-    "growthLabel": "1 YEAR GROWTH",
-    "nowTitle": "Year 01",
+    "growthLabel": "",
+    "nowTitle": "Today",
     "nowPoints": [
       {
         "icon": "shield",
@@ -3844,50 +3844,234 @@
       text-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
     }
 
-    /* Center Evolution Conduit Bridge */
+    /* Center Evolution Conduit Bridge - Point-to-Point Connectors */
     .evolution-bridge-conduit {
       display: flex;
       flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      flex: 0 0 130px;
+      align-items: stretch;
+      justify-content: stretch;
+      flex: 0 0 110px;
       position: relative;
-      gap: 6px;
+      padding: 26px 0;
+      box-sizing: border-box;
+      pointer-events: auto;
     }
 
-    .conduit-badge {
+    .conduit-header-spacer {
+      height: 36px;
+      margin-bottom: 16px;
+      flex-shrink: 0;
+    }
+
+    .conduit-track-list {
       display: flex;
       flex-direction: column;
+      flex: 1;
+      justify-content: space-between;
+      gap: 0;
+    }
+
+    .conduit-track {
+      display: flex;
       align-items: center;
-      gap: 4px;
+      justify-content: center;
+      flex: 1;
+      position: relative;
+      padding: 14px 0;
+      box-sizing: border-box;
+      border-bottom: 1px solid transparent;
+      cursor: default;
+    }
+
+    .conduit-wire {
+      position: relative;
+      width: 100%;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Terminal end dots on left and right */
+    .conduit-wire::before {
+      content: '';
+      position: absolute;
+      left: -6px;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--gold-primary);
+      box-shadow: 0 0 8px var(--gold-glow);
+      z-index: 1;
+    }
+
+    .conduit-wire::after {
+      content: '';
+      position: absolute;
+      right: -6px;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #00e5ff;
+      box-shadow: 0 0 8px rgba(0, 229, 255, 0.8);
+      z-index: 1;
+    }
+
+    .conduit-track[data-track="0"] .conduit-wire::after {
+      background: #f5c065;
+      box-shadow: 0 0 8px rgba(245, 192, 101, 0.8);
+    }
+
+    .conduit-track[data-track="1"] .conduit-wire::after {
+      background: #00e5ff;
+      box-shadow: 0 0 8px rgba(0, 229, 255, 0.8);
+    }
+
+    .conduit-track[data-track="2"] .conduit-wire::after {
+      background: #10b981;
+      box-shadow: 0 0 8px rgba(16, 185, 129, 0.8);
+    }
+
+    .conduit-line-glow {
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 6px;
+      border-radius: 3px;
+      background: linear-gradient(90deg, rgba(245, 192, 101, 0.25) 0%, rgba(0, 229, 255, 0.25) 100%);
+      filter: blur(4px);
+      transition: filter 0.3s ease, opacity 0.3s ease;
+    }
+
+    .conduit-line-core {
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, rgba(245, 192, 101, 0.6) 0%, rgba(0, 229, 255, 0.8) 100%);
+      box-shadow: 0 0 10px rgba(0, 229, 255, 0.4);
+      transition: box-shadow 0.3s ease;
+    }
+
+    .conduit-track[data-track="0"] .conduit-line-core {
+      background: linear-gradient(90deg, rgba(245, 192, 101, 0.6) 0%, rgba(245, 192, 101, 0.9) 100%);
+      box-shadow: 0 0 10px rgba(245, 192, 101, 0.4);
+    }
+
+    .conduit-track[data-track="0"] .conduit-line-glow {
+      background: linear-gradient(90deg, rgba(245, 192, 101, 0.2) 0%, rgba(245, 192, 101, 0.4) 100%);
+    }
+
+    .conduit-track[data-track="1"] .conduit-line-core {
+      background: linear-gradient(90deg, rgba(245, 192, 101, 0.6) 0%, rgba(0, 229, 255, 0.9) 100%);
+      box-shadow: 0 0 10px rgba(0, 229, 255, 0.4);
+    }
+
+    .conduit-track[data-track="1"] .conduit-line-glow {
+      background: linear-gradient(90deg, rgba(245, 192, 101, 0.2) 0%, rgba(0, 229, 255, 0.35) 100%);
+    }
+
+    .conduit-track[data-track="2"] .conduit-line-core {
+      background: linear-gradient(90deg, rgba(245, 192, 101, 0.6) 0%, rgba(16, 185, 129, 0.9) 100%);
+      box-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
+    }
+
+    .conduit-track[data-track="2"] .conduit-line-glow {
+      background: linear-gradient(90deg, rgba(245, 192, 101, 0.2) 0%, rgba(16, 185, 129, 0.35) 100%);
+    }
+
+    /* Animated energy particle flowing across */
+    .conduit-pulse-particle {
+      position: absolute;
+      width: 14px;
+      height: 3px;
+      border-radius: 2px;
+      background: #ffffff;
+      box-shadow: 0 0 10px #ffffff, 0 0 16px rgba(0, 229, 255, 0.8);
+      animation: conduitFlow 2.4s infinite cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 1;
+    }
+
+    .conduit-track[data-track="0"] .conduit-pulse-particle {
+      animation-delay: 0s;
+      box-shadow: 0 0 10px #ffffff, 0 0 16px rgba(245, 192, 101, 0.9);
+    }
+
+    .conduit-track[data-track="1"] .conduit-pulse-particle {
+      animation-delay: 0.8s;
+      box-shadow: 0 0 10px #ffffff, 0 0 16px rgba(0, 229, 255, 0.9);
+    }
+
+    .conduit-track[data-track="2"] .conduit-pulse-particle {
+      animation-delay: 1.6s;
+      box-shadow: 0 0 10px #ffffff, 0 0 16px rgba(16, 185, 129, 0.9);
+    }
+
+    @keyframes conduitFlow {
+      0% { left: 0%; opacity: 0; transform: scaleX(0.5); }
+      15% { opacity: 1; transform: scaleX(1); }
+      85% { opacity: 1; transform: scaleX(1); }
+      100% { left: calc(100% - 14px); opacity: 0; transform: scaleX(0.5); }
+    }
+
+    /* Central arrow node */
+    .conduit-arrow-badge {
+      position: relative;
+      z-index: 2;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
       background: rgba(9, 14, 28, 0.95);
       border: 1.5px solid var(--gold-primary);
-      padding: 10px 14px;
-      border-radius: 20px;
-      box-shadow: 0 0 24px rgba(245, 192, 101, 0.3);
-      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 14px rgba(245, 192, 101, 0.35);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
     }
 
-    .conduit-arrow {
-      font-size: 20px;
+    .conduit-track:hover .conduit-arrow-badge {
+      transform: scale(1.18) translateX(2px);
+      box-shadow: 0 0 20px rgba(0, 229, 255, 0.6);
+    }
+
+    .conduit-track[data-track="0"] .conduit-arrow-badge {
+      border-color: rgba(245, 192, 101, 0.85);
+      box-shadow: 0 0 12px rgba(245, 192, 101, 0.35);
+    }
+
+    .conduit-track[data-track="1"] .conduit-arrow-badge {
+      border-color: rgba(0, 229, 255, 0.85);
+      box-shadow: 0 0 12px rgba(0, 229, 255, 0.35);
+    }
+
+    .conduit-track[data-track="2"] .conduit-arrow-badge {
+      border-color: rgba(16, 185, 129, 0.85);
+      box-shadow: 0 0 12px rgba(16, 185, 129, 0.35);
+    }
+
+    .conduit-arrow-svg {
+      width: 14px;
+      height: 14px;
       color: var(--gold-primary);
-      filter: drop-shadow(0 0 8px var(--gold-glow));
-      animation: conduitPulse 1.8s infinite alternate ease-in-out;
+      animation: conduitArrowPulse 1.8s infinite alternate ease-in-out;
     }
 
-    @keyframes conduitPulse {
-      0% { transform: translateX(-3px); filter: drop-shadow(0 0 4px var(--gold-glow)); }
-      100% { transform: translateX(4px); filter: drop-shadow(0 0 14px var(--gold-glow)) drop-shadow(0 0 20px rgba(0, 229, 255, 0.6)); }
+    .conduit-track[data-track="0"] .conduit-arrow-svg {
+      color: #ffe8b5;
     }
 
-    .conduit-lbl {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 1.2px;
-      color: #cbd5e1;
-      text-transform: uppercase;
-      white-space: nowrap;
+    .conduit-track[data-track="1"] .conduit-arrow-svg {
+      color: #00e5ff;
+    }
+
+    .conduit-track[data-track="2"] .conduit-arrow-svg {
+      color: #6ee7b7;
+    }
+
+    @keyframes conduitArrowPulse {
+      0% { transform: translateX(-1px); }
+      100% { transform: translateX(2px); }
     }
 
 
@@ -4088,15 +4272,36 @@
       .evolution-bridge-conduit {
         flex-direction: row;
         flex: 0 0 auto;
-        padding: 4px 0;
+        padding: 6px 0;
+        width: 100%;
       }
-      .conduit-arrow {
+      .conduit-header-spacer {
+        display: none;
+      }
+      .conduit-track-list {
+        flex-direction: row;
+        width: 100%;
+        justify-content: space-around;
+      }
+      .conduit-track {
+        padding: 0;
+      }
+      .conduit-wire::before,
+      .conduit-wire::after,
+      .conduit-line-core,
+      .conduit-line-glow,
+      .conduit-pulse-particle {
+        display: none;
+      }
+      .conduit-wire {
+        width: auto;
+        height: auto;
+      }
+      .conduit-arrow-badge {
         transform: rotate(90deg);
-        animation: conduitPulseY 1.8s infinite alternate ease-in-out;
       }
-      @keyframes conduitPulseY {
-        0% { transform: rotate(90deg) translateX(-3px); }
-        100% { transform: rotate(90deg) translateX(4px); }
+      .conduit-track:hover .conduit-arrow-badge {
+        transform: rotate(90deg) scale(1.15);
       }
 
       .skill-visual-icons-grid {
@@ -10118,18 +10323,56 @@
                 </div>
               </div>
 
-              <!-- Center: Evolution Vector / Growth Bridge -->
-              <div class="evolution-bridge-conduit">
-                <div class="conduit-badge">
-                  <span class="conduit-arrow">➔</span>
-                  <span class="conduit-lbl" contenteditable="true" data-editable="true" title="Click to edit label">1 YEAR GROWTH</span>
+              <!-- Center: Point-to-Point Growth Connectors -->
+              <div class="evolution-bridge-conduit" aria-label="Growth Evolution Connectors">
+                <div class="conduit-header-spacer"></div>
+                <div class="conduit-track-list">
+                  <div class="conduit-track" data-track="0" title="Learning to Confidence">
+                    <div class="conduit-wire">
+                      <div class="conduit-line-glow"></div>
+                      <div class="conduit-line-core"></div>
+                      <div class="conduit-pulse-particle"></div>
+                      <div class="conduit-arrow-badge">
+                        <svg class="conduit-arrow-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                          <path d="M5 12h14"></path>
+                          <path d="m13 5 7 7-7 7"></path>
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="conduit-track" data-track="1" title="Understanding to Mastery">
+                    <div class="conduit-wire">
+                      <div class="conduit-line-glow"></div>
+                      <div class="conduit-line-core"></div>
+                      <div class="conduit-pulse-particle"></div>
+                      <div class="conduit-arrow-badge">
+                        <svg class="conduit-arrow-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                          <path d="M5 12h14"></path>
+                          <path d="m13 5 7 7-7 7"></path>
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="conduit-track" data-track="2" title="Role to Ownership">
+                    <div class="conduit-wire">
+                      <div class="conduit-line-glow"></div>
+                      <div class="conduit-line-core"></div>
+                      <div class="conduit-pulse-particle"></div>
+                      <div class="conduit-arrow-badge">
+                        <svg class="conduit-arrow-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                          <path d="M5 12h14"></path>
+                          <path d="m13 5 7 7-7 7"></path>
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
 
-              <!-- Right Card: Year 01 -->
+              <!-- Right Card: Today -->
               <div class="evolution-card evolution-now">
                 <div class="evolution-card-header">
-                  <h3 class="evolution-heading now-heading" contenteditable="true" data-editable="true" title="Click to edit heading">Year 01</h3>
+                  <h3 class="evolution-heading now-heading" contenteditable="true" data-editable="true" title="Click to edit heading">Today</h3>
                 </div>
                 <div class="evolution-card-body">
                   <div class="evolution-point-item">
@@ -10989,12 +11232,12 @@
             </div>
           </div>
 
-          <!-- Right Card: Year 01 -->
+          <!-- Right Card: Today -->
           <div style="background:rgba(15,23,42,0.8); border:1px solid rgba(0,229,255,0.4); border-radius:12px; padding:14px;">
-            <h5 style="color:#38bdf8; font-size:13px; margin:0 0 10px 0;">🚀 Year 01</h5>
+            <h5 style="color:#38bdf8; font-size:13px; margin:0 0 10px 0;">🚀 Today</h5>
             <div class="form-group" style="margin-bottom:12px;">
               <label>Heading Title</label>
-              <input type="text" class="form-input" id="adminEvolNowTitle" placeholder="Year 01">
+              <input type="text" class="form-input" id="adminEvolNowTitle" placeholder="Today">
             </div>
 
             <!-- Point 1 -->
@@ -12186,7 +12429,7 @@
 ];
 
     const palaceState = {
-      "profileVersion": 3,
+      "profileVersion": 4,
       "chambers": [
         {
           "id": "chamber-milestone",
@@ -12380,8 +12623,8 @@
             "text": "Getting familiar with the role"
           }
         ],
-        "growthLabel": "1 YEAR GROWTH",
-        "nowTitle": "Year 01",
+        "growthLabel": "",
+        "nowTitle": "Today",
         "nowPoints": [
           {
             "icon": "shield",
@@ -13106,7 +13349,12 @@
           }
           if (parsed.celebration) palaceState.celebration = { ...palaceState.celebration, ...parsed.celebration };
           if (parsed.milestones) palaceState.milestones = parsed.milestones;
-          if (parsed.evolution) palaceState.evolution = parsed.evolution;
+          if (parsed.evolution) {
+            if (parsed.evolution.nowTitle === 'Year 01' || parsed.evolution.nowTitle === 'Year 01 • Proven Mastery') {
+              parsed.evolution.nowTitle = 'Today';
+            }
+            palaceState.evolution = parsed.evolution;
+          }
           if (parsed.entrance) {
             if (parsed.entrance.title === "Digital Memory Palace") {
               parsed.entrance.title = "WELCOME TO YOUR JOURNEY";
@@ -19259,8 +19507,8 @@
           { icon: "box", text: "Understanding the product" },
           { icon: "compass", text: "Getting familiar with the role" }
         ],
-        growthLabel: "1 YEAR GROWTH",
-        nowTitle: "Year 01",
+        growthLabel: "",
+        nowTitle: "Today",
         nowPoints: [
           { icon: "shield", text: "More confidence" },
           { icon: "target", text: "Better understanding" },
@@ -19288,10 +19536,10 @@
       });
 
       const adminGrowth = document.getElementById('adminEvolGrowthLabel');
-      if (adminGrowth) adminGrowth.value = evo.growthLabel || "1 YEAR GROWTH";
+      if (adminGrowth) adminGrowth.value = evo.growthLabel || "";
 
       const adminNowTitle = document.getElementById('adminEvolNowTitle');
-      if (adminNowTitle) adminNowTitle.value = evo.nowTitle || "Year 01";
+      if (adminNowTitle) adminNowTitle.value = evo.nowTitle || "Today";
 
       const nowFallbacks = ['shield', 'target', 'crown'];
       (evo.nowPoints || []).forEach((p, i) => {
@@ -19798,8 +20046,8 @@
           const nowFallbacks = ['shield', 'target', 'crown'];
           palaceState.evolution = palaceState.evolution || {};
           palaceState.evolution.thenTitle = adminThenTitle ? adminThenTitle.value.trim() : "Day 01";
-          palaceState.evolution.growthLabel = adminGrowth ? adminGrowth.value.trim() : "1 YEAR GROWTH";
-          palaceState.evolution.nowTitle = adminNowTitle ? adminNowTitle.value.trim() : "Year 01";
+          palaceState.evolution.growthLabel = adminGrowth ? adminGrowth.value.trim() : "";
+          palaceState.evolution.nowTitle = adminNowTitle ? adminNowTitle.value.trim() : "Today";
 
           palaceState.evolution.thenPoints = [0, 1, 2].map(i => {
             const existingIcon = (palaceState.evolution.thenPoints && palaceState.evolution.thenPoints[i] && palaceState.evolution.thenPoints[i].icon) || thenFallbacks[i];
