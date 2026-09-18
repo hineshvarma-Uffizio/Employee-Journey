@@ -4302,7 +4302,7 @@
       background: rgba(8, 18, 38, 0.85);
       border: 1px solid rgba(2, 132, 199, 0.28);
       border-radius: 16px;
-      padding: 24px 28px;
+      padding: 32px 36px;
       box-sizing: border-box;
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
@@ -4337,56 +4337,56 @@
       background: rgba(2, 132, 199, 0.6);
     }
 
-    /* Project Row Item inside Single Card */
+    /* Project Row Item inside Single Card (Clean text list with arrows - no inner cards) */
     .split-project-row {
       display: flex;
       align-items: center;
-      gap: 16px;
-      padding: 16px 20px;
-      border-radius: 12px;
-      background: rgba(14, 27, 54, 0.5);
-      border: 1px solid rgba(2, 132, 199, 0.16);
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
-      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      gap: 14px;
+      padding: 12px 6px;
+      background: transparent !important;
+      border: none !important;
+      border-radius: 0 !important;
+      box-shadow: none !important;
       cursor: pointer;
       position: relative;
       box-sizing: border-box;
       width: 100%;
+      transition: transform 0.2s ease;
     }
 
     .split-project-row:hover {
-      background: rgba(2, 132, 199, 0.15);
-      border-color: rgba(2, 132, 199, 0.45);
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35), 0 0 16px rgba(2, 132, 199, 0.18);
-      transform: translateX(4px);
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+      transform: translateX(6px);
     }
 
     .split-project-arrow-wrap {
-      width: 32px;
-      height: 32px;
-      min-width: 32px;
-      border-radius: 8px;
-      background: rgba(2, 132, 199, 0.15);
-      border: 1px solid rgba(2, 132, 199, 0.32);
+      width: 22px;
+      height: 22px;
+      min-width: 22px;
+      background: transparent !important;
+      border: none !important;
+      border-radius: 0 !important;
+      box-shadow: none !important;
       display: flex;
       align-items: center;
       justify-content: center;
       color: #38bdf8;
-      transition: all 0.25s ease;
+      transition: transform 0.2s ease, color 0.2s ease, filter 0.2s ease;
       flex-shrink: 0;
+      filter: drop-shadow(0 0 6px rgba(56, 189, 248, 0.4));
     }
 
     .split-project-row:hover .split-project-arrow-wrap {
-      background: rgba(2, 132, 199, 0.32);
-      border-color: #38bdf8;
-      color: #ffffff;
-      box-shadow: 0 0 12px rgba(56, 189, 248, 0.5);
-      transform: translateX(2px);
+      color: #67e8f9;
+      transform: translateX(3px);
+      filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.8));
     }
 
     .split-project-arrow-svg {
-      width: 16px;
-      height: 16px;
+      width: 18px;
+      height: 18px;
       stroke: currentColor;
     }
 
@@ -4397,17 +4397,18 @@
 
     .split-project-row .split-card-title {
       font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
-      font-size: 16px;
-      font-weight: 700;
+      font-size: 17px;
+      font-weight: 600;
       color: #ffffff;
       line-height: 1.4;
       margin: 0;
       letter-spacing: 0.01em;
-      transition: color 0.2s ease;
+      transition: color 0.2s ease, text-shadow 0.2s ease;
     }
 
     .split-project-row:hover .split-card-title {
-      color: #f0f9ff;
+      color: #e0f2fe;
+      text-shadow: 0 0 12px rgba(56, 189, 248, 0.35);
     }
 
     /* Right Column: Common Image Card */
