@@ -8329,8 +8329,14 @@
     body.view-mode-active #floatingAdminBtn,
     body.view-mode-active #liveEditToggleBtn,
     body.view-mode-active #saveDownloadBtn,
+    body.view-mode-active #palaceModeBadge,
     body.view-mode-active .live-edit-toolbar,
-    body.view-mode-active #profileModalBackdrop {
+    body.view-mode-active #profileModalBackdrop,
+    body.view-mode-active .share-tabs-nav,
+    body.view-mode-active #btnTabShareEdit,
+    body.view-mode-active #panelShareEdit,
+    body.view-mode-active #btnTestViewLink,
+    body.view-mode-active #btnTestEditLink {
       display: none !important;
     }
 
@@ -16093,14 +16099,33 @@
         if (requestedAccess === 'view') {
           applyAccessMode('view');
         } else if (requestedAccess === 'edit') {
-          applyAccessMode('edit');
+          // If accessing via web (not file: or localhost), prompt for passcode before allowing edit!
+          const isLocal = window.location.protocol === 'file:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+          if (!isLocal) {
+            const entered = prompt("🔐 Enter Editor Passcode to enable Edit Mode:");
+            const validPin = palaceState.editorPasscode || "uffizio";
+            if (entered && entered.trim().toLowerCase() === validPin.trim().toLowerCase()) {
+              applyAccessMode('edit');
+            } else {
+              if (entered !== null) alert("❌ Incorrect passcode. Opening in View-Only Mode.");
+              applyAccessMode('view');
+            }
+          } else {
+            applyAccessMode('edit');
+          }
         } else if (palaceState.defaultAccessMode === 'view') {
           // Exported presentation opened by recipient -> lock in View Mode
           applyAccessMode('view');
         } else {
-          // Local author working on index.html:
-          const savedMode = localStorage.getItem('palace_user_access_mode');
-          applyAccessMode(savedMode === 'view' ? 'view' : 'edit');
+          // If on web (github pages) without access param, default visitors to View Mode
+          const isLocal = window.location.protocol === 'file:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+          if (!isLocal) {
+            applyAccessMode('view');
+          } else {
+            // Local author working on index.html:
+            const savedMode = localStorage.getItem('palace_user_access_mode');
+            applyAccessMode(savedMode === 'view' ? 'view' : 'edit');
+          }
         }
       } catch (e) {
         console.warn("Could not init access mode", e);
@@ -16173,8 +16198,17 @@
         if (shareViewUrlInput) {
           shareViewUrlInput.value = `${baseUrl}${empQuery}access=view`;
         }
-        if (shareEditUrlInput) {
-          shareEditUrlInput.value = `${baseUrl}${empQuery}access=edit`;
+        if (palaceAccessMode === 'view') {
+          // If current session is View Mode, recipient must never see or access edit URL or passcode
+          if (shareEditUrlInput) shareEditUrlInput.value = '';
+          if (inputEditorPasscode) inputEditorPasscode.value = '';
+        } else {
+          if (shareEditUrlInput) {
+            shareEditUrlInput.value = `${baseUrl}${empQuery}access=edit`;
+          }
+          if (inputEditorPasscode) {
+            inputEditorPasscode.value = palaceState.editorPasscode || "uffizio";
+          }
         }
         const shareTinyInp = document.getElementById('shareTinyUrlInput');
         if (shareTinyInp) {
@@ -16183,11 +16217,8 @@
           } else if (slug === 'rahul') {
             shareTinyInp.value = 'https://tinyurl.com/uffizio-rahul';
           } else {
-            shareTinyInp.value = `${baseUrl}?emp=${encodeURIComponent(slug)}`;
+            shareTinyInp.value = `${baseUrl}?emp=${encodeURIComponent(slug)}&access=view`;
           }
-        }
-        if (inputEditorPasscode) {
-          inputEditorPasscode.value = palaceState.editorPasscode || "uffizio";
         }
       };
 
@@ -16229,6 +16260,35 @@
     function openShareModal() {
       generateShareUrls();
       const shareModalBackdrop = document.getElementById('shareModalBackdrop');
+      const shareTabsNav = document.querySelector('.share-tabs-nav');
+      const btnTabShareView = document.getElementById('btnTabShareView');
+      const btnTabShareEdit = document.getElementById('btnTabShareEdit');
+      const panelShareView = document.getElementById('panelShareView');
+      const panelShareEdit = document.getElementById('panelShareEdit');
+      const btnTestViewLink = document.getElementById('btnTestViewLink');
+      const btnTestEditLink = document.getElementById('btnTestEditLink');
+      const modalTitle = shareModalBackdrop ? shareModalBackdrop.querySelector('.modal-title') : null;
+      const modalSubtitle = shareModalBackdrop ? shareModalBackdrop.querySelector('.modal-subtitle') : null;
+
+      if (palaceAccessMode === 'view') {
+        if (shareTabsNav) shareTabsNav.style.display = 'none';
+        if (btnTabShareEdit) btnTabShareEdit.style.display = 'none';
+        if (panelShareEdit) panelShareEdit.style.display = 'none';
+        if (panelShareView) panelShareView.style.display = 'block';
+        if (btnTabShareView) btnTabShareView.classList.add('active');
+        if (btnTestViewLink) btnTestViewLink.style.display = 'none';
+        if (btnTestEditLink) btnTestEditLink.style.display = 'none';
+        if (modalTitle) modalTitle.textContent = '🔗 Share Presentation';
+        if (modalSubtitle) modalSubtitle.textContent = 'Share this memory palace presentation with your colleagues and team.';
+      } else {
+        if (shareTabsNav) shareTabsNav.style.display = 'flex';
+        if (btnTabShareEdit) btnTabShareEdit.style.display = '';
+        if (btnTestViewLink) btnTestViewLink.style.display = '';
+        if (btnTestEditLink) btnTestEditLink.style.display = '';
+        if (modalTitle) modalTitle.textContent = '🔗 Share Presentation & Permissions';
+        if (modalSubtitle) modalSubtitle.textContent = 'Generate shareable links with dedicated View or Edit rights.';
+      }
+
       if (shareModalBackdrop) shareModalBackdrop.classList.add('active');
     }
 
@@ -17262,8 +17322,13 @@
       // Shortcut: Ctrl+E or Cmd+E to toggle admin / unlock
       if ((e.ctrlKey || e.metaKey) && (e.key === 'e' || e.key === 'E')) {
         e.preventDefault();
+        const urlParams = (typeof window !== 'undefined' && window.location) ? new URLSearchParams(window.location.search) : null;
+        const isRecipientView = palaceState.defaultAccessMode === 'view' || (urlParams && (urlParams.get('access') === 'view' || urlParams.get('mode') === 'view'));
+        if (palaceAccessMode === 'view' && isRecipientView) {
+          return; // Strictly disabled for view mode recipients
+        }
         if (palaceAccessMode === 'view') {
-          promptUnlockEditor();
+          applyAccessMode('edit');
         } else {
           openAdminPanel();
         }
