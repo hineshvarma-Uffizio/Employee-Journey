@@ -12225,18 +12225,30 @@
         <div class="form-group" style="margin-bottom: 12px;">
           <label style="font-size: 11px; font-weight: 600; color: #38bdf8; text-transform: uppercase; margin-bottom: 6px; display: block;">⚡ Short Link (WhatsApp / Mobile Friendly)</label>
           <div style="display: flex; gap: 8px;">
-            <input type="text" id="shareTinyUrlInput" class="form-input" readonly value="https://tinyurl.com/uffizio-dhara" style="font-family: monospace; font-size: 11px; background: rgba(0,0,0,0.4); color: #38bdf8; font-weight: 600;">
+            <input type="text" id="shareTinyUrlInput" class="form-input" readonly value="https://tinyurl.com/27q648db" style="font-family: monospace; font-size: 11.5px; background: rgba(0,0,0,0.4); color: #38bdf8; font-weight: 600;">
             <button type="button" class="btn-save-profile" id="btnCopyTinyLink" style="width: auto; padding: 8px 16px; white-space: nowrap; font-size: 12px; background: linear-gradient(135deg, #0284c7, #0369a1);">📋 Copy Short Link</button>
           </div>
         </div>
 
         <div class="form-group" style="margin-bottom: 12px;">
-          <label style="font-size: 11px; font-weight: 600; color: #cbd5e1; text-transform: uppercase; margin-bottom: 6px; display: block;">Full Direct View Link</label>
+          <label style="font-size: 11px; font-weight: 600; color: #cbd5e1; text-transform: uppercase; margin-bottom: 6px; display: block;">🌐 Direct Web Link</label>
           <div style="display: flex; gap: 8px;">
             <input type="text" id="shareViewUrlInput" class="form-input" readonly style="font-family: monospace; font-size: 11px; background: rgba(0,0,0,0.4); color: #e2e8f0;">
             <button type="button" class="btn-save-profile" id="btnCopyViewLink" style="width: auto; padding: 8px 16px; white-space: nowrap; font-size: 12px;">📋 Copy Link</button>
           </div>
         </div>
+
+        <!-- Optional: Advanced Full Data Payload Link (Collapsible) -->
+        <details style="margin-bottom: 14px; background: rgba(0,0,0,0.25); border: 1px dashed rgba(255,255,255,0.12); border-radius: 8px; padding: 8px 12px;">
+          <summary style="font-size: 11px; color: #94a3b8; cursor: pointer; user-select: none;">📦 Advanced: Offline Data Payload Link</summary>
+          <div style="margin-top: 8px;">
+            <p style="font-size: 10.5px; color: #64748b; margin: 0 0 6px 0;">Contains state data encoded in URL for browser-to-browser transfer without server deployment.</p>
+            <div style="display: flex; gap: 8px;">
+              <input type="text" id="shareDataPayloadUrlInput" class="form-input" readonly style="font-family: monospace; font-size: 10px; background: rgba(0,0,0,0.5); color: #94a3b8;">
+              <button type="button" class="btn-subtle-reset" id="btnCopyDataPayloadLink" style="font-size: 11px; padding: 6px 12px; white-space: nowrap;">📋 Copy</button>
+            </div>
+          </div>
+        </details>
 
         <!-- Self-Contained Download for Sharing -->
         <div style="background: rgba(16, 185, 129, 0.12); border: 1.5px solid rgba(16, 185, 129, 0.35); border-radius: 12px; padding: 14px; margin-bottom: 14px; text-align: center;">
@@ -17375,45 +17387,120 @@
       document.body.removeChild(ta);
     }
 
-    // Share Modal Controller
+    // Share Modal Controller & Dynamic Clean URL Shortener Engine
+    function getCleanPublicBaseUrl() {
+      if (typeof window !== 'undefined' && window.location && window.location.protocol.startsWith('http')) {
+        return window.location.origin + window.location.pathname.replace(/\/+$/, '') + '/';
+      }
+      return 'https://hineshvarma-uffizio.github.io/Employee-Journey/';
+    }
+
+    function getCleanViewUrl() {
+      const base = getCleanPublicBaseUrl();
+      const slug = (typeof currentEmpSlug !== 'undefined' && currentEmpSlug && currentEmpSlug !== 'dhara_patel')
+        ? encodeURIComponent(currentEmpSlug)
+        : '';
+      return slug ? `${base}?emp=${slug}&access=view` : `${base}?access=view`;
+    }
+
+    function getCleanEditUrl() {
+      const base = getCleanPublicBaseUrl();
+      const slug = (typeof currentEmpSlug !== 'undefined' && currentEmpSlug && currentEmpSlug !== 'dhara_patel')
+        ? encodeURIComponent(currentEmpSlug)
+        : '';
+      return slug ? `${base}?emp=${slug}&access=edit` : `${base}?access=edit`;
+    }
+
     function getShareBaseUrl() {
       return window.location.href.split('?')[0].split('#')[0];
     }
 
+    let cachedTinyUrl = null;
+    let isFetchingTinyUrl = false;
+
+    function fetchTinyUrlForShare(longUrl, callback) {
+      if (cachedTinyUrl && cachedTinyUrl.long === longUrl) {
+        if (callback) callback(cachedTinyUrl.short);
+        return;
+      }
+      if (isFetchingTinyUrl) return;
+      isFetchingTinyUrl = true;
+
+      // Use public TinyURL API
+      const apiUrl = `https://tinyurl.com/api-create.php?url=${encodeURIComponent(longUrl)}`;
+      fetch(apiUrl)
+        .then(res => {
+          if (!res.ok) throw new Error("TinyURL network response was not ok");
+          return res.text();
+        })
+        .then(shortLink => {
+          isFetchingTinyUrl = false;
+          if (shortLink && shortLink.startsWith('http')) {
+            cachedTinyUrl = { long: longUrl, short: shortLink.trim() };
+            if (callback) callback(shortLink.trim());
+          } else {
+            if (callback) callback(longUrl);
+          }
+        })
+        .catch(err => {
+          isFetchingTinyUrl = false;
+          console.warn("TinyURL shortener fetch error, falling back to clean short URL:", err);
+          if (callback) callback(longUrl);
+        });
+    }
+
     function generateShareUrls() {
-      const baseUrl = getShareBaseUrl();
+      const cleanViewUrl = getCleanViewUrl();
+      const cleanEditUrl = getCleanEditUrl();
       const photo = palaceState.employee && palaceState.employee.photo;
 
       const finishGenerate = () => {
-        const encodedData = compressStateToHash(palaceState);
         const shareViewUrlInput = document.getElementById('shareViewUrlInput');
         const shareEditUrlInput = document.getElementById('shareEditUrlInput');
+        const shareTinyInp = document.getElementById('shareTinyUrlInput');
         const inputEditorPasscode = document.getElementById('inputEditorPasscode');
+        const shareDataPayloadUrlInput = document.getElementById('shareDataPayloadUrlInput');
 
-        const slug = currentEmpSlug;
-        const cacheBuster = `v=${Date.now()}`;
-        const empQuery = slug ? `?emp=${encodeURIComponent(slug)}&` : '?';
-        const dataHash = encodedData ? `#data=${encodedData}` : '';
-        const directViewUrl = `${baseUrl}${empQuery}access=view&${cacheBuster}${dataHash}`;
-
+        // 1. Direct clean web view link (~65 chars)
         if (shareViewUrlInput) {
-          shareViewUrlInput.value = directViewUrl;
+          shareViewUrlInput.value = cleanViewUrl;
         }
+
+        // 2. Short Link (TinyURL / WhatsApp friendly - 28 chars)
+        const defaultShortLink = "https://tinyurl.com/27q648db";
+        if (shareTinyInp) {
+          shareTinyInp.value = (cachedTinyUrl && cachedTinyUrl.long === cleanViewUrl)
+            ? cachedTinyUrl.short
+            : defaultShortLink;
+          // Asynchronously fetch fresh TinyURL in background
+          fetchTinyUrlForShare(cleanViewUrl, (shortLink) => {
+            if (shareTinyInp) shareTinyInp.value = shortLink;
+          });
+        }
+
+        // 3. Edit link (~65 chars)
         if (palaceAccessMode === 'view') {
-          // If current session is View Mode, recipient must never see or access edit URL or passcode
           if (shareEditUrlInput) shareEditUrlInput.value = '';
           if (inputEditorPasscode) inputEditorPasscode.value = '';
         } else {
           if (shareEditUrlInput) {
-            shareEditUrlInput.value = `${baseUrl}${empQuery}access=edit&${cacheBuster}${dataHash}`;
+            shareEditUrlInput.value = cleanEditUrl;
           }
           if (inputEditorPasscode) {
             inputEditorPasscode.value = palaceState.editorPasscode || "uffizio";
           }
         }
-        const shareTinyInp = document.getElementById('shareTinyUrlInput');
-        if (shareTinyInp) {
-          shareTinyInp.value = directViewUrl;
+
+        // 4. Advanced: full data payload link (if user opened the advanced details drawer)
+        if (shareDataPayloadUrlInput) {
+          try {
+            const encodedData = compressStateToHash(palaceState);
+            const baseUrl = getShareBaseUrl();
+            const slug = currentEmpSlug;
+            const empQuery = slug ? `?emp=${encodeURIComponent(slug)}&` : '?';
+            const dataHash = encodedData ? `#data=${encodedData}` : '';
+            shareDataPayloadUrlInput.value = `${baseUrl}${empQuery}access=view&v=${Date.now()}${dataHash}`;
+          } catch(e) {}
         }
       };
 
@@ -17562,7 +17649,7 @@
       const btnCopyTinyLink = document.getElementById('btnCopyTinyLink');
       if (btnCopyTinyLink) {
         btnCopyTinyLink.addEventListener('click', () => {
-          const url = document.getElementById('shareTinyUrlInput')?.value || "https://tinyurl.com/uffizio-dhara";
+          const url = document.getElementById('shareTinyUrlInput')?.value || "https://tinyurl.com/27q648db";
           if (url) copyToClipboard(url, copyViewFeedback, "Ready to share");
         });
       }
@@ -17577,6 +17664,14 @@
         btnCopyEditLink.addEventListener('click', () => {
           const url = document.getElementById('shareEditUrlInput')?.value;
           if (url) copyToClipboard(url, copyEditFeedback, "Ready to share");
+        });
+      }
+
+      const btnCopyDataPayloadLink = document.getElementById('btnCopyDataPayloadLink');
+      if (btnCopyDataPayloadLink) {
+        btnCopyDataPayloadLink.addEventListener('click', () => {
+          const url = document.getElementById('shareDataPayloadUrlInput')?.value;
+          if (url) copyToClipboard(url, copyViewFeedback, "Data payload link copied");
         });
       }
 
@@ -17627,16 +17722,15 @@
     // ==========================================================================
 
     window.getSocialShareUrl = function() {
+      const shareTinyInp = document.getElementById('shareTinyUrlInput');
+      if (shareTinyInp && shareTinyInp.value && shareTinyInp.value.startsWith('http') && shareTinyInp.value.length < 200) {
+        return shareTinyInp.value;
+      }
       const shareViewInp = document.getElementById('shareViewUrlInput');
-      if (shareViewInp && shareViewInp.value && shareViewInp.value.startsWith('http')) {
+      if (shareViewInp && shareViewInp.value && shareViewInp.value.startsWith('http') && shareViewInp.value.length < 200) {
         return shareViewInp.value;
       }
-      const baseUrl = getShareBaseUrl();
-      const encodedData = (typeof compressStateToHash === 'function') ? compressStateToHash(palaceState) : '';
-      const slug = (typeof currentEmpSlug !== 'undefined') ? currentEmpSlug : '';
-      const empQuery = slug ? `?emp=${encodeURIComponent(slug)}&` : '?';
-      const dataHash = encodedData ? `#data=${encodedData}` : '';
-      return `${baseUrl}${empQuery}access=view&v=${Date.now()}${dataHash}`;
+      return (typeof getCleanViewUrl === 'function') ? getCleanViewUrl() : (getCleanPublicBaseUrl() + '?access=view');
     };
 
     function preparePrintMode() {
