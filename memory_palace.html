@@ -10429,6 +10429,30 @@
       z-index: 99995 !important;
     }
 
+    /* Force ALL child elements visible & flat during capture — overrides .waiting-depth / .exited-forward child rules */
+    body.pdf-capturing-mode .palace-chamber.capture-target-active,
+    body.pdf-capturing-mode .palace-chamber.capture-target-active * {
+      opacity: 1 !important;
+      visibility: visible !important;
+      transform: none !important;
+      transform-style: flat !important;
+      transition: none !important;
+      animation: none !important;
+    }
+
+    /* Specific child content areas that start at opacity:0 until .active fires */
+    body.pdf-capturing-mode .palace-chamber.capture-target-active .celebration-content-column,
+    body.pdf-capturing-mode .palace-chamber.capture-target-active .chamber-content,
+    body.pdf-capturing-mode .palace-chamber.capture-target-active .chamber-placard,
+    body.pdf-capturing-mode .palace-chamber.capture-target-active .chamber-name,
+    body.pdf-capturing-mode .palace-chamber.capture-target-active .chamber-desc,
+    body.pdf-capturing-mode .palace-chamber.capture-target-active .room-shell,
+    body.pdf-capturing-mode .palace-chamber.capture-target-active .room-wall {
+      opacity: 1 !important;
+      visibility: visible !important;
+      transform: none !important;
+    }
+
     body.pdf-capturing-mode .room-shell {
       position: absolute !important;
       inset: 0 !important;
@@ -18110,7 +18134,7 @@
 
           // Deactivate all chambers
           document.querySelectorAll('.palace-chamber').forEach(el => {
-            el.classList.remove('capture-target-active');
+            el.classList.remove('capture-target-active', 'active');
             el.style.display = 'none';
           });
 
@@ -18118,8 +18142,12 @@
           const targetEl = document.getElementById(chConfig.id);
           if (!targetEl) continue;
 
-          targetEl.classList.add('capture-target-active');
-          targetEl.style.display = 'flex';
+          // Remove state classes that force opacity:0 / visibility:hidden
+          targetEl.classList.remove('waiting-depth', 'exited-forward', 'chamber-hidden');
+          // Add BOTH capture-target-active AND active so child CSS rules (opacity:0 -> opacity:1) fire correctly
+          targetEl.classList.add('capture-target-active', 'active');
+          // Force inline style to override any remaining inline display:none
+          targetEl.style.cssText = 'display: flex !important; opacity: 1 !important; visibility: visible !important; transform: none !important;';
 
           // Trigger custom room motion/render updates
           try {
@@ -18146,8 +18174,8 @@
             });
           }));
 
-          // Allow DOM to settle
-          await new Promise(r => setTimeout(r, 60));
+          // Allow DOM to settle (150ms — enough for .active CSS rules to apply after class change)
+          await new Promise(r => setTimeout(r, 150));
 
           // Capture chamber with html2canvas (1440x960, dark royal background)
           const canvas = await h2c(targetEl, {
@@ -18198,10 +18226,10 @@
         preparePrintMode();
         setTimeout(() => { window.focus(); window.print(); }, 200);
       } finally {
-        // Clean up target active classes
+        // Clean up all capture classes and restore inline styles
         document.querySelectorAll('.palace-chamber').forEach(el => {
-          el.classList.remove('capture-target-active');
-          el.style.display = '';
+          el.classList.remove('capture-target-active', 'active');
+          el.style.cssText = '';
         });
         document.body.classList.remove('pdf-capturing-mode');
         if (typeof syncPalaceNavigation === 'function') {
