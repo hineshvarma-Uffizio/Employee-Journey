@@ -6981,8 +6981,8 @@
        ROOM: YEAR IN MEMORIES (PART 2) - STANDALONE SINGLE READY-MADE COLLAGE
        ========================================================================== */
     #chamber-memories-2 .chamber-content {
-      height: calc(100% - 200px);
-      margin-top: 185px;
+      height: calc(100% - 215px);
+      margin-top: 215px;
       max-width: 1240px;
       width: 95%;
       display: flex;
@@ -15012,9 +15012,9 @@
           card.dataset.idx = idx;
 
           const cx = slot.left + slot.width / 2;
-          // Scale cy so cards always stay within [12%, 80%] of board — breathing space top & bottom
+          // Scale cy so cards stay within board — min 40% ensures no heading overlap
           const rawCy = slot.top + slot.height / 2;
-          const cy = 12 + rawCy * 0.68;
+          const cy = Math.max(12 + rawCy * 0.68, 40);
           card.style.left = `${cx.toFixed(2)}%`;
           card.style.top = `${cy.toFixed(2)}%`;
           card.style.transform = `translate(-50%, -50%) rotate(${slot.rot}deg)`;
