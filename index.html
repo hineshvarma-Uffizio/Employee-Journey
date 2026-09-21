@@ -10367,6 +10367,17 @@
       display: none !important;
     }
 
+    /* During capture: royal-ethnic-pattern-layer will be moved inside palace-viewport by JS.
+       Set it to absolute positioning-ready state (JS will override with style attribute) */
+    body.pdf-capturing-mode #royalEthnicBg {
+      position: absolute !important;
+      animation: none !important;
+    }
+
+    body.pdf-capturing-mode #royalEthnicBg .royal-ethnic-shimmer-sheen {
+      display: none !important;
+    }
+
     /* 2. Freeze transitions during capture so DOM state updates instantly */
     body.pdf-capturing-mode * {
       animation: none !important;
@@ -10429,15 +10440,29 @@
       z-index: 99995 !important;
     }
 
-    /* Force ALL child elements visible & flat during capture — overrides .waiting-depth / .exited-forward child rules */
-    body.pdf-capturing-mode .palace-chamber.capture-target-active,
+    /* Force ALL child elements visible during capture (opacity/visibility only — NOT transform, that breaks centering) */
     body.pdf-capturing-mode .palace-chamber.capture-target-active * {
       opacity: 1 !important;
       visibility: visible !important;
-      transform: none !important;
+    }
+
+    /* Flatten 3D only on major structural containers, NOT on every element (preserve centering transforms) */
+    body.pdf-capturing-mode .palace-chamber.capture-target-active .palace-stage,
+    body.pdf-capturing-mode .palace-chamber.capture-target-active .room-shell,
+    body.pdf-capturing-mode .palace-chamber.capture-target-active .room-wall,
+    body.pdf-capturing-mode .palace-chamber.capture-target-active .chamber-content,
+    body.pdf-capturing-mode .palace-chamber.capture-target-active .celebration-stage-container,
+    body.pdf-capturing-mode .palace-chamber.capture-target-active .values-orbital-stage,
+    body.pdf-capturing-mode .palace-chamber.capture-target-active .horizontal-milestones-list,
+    body.pdf-capturing-mode .palace-chamber.capture-target-active .horizontal-journey-hall,
+    body.pdf-capturing-mode .palace-chamber.capture-target-active .started-timeline-col,
+    body.pdf-capturing-mode .palace-chamber.capture-target-active .collage-board-container,
+    body.pdf-capturing-mode .palace-chamber.capture-target-active .team-wall-board,
+    body.pdf-capturing-mode .palace-chamber.capture-target-active .proud-gallery-area,
+    body.pdf-capturing-mode .palace-chamber.capture-target-active .horizon-observatory-window,
+    body.pdf-capturing-mode .palace-chamber.capture-target-active .future-capsule-card {
       transform-style: flat !important;
-      transition: none !important;
-      animation: none !important;
+      transform: none !important;
     }
 
     /* Specific child content areas that start at opacity:0 until .active fires */
@@ -18177,16 +18202,59 @@
           // Allow DOM to settle (150ms — enough for .active CSS rules to apply after class change)
           await new Promise(r => setTimeout(r, 150));
 
-          // Capture chamber with html2canvas (1440x960, dark royal background)
-          const canvas = await h2c(targetEl, {
+          // === CAPTURE SETUP: move royalEthnicBg inside viewport so it appears in the screenshot ===
+          const captureViewport = document.getElementById('palaceViewport');
+          const bgEl = document.getElementById('royalEthnicBg');
+          const bgOriginalParent = bgEl ? bgEl.parentNode : null;
+          const bgNextSibling = bgEl ? bgEl.nextSibling : null;
+
+          if (bgEl && captureViewport) {
+            bgEl.style.position = 'absolute';
+            bgEl.style.top = '0';
+            bgEl.style.left = '0';
+            bgEl.style.width = '100%';
+            bgEl.style.height = '100%';
+            bgEl.style.opacity = '0.06';
+            bgEl.style.zIndex = '1';
+            bgEl.style.pointerEvents = 'none';
+            bgEl.style.animation = 'none';
+            captureViewport.insertBefore(bgEl, captureViewport.firstChild);
+            // Force mask to apply by reading layout
+            bgEl.getBoundingClientRect();
+          }
+
+          // Brief pause for mask-image to apply
+          await new Promise(r => setTimeout(r, 60));
+
+          // Capture the palace-viewport (contains: damask bg + chamber content)
+          const captureEl = captureViewport || targetEl;
+          const canvas = await h2c(captureEl, {
             width: 1440,
             height: 960,
             scale: 1.5,
             backgroundColor: '#030712',
             useCORS: true,
             allowTaint: true,
-            logging: false
+            logging: false,
+            windowWidth: 1440,
+            windowHeight: 960,
+            x: 0,
+            y: 0
           });
+
+          // === RESTORE: move royalEthnicBg back to original position ===
+          if (bgEl && bgOriginalParent) {
+            bgOriginalParent.insertBefore(bgEl, bgNextSibling);
+            bgEl.style.position = '';
+            bgEl.style.top = '';
+            bgEl.style.left = '';
+            bgEl.style.width = '';
+            bgEl.style.height = '';
+            bgEl.style.opacity = '';
+            bgEl.style.zIndex = '';
+            bgEl.style.pointerEvents = '';
+            bgEl.style.animation = '';
+          }
 
           const jpegData = canvas.toDataURL('image/jpeg', 0.95);
           window.cachedSlideJpegs.push({
