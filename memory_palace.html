@@ -4286,13 +4286,13 @@
       padding: 0;
     }
 
-    /* Split Layout for Chamber 2b: Left 4 Cards + Right Common Image */
+    /* Split Layout for Chamber 2b: 4 Themed Floating Cards + Majestic Right Globe */
     .creations-split-container {
       width: 100%;
-      max-width: 1240px;
+      max-width: 1220px;
       display: grid;
-      grid-template-columns: 1.25fr 1fr;
-      gap: 22px;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 28px;
       align-items: stretch;
       margin: 0 auto;
     }
@@ -4301,33 +4301,32 @@
       display: flex;
       flex-direction: column;
       height: 100%;
+      min-height: 440px;
     }
 
-    /* Single Unified Projects Card */
+    /* Column of 4 Themed Floating Cards */
     .creations-split-cards-grid {
       width: 100%;
       height: 100%;
-      min-height: 430px;
-      background: rgba(8, 18, 38, 0.85);
-      border: 1px solid rgba(2, 132, 199, 0.28);
-      border-radius: 16px;
-      padding: 32px 36px;
-      box-sizing: border-box;
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), 0 0 24px rgba(2, 132, 199, 0.12);
+      min-height: 440px;
       display: flex;
       flex-direction: column;
-      justify-content: space-evenly;
-      gap: 12px;
-      position: relative;
-      overflow-y: auto;
-      overflow-x: hidden;
+      justify-content: space-between;
+      gap: 15px;
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      box-sizing: border-box;
     }
 
     .creations-split-cards-grid.has-many-projects {
+      overflow-y: auto;
+      overflow-x: hidden;
       justify-content: flex-start;
-      gap: 14px;
+      gap: 12px;
+      max-height: 460px;
     }
 
     /* Sleek scrollbar when 5+ projects exist */
@@ -4339,105 +4338,169 @@
       border-radius: 4px;
     }
     .creations-split-cards-grid::-webkit-scrollbar-thumb {
-      background: rgba(2, 132, 199, 0.35);
+      background: rgba(59, 130, 246, 0.35);
       border-radius: 4px;
     }
     .creations-split-cards-grid::-webkit-scrollbar-thumb:hover {
-      background: rgba(2, 132, 199, 0.6);
+      background: rgba(59, 130, 246, 0.6);
     }
 
-    /* Project Row Item inside Single Card (Clean text list with arrows - no inner cards) */
-    .split-project-row {
+    /* Individual Themed Project Card */
+    .split-creation-card {
+      width: 100%;
+      flex: 1;
+      min-height: 90px;
+      max-height: 106px;
       display: flex;
-      align-items: center;
-      gap: 14px;
-      padding: 12px 6px;
-      background: transparent !important;
-      border: none !important;
-      border-radius: 0 !important;
-      box-shadow: none !important;
+      flex-direction: row;
+      align-items: stretch;
+      border-radius: 14px;
+      box-sizing: border-box;
       cursor: pointer;
       position: relative;
-      box-sizing: border-box;
-      width: 100%;
-      transition: transform 0.2s ease;
+      overflow: hidden;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1),
+                  border-color 0.25s ease,
+                  box-shadow 0.25s ease;
     }
 
-    .split-project-row:hover {
-      background: transparent !important;
-      border: none !important;
-      box-shadow: none !important;
-      transform: translateX(6px);
+    .creations-split-cards-grid.has-many-projects .split-creation-card {
+      flex: 0 0 auto;
+      min-height: 86px;
     }
 
-    .split-project-arrow-wrap {
-      width: 22px;
-      height: 22px;
-      min-width: 22px;
-      background: transparent !important;
-      border: none !important;
-      border-radius: 0 !important;
-      box-shadow: none !important;
+    .split-creation-card:hover {
+      transform: translateY(-2px);
+    }
+
+    /* Card 1: Blue Theme */
+    .split-creation-card.theme-blue {
+      background: linear-gradient(135deg, rgba(14, 28, 54, 0.88) 0%, rgba(8, 16, 34, 0.94) 100%);
+      border: 1px solid rgba(59, 130, 246, 0.42);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.42), 0 0 16px rgba(59, 130, 246, 0.12);
+    }
+    .split-creation-card.theme-blue:hover {
+      border-color: rgba(96, 165, 250, 0.8);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.55), 0 0 28px rgba(59, 130, 246, 0.32);
+    }
+
+    /* Card 2: Purple Theme */
+    .split-creation-card.theme-purple {
+      background: linear-gradient(135deg, rgba(28, 18, 52, 0.88) 0%, rgba(15, 10, 32, 0.94) 100%);
+      border: 1px solid rgba(139, 92, 246, 0.42);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.42), 0 0 16px rgba(139, 92, 246, 0.12);
+    }
+    .split-creation-card.theme-purple:hover {
+      border-color: rgba(167, 139, 250, 0.8);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.55), 0 0 28px rgba(139, 92, 246, 0.32);
+    }
+
+    /* Card 3: Emerald Theme */
+    .split-creation-card.theme-emerald {
+      background: linear-gradient(135deg, rgba(12, 36, 34, 0.88) 0%, rgba(8, 22, 24, 0.94) 100%);
+      border: 1px solid rgba(16, 185, 129, 0.42);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.42), 0 0 16px rgba(16, 185, 129, 0.12);
+    }
+    .split-creation-card.theme-emerald:hover {
+      border-color: rgba(52, 211, 153, 0.8);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.55), 0 0 28px rgba(16, 185, 129, 0.32);
+    }
+
+    /* Card 4: Amber Theme */
+    .split-creation-card.theme-amber {
+      background: linear-gradient(135deg, rgba(36, 26, 12, 0.88) 0%, rgba(22, 16, 8, 0.94) 100%);
+      border: 1px solid rgba(245, 158, 11, 0.42);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.42), 0 0 16px rgba(245, 158, 11, 0.12);
+    }
+    .split-creation-card.theme-amber:hover {
+      border-color: rgba(251, 191, 36, 0.8);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.55), 0 0 28px rgba(245, 158, 11, 0.32);
+    }
+
+    /* Left Icon Compartment */
+    .split-card-icon-col {
+      width: 76px;
+      min-width: 76px;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #38bdf8;
-      transition: transform 0.2s ease, color 0.2s ease, filter 0.2s ease;
+      position: relative;
       flex-shrink: 0;
-      filter: drop-shadow(0 0 6px rgba(56, 189, 248, 0.4));
+      transition: border-color 0.25s ease;
+    }
+    .split-creation-card.theme-blue .split-card-icon-col {
+      border-right: 1px solid rgba(59, 130, 246, 0.28);
+      color: #60a5fa;
+    }
+    .split-creation-card.theme-purple .split-card-icon-col {
+      border-right: 1px solid rgba(139, 92, 246, 0.28);
+      color: #a78bfa;
+    }
+    .split-creation-card.theme-emerald .split-card-icon-col {
+      border-right: 1px solid rgba(16, 185, 129, 0.28);
+      color: #34d399;
+    }
+    .split-creation-card.theme-amber .split-card-icon-col {
+      border-right: 1px solid rgba(245, 158, 11, 0.28);
+      color: #fbbf24;
     }
 
-    .split-project-row:hover .split-project-arrow-wrap {
-      color: #67e8f9;
-      transform: translateX(3px);
-      filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.8));
+    .split-card-icon-svg {
+      width: 28px;
+      height: 28px;
+      stroke-width: 1.85;
+      transition: transform 0.25s ease, filter 0.25s ease;
+    }
+    .split-creation-card:hover .split-card-icon-svg {
+      transform: scale(1.08);
+      filter: drop-shadow(0 0 8px currentColor);
     }
 
-    .split-project-arrow-svg {
-      width: 18px;
-      height: 18px;
-      stroke: currentColor;
-    }
-
-    .split-project-text-wrap {
+    /* Right Text Compartment */
+    .split-card-content-col {
       flex: 1;
       min-width: 0;
+      padding: 14px 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
 
-    .split-project-row .split-card-title {
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
-      font-size: 17px;
+    .split-creation-card .split-card-title {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+      font-size: 16.5px;
       font-weight: 600;
       color: #ffffff;
-      line-height: 1.4;
+      line-height: 1.35;
       margin: 0;
       letter-spacing: 0.01em;
       transition: color 0.2s ease, text-shadow 0.2s ease;
     }
-
-    .split-project-row:hover .split-card-title {
-      color: #e0f2fe;
-      text-shadow: 0 0 12px rgba(56, 189, 248, 0.35);
+    .split-creation-card:hover .split-card-title {
+      color: #f8fafc;
+      text-shadow: 0 0 12px rgba(255, 255, 255, 0.4);
     }
 
-    /* Right Column: Common Image Card */
+    /* Right Column: Common Globe Showcase Image */
     .creations-split-right {
       display: flex;
       flex-direction: column;
-      justify-content: center;
       height: 100%;
+      min-height: 440px;
     }
 
     .creations-common-image-card {
       width: 100%;
       height: 100%;
-      min-height: 430px;
-      background: rgba(10, 18, 38, 0.85);
-      border: 1px solid rgba(245, 192, 101, 0.32);
+      min-height: 440px;
+      background: rgba(8, 16, 34, 0.95);
+      border: 1px solid rgba(59, 130, 246, 0.35);
       border-radius: 16px;
       overflow: hidden;
       position: relative;
-      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), 0 0 24px rgba(245, 192, 101, 0.12);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.65), 0 0 24px rgba(59, 130, 246, 0.15);
       transition: border-color 0.3s ease, box-shadow 0.3s ease;
     }
 
@@ -10524,8 +10587,6 @@
     /* Preserve rich dark theme card styles with authentic gradients */
     body.pdf-capturing-mode .milestone-horizontal-card,
     body.pdf-capturing-mode .evolution-card,
-    body.pdf-capturing-mode .split-creation-card,
-    body.pdf-capturing-mode .creations-common-image-card,
     body.pdf-capturing-mode .value-card,
     body.pdf-capturing-mode .future-card,
     body.pdf-capturing-mode .thankyou-card-monument {
@@ -10533,6 +10594,108 @@
       border: 1px solid rgba(245, 192, 101, 0.35) !important;
       box-shadow: 0 12px 32px rgba(0, 0, 0, 0.75), 0 0 25px rgba(0, 44, 107, 0.45) !important;
       color: #f8fafc !important;
+    }
+
+    /* Chamber 2b Creations Showcase PDF mode rules */
+    body.pdf-capturing-mode .creations-split-container {
+      display: grid !important;
+      grid-template-columns: 0.95fr 1.05fr !important;
+      gap: 28px !important;
+      width: 100% !important;
+      max-width: 1220px !important;
+      align-items: stretch !important;
+      transform: none !important;
+    }
+    body.pdf-capturing-mode .creations-split-left {
+      display: flex !important;
+      flex-direction: column !important;
+      height: 480px !important;
+    }
+    body.pdf-capturing-mode .creations-split-cards-grid {
+      display: flex !important;
+      flex-direction: column !important;
+      justify-content: space-between !important;
+      gap: 15px !important;
+      height: 100% !important;
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+      padding: 0 !important;
+      margin: 0 !important;
+    }
+    body.pdf-capturing-mode .split-creation-card {
+      display: flex !important;
+      flex-direction: row !important;
+      align-items: stretch !important;
+      border-radius: 14px !important;
+      box-sizing: border-box !important;
+      overflow: hidden !important;
+      flex: 1 !important;
+      min-height: 90px !important;
+      max-height: 106px !important;
+    }
+    body.pdf-capturing-mode .split-creation-card.theme-blue {
+      background: #0e1c36 !important;
+      border: 1px solid rgba(59, 130, 246, 0.65) !important;
+    }
+    body.pdf-capturing-mode .split-creation-card.theme-purple {
+      background: #1c1234 !important;
+      border: 1px solid rgba(139, 92, 246, 0.65) !important;
+    }
+    body.pdf-capturing-mode .split-creation-card.theme-emerald {
+      background: #0c2422 !important;
+      border: 1px solid rgba(16, 185, 129, 0.65) !important;
+    }
+    body.pdf-capturing-mode .split-creation-card.theme-amber {
+      background: #241a0c !important;
+      border: 1px solid rgba(245, 158, 11, 0.65) !important;
+    }
+    body.pdf-capturing-mode .split-card-icon-col {
+      width: 76px !important;
+      min-width: 76px !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+    }
+    body.pdf-capturing-mode .split-creation-card.theme-blue .split-card-icon-col {
+      border-right: 1px solid rgba(59, 130, 246, 0.35) !important;
+      color: #60a5fa !important;
+    }
+    body.pdf-capturing-mode .split-creation-card.theme-purple .split-card-icon-col {
+      border-right: 1px solid rgba(139, 92, 246, 0.35) !important;
+      color: #a78bfa !important;
+    }
+    body.pdf-capturing-mode .split-creation-card.theme-emerald .split-card-icon-col {
+      border-right: 1px solid rgba(16, 185, 129, 0.35) !important;
+      color: #34d399 !important;
+    }
+    body.pdf-capturing-mode .split-creation-card.theme-amber .split-card-icon-col {
+      border-right: 1px solid rgba(245, 158, 11, 0.35) !important;
+      color: #fbbf24 !important;
+    }
+    body.pdf-capturing-mode .split-card-content-col {
+      padding: 14px 22px !important;
+      display: flex !important;
+      flex-direction: column !important;
+      justify-content: center !important;
+    }
+    body.pdf-capturing-mode .split-card-title {
+      font-size: 16.5px !important;
+      font-weight: 600 !important;
+      color: #ffffff !important;
+    }
+    body.pdf-capturing-mode .creations-split-right {
+      display: flex !important;
+      flex-direction: column !important;
+      height: 480px !important;
+    }
+    body.pdf-capturing-mode .creations-common-image-card {
+      height: 480px !important;
+      min-height: 480px !important;
+      border: 1px solid rgba(59, 130, 246, 0.45) !important;
+      background: #081022 !important;
+      border-radius: 16px !important;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.65) !important;
     }
 
     body.pdf-capturing-mode .values-orbital-stage {
@@ -15355,7 +15518,42 @@
       setTimeout(updateArrows, 150);
     }
 
-    // Chamber 2b: Split View Creations Showcase (Single Unified Card with Project Arrows)
+    // Chamber 2b: Split View Creations Showcase (4 Themed Floating Cards & Globe Showcase)
+    const CREATION_THEMES = [
+      {
+        themeClass: 'theme-blue',
+        iconSvg: `<svg class="split-card-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+          <polyline points="2 17 12 22 22 17"></polyline>
+          <polyline points="2 12 12 17 22 12"></polyline>
+        </svg>`
+      },
+      {
+        themeClass: 'theme-purple',
+        iconSvg: `<svg class="split-card-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+        </svg>`
+      },
+      {
+        themeClass: 'theme-emerald',
+        iconSvg: `<svg class="split-card-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+          <circle cx="9" cy="7" r="4"></circle>
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+          <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+        </svg>`
+      },
+      {
+        themeClass: 'theme-amber',
+        iconSvg: `<svg class="split-card-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="20" x2="18" y2="10"></line>
+          <line x1="12" y1="20" x2="12" y2="4"></line>
+          <line x1="6" y1="20" x2="6" y2="14"></line>
+          <line x1="2" y1="20" x2="22" y2="20"></line>
+        </svg>`
+      }
+    ];
+
     function renderProjects2() {
       const grid = document.getElementById('creationsCardsGrid2');
       const contributions = palaceState.contributions2 || [];
@@ -15378,16 +15576,14 @@
 
           grid.innerHTML = contributions.map((c, idx) => {
             const pTitle = c.project?.title || `Project ${idx + 1}`;
+            const theme = CREATION_THEMES[idx % CREATION_THEMES.length];
 
             return `
-              <div class="split-project-row split-creation-card" data-card-index="${idx}" onclick="openProjectLightbox(${idx}, 2)">
-                <div class="split-project-arrow-wrap">
-                  <svg class="split-project-arrow-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M5 12h14"></path>
-                    <path d="m13 5 7 7-7 7"></path>
-                  </svg>
+              <div class="split-creation-card ${theme.themeClass}" data-card-index="${idx}" onclick="openProjectLightbox(${idx}, 2)">
+                <div class="split-card-icon-col">
+                  ${theme.iconSvg}
                 </div>
-                <div class="split-project-text-wrap">
+                <div class="split-card-content-col">
                   <h3 class="split-card-title" data-editable="true" onclick="event.stopPropagation()" title="${escapeHtmlAttr(pTitle)}">${escapeHtml(pTitle)}</h3>
                 </div>
               </div>
@@ -18330,7 +18526,13 @@
                 ${cid} .horizontal-journey-hall,
                 ${cid} .horizontal-milestones-list,
                 ${cid} .collage-board-container,
-                ${cid} .team-wall-board {
+                ${cid} .team-wall-board,
+                ${cid} .creations-split-container,
+                ${cid} .creations-split-left,
+                ${cid} .creations-split-cards-grid,
+                ${cid} .creations-split-right,
+                ${cid} .creations-common-image-card,
+                ${cid} .split-creation-card {
                   transform: none !important;
                 }
                 /* Hide all 3D environment shells, spotlights, and unblurred glows */
