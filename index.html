@@ -4361,6 +4361,9 @@
       overflow: hidden;
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
+      background: linear-gradient(135deg, rgba(14, 28, 54, 0.88) 0%, rgba(8, 16, 34, 0.94) 100%);
+      border: 1px solid rgba(59, 130, 246, 0.42);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.42), 0 0 16px rgba(59, 130, 246, 0.12);
       transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1),
                   border-color 0.25s ease,
                   box-shadow 0.25s ease;
@@ -4373,50 +4376,25 @@
 
     .split-creation-card:hover {
       transform: translateY(-2px);
-    }
-
-    /* Card 1: Blue Theme */
-    .split-creation-card.theme-blue {
-      background: linear-gradient(135deg, rgba(14, 28, 54, 0.88) 0%, rgba(8, 16, 34, 0.94) 100%);
-      border: 1px solid rgba(59, 130, 246, 0.42);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.42), 0 0 16px rgba(59, 130, 246, 0.12);
-    }
-    .split-creation-card.theme-blue:hover {
       border-color: rgba(96, 165, 250, 0.8);
       box-shadow: 0 12px 32px rgba(0, 0, 0, 0.55), 0 0 28px rgba(59, 130, 246, 0.32);
     }
 
-    /* Card 2: Purple Theme */
-    .split-creation-card.theme-purple {
-      background: linear-gradient(135deg, rgba(28, 18, 52, 0.88) 0%, rgba(15, 10, 32, 0.94) 100%);
-      border: 1px solid rgba(139, 92, 246, 0.42);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.42), 0 0 16px rgba(139, 92, 246, 0.12);
-    }
-    .split-creation-card.theme-purple:hover {
-      border-color: rgba(167, 139, 250, 0.8);
-      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.55), 0 0 28px rgba(139, 92, 246, 0.32);
-    }
-
-    /* Card 3: Emerald Theme */
-    .split-creation-card.theme-emerald {
-      background: linear-gradient(135deg, rgba(12, 36, 34, 0.88) 0%, rgba(8, 22, 24, 0.94) 100%);
-      border: 1px solid rgba(16, 185, 129, 0.42);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.42), 0 0 16px rgba(16, 185, 129, 0.12);
-    }
-    .split-creation-card.theme-emerald:hover {
-      border-color: rgba(52, 211, 153, 0.8);
-      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.55), 0 0 28px rgba(16, 185, 129, 0.32);
-    }
-
-    /* Card 4: Amber Theme */
+    /* Unified Executive Blue Theme for All Creation Cards */
+    .split-creation-card.theme-blue,
+    .split-creation-card.theme-purple,
+    .split-creation-card.theme-emerald,
     .split-creation-card.theme-amber {
-      background: linear-gradient(135deg, rgba(36, 26, 12, 0.88) 0%, rgba(22, 16, 8, 0.94) 100%);
-      border: 1px solid rgba(245, 158, 11, 0.42);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.42), 0 0 16px rgba(245, 158, 11, 0.12);
+      background: linear-gradient(135deg, rgba(14, 28, 54, 0.88) 0%, rgba(8, 16, 34, 0.94) 100%);
+      border: 1px solid rgba(59, 130, 246, 0.42);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.42), 0 0 16px rgba(59, 130, 246, 0.12);
     }
+    .split-creation-card.theme-blue:hover,
+    .split-creation-card.theme-purple:hover,
+    .split-creation-card.theme-emerald:hover,
     .split-creation-card.theme-amber:hover {
-      border-color: rgba(251, 191, 36, 0.8);
-      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.55), 0 0 28px rgba(245, 158, 11, 0.32);
+      border-color: rgba(96, 165, 250, 0.8);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.55), 0 0 28px rgba(59, 130, 246, 0.32);
     }
 
     /* Left Icon Compartment */
@@ -4428,23 +4406,16 @@
       justify-content: center;
       position: relative;
       flex-shrink: 0;
-      transition: border-color 0.25s ease;
-    }
-    .split-creation-card.theme-blue .split-card-icon-col {
       border-right: 1px solid rgba(59, 130, 246, 0.28);
       color: #60a5fa;
+      transition: border-color 0.25s ease;
     }
-    .split-creation-card.theme-purple .split-card-icon-col {
-      border-right: 1px solid rgba(139, 92, 246, 0.28);
-      color: #a78bfa;
-    }
-    .split-creation-card.theme-emerald .split-card-icon-col {
-      border-right: 1px solid rgba(16, 185, 129, 0.28);
-      color: #34d399;
-    }
+    .split-creation-card.theme-blue .split-card-icon-col,
+    .split-creation-card.theme-purple .split-card-icon-col,
+    .split-creation-card.theme-emerald .split-card-icon-col,
     .split-creation-card.theme-amber .split-card-icon-col {
-      border-right: 1px solid rgba(245, 158, 11, 0.28);
-      color: #fbbf24;
+      border-right: 1px solid rgba(59, 130, 246, 0.28);
+      color: #60a5fa;
     }
 
     .split-card-icon-svg {
@@ -10633,22 +10604,15 @@
       flex: 1 !important;
       min-height: 90px !important;
       max-height: 106px !important;
-    }
-    body.pdf-capturing-mode .split-creation-card.theme-blue {
       background: #0e1c36 !important;
       border: 1px solid rgba(59, 130, 246, 0.65) !important;
     }
-    body.pdf-capturing-mode .split-creation-card.theme-purple {
-      background: #1c1234 !important;
-      border: 1px solid rgba(139, 92, 246, 0.65) !important;
-    }
-    body.pdf-capturing-mode .split-creation-card.theme-emerald {
-      background: #0c2422 !important;
-      border: 1px solid rgba(16, 185, 129, 0.65) !important;
-    }
+    body.pdf-capturing-mode .split-creation-card.theme-blue,
+    body.pdf-capturing-mode .split-creation-card.theme-purple,
+    body.pdf-capturing-mode .split-creation-card.theme-emerald,
     body.pdf-capturing-mode .split-creation-card.theme-amber {
-      background: #241a0c !important;
-      border: 1px solid rgba(245, 158, 11, 0.65) !important;
+      background: #0e1c36 !important;
+      border: 1px solid rgba(59, 130, 246, 0.65) !important;
     }
     body.pdf-capturing-mode .split-card-icon-col {
       width: 76px !important;
@@ -10656,22 +10620,15 @@
       display: flex !important;
       align-items: center !important;
       justify-content: center !important;
-    }
-    body.pdf-capturing-mode .split-creation-card.theme-blue .split-card-icon-col {
       border-right: 1px solid rgba(59, 130, 246, 0.35) !important;
       color: #60a5fa !important;
     }
-    body.pdf-capturing-mode .split-creation-card.theme-purple .split-card-icon-col {
-      border-right: 1px solid rgba(139, 92, 246, 0.35) !important;
-      color: #a78bfa !important;
-    }
-    body.pdf-capturing-mode .split-creation-card.theme-emerald .split-card-icon-col {
-      border-right: 1px solid rgba(16, 185, 129, 0.35) !important;
-      color: #34d399 !important;
-    }
+    body.pdf-capturing-mode .split-creation-card.theme-blue .split-card-icon-col,
+    body.pdf-capturing-mode .split-creation-card.theme-purple .split-card-icon-col,
+    body.pdf-capturing-mode .split-creation-card.theme-emerald .split-card-icon-col,
     body.pdf-capturing-mode .split-creation-card.theme-amber .split-card-icon-col {
-      border-right: 1px solid rgba(245, 158, 11, 0.35) !important;
-      color: #fbbf24 !important;
+      border-right: 1px solid rgba(59, 130, 246, 0.35) !important;
+      color: #60a5fa !important;
     }
     body.pdf-capturing-mode .split-card-content-col {
       padding: 14px 22px !important;
@@ -15529,13 +15486,13 @@
         </svg>`
       },
       {
-        themeClass: 'theme-purple',
+        themeClass: 'theme-blue',
         iconSvg: `<svg class="split-card-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
           <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
         </svg>`
       },
       {
-        themeClass: 'theme-emerald',
+        themeClass: 'theme-blue',
         iconSvg: `<svg class="split-card-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
           <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
           <circle cx="9" cy="7" r="4"></circle>
@@ -15544,7 +15501,7 @@
         </svg>`
       },
       {
-        themeClass: 'theme-amber',
+        themeClass: 'theme-blue',
         iconSvg: `<svg class="split-card-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
           <line x1="18" y1="20" x2="18" y2="10"></line>
           <line x1="12" y1="20" x2="12" y2="4"></line>
