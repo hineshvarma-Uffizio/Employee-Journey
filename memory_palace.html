@@ -18327,7 +18327,7 @@
             }
           });
 
-          // ── STEP 2: Build background canvas: deep dark navy + clearly visible royal vector pattern + soft vignette ──
+          // ── STEP 2: Build background canvas: deep dark navy + vignetted royal vector pattern + soft vignette ──
           const finalW = Math.round(1440 * 1.5);
           const finalH = Math.round(960 * 1.5);
           const finalCanvas = document.createElement('canvas');
@@ -18339,21 +18339,48 @@
           ctx.fillStyle = '#030712';
           ctx.fillRect(0, 0, finalW, finalH);
 
-          // b) Clearly Visible Royal Damask Vector Pattern
+          // b) Vignetted Royal Damask Vector Pattern (Cinematic Radial Mask Falloff)
+          // Matches live site -webkit-mask-image: radial-gradient(ellipse at 50% 50%, #000 18%, ... transparent 92%)
           if (damaskPattern) {
-            ctx.globalAlpha = 0.088; // 8.8% opacity: clearly visible, crisp vector motifs without overwhelming content
-            ctx.fillStyle = damaskPattern;
-            ctx.fillRect(0, 0, finalW, finalH);
+            const patLayerCanvas = document.createElement('canvas');
+            patLayerCanvas.width = finalW;
+            patLayerCanvas.height = finalH;
+            const patCtx = patLayerCanvas.getContext('2d');
+
+            // 1. Tile the damask pattern across the layer
+            patCtx.fillStyle = damaskPattern;
+            patCtx.fillRect(0, 0, finalW, finalH);
+
+            // 2. Apply smooth radial vignette mask directly onto vector pattern
+            // Pattern is visible in center, then smoothly and seamlessly fades to 0% in corners/edges
+            patCtx.globalCompositeOperation = 'destination-in';
+            const patVignette = patCtx.createRadialGradient(
+              finalW / 2, finalH / 2, finalH * 0.16,
+              finalW / 2, finalH / 2, finalW * 0.54
+            );
+            patVignette.addColorStop(0, 'rgba(0, 0, 0, 1)');
+            patVignette.addColorStop(0.35, 'rgba(0, 0, 0, 0.85)');
+            patVignette.addColorStop(0.65, 'rgba(0, 0, 0, 0.38)');
+            patVignette.addColorStop(0.88, 'rgba(0, 0, 0, 0.08)');
+            patVignette.addColorStop(1, 'rgba(0, 0, 0, 0)');
+            patCtx.fillStyle = patVignette;
+            patCtx.fillRect(0, 0, finalW, finalH);
+
+            // 3. Composite vignetted pattern at balanced luxury opacity (0.062)
+            ctx.globalAlpha = 0.062;
+            ctx.drawImage(patLayerCanvas, 0, 0);
             ctx.globalAlpha = 1.0;
           }
 
-          // c) Subtle corner vignette — smoothly melts canvas edges into luxury dark tone
+          // c) Atmospheric corner vignette — smoothly deepens canvas corners into midnight velvet
           const vig = ctx.createRadialGradient(
-            finalW / 2, finalH / 2, finalW * 0.28,
-            finalW / 2, finalH / 2, finalW * 0.76
+            finalW / 2, finalH / 2, finalW * 0.24,
+            finalW / 2, finalH / 2, finalW * 0.74
           );
           vig.addColorStop(0, 'rgba(3, 7, 18, 0)');
-          vig.addColorStop(1, 'rgba(3, 7, 18, 0.45)');
+          vig.addColorStop(0.55, 'rgba(3, 7, 18, 0.30)');
+          vig.addColorStop(0.85, 'rgba(3, 7, 18, 0.75)');
+          vig.addColorStop(1, 'rgba(3, 7, 18, 0.95)');
           ctx.fillStyle = vig;
           ctx.fillRect(0, 0, finalW, finalH);
 
