@@ -18203,7 +18203,11 @@
           await new Promise(r => setTimeout(r, 150));
 
           // ── STEP 1: Capture chamber content on TRANSPARENT background ──
-          // No DOM injection (avoids html2canvas flex layout bugs with absolute children)
+          // Use onclone to inject CSS into the cloned document:
+          // - Forces chamber to position:fixed top:0 left:0 1440x960 (no parent-offset inheritance)
+          // - Makes all children opacity:1 / visible (overrides waiting-depth states)
+          // - Flattens 3D containers (html2canvas doesn't support preserve-3d)
+          // - No scrollX/scrollY offsets needed (avoids shift when window.scrollX > 0)
           const chamberCanvas = await h2c(targetEl, {
             width: 1440,
             height: 960,
@@ -18212,8 +18216,56 @@
             useCORS: true,
             allowTaint: true,
             logging: false,
-            scrollX: -window.scrollX,
-            scrollY: -window.scrollY
+            windowWidth: 1440,
+            windowHeight: 960,
+            onclone: (clonedDoc, clonedEl) => {
+              const injectStyle = clonedDoc.createElement('style');
+              const cid = clonedEl.id ? ('#' + clonedEl.id) : '.capture-target-active';
+              injectStyle.textContent = `
+                * { animation: none !important; transition: none !important; }
+                ${cid} {
+                  position: fixed !important;
+                  top: 0 !important; left: 0 !important;
+                  width: 1440px !important; height: 960px !important;
+                  display: flex !important;
+                  flex-direction: column !important;
+                  align-items: center !important;
+                  justify-content: center !important;
+                  transform: none !important;
+                  transform-style: flat !important;
+                  padding: 30px 48px !important;
+                  margin: 0 !important;
+                  box-sizing: border-box !important;
+                  overflow: hidden !important;
+                  opacity: 1 !important;
+                  visibility: visible !important;
+                  background: transparent !important;
+                  z-index: 99999 !important;
+                }
+                ${cid} * {
+                  opacity: 1 !important;
+                  visibility: visible !important;
+                  transform-style: flat !important;
+                }
+                ${cid} .chamber-content,
+                ${cid} .room-shell,
+                ${cid} .room-wall,
+                ${cid} .celebration-stage-container,
+                ${cid} .values-orbital-stage,
+                ${cid} .horizontal-journey-hall,
+                ${cid} .horizontal-milestones-list,
+                ${cid} .collage-board-container,
+                ${cid} .team-wall-board {
+                  transform: none !important;
+                }
+                ${cid} .room-floor,
+                ${cid} .chamber-confetti-sparkles,
+                ${cid} .room-spotlight {
+                  display: none !important;
+                }
+              `;
+              clonedDoc.head.appendChild(injectStyle);
+            }
           });
 
           // ── STEP 2: Build background canvas: navy + radial gradient + damask + vignette ──
