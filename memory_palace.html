@@ -18132,6 +18132,76 @@
 
       const totalSlides = activeChambers.length;
 
+      // === PREPARE ROYAL DAMASK VECTOR PATTERN ONCE FOR ALL SLIDES ===
+      let damaskPattern = null;
+      try {
+        const damaskImg = await new Promise((res) => {
+          const img = new Image();
+          let resolved = false;
+          const timer = setTimeout(() => {
+            if (!resolved) { resolved = true; res(null); }
+          }, 1200);
+          img.onload = () => {
+            if (!resolved) { resolved = true; clearTimeout(timer); res(img); }
+          };
+          img.onerror = () => {
+            if (!resolved) { resolved = true; clearTimeout(timer); res(null); }
+          };
+          img.src = 'royal_damask_mask_512.png';
+          if (img.complete && img.naturalWidth > 0) {
+            resolved = true;
+            clearTimeout(timer);
+            res(img);
+          }
+        });
+
+        const tileSize = Math.round(320 * 1.5);
+        const tileCanvas = document.createElement('canvas');
+        tileCanvas.width = tileSize;
+        tileCanvas.height = tileSize;
+        const tileCtx = tileCanvas.getContext('2d');
+
+        if (damaskImg && damaskImg.naturalWidth > 0) {
+          // Authentic royal gradient from live website: #70a9fc -> #589df6 -> #7db6ff
+          const patGrad = tileCtx.createLinearGradient(0, 0, tileSize, tileSize);
+          patGrad.addColorStop(0, '#70a9fc');
+          patGrad.addColorStop(0.5, '#589df6');
+          patGrad.addColorStop(1, '#7db6ff');
+          tileCtx.fillStyle = patGrad;
+          tileCtx.fillRect(0, 0, tileSize, tileSize);
+          tileCtx.globalCompositeOperation = 'destination-in';
+          tileCtx.drawImage(damaskImg, 0, 0, tileSize, tileSize);
+          tileCtx.globalCompositeOperation = 'source-over';
+        } else {
+          // Procedural royal damask lattice vector pattern fallback
+          tileCtx.strokeStyle = 'rgba(112, 169, 252, 0.85)';
+          tileCtx.lineWidth = 3;
+          const half = tileSize / 2;
+          const drawDiamond = (cx, cy, r) => {
+            tileCtx.beginPath();
+            tileCtx.moveTo(cx, cy - r);
+            tileCtx.quadraticCurveTo(cx + r * 0.45, cy - r * 0.45, cx + r, cy);
+            tileCtx.quadraticCurveTo(cx + r * 0.45, cy + r * 0.45, cx, cy + r);
+            tileCtx.quadraticCurveTo(cx - r * 0.45, cy + r * 0.45, cx - r, cy);
+            tileCtx.quadraticCurveTo(cx - r * 0.45, cy - r * 0.45, cx, cy - r);
+            tileCtx.stroke();
+            tileCtx.beginPath();
+            tileCtx.arc(cx, cy, r * 0.28, 0, Math.PI * 2);
+            tileCtx.stroke();
+          };
+          drawDiamond(half, half, half * 0.82);
+          drawDiamond(0, 0, half * 0.82);
+          drawDiamond(tileSize, 0, half * 0.82);
+          drawDiamond(0, tileSize, half * 0.82);
+          drawDiamond(tileSize, tileSize, half * 0.82);
+        }
+
+        const dummy = document.createElement('canvas');
+        damaskPattern = dummy.getContext('2d').createPattern(tileCanvas, 'repeat');
+      } catch (err) {
+        console.warn("Damask pattern preparation error:", err);
+      }
+
       try {
         for (let i = 0; i < totalSlides; i++) {
           const chConfig = activeChambers[i];
@@ -18257,7 +18327,7 @@
             }
           });
 
-          // ── STEP 2: Build background canvas: deep dark navy + subtle damask + soft vignette ──
+          // ── STEP 2: Build background canvas: deep dark navy + clearly visible royal vector pattern + soft vignette ──
           const finalW = Math.round(1440 * 1.5);
           const finalH = Math.round(960 * 1.5);
           const finalCanvas = document.createElement('canvas');
@@ -18265,43 +18335,19 @@
           finalCanvas.height = finalH;
           const ctx = finalCanvas.getContext('2d');
 
-          // a) Clean, authentic dark luxury navy base (matches live background-color: #030712)
+          // a) Clean dark luxury navy base (matches live background-color: #030712)
           ctx.fillStyle = '#030712';
           ctx.fillRect(0, 0, finalW, finalH);
 
-          // b) Subtle Royal Damask Pattern — authentic texture without heavy/bright blue glow
-          try {
-            const damaskImg = await new Promise((res) => {
-              const img = new Image();
-              img.onload = () => res(img);
-              img.onerror = () => res(null);
-              img.src = 'royal_damask_mask_512.png';
-            });
+          // b) Clearly Visible Royal Damask Vector Pattern
+          if (damaskPattern) {
+            ctx.globalAlpha = 0.088; // 8.8% opacity: clearly visible, crisp vector motifs without overwhelming content
+            ctx.fillStyle = damaskPattern;
+            ctx.fillRect(0, 0, finalW, finalH);
+            ctx.globalAlpha = 1.0;
+          }
 
-            if (damaskImg) {
-              const tileSize = Math.round(320 * 1.5);
-              const tileCanvas = document.createElement('canvas');
-              tileCanvas.width = tileSize;
-              tileCanvas.height = tileSize;
-              const tileCtx = tileCanvas.getContext('2d');
-              // Soft muted blue-navy tint (matches live 4% opacity subtle damask)
-              tileCtx.fillStyle = 'rgba(75, 135, 230, 0.45)';
-              tileCtx.fillRect(0, 0, tileSize, tileSize);
-              tileCtx.globalCompositeOperation = 'destination-in';
-              tileCtx.drawImage(damaskImg, 0, 0, tileSize, tileSize);
-              tileCtx.globalCompositeOperation = 'source-over';
-
-              const damaskPat = ctx.createPattern(tileCanvas, 'repeat');
-              if (damaskPat) {
-                ctx.globalAlpha = 0.035;
-                ctx.fillStyle = damaskPat;
-                ctx.fillRect(0, 0, finalW, finalH);
-                ctx.globalAlpha = 1.0;
-              }
-            }
-          } catch (_e) { /* pattern optional */ }
-
-          // c) Subtle corner vignette — smoothly deepens canvas corners
+          // c) Subtle corner vignette — smoothly melts canvas edges into luxury dark tone
           const vig = ctx.createRadialGradient(
             finalW / 2, finalH / 2, finalW * 0.28,
             finalW / 2, finalH / 2, finalW * 0.76
