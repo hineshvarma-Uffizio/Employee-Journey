@@ -35,21 +35,10 @@
       "tabTarget": "tab-skills"
     },
     {
-      "id": "chamber-2",
-      "type": "projects",
-      "navNum": "03",
-      "navLabel": "Created",
-      "title": "The Impact You Created",
-      "sub": "The achievements shipped, architectures scaled, and client milestones delivered.",
-      "canDelete": true,
-      "enabled": false,
-      "tabTarget": "tab-projects"
-    },
-    {
       "id": "chamber-2b",
       "type": "projects",
       "navNum": "03",
-      "navLabel": "Created II",
+      "navLabel": "Created",
       "title": "Building Impact Through Innovation",
       "sub": "Expanding horizons, specialized solutions, and next-level contributions.",
       "canDelete": true,
@@ -57,21 +46,10 @@
       "tabTarget": "tab-projects-2"
     },
     {
-      "id": "chamber-memories",
-      "type": "memories",
-      "navNum": "04",
-      "navLabel": "Memories",
-      "title": "Year in Memories",
-      "sub": "A curated collection of unforgettable moments, team laughter, and workplace milestones.",
-      "canDelete": true,
-      "enabled": false,
-      "tabTarget": "tab-memories"
-    },
-    {
       "id": "chamber-memories-2",
       "type": "memories",
       "navNum": "04",
-      "navLabel": "Memories II",
+      "navLabel": "Memories",
       "title": "Celebrating a Year of Memories",
       "sub": "More curated moments, team laughter, and workplace milestones.",
       "canDelete": true,

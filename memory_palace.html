@@ -45,21 +45,10 @@
       "tabTarget": "tab-skills"
     },
     {
-      "id": "chamber-2",
-      "type": "projects",
-      "navNum": "03",
-      "navLabel": "Created",
-      "title": "The Impact You Created",
-      "sub": "The achievements shipped, architectures scaled, and client milestones delivered.",
-      "canDelete": true,
-      "enabled": false,
-      "tabTarget": "tab-projects"
-    },
-    {
       "id": "chamber-2b",
       "type": "projects",
       "navNum": "03",
-      "navLabel": "Created II",
+      "navLabel": "Created",
       "title": "Building Impact Through Innovation",
       "sub": "Expanding horizons, specialized solutions, and next-level contributions.",
       "canDelete": true,
@@ -67,21 +56,10 @@
       "tabTarget": "tab-projects-2"
     },
     {
-      "id": "chamber-memories",
-      "type": "memories",
-      "navNum": "04",
-      "navLabel": "Memories",
-      "title": "Year in Memories",
-      "sub": "A curated collection of unforgettable moments, team laughter, and workplace milestones.",
-      "canDelete": true,
-      "enabled": false,
-      "tabTarget": "tab-memories"
-    },
-    {
       "id": "chamber-memories-2",
       "type": "memories",
       "navNum": "04",
-      "navLabel": "Memories II",
+      "navLabel": "Memories",
       "title": "Celebrating a Year of Memories",
       "sub": "More curated moments, team laughter, and workplace milestones.",
       "canDelete": true,
@@ -11125,7 +11103,7 @@
       <!-- ====================================================================
            ROOM 03: WHAT YOU CREATED (THE DIFFERENCE YOU STARTED MAKING)
            ==================================================================== -->
-      <section class="palace-chamber" id="chamber-2" data-index="2">
+      <section class="palace-chamber chamber-hidden pdf-page-hidden" id="chamber-2" data-index="2" style="display: none !important;">
         <div class="room-shell">
           <div class="room-wall" style="background: radial-gradient(ellipse at 50% 30%, rgba(0, 44, 107, 0.45) 0%, rgba(10, 15, 29, 0.85) 65%, rgba(6, 9, 19, 0.98) 100%);"></div>
           <div class="room-floor"></div>
@@ -11236,7 +11214,7 @@
            STAGE: ROOM 05: YEAR OF MEMORIES (ANNUAL PHOTO COLLAGE)
            "Moments That Made The Year"
            ==================================================================== -->
-      <section class="palace-chamber" id="chamber-memories" data-index="4">
+      <section class="palace-chamber chamber-hidden pdf-page-hidden" id="chamber-memories" data-index="4" style="display: none !important;">
         <div class="room-shell">
           <div class="room-wall" style="background: radial-gradient(ellipse at 50% 30%, rgba(0, 44, 107, 0.45) 0%, rgba(10, 15, 29, 0.85) 65%, rgba(6, 9, 19, 0.98) 100%);"></div>
           <div class="room-floor"></div>
@@ -11576,11 +11554,9 @@
         <button class="admin-tab-btn" data-tab="tab-celebration">🎉 Celebration</button>
         <button class="admin-tab-btn" data-tab="tab-milestones">📅 Milestones</button>
         <button class="admin-tab-btn" data-tab="tab-skills">💡 Learned</button>
-        <button class="admin-tab-btn" data-tab="tab-projects">🚀 Projects</button>
-        <button class="admin-tab-btn" data-tab="tab-projects-2">🚀 Projects II</button>
+        <button class="admin-tab-btn" data-tab="tab-projects-2">🚀 Projects</button>
         <button class="admin-tab-btn" data-tab="tab-notes">💌 Notes</button>
-        <button class="admin-tab-btn" data-tab="tab-memories">📸 Memories</button>
-        <button class="admin-tab-btn" data-tab="tab-memories-2">📸 Memories II</button>
+        <button class="admin-tab-btn" data-tab="tab-memories-2">📸 Memories</button>
         <button class="admin-tab-btn" data-tab="tab-values">💎 Values</button>
         <button class="admin-tab-btn" data-tab="tab-proud">🏆 Honors</button>
         <button class="admin-tab-btn" data-tab="tab-future">🔮 Future</button>
@@ -11997,19 +11973,10 @@
         </div>
       </div>
 
-      <!-- Tab 5: Projects & Tasks Manager (Chamber 3) -->
-      <div class="admin-tab-content" id="tab-projects">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:8px;">
-          <h4 style="color:var(--gold-light); font-size:14px; margin:0;">🚀 Projects & Contributions</h4>
-          <button type="button" class="btn-add-item" id="btnAddProject">➕ Add Project</button>
-        </div>
-        <div class="admin-dynamic-list" id="adminProjectsList"></div>
-      </div>
-
-      <!-- Tab 5b: Projects & Tasks Manager II (Chamber 2b) -->
+      <!-- Tab 5: Projects Manager (Chamber 2b) -->
       <div class="admin-tab-content" id="tab-projects-2">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:8px;">
-          <h4 style="color:var(--gold-light); font-size:14px; margin:0;">🚀 Projects II & Split Showcase</h4>
+          <h4 style="color:var(--gold-light); font-size:14px; margin:0;">🚀 Projects & Contributions</h4>
           <button type="button" class="btn-add-item" id="btnAddProject2">➕ Add Project</button>
         </div>
 
@@ -12047,21 +12014,12 @@
         <div class="admin-dynamic-list" id="adminNotesList"></div>
       </div>
 
-      <!-- Tab: Photo Collage (Part 1) -->
-      <div class="admin-tab-content" id="tab-memories">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-          <h4 style="color:var(--gold-light); font-size:14px; margin:0;">📸 Memories (Photo Collage)</h4>
-          <button type="button" class="btn-add-item" id="btnAddMemory">➕ Add Photo</button>
-        </div>
-        <div id="adminMemoriesList" class="admin-dynamic-list"></div>
-      </div>
-
-      <!-- Tab: Photo Collage (Part 2) -->
+      <!-- Tab: Memories Photo Collage -->
       <div class="admin-tab-content" id="tab-memories-2">
         <div id="adminMem2MultiSection" style="display:flex; flex-direction:column; gap:12px;">
           <!-- Action Toolbar -->
           <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:4px;">
-            <h4 style="color:var(--gold-light); font-size:14px; margin:0;">📸 Memories II (Photo Collage)</h4>
+            <h4 style="color:var(--gold-light); font-size:14px; margin:0;">📸 Memories (Photo Collage)</h4>
             <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
               <label class="btn-add-item" style="font-size:12px; padding:7px 14px; cursor:pointer; display:inline-flex; align-items:center; gap:6px; margin:0;">
                 📁 Upload Multiple Photos
@@ -13013,21 +12971,10 @@
             "tabTarget": "tab-skills"
       },
       {
-            "id": "chamber-2",
-            "type": "projects",
-            "navNum": "03",
-            "navLabel": "Created",
-            "title": "The Impact You Created",
-            "sub": "The achievements shipped, architectures scaled, and client milestones delivered.",
-            "canDelete": true,
-            "enabled": false,
-            "tabTarget": "tab-projects"
-      },
-      {
             "id": "chamber-2b",
             "type": "projects",
             "navNum": "03",
-            "navLabel": "Created II",
+            "navLabel": "Created",
             "title": "Building Impact Through Innovation",
             "sub": "Expanding horizons, specialized solutions, and next-level contributions.",
             "canDelete": true,
@@ -13035,21 +12982,10 @@
             "tabTarget": "tab-projects-2"
       },
       {
-            "id": "chamber-memories",
-            "type": "memories",
-            "navNum": "04",
-            "navLabel": "Memories",
-            "title": "Year in Memories",
-            "sub": "A curated collection of unforgettable moments, team laughter, and workplace milestones.",
-            "canDelete": true,
-            "enabled": false,
-            "tabTarget": "tab-memories"
-      },
-      {
             "id": "chamber-memories-2",
             "type": "memories",
             "navNum": "04",
-            "navLabel": "Memories II",
+            "navLabel": "Memories",
             "title": "Celebrating a Year of Memories",
             "sub": "More curated moments, team laughter, and workplace milestones.",
             "canDelete": true,
@@ -13150,21 +13086,10 @@
           "tabTarget": "tab-skills"
         },
         {
-          "id": "chamber-2",
-          "type": "projects",
-          "navNum": "03",
-          "navLabel": "Created",
-          "title": "The Impact You Created",
-          "sub": "The achievements shipped, architectures scaled, and client milestones delivered.",
-          "canDelete": true,
-          "enabled": false,
-          "tabTarget": "tab-projects"
-        },
-        {
           "id": "chamber-2b",
           "type": "projects",
           "navNum": "03",
-          "navLabel": "Created II",
+          "navLabel": "Created",
           "title": "Building Impact Through Innovation",
           "sub": "Expanding horizons, specialized solutions, and next-level contributions.",
           "canDelete": true,
@@ -13172,21 +13097,10 @@
           "tabTarget": "tab-projects-2"
         },
         {
-          "id": "chamber-memories",
-          "type": "memories",
-          "navNum": "04",
-          "navLabel": "Memories",
-          "title": "Year in Memories",
-          "sub": "A curated collection of unforgettable moments, team laughter, and workplace milestones.",
-          "canDelete": true,
-          "enabled": false,
-          "tabTarget": "tab-memories"
-        },
-        {
           "id": "chamber-memories-2",
           "type": "memories",
           "navNum": "04",
-          "navLabel": "Memories II",
+          "navLabel": "Memories",
           "title": "Celebrating a Year of Memories",
           "sub": "More curated moments, team laughter, and workplace milestones.",
           "canDelete": true,
@@ -14534,7 +14448,11 @@
           if (parsed.chamber2bCommonTitle) palaceState.chamber2bCommonTitle = parsed.chamber2bCommonTitle;
           if (parsed.chamber2bCommonDesc) palaceState.chamber2bCommonDesc = parsed.chamber2bCommonDesc;
           if (parsed.chambers && Array.isArray(parsed.chambers) && parsed.chambers.length > 0) {
-            palaceState.chambers = parsed.chambers;
+            palaceState.chambers = parsed.chambers.filter(c => c.id !== 'chamber-2' && c.id !== 'chamber-memories');
+            palaceState.chambers.forEach(c => {
+              if (c.id === 'chamber-2b' && (c.navLabel === 'Created II' || !c.navLabel)) c.navLabel = 'Created';
+              if (c.id === 'chamber-memories-2' && (c.navLabel === 'Memories II' || !c.navLabel)) c.navLabel = 'Memories';
+            });
           }
         }
       } catch(e) {
@@ -14582,7 +14500,11 @@
       }
       if (idbData && idbData.chambers && Array.isArray(idbData.chambers) && idbData.chambers.length > 0) {
         if (!savedFullProfile) {
-          palaceState.chambers = idbData.chambers;
+          palaceState.chambers = idbData.chambers.filter(c => c.id !== 'chamber-2' && c.id !== 'chamber-memories');
+          palaceState.chambers.forEach(c => {
+            if (c.id === 'chamber-2b' && (c.navLabel === 'Created II' || !c.navLabel)) c.navLabel = 'Created';
+            if (c.id === 'chamber-memories-2' && (c.navLabel === 'Memories II' || !c.navLabel)) c.navLabel = 'Memories';
+          });
           syncPalaceNavigation();
           if (typeof renderAdminRoomsManager === 'function') renderAdminRoomsManager();
         }
@@ -15478,7 +15400,7 @@
       if (btnManage && !btnManage.dataset.initialized) {
         btnManage.dataset.initialized = 'true';
         btnManage.addEventListener('click', () => {
-          openAdminPanelToTab('tab-projects');
+          openAdminPanelToTab('tab-projects-2');
         });
       }
     }
@@ -15486,6 +15408,8 @@
     function openAdminPanelToTab(tabName) {
       if (typeof palaceAccessMode !== 'undefined' && palaceAccessMode === 'view') return;
       if (typeof openAdminPanel === 'function') openAdminPanel();
+      if (tabName === 'tab-projects') tabName = 'tab-projects-2';
+      if (tabName === 'tab-memories') tabName = 'tab-memories-2';
       const targetTab = document.querySelector(`.admin-tab-btn[data-tab="${tabName}"]`);
       if (targetTab) {
         setTimeout(() => {
@@ -17326,10 +17250,8 @@
         'tab-celebration': 'chamber-milestone',
         'tab-milestones': 'chamber-0',
         'tab-skills': 'chamber-1',
-        'tab-projects': 'chamber-2',
         'tab-projects-2': 'chamber-2b',
         'tab-notes': 'chamber-3',
-        'tab-memories': 'chamber-memories',
         'tab-memories-2': 'chamber-memories-2',
         'tab-values': 'chamber-values',
         'tab-proud': 'chamber-4',
@@ -19186,10 +19108,8 @@
       document.getElementById('chamber-milestone'),
       document.getElementById('chamber-0'),
       document.getElementById('chamber-1'),
-      document.getElementById('chamber-2'),
       document.getElementById('chamber-2b'),
       document.getElementById('chamber-3'),
-      document.getElementById('chamber-memories'),
       document.getElementById('chamber-memories-2'),
       document.getElementById('chamber-values'),
       document.getElementById('chamber-4'),
@@ -22756,7 +22676,6 @@
         // Collect Chamber Placards & sync with Rooms Manager
         const c0 = palaceState.chambers.find(c => c.id === 'chamber-0');
         const c1 = palaceState.chambers.find(c => c.id === 'chamber-1');
-        const c2 = palaceState.chambers.find(c => c.id === 'chamber-2');
         const c2b = palaceState.chambers.find(c => c.id === 'chamber-2b');
         const c3 = palaceState.chambers.find(c => c.id === 'chamber-3');
 
@@ -22765,9 +22684,9 @@
           ch1Sub: (c0 && c0.sub !== undefined) ? c0.sub : (document.getElementById('headingCh1Sub') ? document.getElementById('headingCh1Sub').value.trim() : ""),
           ch2Title: (c1 && c1.title) ? c1.title : (document.getElementById('headingCh2Title') ? document.getElementById('headingCh2Title').value.trim() : "What You Learned"),
           ch2Sub: (c1 && c1.sub !== undefined) ? c1.sub : (document.getElementById('headingCh2Sub') ? document.getElementById('headingCh2Sub').value.trim() : ""),
-          ch3Title: (c2 && c2.title) ? c2.title : (document.getElementById('headingCh3Title') ? document.getElementById('headingCh3Title').value.trim() : "What You Created"),
-          ch3Sub: (c2 && c2.sub !== undefined) ? c2.sub : (document.getElementById('headingCh3Sub') ? document.getElementById('headingCh3Sub').value.trim() : ""),
-          ch2bTitle: (c2b && c2b.title) ? c2b.title : "What You Created (Part 2)",
+          ch3Title: (c2b && c2b.title) ? c2b.title : (document.getElementById('headingCh3Title') ? document.getElementById('headingCh3Title').value.trim() : "Building Impact Through Innovation"),
+          ch3Sub: (c2b && c2b.sub !== undefined) ? c2b.sub : (document.getElementById('headingCh3Sub') ? document.getElementById('headingCh3Sub').value.trim() : "Expanding horizons, specialized solutions, and next-level contributions."),
+          ch2bTitle: (c2b && c2b.title) ? c2b.title : "Building Impact Through Innovation",
           ch2bSub: (c2b && c2b.sub !== undefined) ? c2b.sub : "Expanding horizons, specialized solutions, and next-level contributions.",
           ch4Title: (c3 && c3.title) ? c3.title : (document.getElementById('headingCh4Title') ? document.getElementById('headingCh4Title').value.trim() : "The People & Bonds"),
           ch4Sub: (c3 && c3.sub !== undefined) ? c3.sub : (document.getElementById('headingCh4Sub') ? document.getElementById('headingCh4Sub').value.trim() : ""),
