@@ -271,6 +271,7 @@
   },
   "future": {
     "title": "My Vision for What's Next",
+    "image": "future_vision_board.png",
     "quoteText": "A goal without a plan is just a wish.",
     "quoteAuthor": "Antoine de Saint-Exupéry",
     "cards": [
@@ -11450,8 +11451,8 @@
 
               <!-- Right Column: Artwork (Clean without Quotes) -->
               <div class="future-col-right">
-                <div class="future-artwork-container">
-                  <img src="future_vision_board.png" alt="Future Horizon Observatory" class="future-artwork-img" loading="eager">
+                <div class="future-artwork-container" id="futureArtworkContainer" title="Future Horizon Observatory">
+                  <img id="futureArtworkImg" src="future_vision_board.png" alt="Future Horizon Observatory" class="future-artwork-img" loading="eager" onerror="this.src='future_vision_board.png'">
                   <div class="future-artwork-overlay-edge"></div>
                 </div>
               </div>
@@ -12270,6 +12271,28 @@
           <div class="form-group">
             <label>Placard Title</label>
             <input type="text" class="form-input" id="adminFutureTitle" placeholder="The Future">
+          </div>
+        </div>
+
+        <!-- Chamber Future Artwork Image -->
+        <div style="background:rgba(15,23,42,0.8); border:1px solid rgba(245,192,101,0.25); border-radius:12px; padding:14px; margin-bottom:14px;">
+          <h5 style="color:var(--gold-light); font-size:13px; margin:0 0 10px 0;">🖼️ Future Vision Artwork Image</h5>
+          <p style="font-size:11.5px; color:#94a3b8; margin:0 0 12px 0;">Upload a new vision artwork or specify an image file from the project directory.</p>
+          <div style="display:flex; gap:16px; align-items:center; flex-wrap:wrap;">
+            <div style="width:140px; height:105px; border-radius:10px; overflow:hidden; border:1px solid rgba(255,255,255,0.18); background:#060a16; flex-shrink:0;">
+              <img id="adminFutureImgPreview" src="future_vision_board.png" alt="Future Artwork Preview" style="width:100%; height:100%; object-fit:cover;" onerror="this.src='future_vision_board.png'">
+            </div>
+            <div style="flex:1; min-width:220px;">
+              <div class="form-group" style="margin-bottom:10px;">
+                <label>Image Filename or URL</label>
+                <input type="text" class="form-input" id="adminFutureImage" placeholder="e.g. future_vision_board.png">
+              </div>
+              <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+                <button type="button" class="btn-primary-add" onclick="document.getElementById('adminFutureImageFile').click()" style="padding:6px 14px; font-size:12px;">📁 Upload New Image</button>
+                <input type="file" id="adminFutureImageFile" accept="image/*" style="display:none;">
+                <span id="adminFutureImageStatus" style="font-size:11.5px; color:#94a3b8;">PNG, JPG, WebP</span>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -15971,6 +15994,7 @@
     function renderFutureRoom() {
       const fut = palaceState.future || {
         title: "The Future",
+        image: "future_vision_board.png",
         cards: [
           { title: "What skills do you want to build?", sub: "Share the skills or knowledge you want to develop to grow in your career." },
           { title: "What new challenges do you want to take on?", sub: "Tell us about the kind of opportunities or responsibilities you would like to explore." },
@@ -15995,11 +16019,17 @@
           if (sEl && cData.sub) sEl.textContent = cData.sub;
         });
       }
+
+      const futImg = document.getElementById('futureArtworkImg') || document.querySelector('#chamber-5 .future-artwork-img');
+      if (futImg) {
+        futImg.src = (fut && fut.image) || "future_vision_board.png";
+      }
     }
 
     function populateAdminFuture() {
       const fut = palaceState.future || {
         title: "The Future",
+        image: "future_vision_board.png",
         cards: [
           { title: "What skills do you want to build?", sub: "Share the skills or knowledge you want to develop to grow in your career." },
           { title: "What new challenges do you want to take on?", sub: "Tell us about the kind of opportunities or responsibilities you would like to explore." },
@@ -16009,6 +16039,12 @@
 
       const titleInp = document.getElementById('adminFutureTitle');
       if (titleInp) titleInp.value = fut.title || "The Future";
+
+      const imgInp = document.getElementById('adminFutureImage');
+      const imgPrev = document.getElementById('adminFutureImgPreview');
+      const curImg = (fut && fut.image) || "future_vision_board.png";
+      if (imgInp) imgInp.value = curImg;
+      if (imgPrev) imgPrev.src = curImg;
 
       const defCards = [
         { title: "What skills do you want to build?", sub: "Share the skills or knowledge you want to develop to grow in your career." },
@@ -22254,6 +22290,89 @@
       reader.readAsDataURL(file);
     }
 
+    // Chamber Future Artwork Image Upload & Input Listeners
+    const adminFutureImageFile = document.getElementById('adminFutureImageFile');
+    const adminFutureImageInput = document.getElementById('adminFutureImage');
+    const adminFutureImgPreview = document.getElementById('adminFutureImgPreview');
+    const adminFutureImageStatus = document.getElementById('adminFutureImageStatus');
+
+    if (adminFutureImageFile) {
+      adminFutureImageFile.addEventListener('change', (e) => {
+        const file = e.target.files && e.target.files[0];
+        if (!file) return;
+        if (!file.type.startsWith('image/')) {
+          alert('Please select a valid image file (PNG, JPG, WebP).');
+          return;
+        }
+        if (adminFutureImageStatus) {
+          adminFutureImageStatus.style.color = '#38bdf8';
+          adminFutureImageStatus.textContent = 'Processing image...';
+        }
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+          const rawData = ev.target.result;
+          const img = new Image();
+          img.onload = () => {
+            const maxW = 1280;
+            const maxH = 960;
+            let w = img.width;
+            let h = img.height;
+            if (w > maxW || h > maxH) {
+              if (w / maxW > h / maxH) {
+                h = Math.round((h * maxW) / w);
+                w = maxW;
+              } else {
+                w = Math.round((w * maxH) / h);
+                h = maxH;
+              }
+            }
+            const canvas = document.createElement('canvas');
+            canvas.width = w;
+            canvas.height = h;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0, w, h);
+            const optimizedData = canvas.toDataURL('image/jpeg', 0.85);
+            if (adminFutureImgPreview) adminFutureImgPreview.src = optimizedData;
+            if (adminFutureImageInput) adminFutureImageInput.value = optimizedData;
+            palaceState.future = palaceState.future || {};
+            palaceState.future.image = optimizedData;
+            renderFutureRoom();
+            persistPalaceState();
+            if (adminFutureImageStatus) {
+              adminFutureImageStatus.style.color = '#4ade80';
+              adminFutureImageStatus.textContent = `✓ Uploaded: ${file.name}`;
+            }
+          };
+          img.onerror = () => {
+            if (adminFutureImgPreview) adminFutureImgPreview.src = rawData;
+            if (adminFutureImageInput) adminFutureImageInput.value = rawData;
+            palaceState.future = palaceState.future || {};
+            palaceState.future.image = rawData;
+            renderFutureRoom();
+            persistPalaceState();
+            if (adminFutureImageStatus) {
+              adminFutureImageStatus.style.color = '#4ade80';
+              adminFutureImageStatus.textContent = `✓ Loaded: ${file.name}`;
+            }
+          };
+          img.src = rawData;
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+
+    if (adminFutureImageInput) {
+      adminFutureImageInput.addEventListener('input', (e) => {
+        const val = e.target.value.trim();
+        const finalVal = val || 'future_vision_board.png';
+        if (adminFutureImgPreview) adminFutureImgPreview.src = finalVal;
+        palaceState.future = palaceState.future || {};
+        palaceState.future.image = finalVal;
+        renderFutureRoom();
+        persistPalaceState();
+      });
+    }
+
     function openAdminPanel() {
       if (typeof palaceAccessMode !== 'undefined' && palaceAccessMode === 'view') {
         console.warn("Editing locked in View Mode.");
@@ -22678,9 +22797,11 @@
 
         // Collect Future (Chamber 08 / Chamber 5)
         const adminFutTitle = document.getElementById('adminFutureTitle');
+        const adminFutImg = document.getElementById('adminFutureImage');
 
         palaceState.future = palaceState.future || {};
         if (adminFutTitle && adminFutTitle.value.trim()) palaceState.future.title = adminFutTitle.value.trim();
+        if (adminFutImg && adminFutImg.value.trim()) palaceState.future.image = adminFutImg.value.trim();
 
         palaceState.future.cards = [0, 1, 2].map(i => {
           const tInp = document.getElementById(`adminFutureCardTitle${i}`);
@@ -23540,10 +23661,17 @@
         // 8d. The Future (Chamber 08 / Chamber 5)
         const liveFutPlacard = document.querySelector('#chamber-5 .chamber-name');
         const liveFutCards = document.querySelectorAll('#chamber-5 .future-card');
+        const liveFutImg = document.getElementById('futureArtworkImg') || document.querySelector('#chamber-5 .future-artwork-img');
+        const adminFutImgInp = document.getElementById('adminFutureImage');
 
-        if (liveFutPlacard || (liveFutCards && liveFutCards.length > 0)) {
+        if (liveFutPlacard || (liveFutCards && liveFutCards.length > 0) || liveFutImg || adminFutImgInp) {
           palaceState.future = palaceState.future || {};
           if (liveFutPlacard) palaceState.future.title = liveFutPlacard.textContent.trim();
+          if (adminFutImgInp && adminFutImgInp.value && adminFutImgInp.value.trim()) {
+            palaceState.future.image = adminFutImgInp.value.trim();
+          } else if (liveFutImg && liveFutImg.getAttribute('src')) {
+            palaceState.future.image = liveFutImg.getAttribute('src');
+          }
 
           if (liveFutCards && liveFutCards.length > 0) {
             palaceState.future.cards = palaceState.future.cards || [];
