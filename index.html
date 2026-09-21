@@ -10552,6 +10552,30 @@
       transform: none !important;
     }
 
+    body.pdf-capturing-mode .celebration-portrait-column {
+      flex: 0 0 380px !important;
+      max-width: 380px !important;
+      height: 480px !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+    }
+
+    body.pdf-capturing-mode .celebration-portrait-frame {
+      width: 380px !important;
+      height: 480px !important;
+      max-height: 480px !important;
+    }
+
+    body.pdf-capturing-mode .celebration-portrait-inner {
+      width: 100% !important;
+      height: 100% !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      overflow: hidden !important;
+    }
+
     body.pdf-capturing-mode .horizontal-milestones-list {
       display: flex !important;
       flex-direction: row !important;
@@ -18325,61 +18349,50 @@
               `;
               clonedDoc.head.appendChild(injectStyle);
 
-              // ── ANTI-STRETCH PHOTO CORRECTION ──
-              // html2canvas ignores CSS object-fit: cover, stretching photos into container dimensions.
-              // Here we calculate exact aspect-ratio preserving dimensions from naturalWidth/naturalHeight.
+              // ── SAFE IN-FLOW PHOTO ASPECT RATIO PRESERVATION ──
+              // Preserves 100% visibility in normal DOM flow while preventing stretching distortion
               try {
                 const realImgs = Array.from(targetEl.querySelectorAll('img'));
                 const clonedImgs = Array.from(clonedEl.querySelectorAll('img'));
 
                 clonedImgs.forEach((cImg, idx) => {
                   const rImg = realImgs[idx];
-                  if (!rImg) return;
-                  const nw = rImg.naturalWidth;
-                  const nh = rImg.naturalHeight;
+                  const nw = (rImg && rImg.naturalWidth) || cImg.naturalWidth || 0;
+                  const nh = (rImg && rImg.naturalHeight) || cImg.naturalHeight || 0;
                   if (!nw || !nh) return;
-
-                  const rect = rImg.getBoundingClientRect();
-                  const cw = rect.width || rImg.offsetWidth || (rImg.parentElement ? rImg.parentElement.offsetWidth : 0) || 300;
-                  const ch = rect.height || rImg.offsetHeight || (rImg.parentElement ? rImg.parentElement.offsetHeight : 0) || 300;
-                  if (!cw || !ch) return;
-
-                  const computedFit = window.getComputedStyle(rImg).objectFit || 'cover';
-
-                  let scale = 1;
-                  if (computedFit === 'contain') {
-                    scale = Math.min(cw / nw, ch / nh);
-                  } else {
-                    scale = Math.max(cw / nw, ch / nh);
-                  }
-
-                  const renderW = Math.round(nw * scale);
-                  const renderH = Math.round(nh * scale);
-                  const offsetX = Math.round((cw - renderW) / 2);
-                  const offsetY = Math.round((ch - renderH) / 2);
 
                   const parent = cImg.parentElement;
                   if (parent) {
-                    const parentPos = window.getComputedStyle(parent).position;
-                    if (parentPos === 'static') {
-                      parent.style.position = 'relative';
-                    }
+                    parent.style.display = 'flex';
+                    parent.style.alignItems = 'center';
+                    parent.style.justifyContent = 'center';
                     parent.style.overflow = 'hidden';
                   }
 
-                  cImg.style.position = 'absolute';
-                  cImg.style.width = renderW + 'px';
-                  cImg.style.height = renderH + 'px';
-                  cImg.style.minWidth = renderW + 'px';
-                  cImg.style.minHeight = renderH + 'px';
-                  cImg.style.maxWidth = 'none';
-                  cImg.style.maxHeight = 'none';
-                  cImg.style.left = offsetX + 'px';
-                  cImg.style.top = offsetY + 'px';
-                  cImg.style.transform = 'none';
+                  const pRect = (rImg && rImg.parentElement) ? rImg.parentElement.getBoundingClientRect() : null;
+                  const pw = (pRect && pRect.width) || (parent ? parent.offsetWidth : 0) || 100;
+                  const ph = (pRect && pRect.height) || (parent ? parent.offsetHeight : 0) || 100;
+
+                  // Never use position:absolute so photos never collapse or vanish!
+                  // One dimension locks to 100% while the other remains auto to preserve natural ratio
+                  if ((nw / nh) > (pw / ph)) {
+                    cImg.style.setProperty('height', '100%', 'important');
+                    cImg.style.setProperty('width', 'auto', 'important');
+                    cImg.style.setProperty('max-width', 'none', 'important');
+                    cImg.style.setProperty('max-height', '100%', 'important');
+                  } else {
+                    cImg.style.setProperty('width', '100%', 'important');
+                    cImg.style.setProperty('height', 'auto', 'important');
+                    cImg.style.setProperty('max-height', 'none', 'important');
+                    cImg.style.setProperty('max-width', '100%', 'important');
+                  }
+                  cImg.style.setProperty('flex-shrink', '0', 'important');
+                  cImg.style.setProperty('display', 'block', 'important');
+                  cImg.style.setProperty('opacity', '1', 'important');
+                  cImg.style.setProperty('visibility', 'visible', 'important');
                 });
               } catch (imgErr) {
-                console.warn("Anti-stretch image correction warning:", imgErr);
+                console.warn("Photo aspect ratio preservation warning:", imgErr);
               }
             }
           });
@@ -18424,7 +18437,7 @@
             patCtx.fillRect(0, 0, finalW, finalH);
 
             // 3. Composite vignetted pattern at gentle, softened luxury opacity (0.040)
-            ctx.globalAlpha = 0.040;
+            ctx.globalAlpha = 0.038;
             ctx.drawImage(patLayerCanvas, 0, 0);
             ctx.globalAlpha = 1.0;
           }
