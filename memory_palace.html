@@ -5460,7 +5460,6 @@
       width: 100%;
       height: 100%;
       display: flex;
-      gap: 36px;
       align-items: center;
       justify-content: center;
     }
@@ -5729,60 +5728,67 @@
     }
 
     .proud-gallery-area {
-      flex: 1.3;
-      max-width: 620px;
+      width: 100%;
+      max-width: 1160px;
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 24px;
       justify-content: center;
       align-items: center;
     }
 
     .polaroids-row {
       display: flex;
-      gap: 18px;
+      gap: 34px;
       justify-content: center;
       align-items: center;
+      width: 100%;
     }
 
     .polaroid-frame {
-      width: 175px;
+      width: 320px;
       background: #f8fafc;
-      padding: 12px 12px 26px 12px;
-      border-radius: 6px;
-      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.65), 0 2px 8px rgba(255, 255, 255, 0.05);
-      transition: all 0.3s ease;
+      padding: 16px 16px 32px 16px;
+      border-radius: 12px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.72), 0 2px 10px rgba(255, 255, 255, 0.08);
+      transition: all 0.35s cubic-bezier(0.2, 0.9, 0.3, 1);
       cursor: pointer;
-      transform: rotate(-3deg);
+      transform: rotate(-2.5deg);
     }
 
-    .polaroid-frame:nth-child(2) { transform: rotate(2deg); }
-    .polaroid-frame:nth-child(3) { transform: rotate(-1deg); }
+    .polaroid-frame:nth-child(2) { transform: rotate(1.5deg); }
+    .polaroid-frame:nth-child(3) { transform: rotate(-1.5deg); }
 
     .polaroid-frame:hover {
-      transform: scale(1.08) rotate(0deg) !important;
+      transform: scale(1.05) rotate(0deg) !important;
       z-index: 10;
-      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.8), 0 0 35px rgba(0, 44, 107, 0.7);
+      box-shadow: 0 24px 50px rgba(0, 0, 0, 0.85), 0 0 35px rgba(245, 192, 101, 0.45);
     }
 
     .polaroid-img-box {
       width: 100%;
-      height: 135px;
-      background: #1e293b;
-      border-radius: 2px;
+      height: 250px;
+      background: #0f172a;
+      border-radius: 8px;
       overflow: hidden;
       position: relative;
     }
 
-    .polaroid-img-box img { width: 100%; height: 100%; object-fit: cover; }
+    .polaroid-img-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
 
     .polaroid-caption {
-      margin-top: 8px;
+      margin-top: 14px;
       font-family: 'Caveat', cursive;
-      font-size: 15px;
+      font-size: 21px;
+      font-weight: 700;
       color: #0f172a;
       text-align: center;
-      line-height: 1.1;
+      line-height: 1.2;
     }
 
     .celebration-action-bar {
@@ -8617,14 +8623,16 @@
         gap: 14px;
       }
       .room-proud {
+        width: 100%;
+      }
+      .polaroids-row {
         gap: 20px;
       }
-      .trophy-pedestal-area {
-        transform: scale(0.9);
-        height: 380px;
-      }
       .polaroid-frame {
-        width: 135px;
+        width: 270px;
+      }
+      .polaroid-img-box {
+        height: 210px;
       }
       .room-future {
         gap: 20px;
@@ -8985,86 +8993,41 @@
         font-size: 13px;
       }
 
-      /* Room 06: Proud Moments (Vertical Stacking) */
+      /* Room 06: Proud Moments (Clean Gallery) */
       .room-proud {
         flex-direction: column;
-        gap: 12px;
         width: 100%;
         height: 100%;
         overflow-y: auto;
         -webkit-overflow-scrolling: touch;
-        justify-content: flex-start;
-        padding: 4px 2px;
-      }
-      .trophy-pedestal-area {
-        width: 100%;
-        max-width: 100%;
-        flex: 0 0 auto;
-        height: auto;
-        padding: 4px 0;
-      }
-      .spotlight-ceiling-fixture {
-        top: -36px;
-      }
-      .spotlight-track-mount {
-        width: 28px;
-        height: 5px;
-      }
-      .spotlight-lamp-housing {
-        width: 48px;
-        height: 22px;
-      }
-      .spotlight-lamp-lens {
-        width: 38px;
-        height: 7px;
-      }
-      .pedestal-spotlight-beam {
-        top: -18px;
-        width: 180px;
-        height: 260px;
-      }
-      .golden-trophy-model {
-        width: 130px;
-        height: 150px;
-      }
-      .golden-trophy-img {
-        width: 100%;
-        height: 100%;
-      }
-      .pedestal-base {
-        width: 150px;
-        height: 44px;
-        margin-top: 4px;
-      }
-      .pedestal-plaque {
-        font-size: 12.5px;
-        letter-spacing: 1.2px;
-        margin-bottom: 4px;
-      }
-      .pedestal-subtitle {
-        font-size: 11.5px;
+        justify-content: center;
+        align-items: center;
+        padding: 10px 6px;
       }
       .proud-gallery-area {
         width: 100%;
         max-width: 100%;
-        flex: 1 1 auto;
-        gap: 10px;
+        gap: 16px;
       }
       .polaroids-row {
-        flex-wrap: wrap;
-        gap: 8px;
+        flex-direction: column;
+        gap: 16px;
+        align-items: center;
         justify-content: center;
+        width: 100%;
       }
       .polaroid-frame {
-        width: 110px;
-        padding: 6px 6px 14px 6px;
+        width: 100%;
+        max-width: 280px;
+        padding: 12px 12px 24px 12px;
+        transform: none !important;
       }
       .polaroid-img-box {
-        height: 72px;
+        height: 200px;
       }
       .polaroid-caption {
-        font-size: 14.5px;
-        margin-top: 3px;
+        font-size: 18px;
+        margin-top: 8px;
       }
       .celebration-action-bar {
         padding: 10px 14px;
@@ -10326,17 +10289,33 @@
 
       .room-proud {
         display: flex !important;
-        flex-direction: row !important;
-        gap: 10mm !important;
+        flex-direction: column !important;
         width: 100% !important;
         align-items: center !important;
         justify-content: center !important;
       }
-      .trophy-pedestal-area {
-        flex: 0 0 70mm !important;
-      }
       .proud-gallery-area {
-        flex: 1 1 0 !important;
+        width: 100% !important;
+        max-width: 250mm !important;
+      }
+      .polaroids-row {
+        display: flex !important;
+        flex-direction: row !important;
+        gap: 10mm !important;
+        justify-content: center !important;
+        align-items: center !important;
+        width: 100% !important;
+      }
+      .polaroid-frame {
+        width: 70mm !important;
+        padding: 4mm 4mm 8mm 4mm !important;
+      }
+      .polaroid-img-box {
+        height: 55mm !important;
+      }
+      .polaroid-caption {
+        font-size: 16px !important;
+        margin-top: 3mm !important;
       }
 
       .future-split-layout {
@@ -11311,29 +11290,6 @@
 
         <div class="chamber-content">
           <div class="room-proud">
-            
-            <div class="trophy-pedestal-area">
-              <!-- Ceiling Spotlight Fixture / Source Base -->
-              <div class="spotlight-ceiling-fixture">
-                <div class="spotlight-track-mount"></div>
-                <div class="spotlight-lamp-housing">
-                  <div class="spotlight-lamp-lens"></div>
-                  <div class="spotlight-lens-flare"></div>
-                </div>
-              </div>
-
-              <div class="pedestal-spotlight-beam"></div>
-
-              <div class="golden-trophy-model" id="goldenTrophy" title="Click & drag to rotate trophy">
-                <img src="golden_trophy.png" alt="Golden Trophy" class="golden-trophy-img" id="goldenTrophyImg">
-              </div>
-
-              <div class="pedestal-base">
-                <div class="pedestal-plaque" contenteditable="true" data-editable="true" title="Click to edit honor title">INNOVATOR OF THE YEAR</div>
-                <div class="pedestal-subtitle" contenteditable="true" data-editable="true" title="Click to edit subtitle">2025 - 2026 ANNUAL HONORS</div>
-              </div>
-            </div>
-
             <div class="proud-gallery-area">
               <div class="polaroids-row">
                 <div class="polaroid-frame">
@@ -11367,7 +11323,6 @@
                 </div>
               </div>
             </div>
-
           </div>
         </div>
       </section>
@@ -12052,29 +12007,6 @@
       <div class="admin-tab-content" id="tab-proud">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
           <h4 style="color:var(--gold-light); font-size:14px; margin:0;">🏆 Proud Moments & Honors</h4>
-        </div>
-
-        <!-- Trophy Pedestal Plaque & Model -->
-        <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:10px; padding:12px; margin-bottom:12px;">
-          <h5 style="color:var(--gold-primary); font-size:12px; font-weight:700; text-transform:uppercase; margin:0 0 8px 0;">🏆 Trophy Plaque & Model</h5>
-          <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-bottom:10px;">
-            <div class="form-group" style="margin:0;">
-              <label>Plaque Title</label>
-              <input type="text" class="form-input" id="adminProudPlaqueTitle" placeholder="INNOVATOR OF THE YEAR">
-            </div>
-            <div class="form-group" style="margin:0;">
-              <label>Plaque Subtitle / Year</label>
-              <input type="text" class="form-input" id="adminProudPlaqueSubtitle" placeholder="2025 - 2026 ANNUAL HONORS">
-            </div>
-          </div>
-          <div class="form-group" style="margin:0;">
-            <label>Trophy Image</label>
-            <div style="display:flex; align-items:center; gap:10px;">
-              <img id="adminProudTrophyPreview" src="golden_trophy.png" style="width:36px; height:36px; object-fit:contain; border-radius:6px; background:rgba(0,0,0,0.4); padding:2px; border:1px solid rgba(255,255,255,0.1);">
-              <input type="text" class="form-input" id="adminProudTrophyImg" placeholder="golden_trophy.png" style="flex:1;">
-              <button type="button" class="btn-secondary" onclick="triggerProudTrophyUpload()" style="white-space:nowrap; padding:6px 12px; font-size:11px;">📷 Upload</button>
-            </div>
-          </div>
         </div>
 
         <!-- 3 Polaroid Photo Memories -->
@@ -20219,52 +20151,54 @@
     let trophyAngle = 0;
     let startX = 0;
 
-    goldenTrophy.addEventListener('mousedown', (e) => {
-      isDraggingTrophy = true;
-      startX = e.clientX;
-      goldenTrophy.style.cursor = 'grabbing';
-      palaceAudio.init();
-      palaceAudio.playChime();
-    });
-
-    goldenTrophy.addEventListener('dragstart', (e) => e.preventDefault());
-
-    window.addEventListener('mousemove', (e) => {
-      if (!isDraggingTrophy) return;
-      const dx = e.clientX - startX;
-      trophyAngle += dx * 0.7;
-      goldenTrophy.style.transform = `rotateY(${trophyAngle}deg)`;
-      startX = e.clientX;
-    });
-
-    window.addEventListener('mouseup', () => {
-      if (isDraggingTrophy) {
-        isDraggingTrophy = false;
-        goldenTrophy.style.cursor = 'grab';
-      }
-    });
-
-    // Touch support for dragging trophy on mobile / tablet
-    goldenTrophy.addEventListener('touchstart', (e) => {
-      if (e.touches.length === 1) {
+    if (goldenTrophy) {
+      goldenTrophy.addEventListener('mousedown', (e) => {
         isDraggingTrophy = true;
-        startX = e.touches[0].clientX;
+        startX = e.clientX;
+        goldenTrophy.style.cursor = 'grabbing';
         palaceAudio.init();
         palaceAudio.playChime();
-      }
-    }, { passive: true });
+      });
 
-    window.addEventListener('touchmove', (e) => {
-      if (!isDraggingTrophy || e.touches.length !== 1) return;
-      const dx = e.touches[0].clientX - startX;
-      trophyAngle += dx * 0.7;
-      goldenTrophy.style.transform = `rotateY(${trophyAngle}deg)`;
-      startX = e.touches[0].clientX;
-    }, { passive: true });
+      goldenTrophy.addEventListener('dragstart', (e) => e.preventDefault());
 
-    window.addEventListener('touchend', () => {
-      isDraggingTrophy = false;
-    });
+      window.addEventListener('mousemove', (e) => {
+        if (!isDraggingTrophy) return;
+        const dx = e.clientX - startX;
+        trophyAngle += dx * 0.7;
+        goldenTrophy.style.transform = `rotateY(${trophyAngle}deg)`;
+        startX = e.clientX;
+      });
+
+      window.addEventListener('mouseup', () => {
+        if (isDraggingTrophy) {
+          isDraggingTrophy = false;
+          goldenTrophy.style.cursor = 'grab';
+        }
+      });
+
+      // Touch support for dragging trophy on mobile / tablet
+      goldenTrophy.addEventListener('touchstart', (e) => {
+        if (e.touches.length === 1) {
+          isDraggingTrophy = true;
+          startX = e.touches[0].clientX;
+          palaceAudio.init();
+          palaceAudio.playChime();
+        }
+      }, { passive: true });
+
+      window.addEventListener('touchmove', (e) => {
+        if (!isDraggingTrophy || e.touches.length !== 1) return;
+        const dx = e.touches[0].clientX - startX;
+        trophyAngle += dx * 0.7;
+        goldenTrophy.style.transform = `rotateY(${trophyAngle}deg)`;
+        startX = e.touches[0].clientX;
+      }, { passive: true });
+
+      window.addEventListener('touchend', () => {
+        isDraggingTrophy = false;
+      });
+    }
 
     // Fullscreen Confetti Particle System
     const confettiCanvas = document.getElementById('confettiCanvas');
@@ -22573,7 +22507,7 @@
         const adminCelebT = document.getElementById('adminProudCelebTitle');
         const adminCelebD = document.getElementById('adminProudCelebDesc');
         const adminCelebB = document.getElementById('adminProudCelebBtn');
-        if (adminPlaqueT || adminPlaqueS || adminCelebT) {
+        if (adminPlaqueT || adminPlaqueS || adminCelebT || document.getElementById('adminProudPhoto0')) {
           palaceState.proud = palaceState.proud || {};
           if (adminPlaqueT) palaceState.proud.plaqueTitle = adminPlaqueT.value.trim() || "INNOVATOR OF THE YEAR";
           if (adminPlaqueS) palaceState.proud.plaqueSubtitle = adminPlaqueS.value.trim() || "2025 - 2026 ANNUAL HONORS";
