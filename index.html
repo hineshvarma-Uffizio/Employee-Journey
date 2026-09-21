@@ -264,6 +264,10 @@
       {
         "title": "What impact do you want to create?",
         "sub": "How do you see yourself contributing more to your team and Uffizio?"
+      },
+      {
+        "title": "Where do you see yourself growing?",
+        "sub": "Envision your long-term goals, milestones, and leadership journey ahead."
       }
     ],
     "bottomQuote1": "Your journey doesn't end here.",
@@ -5878,11 +5882,11 @@
       gap: 15px;
     }
 
-    /* 3 Vision Prompt Cards (No dropdowns!) */
+    /* 4 Vision Prompt Cards (No dropdowns!) */
     .future-cards-list {
       display: flex;
       flex-direction: column;
-      gap: 15px;
+      gap: 12px;
       width: 100%;
     }
 
@@ -5891,7 +5895,7 @@
       background: rgba(10, 18, 36, 0.75);
       border: 1px solid rgba(59, 130, 246, 0.24);
       border-radius: 14px;
-      padding: 16px 20px;
+      padding: 13px 18px;
       display: flex;
       align-items: center;
       gap: 16px;
@@ -5974,9 +5978,9 @@
 
     .future-card-sub {
       font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
-      font-size: 13.5px;
+      font-size: 14.5px !important;
       color: #94a3b8;
-      line-height: 1.4;
+      line-height: 1.45;
       margin: 0;
     }
 
@@ -11393,6 +11397,20 @@
                       <p class="future-card-sub" contenteditable="true" data-editable="true" title="Click to edit prompt">How do you see yourself contributing more to your team and Uffizio?</p>
                     </div>
                   </div>
+
+                  <!-- Card 3 -->
+                  <div class="future-card" data-idx="3">
+                    <div class="future-card-icon-wrap icon-theme-gold">
+                      <svg class="future-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"/>
+                        <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>
+                      </svg>
+                    </div>
+                    <div class="future-card-text">
+                      <h4 class="future-card-title" contenteditable="true" data-editable="true" title="Click to edit question">Where do you see yourself growing?</h4>
+                      <p class="future-card-sub" contenteditable="true" data-editable="true" title="Click to edit prompt">Envision your long-term goals, milestones, and leadership journey ahead.</p>
+                    </div>
+                  </div>
                 </div>
               </div>
 
@@ -12148,6 +12166,17 @@
               </div>
               <div class="form-group" style="margin:0;">
                 <input type="text" class="form-input" id="adminFutureCardSub2" placeholder="How you see yourself contributing...">
+              </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div style="background:rgba(0,0,0,0.25); border:1px solid rgba(255,255,255,0.06); border-radius:8px; padding:10px;">
+              <div style="font-weight:600; font-size:11px; color:var(--gold-light); margin-bottom:6px;">Card 04 • Growth</div>
+              <div class="form-group" style="margin-bottom:6px;">
+                <input type="text" class="form-input" id="adminFutureCardTitle3" placeholder="Where do you see yourself growing?">
+              </div>
+              <div class="form-group" style="margin:0;">
+                <input type="text" class="form-input" id="adminFutureCardSub3" placeholder="Envision long-term goals, milestones, leadership...">
               </div>
             </div>
           </div>
@@ -13236,6 +13265,10 @@
           {
             "title": "What impact do you want to create?",
             "sub": "How do you see yourself contributing more to your team and Uffizio?"
+          },
+          {
+            "title": "Where do you see yourself growing?",
+            "sub": "Envision your long-term goals, milestones, and leadership journey ahead."
           }
         ],
         "bottomQuote1": "Your journey doesn't end here.",
@@ -15732,7 +15765,8 @@
         cards: [
           { title: "What skills do you want to build?", sub: "Share the skills or knowledge you want to develop to grow in your career." },
           { title: "What new challenges do you want to take on?", sub: "Tell us about the kind of opportunities or responsibilities you would like to explore." },
-          { title: "What impact do you want to create?", sub: "How do you see yourself contributing more to your team and Uffizio?" }
+          { title: "What impact do you want to create?", sub: "How do you see yourself contributing more to your team and Uffizio?" },
+          { title: "Where do you see yourself growing?", sub: "Envision your long-term goals, milestones, and leadership journey ahead." }
         ]
       };
 
@@ -15767,7 +15801,8 @@
         cards: [
           { title: "What skills do you want to build?", sub: "Share the skills or knowledge you want to develop to grow in your career." },
           { title: "What new challenges do you want to take on?", sub: "Tell us about the kind of opportunities or responsibilities you would like to explore." },
-          { title: "What impact do you want to create?", sub: "How do you see yourself contributing more to your team and Uffizio?" }
+          { title: "What impact do you want to create?", sub: "How do you see yourself contributing more to your team and Uffizio?" },
+          { title: "Where do you see yourself growing?", sub: "Envision your long-term goals, milestones, and leadership journey ahead." }
         ]
       };
 
@@ -15783,15 +15818,16 @@
       const defCards = [
         { title: "What skills do you want to build?", sub: "Share the skills or knowledge you want to develop to grow in your career." },
         { title: "What new challenges do you want to take on?", sub: "Tell us about the kind of opportunities or responsibilities you would like to explore." },
-        { title: "What impact do you want to create?", sub: "How do you see yourself contributing more to your team and Uffizio?" }
+        { title: "What impact do you want to create?", sub: "How do you see yourself contributing more to your team and Uffizio?" },
+        { title: "Where do you see yourself growing?", sub: "Envision your long-term goals, milestones, and leadership journey ahead." }
       ];
 
-      for (let i = 0; i < 3; i++) {
+      for (let i = 0; i < 4; i++) {
         const c = (fut.cards && fut.cards[i]) || defCards[i];
         const tInp = document.getElementById(`adminFutureCardTitle${i}`);
         const sInp = document.getElementById(`adminFutureCardSub${i}`);
-        if (tInp) tInp.value = c.title || defCards[i].title;
-        if (sInp) sInp.value = c.sub || defCards[i].sub;
+        if (tInp) tInp.value = (c && c.title) || defCards[i].title;
+        if (sInp) sInp.value = (c && c.sub) || defCards[i].sub;
       }
     }
 
@@ -22535,14 +22571,15 @@
         if (adminFutTitle && adminFutTitle.value.trim()) palaceState.future.title = adminFutTitle.value.trim();
         if (adminFutImg && adminFutImg.value.trim()) palaceState.future.image = adminFutImg.value.trim();
 
-        palaceState.future.cards = [0, 1, 2].map(i => {
+        palaceState.future.cards = [0, 1, 2, 3].map(i => {
           const tInp = document.getElementById(`adminFutureCardTitle${i}`);
           const sInp = document.getElementById(`adminFutureCardSub${i}`);
           const liveCard = document.querySelectorAll('#chamber-5 .future-card')[i];
           const defCards = [
             { title: "What skills do you want to build?", sub: "Share the skills or knowledge you want to develop to grow in your career." },
             { title: "What new challenges do you want to take on?", sub: "Tell us about the kind of opportunities or responsibilities you would like to explore." },
-            { title: "What impact do you want to create?", sub: "How do you see yourself contributing more to your team and Uffizio?" }
+            { title: "What impact do you want to create?", sub: "How do you see yourself contributing more to your team and Uffizio?" },
+            { title: "Where do you see yourself growing?", sub: "Envision your long-term goals, milestones, and leadership journey ahead." }
           ];
           return {
             title: (tInp && tInp.value.trim()) || (liveCard && liveCard.querySelector('.future-card-title')?.textContent.trim()) || defCards[i].title,
