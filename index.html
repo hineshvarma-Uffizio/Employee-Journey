@@ -10448,8 +10448,7 @@
 
     /* Flatten 3D only on major structural containers, NOT on every element (preserve centering transforms) */
     body.pdf-capturing-mode .palace-chamber.capture-target-active .palace-stage,
-    body.pdf-capturing-mode .palace-chamber.capture-target-active .room-shell,
-    body.pdf-capturing-mode .palace-chamber.capture-target-active .room-wall,
+
     body.pdf-capturing-mode .palace-chamber.capture-target-active .chamber-content,
     body.pdf-capturing-mode .palace-chamber.capture-target-active .celebration-stage-container,
     body.pdf-capturing-mode .palace-chamber.capture-target-active .values-orbital-stage,
@@ -10470,37 +10469,21 @@
     body.pdf-capturing-mode .palace-chamber.capture-target-active .chamber-content,
     body.pdf-capturing-mode .palace-chamber.capture-target-active .chamber-placard,
     body.pdf-capturing-mode .palace-chamber.capture-target-active .chamber-name,
-    body.pdf-capturing-mode .palace-chamber.capture-target-active .chamber-desc,
-    body.pdf-capturing-mode .palace-chamber.capture-target-active .room-shell,
-    body.pdf-capturing-mode .palace-chamber.capture-target-active .room-wall {
+    body.pdf-capturing-mode .palace-chamber.capture-target-active .chamber-desc {
       opacity: 1 !important;
       visibility: visible !important;
       transform: none !important;
     }
 
-    body.pdf-capturing-mode .room-shell {
-      position: absolute !important;
-      inset: 0 !important;
-      width: 100% !important;
-      height: 100% !important;
-      pointer-events: none !important;
-    }
-
-    body.pdf-capturing-mode .room-wall {
-      position: absolute !important;
-      top: 3% !important;
-      left: 3% !important;
-      width: 94% !important;
-      height: 94% !important;
-      transform: none !important;
-      border-radius: 24px !important;
-      border: 1px solid rgba(255, 255, 255, 0.05) !important;
-      box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.8) !important;
-      overflow: hidden !important;
-    }
-
-    body.pdf-capturing-mode .room-floor {
+    /* Hide 3D room shells, floors, spotlights and glow effects in 2D presentation PDF export */
+    body.pdf-capturing-mode .room-shell,
+    body.pdf-capturing-mode .room-wall,
+    body.pdf-capturing-mode .room-floor,
+    body.pdf-capturing-mode .room-spotlight,
+    body.pdf-capturing-mode .celebration-portrait-glow {
       display: none !important;
+      opacity: 0 !important;
+      visibility: hidden !important;
     }
 
     body.pdf-capturing-mode .chamber-placard {
@@ -18248,8 +18231,6 @@
                   transform-style: flat !important;
                 }
                 ${cid} .chamber-content,
-                ${cid} .room-shell,
-                ${cid} .room-wall,
                 ${cid} .celebration-stage-container,
                 ${cid} .values-orbital-stage,
                 ${cid} .horizontal-journey-hall,
@@ -18258,17 +18239,25 @@
                 ${cid} .team-wall-board {
                   transform: none !important;
                 }
+                /* Hide all 3D environment shells, spotlights, and unblurred glows */
+                ${cid} .room-shell,
+                ${cid} .room-wall,
+                ${cid} .room-wall::before,
+                ${cid} .room-wall::after,
                 ${cid} .room-floor,
-                ${cid} .chamber-confetti-sparkles,
-                ${cid} .room-spotlight {
+                ${cid} .room-spotlight,
+                ${cid} .celebration-portrait-glow,
+                ${cid} .chamber-confetti-sparkles {
                   display: none !important;
+                  opacity: 0 !important;
+                  visibility: hidden !important;
                 }
               `;
               clonedDoc.head.appendChild(injectStyle);
             }
           });
 
-          // ── STEP 2: Build background canvas: navy + radial gradient + damask + vignette ──
+          // ── STEP 2: Build background canvas: deep dark navy + subtle damask + soft vignette ──
           const finalW = Math.round(1440 * 1.5);
           const finalH = Math.round(960 * 1.5);
           const finalCanvas = document.createElement('canvas');
@@ -18276,22 +18265,11 @@
           finalCanvas.height = finalH;
           const ctx = finalCanvas.getContext('2d');
 
-          // a) Dark navy base
+          // a) Clean, authentic dark luxury navy base (matches live background-color: #030712)
           ctx.fillStyle = '#030712';
           ctx.fillRect(0, 0, finalW, finalH);
 
-          // b) Sapphire radial gradient (top-centre glow)
-          const grad = ctx.createRadialGradient(
-            finalW / 2, finalH * 0.25, 0,
-            finalW / 2, finalH * 0.25, finalW * 0.62
-          );
-          grad.addColorStop(0, 'rgba(12, 26, 59, 0.92)');
-          grad.addColorStop(1, 'rgba(3, 7, 18, 0)');
-          ctx.fillStyle = grad;
-          ctx.fillRect(0, 0, finalW, finalH);
-
-          // c) Damask pattern — load PNG, use canvas compositing so it tiles as a blue overlay
-          //    (CSS mask-image is not supported by html2canvas, so we composite manually)
+          // b) Subtle Royal Damask Pattern — authentic texture without heavy/bright blue glow
           try {
             const damaskImg = await new Promise((res) => {
               const img = new Image();
@@ -18306,8 +18284,8 @@
               tileCanvas.width = tileSize;
               tileCanvas.height = tileSize;
               const tileCtx = tileCanvas.getContext('2d');
-              // Fill tile with blue, then clip to the damask PNG's alpha channel
-              tileCtx.fillStyle = '#589df6';
+              // Soft muted blue-navy tint (matches live 4% opacity subtle damask)
+              tileCtx.fillStyle = 'rgba(75, 135, 230, 0.45)';
               tileCtx.fillRect(0, 0, tileSize, tileSize);
               tileCtx.globalCompositeOperation = 'destination-in';
               tileCtx.drawImage(damaskImg, 0, 0, tileSize, tileSize);
@@ -18315,7 +18293,7 @@
 
               const damaskPat = ctx.createPattern(tileCanvas, 'repeat');
               if (damaskPat) {
-                ctx.globalAlpha = 0.052;
+                ctx.globalAlpha = 0.035;
                 ctx.fillStyle = damaskPat;
                 ctx.fillRect(0, 0, finalW, finalH);
                 ctx.globalAlpha = 1.0;
@@ -18323,13 +18301,13 @@
             }
           } catch (_e) { /* pattern optional */ }
 
-          // d) Soft vignette — darken edges
+          // c) Subtle corner vignette — smoothly deepens canvas corners
           const vig = ctx.createRadialGradient(
-            finalW / 2, finalH / 2, finalW * 0.22,
-            finalW / 2, finalH / 2, finalW * 0.75
+            finalW / 2, finalH / 2, finalW * 0.28,
+            finalW / 2, finalH / 2, finalW * 0.76
           );
           vig.addColorStop(0, 'rgba(3, 7, 18, 0)');
-          vig.addColorStop(1, 'rgba(3, 7, 18, 0.6)');
+          vig.addColorStop(1, 'rgba(3, 7, 18, 0.45)');
           ctx.fillStyle = vig;
           ctx.fillRect(0, 0, finalW, finalH);
 
