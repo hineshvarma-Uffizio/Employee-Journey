@@ -18202,58 +18202,46 @@
           // Allow DOM to settle (150ms — enough for .active CSS rules to apply after class change)
           await new Promise(r => setTimeout(r, 150));
 
-          // === CAPTURE SETUP: move royalEthnicBg inside viewport so it appears in the screenshot ===
-          const captureViewport = document.getElementById('palaceViewport');
-          const bgEl = document.getElementById('royalEthnicBg');
-          const bgOriginalParent = bgEl ? bgEl.parentNode : null;
-          const bgNextSibling = bgEl ? bgEl.nextSibling : null;
+          // === INJECT BACKGROUND: add damask pattern directly inside targetEl for capture ===
+          // html2canvas supports background-image: url() but NOT CSS mask-image, so we inject a BG div
+          const _bgPatternDiv = document.createElement('div');
+          _bgPatternDiv.setAttribute('data-pdf-bg', '1');
+          _bgPatternDiv.style.cssText = [
+            'position: absolute',
+            'top: 0',
+            'left: 0',
+            'width: 100%',
+            'height: 100%',
+            'z-index: 0',
+            'pointer-events: none',
+            'background-color: transparent',
+            "background-image: url('royal_damask_mask_512.png')",
+            'background-repeat: repeat',
+            'background-size: 320px 320px',
+            'opacity: 0.045',
+            '-webkit-mask-image: none',
+            'mask-image: none'
+          ].join('; ');
+          targetEl.insertBefore(_bgPatternDiv, targetEl.firstChild);
 
-          if (bgEl && captureViewport) {
-            bgEl.style.position = 'absolute';
-            bgEl.style.top = '0';
-            bgEl.style.left = '0';
-            bgEl.style.width = '100%';
-            bgEl.style.height = '100%';
-            bgEl.style.opacity = '0.06';
-            bgEl.style.zIndex = '1';
-            bgEl.style.pointerEvents = 'none';
-            bgEl.style.animation = 'none';
-            captureViewport.insertBefore(bgEl, captureViewport.firstChild);
-            // Force mask to apply by reading layout
-            bgEl.getBoundingClientRect();
-          }
+          // Force browser to compute layout before capture
+          _bgPatternDiv.getBoundingClientRect();
+          await new Promise(r => setTimeout(r, 40));
 
-          // Brief pause for mask-image to apply
-          await new Promise(r => setTimeout(r, 60));
-
-          // Capture the palace-viewport (contains: damask bg + chamber content)
-          const captureEl = captureViewport || targetEl;
-          const canvas = await h2c(captureEl, {
+          // Capture only targetEl (the active chamber) — safe from portal/door stage interference
+          const canvas = await h2c(targetEl, {
             width: 1440,
             height: 960,
             scale: 1.5,
             backgroundColor: '#030712',
             useCORS: true,
             allowTaint: true,
-            logging: false,
-            windowWidth: 1440,
-            windowHeight: 960,
-            x: 0,
-            y: 0
+            logging: false
           });
 
-          // === RESTORE: move royalEthnicBg back to original position ===
-          if (bgEl && bgOriginalParent) {
-            bgOriginalParent.insertBefore(bgEl, bgNextSibling);
-            bgEl.style.position = '';
-            bgEl.style.top = '';
-            bgEl.style.left = '';
-            bgEl.style.width = '';
-            bgEl.style.height = '';
-            bgEl.style.opacity = '';
-            bgEl.style.zIndex = '';
-            bgEl.style.pointerEvents = '';
-            bgEl.style.animation = '';
+          // === CLEANUP: remove injected background div ===
+          if (_bgPatternDiv.parentNode === targetEl) {
+            targetEl.removeChild(_bgPatternDiv);
           }
 
           const jpegData = canvas.toDataURL('image/jpeg', 0.95);
