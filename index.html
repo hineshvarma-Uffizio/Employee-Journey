@@ -10384,15 +10384,15 @@
       transition: none !important;
     }
 
-    /* 3. Standardize Palace Viewport & Stage to Landscape Presentation proportions */
+    /* 3. Standardize Palace Viewport & Stage to Landscape Presentation proportions (A4 1440x1018 = 297:210) */
     body.pdf-capturing-mode .palace-viewport {
       position: fixed !important;
       top: 0 !important;
       left: 0 !important;
       width: 1440px !important;
-      height: 960px !important;
+      height: 1018px !important;
       max-width: 1440px !important;
-      max-height: 960px !important;
+      max-height: 1018px !important;
       perspective: none !important;
       transform: none !important;
       overflow: hidden !important;
@@ -10402,7 +10402,7 @@
 
     body.pdf-capturing-mode .palace-stage {
       width: 1440px !important;
-      height: 960px !important;
+      height: 1018px !important;
       position: absolute !important;
       top: 0 !important;
       left: 0 !important;
@@ -10416,9 +10416,9 @@
       top: 0 !important;
       left: 0 !important;
       width: 1440px !important;
-      height: 960px !important;
-      min-height: 960px !important;
-      max-height: 960px !important;
+      height: 1018px !important;
+      min-height: 1018px !important;
+      max-height: 1018px !important;
       transform: none !important;
       box-sizing: border-box !important;
       padding: 30px 48px !important;
@@ -18281,21 +18281,21 @@
 
           // ── STEP 1: Capture chamber content on TRANSPARENT background ──
           // Use onclone to inject CSS into the cloned document:
-          // - Forces chamber to position:fixed top:0 left:0 1440x960 (no parent-offset inheritance)
+          // - Forces chamber to position:fixed top:0 left:0 1440x1018 (exact A4 landscape 297:210 ratio)
           // - Makes all children opacity:1 / visible (overrides waiting-depth states)
           // - Flattens 3D containers (html2canvas doesn't support preserve-3d)
-          // - No scrollX/scrollY offsets needed (avoids shift when window.scrollX > 0)
+          // - Zero aspect distortion: pre-crops all photos to exact container aspect ratio
           const chamberCanvas = await h2c(targetEl, {
             width: 1440,
-            height: 960,
+            height: 1018,
             scale: 1.5,
             backgroundColor: null,
             useCORS: true,
             allowTaint: true,
             logging: false,
             windowWidth: 1440,
-            windowHeight: 960,
-            onclone: (clonedDoc, clonedEl) => {
+            windowHeight: 1018,
+            onclone: async (clonedDoc, clonedEl) => {
               const injectStyle = clonedDoc.createElement('style');
               const cid = clonedEl.id ? ('#' + clonedEl.id) : '.capture-target-active';
               injectStyle.textContent = `
@@ -18303,7 +18303,7 @@
                 ${cid} {
                   position: fixed !important;
                   top: 0 !important; left: 0 !important;
-                  width: 1440px !important; height: 960px !important;
+                  width: 1440px !important; height: 1018px !important;
                   display: flex !important;
                   flex-direction: column !important;
                   align-items: center !important;
@@ -18349,57 +18349,133 @@
               `;
               clonedDoc.head.appendChild(injectStyle);
 
-              // ── SAFE IN-FLOW PHOTO ASPECT RATIO PRESERVATION ──
-              // Preserves 100% visibility in normal DOM flow while preventing stretching distortion
+              // ── ZERO-DISTORTION CANVAS PRE-CROP (ELIMINATES ALL PHOTO STRETCHING) ──
+              // html2canvas ignores CSS object-fit and stretches raw images into element bounding boxes.
+              // Here, we pre-crop each image onto an offscreen canvas at the exact rendered bounding box
+              // aspect ratio using the exact object-fit (cover / contain) & object-position rules.
+              // When html2canvas draws this pre-cropped data URL, aspect ratio distortion is mathematically 0.00%!
               try {
                 const realImgs = Array.from(targetEl.querySelectorAll('img'));
                 const clonedImgs = Array.from(clonedEl.querySelectorAll('img'));
 
-                clonedImgs.forEach((cImg, idx) => {
+                for (let idx = 0; idx < clonedImgs.length; idx++) {
+                  const cImg = clonedImgs[idx];
                   const rImg = realImgs[idx];
-                  const nw = (rImg && rImg.naturalWidth) || cImg.naturalWidth || 0;
-                  const nh = (rImg && rImg.naturalHeight) || cImg.naturalHeight || 0;
-                  if (!nw || !nh) return;
+                  if (!rImg) continue;
 
-                  const parent = cImg.parentElement;
-                  if (parent) {
-                    parent.style.display = 'flex';
-                    parent.style.alignItems = 'center';
-                    parent.style.justifyContent = 'center';
-                    parent.style.overflow = 'hidden';
+                  const nw = rImg.naturalWidth || cImg.naturalWidth || 0;
+                  const nh = rImg.naturalHeight || cImg.naturalHeight || 0;
+                  if (!nw || !nh) continue;
+
+                  // Get actual rendered bounding box from live DOM
+                  const rRect = rImg.getBoundingClientRect();
+                  let bw = Math.round(rRect.width);
+                  let bh = Math.round(rRect.height);
+
+                  // Fallback to parent box if img rect is 0 (or unrendered yet)
+                  if ((!bw || !bh) && rImg.parentElement) {
+                    const pRect = rImg.parentElement.getBoundingClientRect();
+                    bw = Math.round(pRect.width);
+                    bh = Math.round(pRect.height);
+                  }
+                  if (!bw) bw = nw;
+                  if (!bh) bh = nh;
+
+                  // Read computed style for object-fit & object-position
+                  const cs = window.getComputedStyle(rImg);
+                  const objFit = (cs.objectFit || '').toLowerCase();
+                  const objPos = (cs.objectPosition || '').toLowerCase();
+
+                  // Parse object-position (X and Y percentage)
+                  let px = 0.5;
+                  let py = 0.5;
+                  if (objPos) {
+                    const parts = objPos.trim().split(/\s+/);
+                    if (parts.length >= 2) {
+                      if (parts[0] === 'left') px = 0;
+                      else if (parts[0] === 'right') px = 1;
+                      else if (parts[0] === 'center') px = 0.5;
+                      else if (parts[0].endsWith('%')) px = parseFloat(parts[0]) / 100;
+
+                      if (parts[1] === 'top') py = 0;
+                      else if (parts[1] === 'bottom') py = 1;
+                      else if (parts[1] === 'center') py = 0.5;
+                      else if (parts[1].endsWith('%')) py = parseFloat(parts[1]) / 100;
+                    }
+                  }
+                  // Top-bias portrait faces so heads are never cut off
+                  if (cImg.classList.contains('celebration-portrait-img') || 
+                      cImg.classList.contains('doorway-portrait-img') ||
+                      cImg.id === 'celebrationPortraitImg' ||
+                      cImg.id === 'doorwayPortraitImg') {
+                    py = 0.15;
                   }
 
-                  const pRect = (rImg && rImg.parentElement) ? rImg.parentElement.getBoundingClientRect() : null;
-                  const pw = (pRect && pRect.width) || (parent ? parent.offsetWidth : 0) || 100;
-                  const ph = (pRect && pRect.height) || (parent ? parent.offsetHeight : 0) || 100;
+                  // 2x Retina sharpness offscreen crop canvas
+                  const cw = Math.max(1, Math.round(bw * 2));
+                  const ch = Math.max(1, Math.round(bh * 2));
+                  const cropCanvas = document.createElement('canvas');
+                  cropCanvas.width = cw;
+                  cropCanvas.height = ch;
+                  const cropCtx = cropCanvas.getContext('2d');
+                  cropCtx.imageSmoothingEnabled = true;
+                  cropCtx.imageSmoothingQuality = 'high';
 
-                  // Never use position:absolute so photos never collapse or vanish!
-                  // One dimension locks to 100% while the other remains auto to preserve natural ratio
-                  if ((nw / nh) > (pw / ph)) {
-                    cImg.style.setProperty('height', '100%', 'important');
-                    cImg.style.setProperty('width', 'auto', 'important');
-                    cImg.style.setProperty('max-width', 'none', 'important');
-                    cImg.style.setProperty('max-height', '100%', 'important');
+                  if (objFit === 'contain') {
+                    // CONTAIN: scale to fit inside without cropping
+                    const s = Math.min(cw / nw, ch / nh);
+                    const rw = nw * s;
+                    const rh = nh * s;
+                    const dx = (cw - rw) * px;
+                    const dy = (ch - rh) * py;
+                    cropCtx.clearRect(0, 0, cw, ch);
+                    cropCtx.drawImage(rImg, dx, dy, rw, rh);
                   } else {
-                    cImg.style.setProperty('width', '100%', 'important');
-                    cImg.style.setProperty('height', 'auto', 'important');
-                    cImg.style.setProperty('max-height', 'none', 'important');
-                    cImg.style.setProperty('max-width', '100%', 'important');
+                    // COVER (default): scale to cover entire box, zero distortion
+                    const s = Math.max(cw / nw, ch / nh);
+                    const rw = nw * s;
+                    const rh = nh * s;
+                    const dx = (cw - rw) * px;
+                    const dy = (ch - rh) * py;
+                    cropCtx.drawImage(rImg, dx, dy, rw, rh);
                   }
-                  cImg.style.setProperty('flex-shrink', '0', 'important');
-                  cImg.style.setProperty('display', 'block', 'important');
-                  cImg.style.setProperty('opacity', '1', 'important');
-                  cImg.style.setProperty('visibility', 'visible', 'important');
-                });
+
+                  // Safely set pre-cropped base64 data URL
+                  try {
+                    const isPng = objFit === 'contain' || (rImg.currentSrc || rImg.src || '').toLowerCase().includes('.png');
+                    const croppedDataUrl = isPng ? cropCanvas.toDataURL('image/png') : cropCanvas.toDataURL('image/jpeg', 0.96);
+                    cImg.src = croppedDataUrl;
+                    cImg.style.setProperty('width', bw + 'px', 'important');
+                    cImg.style.setProperty('height', bh + 'px', 'important');
+                    cImg.style.setProperty('max-width', '100%', 'important');
+                    cImg.style.setProperty('max-height', '100%', 'important');
+                    cImg.style.setProperty('object-fit', 'fill', 'important');
+                    cImg.style.setProperty('display', 'block', 'important');
+                    cImg.style.setProperty('opacity', '1', 'important');
+                    cImg.style.setProperty('visibility', 'visible', 'important');
+                  } catch (dataUrlErr) {
+                    console.warn("Pre-crop dataURL generation fallback:", dataUrlErr);
+                  }
+                }
+
+                // Wait for any updated image data URLs to decode
+                await Promise.all(clonedImgs.map(img => {
+                  if (img.complete && img.naturalWidth > 0) return Promise.resolve();
+                  return new Promise(res => {
+                    img.onload = res;
+                    img.onerror = res;
+                    setTimeout(res, 60);
+                  });
+                }));
               } catch (imgErr) {
-                console.warn("Photo aspect ratio preservation warning:", imgErr);
+                console.warn("Photo pre-crop error:", imgErr);
               }
             }
           });
 
           // ── STEP 2: Build background canvas: deep dark navy + vignetted royal vector pattern + soft vignette ──
           const finalW = Math.round(1440 * 1.5);
-          const finalH = Math.round(960 * 1.5);
+          const finalH = Math.round(1018 * 1.5);
           const finalCanvas = document.createElement('canvas');
           finalCanvas.width = finalW;
           finalCanvas.height = finalH;
