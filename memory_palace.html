@@ -11506,20 +11506,19 @@
 
       <!-- Tab Navigation -->
       <div class="admin-tab-nav" style="overflow-x: auto; flex-wrap: nowrap; padding-bottom: 6px;">
-        <button class="admin-tab-btn active" data-tab="tab-rooms">🚪 Rooms</button>
+        <button class="admin-tab-btn active" data-tab="tab-rooms">🚪 Overview</button>
         <button class="admin-tab-btn" data-tab="tab-entrance">🚪 Welcome</button>
         <button class="admin-tab-btn" data-tab="tab-profile">👤 Profile</button>
         <button class="admin-tab-btn" data-tab="tab-celebration">🎉 Celebration</button>
         <button class="admin-tab-btn" data-tab="tab-milestones">📅 Milestones</button>
         <button class="admin-tab-btn" data-tab="tab-skills">💡 Learned</button>
         <button class="admin-tab-btn" data-tab="tab-projects-2">🚀 Projects</button>
-        <button class="admin-tab-btn" data-tab="tab-notes">💌 Notes</button>
+        <button class="admin-tab-btn" data-tab="tab-notes">👥 People</button>
         <button class="admin-tab-btn" data-tab="tab-memories-2">📸 Memories</button>
         <button class="admin-tab-btn" data-tab="tab-values">💎 Values</button>
-        <button class="admin-tab-btn" data-tab="tab-proud">🏆 Honors</button>
+        <button class="admin-tab-btn" data-tab="tab-proud">🏆 Proud Moments</button>
         <button class="admin-tab-btn" data-tab="tab-future">🔮 Future</button>
         <button class="admin-tab-btn" data-tab="tab-thankyou">💖 Thank You</button>
-        <button class="admin-tab-btn" data-tab="tab-headings">🏛️ Headings</button>
         <button class="admin-tab-btn" data-tab="tab-export">💾 Save & Backup</button>
       </div>
 
@@ -11606,10 +11605,6 @@
               <input type="text" id="newRoomNavLabel" class="form-input" placeholder="e.g. Hackathon">
             </div>
           </div>
-          <div class="form-group" style="margin-top: 6px;">
-            <label>Room Subtitle / Narrative</label>
-            <input type="text" id="newRoomSub" class="form-input" placeholder="e.g. The 48-hour sprint that reimagined our tracking engine.">
-          </div>
 
           <div style="display: flex; justify-content: flex-end; gap: 8px; margin-top: 12px;">
             <button type="button" class="btn-subtle-reset" id="btnCancelAddRoom" style="border: 1px solid rgba(255,255,255,0.2);">Cancel</button>
@@ -11646,20 +11641,16 @@
 
         <!-- Titles & Prompt Section -->
         <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:10px; padding:12px; margin-bottom:12px;">
-          <h5 style="color:var(--gold-primary); font-size:12px; font-weight:700; text-transform:uppercase; margin:0 0 8px 0;">✨ Headings & Tagline</h5>
-          <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-bottom:10px;">
+          <h5 style="color:var(--gold-primary); font-size:12px; font-weight:700; text-transform:uppercase; margin:0 0 8px 0;">✨ Entrance Heading & Prompt</h5>
+          <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
             <div class="form-group" style="margin:0;">
-              <label>Main Heading</label>
-              <input type="text" class="form-input" id="adminEntranceTitle" placeholder="WELCOME TO YOUR JOURNEY">
+              <label>Doorway Main Heading</label>
+              <input type="text" class="form-input" id="adminEntranceTitle" placeholder="Celebrating Your First Year With Uffizio">
             </div>
             <div class="form-group" style="margin:0;">
-              <label>Subtitle / Year</label>
-              <input type="text" class="form-input" id="adminEntranceSub" placeholder="WALK THROUGH YOUR YEAR • 2025 → 2026">
+              <label>Enter Button / Prompt</label>
+              <input type="text" class="form-input" id="adminEntrancePrompt" placeholder="Scroll Down or Click Door to Enter">
             </div>
-          </div>
-          <div class="form-group" style="margin:0;">
-            <label>Enter Button / Prompt</label>
-            <input type="text" class="form-input" id="adminEntrancePrompt" placeholder="Scroll Down or Click Door to Enter">
           </div>
         </div>
 
@@ -11737,13 +11728,18 @@
 
       <!-- Tab 2: Celebration Screen -->
       <div class="admin-tab-content" id="tab-celebration">
-        <div class="form-group">
-          <label for="adminCelebTitle">Main Celebration Heading</label>
-          <input type="text" id="adminCelebTitle" class="form-input" value="Celebrating Your First Year">
-        </div>
-        <div class="form-group">
-          <label for="adminCelebSub">Company / Subhead</label>
-          <input type="text" id="adminCelebSub" class="form-input" value="With Uffizio">
+        <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:10px; padding:12px; margin-bottom:14px;">
+          <h5 style="color:var(--gold-primary); font-size:12px; font-weight:700; text-transform:uppercase; margin:0 0 8px 0;">🏛️ Chamber Heading & Nav Label</h5>
+          <div style="display:grid; grid-template-columns: 2fr 1fr; gap:10px;">
+            <div class="form-group" style="margin:0;">
+              <label for="adminCelebTitle">Room Heading (Stage 1)</label>
+              <input type="text" id="adminCelebTitle" class="form-input" value="Celebrating Your First Year With Uffizio">
+            </div>
+            <div class="form-group" style="margin:0;">
+              <label for="adminCelebNav">Bottom Floorplan Label</label>
+              <input type="text" id="adminCelebNav" class="form-input" value="Year One">
+            </div>
+          </div>
         </div>
         <div class="form-group">
           <label for="adminCelebQuote">Emotional Quote / Tribute</label>
@@ -11753,6 +11749,19 @@
 
       <!-- Tab 3: Milestones Manager (Chamber 1) -->
       <div class="admin-tab-content" id="tab-milestones">
+        <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:10px; padding:12px; margin-bottom:14px;">
+          <h5 style="color:var(--gold-primary); font-size:12px; font-weight:700; text-transform:uppercase; margin:0 0 8px 0;">🏛️ Chamber Heading & Nav Label</h5>
+          <div style="display:grid; grid-template-columns: 2fr 1fr; gap:10px;">
+            <div class="form-group" style="margin:0;">
+              <label for="adminMilestonesRoomTitle">Room Heading (Placard)</label>
+              <input type="text" id="adminMilestonesRoomTitle" class="form-input" placeholder="Where Your Journey Began">
+            </div>
+            <div class="form-group" style="margin:0;">
+              <label for="adminMilestonesRoomNav">Bottom Floorplan Label</label>
+              <input type="text" id="adminMilestonesRoomNav" class="form-input" placeholder="First Day">
+            </div>
+          </div>
+        </div>
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
           <h4 style="color:var(--gold-light); font-size:14px; margin:0;">📅 Career Milestones</h4>
           <button type="button" class="btn-add-item" id="btnAddMilestone">➕ Add Milestone</button>
@@ -11762,6 +11771,19 @@
 
       <!-- Tab 4: Evolution & Growth Manager (Chamber 2) -->
       <div class="admin-tab-content" id="tab-skills">
+        <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:10px; padding:12px; margin-bottom:14px;">
+          <h5 style="color:var(--gold-primary); font-size:12px; font-weight:700; text-transform:uppercase; margin:0 0 8px 0;">🏛️ Chamber Heading & Nav Label</h5>
+          <div style="display:grid; grid-template-columns: 2fr 1fr; gap:10px;">
+            <div class="form-group" style="margin:0;">
+              <label for="adminSkillsRoomTitle">Room Heading (Placard)</label>
+              <input type="text" id="adminSkillsRoomTitle" class="form-input" placeholder="What You Learned">
+            </div>
+            <div class="form-group" style="margin:0;">
+              <label for="adminSkillsRoomNav">Bottom Floorplan Label</label>
+              <input type="text" id="adminSkillsRoomNav" class="form-input" placeholder="Learned">
+            </div>
+          </div>
+        </div>
         <h4 style="color:var(--gold-light); font-size:14px; margin:0 0 12px 0;">💡 What You Learned</h4>
         
         <div style="display:grid; grid-template-columns: 1fr 1fr; gap:16px; margin-bottom:14px;">
@@ -11933,6 +11955,19 @@
 
       <!-- Tab 5: Projects Manager (Chamber 2b) -->
       <div class="admin-tab-content" id="tab-projects-2">
+        <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:10px; padding:12px; margin-bottom:14px;">
+          <h5 style="color:var(--gold-primary); font-size:12px; font-weight:700; text-transform:uppercase; margin:0 0 8px 0;">🏛️ Chamber Heading & Nav Label</h5>
+          <div style="display:grid; grid-template-columns: 2fr 1fr; gap:10px;">
+            <div class="form-group" style="margin:0;">
+              <label for="adminProjectsRoomTitle">Room Heading (Placard)</label>
+              <input type="text" id="adminProjectsRoomTitle" class="form-input" placeholder="What You Created (Part 2)">
+            </div>
+            <div class="form-group" style="margin:0;">
+              <label for="adminProjectsRoomNav">Bottom Floorplan Label</label>
+              <input type="text" id="adminProjectsRoomNav" class="form-input" placeholder="Created">
+            </div>
+          </div>
+        </div>
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:8px;">
           <h4 style="color:var(--gold-light); font-size:14px; margin:0;">🚀 Projects & Contributions</h4>
           <button type="button" class="btn-add-item" id="btnAddProject2">➕ Add Project</button>
@@ -11965,8 +12000,21 @@
 
       <!-- Tab 6: Team Notes Manager (Chamber 4) -->
       <div class="admin-tab-content" id="tab-notes">
+        <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:10px; padding:12px; margin-bottom:14px;">
+          <h5 style="color:var(--gold-primary); font-size:12px; font-weight:700; text-transform:uppercase; margin:0 0 8px 0;">🏛️ Chamber Heading & Nav Label</h5>
+          <div style="display:grid; grid-template-columns: 2fr 1fr; gap:10px;">
+            <div class="form-group" style="margin:0;">
+              <label for="adminNotesRoomTitle">Room Heading (Placard)</label>
+              <input type="text" id="adminNotesRoomTitle" class="form-input" placeholder="People">
+            </div>
+            <div class="form-group" style="margin:0;">
+              <label for="adminNotesRoomNav">Bottom Floorplan Label</label>
+              <input type="text" id="adminNotesRoomNav" class="form-input" placeholder="People">
+            </div>
+          </div>
+        </div>
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-          <h4 style="color:var(--gold-light); font-size:14px; margin:0;">💌 Team Notes</h4>
+          <h4 style="color:var(--gold-light); font-size:14px; margin:0;">👥 People & Team Notes</h4>
           <button type="button" class="btn-add-item" id="btnAddNote">➕ Add Note</button>
         </div>
         <div class="admin-dynamic-list" id="adminNotesList"></div>
@@ -11974,6 +12022,19 @@
 
       <!-- Tab: Memories Photo Collage -->
       <div class="admin-tab-content" id="tab-memories-2">
+        <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:10px; padding:12px; margin-bottom:14px;">
+          <h5 style="color:var(--gold-primary); font-size:12px; font-weight:700; text-transform:uppercase; margin:0 0 8px 0;">🏛️ Chamber Heading & Nav Label</h5>
+          <div style="display:grid; grid-template-columns: 2fr 1fr; gap:10px;">
+            <div class="form-group" style="margin:0;">
+              <label for="adminMemoriesRoomTitle">Room Heading (Placard)</label>
+              <input type="text" id="adminMemoriesRoomTitle" class="form-input" placeholder="Year in Memories (Part 2)">
+            </div>
+            <div class="form-group" style="margin:0;">
+              <label for="adminMemoriesRoomNav">Bottom Floorplan Label</label>
+              <input type="text" id="adminMemoriesRoomNav" class="form-input" placeholder="Memories">
+            </div>
+          </div>
+        </div>
         <div id="adminMem2MultiSection" style="display:flex; flex-direction:column; gap:12px;">
           <!-- Action Toolbar -->
           <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:4px;">
@@ -11999,6 +12060,19 @@
 
       <!-- Tab: Core Values (Ch.Values) -->
       <div class="admin-tab-content" id="tab-values">
+        <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:10px; padding:12px; margin-bottom:14px;">
+          <h5 style="color:var(--gold-primary); font-size:12px; font-weight:700; text-transform:uppercase; margin:0 0 8px 0;">🏛️ Chamber Heading & Nav Label</h5>
+          <div style="display:grid; grid-template-columns: 2fr 1fr; gap:10px;">
+            <div class="form-group" style="margin:0;">
+              <label for="adminValuesRoomTitle">Room Heading (Placard)</label>
+              <input type="text" id="adminValuesRoomTitle" class="form-input" placeholder="The Values You Bring">
+            </div>
+            <div class="form-group" style="margin:0;">
+              <label for="adminValuesRoomNav">Bottom Floorplan Label</label>
+              <input type="text" id="adminValuesRoomNav" class="form-input" placeholder="Values">
+            </div>
+          </div>
+        </div>
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:8px;">
           <h4 style="color:var(--gold-light); font-size:14px; margin:0;">💎 Core Values</h4>
           <button type="button" class="btn-add-item" id="btnAddValue">➕ Add Value</button>
@@ -12008,6 +12082,19 @@
 
       <!-- Tab 11: Proud Moments Manager (Chamber 7 / Room 05) -->
       <div class="admin-tab-content" id="tab-proud">
+        <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:10px; padding:12px; margin-bottom:14px;">
+          <h5 style="color:var(--gold-primary); font-size:12px; font-weight:700; text-transform:uppercase; margin:0 0 8px 0;">🏛️ Chamber Heading & Nav Label</h5>
+          <div style="display:grid; grid-template-columns: 2fr 1fr; gap:10px;">
+            <div class="form-group" style="margin:0;">
+              <label for="adminProudRoomTitle">Room Heading (Placard)</label>
+              <input type="text" id="adminProudRoomTitle" class="form-input" placeholder="Your Proud Moments">
+            </div>
+            <div class="form-group" style="margin:0;">
+              <label for="adminProudRoomNav">Bottom Floorplan Label</label>
+              <input type="text" id="adminProudRoomNav" class="form-input" placeholder="Proud Moments">
+            </div>
+          </div>
+        </div>
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
           <h4 style="color:var(--gold-light); font-size:14px; margin:0;">🏆 Proud Moments & Honors</h4>
         </div>
@@ -12091,10 +12178,19 @@
           <button type="button" class="btn-primary-add" onclick="window.previewRoomStage('chamber-5')" style="white-space:nowrap; padding:6px 12px; font-size:12px;">👁️ View Room</button>
         </div>
 
-        <!-- Chamber Placard Title -->
-        <div class="form-group" style="margin-bottom:12px;">
-          <label>Chamber Placard Title</label>
-          <input type="text" class="form-input" id="adminFutureTitle" placeholder="The Future">
+        <!-- Chamber Heading & Nav Box -->
+        <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:10px; padding:12px; margin-bottom:14px;">
+          <h5 style="color:var(--gold-primary); font-size:12px; font-weight:700; text-transform:uppercase; margin:0 0 8px 0;">🏛️ Chamber Heading & Nav Label</h5>
+          <div style="display:grid; grid-template-columns: 2fr 1fr; gap:10px;">
+            <div class="form-group" style="margin:0;">
+              <label for="adminFutureTitle">Room Heading (Placard)</label>
+              <input type="text" id="adminFutureTitle" class="form-input" placeholder="The Future">
+            </div>
+            <div class="form-group" style="margin:0;">
+              <label for="adminFutureNav">Bottom Floorplan Label</label>
+              <input type="text" id="adminFutureNav" class="form-input" placeholder="The Future">
+            </div>
+          </div>
         </div>
 
         <!-- Chamber Future Artwork Image -->
@@ -12175,21 +12271,22 @@
           <button type="button" class="btn-primary-add" onclick="window.previewRoomStage('chamber-thankyou')" style="white-space:nowrap; padding:6px 12px; font-size:12px;">👁️ View Room</button>
         </div>
 
+        <!-- Chamber Heading & Nav Box -->
         <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:10px; padding:12px; margin-bottom:12px;">
-          <h5 style="color:var(--gold-primary); font-size:12px; font-weight:700; text-transform:uppercase; margin:0 0 8px 0;">✨ Appreciation Header</h5>
-          <div class="form-group" style="margin-bottom:8px;">
-            <label>Top Golden Badge</label>
-            <input type="text" class="form-input" id="adminThankYouBadge" placeholder="✨ HEARTFELT APPRECIATION • 1 YEAR MILESTONE ✨">
-          </div>
-          <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+          <h5 style="color:var(--gold-primary); font-size:12px; font-weight:700; text-transform:uppercase; margin:0 0 8px 0;">🏛️ Chamber Heading & Nav Label</h5>
+          <div style="display:grid; grid-template-columns: 2fr 1fr; gap:10px; margin-bottom:10px;">
             <div class="form-group" style="margin:0;">
-              <label>Main Title</label>
+              <label for="adminThankYouTitle">Main Title (Monument)</label>
               <input type="text" class="form-input" id="adminThankYouTitle" placeholder="Thank You, Dhara!">
             </div>
             <div class="form-group" style="margin:0;">
-              <label>Subtitle (Optional)</label>
-              <input type="text" class="form-input" id="adminThankYouSub" placeholder="Optional subtitle">
+              <label for="adminThankYouNav">Bottom Floorplan Label</label>
+              <input type="text" class="form-input" id="adminThankYouNav" placeholder="Thank You">
             </div>
+          </div>
+          <div class="form-group" style="margin:0;">
+            <label for="adminThankYouBadge">Top Golden Badge</label>
+            <input type="text" class="form-input" id="adminThankYouBadge" placeholder="✨ HEARTFELT APPRECIATION • 1 YEAR MILESTONE ✨">
           </div>
         </div>
 
@@ -12208,79 +12305,6 @@
         <div class="form-group" style="margin:0;">
           <label>Certificate Button Label</label>
           <input type="text" class="form-input" id="adminThankYouBtn2" placeholder="📜 View Souvenir Card">
-        </div>
-      </div>
-
-      <div class="admin-tab-content" id="tab-headings">
-        <h4 style="color:var(--gold-light); font-size:14px; margin:0 0 12px 0;">🏛️ Chamber Headings & Labels</h4>
-        <div class="admin-dynamic-list">
-          <div class="admin-dynamic-item">
-            <div class="admin-item-num">CHAMBER I • THE BEGINNING</div>
-            <div class="form-group" style="margin-top:6px;">
-              <label>Heading</label>
-              <input type="text" id="headingCh1Title" class="form-input" value="Where Your Journey Began">
-            </div>
-            <div class="form-group">
-              <label>Subtitle</label>
-              <input type="text" id="headingCh1Sub" class="form-input" value="The beginning of your journey">
-            </div>
-          </div>
-
-          <div class="admin-dynamic-item">
-            <div class="admin-item-num">CHAMBER II • KNOWLEDGE & SKILLS</div>
-            <div class="form-group" style="margin-top:6px;">
-              <label>Heading</label>
-              <input type="text" id="headingCh2Title" class="form-input" value="What You Learned">
-            </div>
-            <div class="form-group">
-              <label>Subtitle</label>
-              <input type="text" id="headingCh2Sub" class="form-input" value="The breakthrough moments, technical mastery, and skills forged through dedication.">
-            </div>
-          </div>
-
-          <div class="admin-dynamic-item">
-            <div class="admin-item-num">CHAMBER III • BLUEPRINTS & CREATIONS</div>
-            <div class="form-group" style="margin-top:6px;">
-              <label>Heading</label>
-              <input type="text" id="headingCh3Title" class="form-input" value="What You Created">
-            </div>
-            <div class="form-group">
-              <label>Subtitle</label>
-              <input type="text" id="headingCh3Sub" class="form-input" value="The achievements shipped, architectures scaled, and client milestones delivered.">
-            </div>
-          </div>
-
-          <div class="admin-dynamic-item">
-            <div class="admin-item-num">CHAMBER IV • THE PEOPLE & BONDS</div>
-            <div class="form-group" style="margin-top:6px;">
-              <label>Heading</label>
-              <input type="text" id="headingCh4Title" class="form-input" value="The People & Bonds">
-            </div>
-            <div class="form-group">
-              <label>Subtitle</label>
-              <input type="text" id="headingCh4Sub" class="form-input" value="Warm words, memories, and shared laughs with the team who walked with you.">
-            </div>
-          </div>
-
-          <div class="admin-dynamic-item">
-            <div class="admin-item-num">CHAMBER VII • PROUD MOMENTS</div>
-            <div class="form-group" style="margin-top:6px;">
-              <label>Heading</label>
-              <input type="text" id="headingCh7Title" class="form-input" value="Your Proud Moments">
-            </div>
-            <div class="form-group">
-              <label>Subtitle</label>
-              <input type="text" id="headingCh7Sub" class="form-input" value="Milestones of recognition, awards, and breakthroughs celebrating your impact.">
-            </div>
-          </div>
-
-          <div class="admin-dynamic-item">
-            <div class="admin-item-num">CHAMBER VIII • THE FUTURE & WISHES</div>
-            <div class="form-group" style="margin-top:6px;">
-              <label>Anniversary Message</label>
-              <textarea id="headingCh6Wish" class="form-input form-textarea" rows="2">To a year defined by bold initiatives, late-night breakthroughs, and continuous excellence. Happy 1st Work Anniversary!</textarea>
-            </div>
-          </div>
         </div>
       </div>
 
@@ -17055,6 +17079,59 @@
       });
     }
 
+    // Mapping of chamber ID to its dedicated tab heading and nav label inputs
+    const CHAMBER_TAB_INPUT_MAP = {
+      'chamber-milestone': { titleId: 'adminCelebTitle', navId: 'adminCelebNav' },
+      'chamber-0': { titleId: 'adminMilestonesRoomTitle', navId: 'adminMilestonesRoomNav' },
+      'chamber-1': { titleId: 'adminSkillsRoomTitle', navId: 'adminSkillsRoomNav' },
+      'chamber-2b': { titleId: 'adminProjectsRoomTitle', navId: 'adminProjectsRoomNav' },
+      'chamber-memories-2': { titleId: 'adminMemoriesRoomTitle', navId: 'adminMemoriesRoomNav' },
+      'chamber-values': { titleId: 'adminValuesRoomTitle', navId: 'adminValuesRoomNav' },
+      'chamber-3': { titleId: 'adminNotesRoomTitle', navId: 'adminNotesRoomNav' },
+      'chamber-4': { titleId: 'adminProudRoomTitle', navId: 'adminProudRoomNav' },
+      'chamber-5': { titleId: 'adminFutureTitle', navId: 'adminFutureNav' },
+      'chamber-thankyou': { titleId: 'adminThankYouTitle', navId: 'adminThankYouNav' }
+    };
+
+    function setupChamberTabHeadingListeners() {
+      Object.entries(CHAMBER_TAB_INPUT_MAP).forEach(([chamberId, map]) => {
+        const tInp = document.getElementById(map.titleId);
+        const nInp = document.getElementById(map.navId);
+        if (tInp && !tInp.dataset.boundSync) {
+          tInp.dataset.boundSync = 'true';
+          tInp.addEventListener('input', (e) => {
+            const r = (palaceState.chambers || []).find(c => c.id === chamberId);
+            if (r) {
+              r.title = e.target.value;
+              if (chamberId === 'chamber-milestone' && palaceState.celebration) {
+                palaceState.celebration.title = e.target.value;
+              }
+              if (chamberId === 'chamber-thankyou' && palaceState.thankYou) {
+                palaceState.thankYou.title = e.target.value;
+              }
+              syncPalaceNavigation();
+              persistPalaceState();
+              const ovInp = document.querySelector(`.room-input-title[data-id="${chamberId}"]`);
+              if (ovInp && ovInp.value !== e.target.value) ovInp.value = e.target.value;
+            }
+          });
+        }
+        if (nInp && !nInp.dataset.boundSync) {
+          nInp.dataset.boundSync = 'true';
+          nInp.addEventListener('input', (e) => {
+            const r = (palaceState.chambers || []).find(c => c.id === chamberId);
+            if (r) {
+              r.navLabel = e.target.value;
+              syncPalaceNavigation();
+              persistPalaceState();
+              const ovInp = document.querySelector(`.room-input-navlabel[data-id="${chamberId}"]`);
+              if (ovInp && ovInp.value !== e.target.value) ovInp.value = e.target.value;
+            }
+          });
+        }
+      });
+    }
+
     // Render Admin Rooms Manager tab content
     function renderAdminRoomsManager() {
       const container = document.getElementById('adminRoomsList');
@@ -17138,10 +17215,6 @@
                 <input type="text" class="form-input room-input-navlabel" data-id="${c.id}" value="${escapeHtml(c.navLabel || '')}" placeholder="Nav Label">
               </div>
             </div>
-            <div class="form-group" style="margin-top: 6px;">
-              <label>Subtitle / Description</label>
-              <input type="text" class="form-input room-input-sub" data-id="${c.id}" value="${escapeHtml(c.sub || '')}" placeholder="Room Subtitle">
-            </div>
 
             <div class="room-card-footer">
               ${c.tabTarget ? `
@@ -17165,8 +17238,15 @@
           const r = palaceState.chambers.find(c => c.id === id);
           if (r) {
             r.title = e.target.value;
+            if (id === 'chamber-milestone' && palaceState.celebration) palaceState.celebration.title = e.target.value;
+            if (id === 'chamber-thankyou' && palaceState.thankYou) palaceState.thankYou.title = e.target.value;
             syncPalaceNavigation();
             persistPalaceState();
+            const map = CHAMBER_TAB_INPUT_MAP[id];
+            if (map) {
+              const tabInp = document.getElementById(map.titleId);
+              if (tabInp && tabInp.value !== e.target.value) tabInp.value = e.target.value;
+            }
           }
         });
       });
@@ -17178,17 +17258,11 @@
             r.navLabel = e.target.value;
             syncPalaceNavigation();
             persistPalaceState();
-          }
-        });
-      });
-      container.querySelectorAll('.room-input-sub').forEach(inp => {
-        inp.addEventListener('input', (e) => {
-          const id = e.target.dataset.id;
-          const r = palaceState.chambers.find(c => c.id === id);
-          if (r) {
-            r.sub = e.target.value;
-            syncPalaceNavigation();
-            persistPalaceState();
+            const map = CHAMBER_TAB_INPUT_MAP[id];
+            if (map) {
+              const tabInp = document.getElementById(map.navId);
+              if (tabInp && tabInp.value !== e.target.value) tabInp.value = e.target.value;
+            }
           }
         });
       });
@@ -21891,9 +21965,9 @@
       }
       stagedPhotoData = null;
 
-      adminCelebTitle.value = celeb.title || "Celebrating Your First Year";
-      adminCelebSub.value = celeb.sub || "With Uffizio";
-      adminCelebQuote.value = celeb.quote || "“One year ago, a new chapter began. Today, we celebrate everything that made it meaningful.”";
+      if (adminCelebTitle) adminCelebTitle.value = celeb.title || "Celebrating Your First Year";
+      if (adminCelebSub) adminCelebSub.value = celeb.sub || "With Uffizio";
+      if (adminCelebQuote) adminCelebQuote.value = celeb.quote || "“One year ago, a new chapter began. Today, we celebrate everything that made it meaningful.”";
 
       renderAdminMilestonesList();
       populateAdminEvolution();
@@ -21948,15 +22022,17 @@
       populateAdminEntrance();
       renderAdminRoomsManager();
 
-      if (document.getElementById('headingCh1Title')) document.getElementById('headingCh1Title').value = cs.ch1Title || "Where Your Journey Began";
-      if (document.getElementById('headingCh1Sub')) document.getElementById('headingCh1Sub').value = cs.ch1Sub || "The beginning of your journey";
-      if (document.getElementById('headingCh2Title')) document.getElementById('headingCh2Title').value = cs.ch2Title || "What You Learned";
-      if (document.getElementById('headingCh2Sub')) document.getElementById('headingCh2Sub').value = cs.ch2Sub || "The breakthrough moments, technical mastery, and skills forged through dedication.";
-      if (document.getElementById('headingCh3Title')) document.getElementById('headingCh3Title').value = cs.ch3Title || "What You Created";
-      if (document.getElementById('headingCh3Sub')) document.getElementById('headingCh3Sub').value = cs.ch3Sub || "The achievements shipped, architectures scaled, and client milestones delivered.";
-      if (document.getElementById('headingCh4Title')) document.getElementById('headingCh4Title').value = cs.ch4Title || "The People & Bonds";
-      if (document.getElementById('headingCh4Sub')) document.getElementById('headingCh4Sub').value = cs.ch4Sub || "Warm words, memories, and shared laughs with the team who walked with you.";
-      if (document.getElementById('headingCh6Wish')) document.getElementById('headingCh6Wish').value = cs.ch6Wish || "To a year defined by bold initiatives, late-night breakthroughs, and continuous excellence. Happy 1st Work Anniversary!";
+      // Populate individual chamber tab heading & navlabel inputs directly from palaceState.chambers
+      (palaceState.chambers || []).forEach(c => {
+        const map = CHAMBER_TAB_INPUT_MAP[c.id];
+        if (map) {
+          const tInp = document.getElementById(map.titleId);
+          const nInp = document.getElementById(map.navId);
+          if (tInp) tInp.value = c.title || '';
+          if (nInp) nInp.value = c.navLabel || '';
+        }
+      });
+      setupChamberTabHeadingListeners();
 
       adminStatusMsg.textContent = "";
     }
@@ -22185,7 +22261,7 @@
 
         const title = titleInput.value.trim() || "New Palace Chamber";
         const navLabel = navInput.value.trim() || title.substring(0, 12);
-        const sub = subInput.value.trim() || "A newly added milestone in your palace journey.";
+        const sub = (subInput ? subInput.value.trim() : "") || "A newly added milestone in your palace journey.";
 
         const newId = 'chamber-custom-' + Date.now();
         const newRoom = {
@@ -22275,9 +22351,9 @@
 
         palaceState.employee = { name, role, date, photo, years };
         palaceState.celebration = {
-          title: adminCelebTitle.value.trim() || "Celebrating Your First Year",
-          sub: adminCelebSub.value.trim() || "With Uffizio",
-          quote: adminCelebQuote.value.trim() || "“One year ago, a new chapter began. Today, we celebrate everything that made it meaningful.”"
+          title: (adminCelebTitle ? adminCelebTitle.value.trim() : "") || (palaceState.celebration && palaceState.celebration.title) || "Celebrating Your First Year",
+          sub: (adminCelebSub ? adminCelebSub.value.trim() : "") || (palaceState.celebration && palaceState.celebration.sub) || "With Uffizio",
+          quote: (adminCelebQuote ? adminCelebQuote.value.trim() : "") || (palaceState.celebration && palaceState.celebration.quote) || "“One year ago, a new chapter began. Today, we celebrate everything that made it meaningful.”"
         };
 
         // First Screen / Entrance & Door wings
@@ -22629,24 +22705,34 @@
           }
         }
 
-        // Collect Chamber Placards & sync with Rooms Manager
+        // Collect Chamber Placards & Nav Labels directly from each chamber tab
+        Object.entries(CHAMBER_TAB_INPUT_MAP).forEach(([chamberId, map]) => {
+          const tInp = document.getElementById(map.titleId);
+          const nInp = document.getElementById(map.navId);
+          const r = (palaceState.chambers || []).find(c => c.id === chamberId);
+          if (r) {
+            if (tInp && tInp.value.trim()) r.title = tInp.value.trim();
+            if (nInp && nInp.value.trim()) r.navLabel = nInp.value.trim();
+          }
+        });
+
         const c0 = palaceState.chambers.find(c => c.id === 'chamber-0');
         const c1 = palaceState.chambers.find(c => c.id === 'chamber-1');
         const c2b = palaceState.chambers.find(c => c.id === 'chamber-2b');
         const c3 = palaceState.chambers.find(c => c.id === 'chamber-3');
 
         palaceState.chamberStories = {
-          ch1Title: (c0 && c0.title) ? c0.title : (document.getElementById('headingCh1Title') ? document.getElementById('headingCh1Title').value.trim() : "Where Your Journey Began"),
-          ch1Sub: (c0 && c0.sub !== undefined) ? c0.sub : (document.getElementById('headingCh1Sub') ? document.getElementById('headingCh1Sub').value.trim() : ""),
-          ch2Title: (c1 && c1.title) ? c1.title : (document.getElementById('headingCh2Title') ? document.getElementById('headingCh2Title').value.trim() : "What You Learned"),
-          ch2Sub: (c1 && c1.sub !== undefined) ? c1.sub : (document.getElementById('headingCh2Sub') ? document.getElementById('headingCh2Sub').value.trim() : ""),
-          ch3Title: (c2b && c2b.title) ? c2b.title : (document.getElementById('headingCh3Title') ? document.getElementById('headingCh3Title').value.trim() : "Building Impact Through Innovation"),
-          ch3Sub: (c2b && c2b.sub !== undefined) ? c2b.sub : (document.getElementById('headingCh3Sub') ? document.getElementById('headingCh3Sub').value.trim() : "Expanding horizons, specialized solutions, and next-level contributions."),
-          ch2bTitle: (c2b && c2b.title) ? c2b.title : "Building Impact Through Innovation",
-          ch2bSub: (c2b && c2b.sub !== undefined) ? c2b.sub : "Expanding horizons, specialized solutions, and next-level contributions.",
-          ch4Title: (c3 && c3.title) ? c3.title : (document.getElementById('headingCh4Title') ? document.getElementById('headingCh4Title').value.trim() : "The People & Bonds"),
-          ch4Sub: (c3 && c3.sub !== undefined) ? c3.sub : (document.getElementById('headingCh4Sub') ? document.getElementById('headingCh4Sub').value.trim() : ""),
-          ch6Wish: document.getElementById('headingCh6Wish') ? document.getElementById('headingCh6Wish').value.trim() : ""
+          ch1Title: (c0 && c0.title) || "Where Your Journey Began",
+          ch1Sub: "",
+          ch2Title: (c1 && c1.title) || "What You Learned",
+          ch2Sub: "",
+          ch3Title: (c2b && c2b.title) || "Building Impact Through Innovation",
+          ch3Sub: "",
+          ch2bTitle: (c2b && c2b.title) || "Building Impact Through Innovation",
+          ch2bSub: "",
+          ch4Title: (c3 && c3.title) || "The People & Bonds",
+          ch4Sub: "",
+          ch6Wish: ""
         };
 
         // Persist to localStorage & IndexedDB
@@ -22689,29 +22775,29 @@
           const empName = (palaceState.employee && palaceState.employee.name) || "Employee";
           
           if (tier === '1yr') {
-            adminCelebTitle.value = "Celebrating Your First Year";
-            adminCelebSub.value = "With Uffizio";
-            adminCelebQuote.value = "“One year ago, a new chapter began. Today, we celebrate everything that made it meaningful.”";
+            if (adminCelebTitle) adminCelebTitle.value = "Celebrating Your First Year";
+            if (adminCelebSub) adminCelebSub.value = "With Uffizio";
+            if (adminCelebQuote) adminCelebQuote.value = "“One year ago, a new chapter began. Today, we celebrate everything that made it meaningful.”";
           } else if (tier === '3yr') {
-            adminCelebTitle.value = "Celebrating 3 Remarkable Years";
-            adminCelebSub.value = "Core Pillar • With Uffizio";
-            adminCelebQuote.value = "“Three years of building trust, mastering challenges, and shaping success together.”";
+            if (adminCelebTitle) adminCelebTitle.value = "Celebrating 3 Remarkable Years";
+            if (adminCelebSub) adminCelebSub.value = "Core Pillar • With Uffizio";
+            if (adminCelebQuote) adminCelebQuote.value = "“Three years of building trust, mastering challenges, and shaping success together.”";
           } else if (tier === '5yr') {
-            adminCelebTitle.value = "Celebrating Half a Decade of Impact";
-            adminCelebSub.value = "5 Years of Leadership • With Uffizio";
-            adminCelebQuote.value = "“Five years of passion, vision, and guiding our journey forward.”";
+            if (adminCelebTitle) adminCelebTitle.value = "Celebrating Half a Decade of Impact";
+            if (adminCelebSub) adminCelebSub.value = "5 Years of Leadership • With Uffizio";
+            if (adminCelebQuote) adminCelebQuote.value = "“Five years of passion, vision, and guiding our journey forward.”";
           } else if (tier === '10yr') {
-            adminCelebTitle.value = "Celebrating A Decade of Excellence";
-            adminCelebSub.value = "10 Years of Timeless Impact & Legacy";
-            adminCelebQuote.value = "“A decade of loyalty, brilliance, and being an unbreakable pillar of Uffizio.”";
+            if (adminCelebTitle) adminCelebTitle.value = "Celebrating A Decade of Excellence";
+            if (adminCelebSub) adminCelebSub.value = "10 Years of Timeless Impact & Legacy";
+            if (adminCelebQuote) adminCelebQuote.value = "“A decade of loyalty, brilliance, and being an unbreakable pillar of Uffizio.”";
           } else if (tier === '15yr') {
-            adminCelebTitle.value = "Celebrating 15 Years of Sovereign Leadership";
-            adminCelebSub.value = "Architect of Our Success & Culture";
-            adminCelebQuote.value = "“Fifteen years of forging paths, inspiring generations, and building our foundation.”";
+            if (adminCelebTitle) adminCelebTitle.value = "Celebrating 15 Years of Sovereign Leadership";
+            if (adminCelebSub) adminCelebSub.value = "Architect of Our Success & Culture";
+            if (adminCelebQuote) adminCelebQuote.value = "“Fifteen years of forging paths, inspiring generations, and building our foundation.”";
           } else if (tier === '20yr') {
-            adminCelebTitle.value = "Honoring Two Decades of Timeless Heritage";
-            adminCelebSub.value = "20 Years of Invaluable Dedication With Uffizio";
-            adminCelebQuote.value = "“Twenty years of extraordinary dedication, enduring wisdom, and a legacy that inspires us all.”";
+            if (adminCelebTitle) adminCelebTitle.value = "Honoring Two Decades of Timeless Heritage";
+            if (adminCelebSub) adminCelebSub.value = "20 Years of Invaluable Dedication With Uffizio";
+            if (adminCelebQuote) adminCelebQuote.value = "“Twenty years of extraordinary dedication, enduring wisdom, and a legacy that inspires us all.”";
           }
           
           alert(`✨ Titles and quotes for ${tier.toUpperCase()} milestone have been automatically set!`);
