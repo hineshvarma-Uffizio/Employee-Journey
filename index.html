@@ -139,7 +139,7 @@
     "years": "2025 → 2026"
   },
   "celebration": {
-    "title": "Celebrating Your First Year",
+    "title": "Celebrating Your First Year With Uffizio",
     "sub": "With Uffizio",
     "quote": "“One year ago, a new chapter began. Today, we celebrate everything that made it meaningful.”"
   },
@@ -2537,6 +2537,7 @@
       margin-bottom: 0;
       letter-spacing: 0.8px;
       text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+      white-space: pre-line;
     }
 
     .doorway-main-title span {
@@ -3061,12 +3062,13 @@
     /* Main Heading */
     .celebration-main-title {
       font-family: var(--font-heading);
-      font-size: 45px;
+      font-size: clamp(26px, 2.7vw, 42px);
       font-weight: 700;
-      line-height: 1.2;
+      line-height: 1.25;
       color: #ffffff;
       margin-bottom: 10px;
       letter-spacing: 1px;
+      white-space: pre-line;
     }
 
     .celebration-main-title span {
@@ -10781,9 +10783,7 @@
 
                 <!-- Editorial Typography: Title & Employee Name -->
                 <div class="doorway-editorial-wrap">
-                  <h2 class="doorway-main-title">
-                    Celebrating Your First Year<br><span>With Uffizio</span>
-                  </h2>
+                  <h2 class="doorway-main-title">Celebrating Your First Year With Uffizio</h2>
                   <div class="doorway-emp-name" id="doorwayEmpName">Dhara Patel</div>
                 </div>
 
@@ -10855,9 +10855,7 @@
           <div class="celebration-content-column">
             
             <!-- Main Heading -->
-            <h1 class="celebration-main-title">
-              Celebrating Your First Year<br><span>With Uffizio</span>
-            </h1>
+            <h1 class="celebration-main-title">Celebrating Your First Year With Uffizio</h1>
 
             <!-- Employee Name -->
             <div class="celebration-employee-name" id="celebrationEmpName">Dhara Patel</div>
@@ -11524,7 +11522,7 @@
 
       <!-- Tab 0: Rooms Manager (Show / Hide, Add, Reorder & Edit Rooms) -->
       <div class="admin-tab-content active" id="tab-rooms">
-        <div class="rooms-manager-header" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:8px;">
+        <div class="rooms-manager-header" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; flex-wrap:wrap; gap:8px;">
           <div>
             <h4 style="font-size: 14px; font-weight: 700; color: #fff; margin: 0;">Palace Chambers & Visibility</h4>
           </div>
@@ -11533,6 +11531,9 @@
             <button type="button" class="btn-subtle-reset" id="btnResetRoomsDefault" title="Reset all chambers to palace default" style="padding:6px 10px; font-size:12px;">🔄 Reset Rooms</button>
           </div>
         </div>
+        <p style="font-size: 12px; color: #94a3b8; margin: 0 0 12px 0; line-height: 1.5;">
+          ℹ️ Manage room visibility (Show / Hide) and order here. Each room's <strong>Heading & Floorplan Label</strong> is edited directly inside its dedicated chamber tab above.
+        </p>
 
         <!-- Summary & Visibility Overview Bar -->
         <div class="rooms-visibility-summary" id="roomsVisibilitySummary">
@@ -11733,7 +11734,7 @@
           <div style="display:grid; grid-template-columns: 2fr 1fr; gap:10px;">
             <div class="form-group" style="margin:0;">
               <label for="adminCelebTitle">Room Heading (Stage 1)</label>
-              <input type="text" id="adminCelebTitle" class="form-input" value="Celebrating Your First Year With Uffizio">
+              <textarea id="adminCelebTitle" class="form-input form-textarea" rows="2" style="resize:vertical; min-height:44px; padding:8px 10px; font-family:inherit;" placeholder="Celebrating Your First Year With Uffizio">Celebrating Your First Year With Uffizio</textarea>
             </div>
             <div class="form-group" style="margin:0;">
               <label for="adminCelebNav">Bottom Floorplan Label</label>
@@ -13150,7 +13151,7 @@
         "years": "2025 → 2026"
       },
       "celebration": {
-        "title": "Celebrating Your First Year",
+        "title": "Celebrating Your First Year With Uffizio",
         "sub": "With Uffizio",
         "quote": "“One year ago, a new chapter began. Today, we celebrate everything that made it meaningful.”"
       },
@@ -16919,7 +16920,13 @@
               }
             }
             if (descEl) descEl.textContent = c.sub || '';
-          } else if (c.id !== 'chamber-milestone') {
+          } else if (c.id === 'chamber-milestone') {
+            const formatted = typeof escapeHtml === 'function' ? escapeHtml(c.title || '').replace(/\r?\n/g, '<br>') : (c.title || '').replace(/\r?\n/g, '<br>');
+            const cTitle = el.querySelector('.celebration-main-title');
+            if (cTitle) cTitle.innerHTML = formatted;
+            const dTitle = document.querySelector('.doorway-main-title');
+            if (dTitle) dTitle.innerHTML = formatted;
+          } else {
             if (titleEl) titleEl.textContent = c.title;
             if (descEl) descEl.textContent = c.sub || '';
           }
@@ -17103,14 +17110,21 @@
             const r = (palaceState.chambers || []).find(c => c.id === chamberId);
             if (r) {
               r.title = e.target.value;
-              if (chamberId === 'chamber-milestone' && palaceState.celebration) {
-                palaceState.celebration.title = e.target.value;
+              if (chamberId === 'chamber-milestone') {
+                if (palaceState.celebration) palaceState.celebration.title = e.target.value;
+                const formatted = typeof escapeHtml === 'function' ? escapeHtml(e.target.value).replace(/\r?\n/g, '<br>') : e.target.value.replace(/\r?\n/g, '<br>');
+                const cTitle = document.querySelector('.celebration-main-title');
+                if (cTitle) cTitle.innerHTML = formatted;
+                const dTitle = document.querySelector('.doorway-main-title');
+                if (dTitle) dTitle.innerHTML = formatted;
               }
               if (chamberId === 'chamber-thankyou' && palaceState.thankYou) {
                 palaceState.thankYou.title = e.target.value;
               }
               syncPalaceNavigation();
               persistPalaceState();
+              const ovHeading = document.querySelector(`.admin-room-card[data-room-id="${chamberId}"] .room-display-heading`);
+              if (ovHeading) ovHeading.textContent = e.target.value;
               const ovInp = document.querySelector(`.room-input-title[data-id="${chamberId}"]`);
               if (ovInp && ovInp.value !== e.target.value) ovInp.value = e.target.value;
             }
@@ -17124,6 +17138,8 @@
               r.navLabel = e.target.value;
               syncPalaceNavigation();
               persistPalaceState();
+              const ovNav = document.querySelector(`.admin-room-card[data-room-id="${chamberId}"] .room-display-navlabel`);
+              if (ovNav) ovNav.textContent = e.target.value;
               const ovInp = document.querySelector(`.room-input-navlabel[data-id="${chamberId}"]`);
               if (ovInp && ovInp.value !== e.target.value) ovInp.value = e.target.value;
             }
@@ -17205,21 +17221,34 @@
               </div>
             ` : ''}
 
-            <div class="room-card-fields">
-              <div class="form-group">
-                <label>Room Title (Placard & Header)</label>
-                <input type="text" class="form-input room-input-title" data-id="${c.id}" value="${escapeHtml(c.title || '')}" placeholder="Room Title">
+            <div class="room-card-display-info" style="margin: 8px 0 12px; padding: 10px 14px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 8px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+              <div>
+                <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.8px; color: var(--gold-light); font-weight: 700; margin-bottom: 2px;">Room Heading</div>
+                <div class="room-display-heading" style="font-size: 14px; font-weight: 600; color: #ffffff;">${escapeHtml(c.title || 'Untitled Chamber')}</div>
               </div>
-              <div class="form-group">
-                <label>Bottom Floorplan Label</label>
-                <input type="text" class="form-input room-input-navlabel" data-id="${c.id}" value="${escapeHtml(c.navLabel || '')}" placeholder="Nav Label">
+              <div style="text-align: right;">
+                <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.8px; color: #94a3b8; font-weight: 600; margin-bottom: 2px;">Floorplan Label</div>
+                <span class="room-display-navlabel" style="display: inline-block; font-size: 12px; font-weight: 600; color: var(--gold-primary); background: rgba(245,192,101,0.12); padding: 2px 8px; border-radius: 4px; border: 1px solid rgba(245,192,101,0.25);">${escapeHtml(c.navLabel || '')}</span>
               </div>
             </div>
 
+            ${!c.tabTarget ? `
+              <div class="room-card-fields">
+                <div class="form-group">
+                  <label>Room Title (Placard & Header)</label>
+                  <input type="text" class="form-input room-input-title" data-id="${c.id}" value="${escapeHtml(c.title || '')}" placeholder="Room Title">
+                </div>
+                <div class="form-group">
+                  <label>Bottom Floorplan Label</label>
+                  <input type="text" class="form-input room-input-navlabel" data-id="${c.id}" value="${escapeHtml(c.navLabel || '')}" placeholder="Nav Label">
+                </div>
+              </div>
+            ` : ''}
+
             <div class="room-card-footer">
               ${c.tabTarget ? `
-                <button type="button" class="btn-room-edit-content" onclick="window.switchAdminTab('${c.tabTarget}')">
-                  ✏️ Edit ${c.navLabel} Content ›
+                <button type="button" class="btn-room-edit-content" onclick="window.switchAdminTab('${c.tabTarget}')" style="display:flex; align-items:center; justify-content:center; gap:6px; width:100%; padding:9px 14px; font-weight:600; background:rgba(245,192,101,0.08); border:1px solid rgba(245,192,101,0.25); color:var(--gold-light); border-radius:6px; cursor:pointer; transition:all 0.2s;">
+                  ✏️ Edit Headings & Content in ${typeLabels[c.type] || c.navLabel} Tab ›
                 </button>
               ` : `
                 <button type="button" class="btn-room-edit-content" onclick="window.previewRoomStage('${c.id}')" ${!isEnabled ? 'disabled style="opacity:0.4; cursor:not-allowed;"' : ''}>
@@ -19074,9 +19103,13 @@
       if (doorwayEmpName) doorwayEmpName.textContent = emp.name;
       const doorwayPortraitImg = document.getElementById('doorwayPortraitImg');
       if (doorwayPortraitImg && emp.photo) doorwayPortraitImg.src = emp.photo;
+      const c0Celeb = (palaceState.chambers || []).find(c => c.id === 'chamber-milestone');
+      const celebRawTitle = (c0Celeb && c0Celeb.title) || (celeb && celeb.title) || 'Celebrating Your First Year With Uffizio';
+      const formattedCelebTitle = typeof escapeHtml === 'function' ? escapeHtml(celebRawTitle).replace(/\r?\n/g, '<br>') : celebRawTitle.replace(/\r?\n/g, '<br>');
+
       const doorwayMainTitle = document.querySelector('.doorway-main-title');
-      if (doorwayMainTitle && celeb.title) {
-        doorwayMainTitle.innerHTML = `${celeb.title}<br><span>${celeb.sub || 'With Uffizio'}</span>`;
+      if (doorwayMainTitle) {
+        doorwayMainTitle.innerHTML = formattedCelebTitle;
       }
 
       // Celebration Screen
@@ -19085,8 +19118,8 @@
       const celebrationPortraitImg = document.getElementById('celebrationPortraitImg');
       if (celebrationPortraitImg && emp.photo) celebrationPortraitImg.src = emp.photo;
       const celebMainTitle = document.querySelector('.celebration-main-title');
-      if (celebMainTitle && celeb.title) {
-        celebMainTitle.innerHTML = `${celeb.title}<br><span>${celeb.sub || 'With Uffizio'}</span>`;
+      if (celebMainTitle) {
+        celebMainTitle.innerHTML = formattedCelebTitle;
       }
       const celebQuote = document.querySelector('.celebration-quote-text');
       if (celebQuote && celeb.quote) celebQuote.textContent = celeb.quote;
@@ -21965,7 +21998,7 @@
       }
       stagedPhotoData = null;
 
-      if (adminCelebTitle) adminCelebTitle.value = celeb.title || "Celebrating Your First Year";
+      if (adminCelebTitle) adminCelebTitle.value = celeb.title || "Celebrating Your First Year With Uffizio";
       if (adminCelebSub) adminCelebSub.value = celeb.sub || "With Uffizio";
       if (adminCelebQuote) adminCelebQuote.value = celeb.quote || "“One year ago, a new chapter began. Today, we celebrate everything that made it meaningful.”";
 
@@ -22351,7 +22384,7 @@
 
         palaceState.employee = { name, role, date, photo, years };
         palaceState.celebration = {
-          title: (adminCelebTitle ? adminCelebTitle.value.trim() : "") || (palaceState.celebration && palaceState.celebration.title) || "Celebrating Your First Year",
+          title: (adminCelebTitle ? adminCelebTitle.value.trim() : "") || (palaceState.celebration && palaceState.celebration.title) || "Celebrating Your First Year With Uffizio",
           sub: (adminCelebSub ? adminCelebSub.value.trim() : "") || (palaceState.celebration && palaceState.celebration.sub) || "With Uffizio",
           quote: (adminCelebQuote ? adminCelebQuote.value.trim() : "") || (palaceState.celebration && palaceState.celebration.quote) || "“One year ago, a new chapter began. Today, we celebrate everything that made it meaningful.”"
         };
@@ -22713,6 +22746,9 @@
           if (r) {
             if (tInp && tInp.value.trim()) r.title = tInp.value.trim();
             if (nInp && nInp.value.trim()) r.navLabel = nInp.value.trim();
+            if (chamberId === 'chamber-milestone' && palaceState.celebration && tInp) {
+              palaceState.celebration.title = tInp.value.trim();
+            }
           }
         });
 
@@ -22775,27 +22811,27 @@
           const empName = (palaceState.employee && palaceState.employee.name) || "Employee";
           
           if (tier === '1yr') {
-            if (adminCelebTitle) adminCelebTitle.value = "Celebrating Your First Year";
+            if (adminCelebTitle) adminCelebTitle.value = "Celebrating Your First Year With Uffizio";
             if (adminCelebSub) adminCelebSub.value = "With Uffizio";
             if (adminCelebQuote) adminCelebQuote.value = "“One year ago, a new chapter began. Today, we celebrate everything that made it meaningful.”";
           } else if (tier === '3yr') {
-            if (adminCelebTitle) adminCelebTitle.value = "Celebrating 3 Remarkable Years";
+            if (adminCelebTitle) adminCelebTitle.value = "Celebrating 3 Remarkable Years With Uffizio";
             if (adminCelebSub) adminCelebSub.value = "Core Pillar • With Uffizio";
             if (adminCelebQuote) adminCelebQuote.value = "“Three years of building trust, mastering challenges, and shaping success together.”";
           } else if (tier === '5yr') {
-            if (adminCelebTitle) adminCelebTitle.value = "Celebrating Half a Decade of Impact";
+            if (adminCelebTitle) adminCelebTitle.value = "Celebrating Half a Decade of Impact With Uffizio";
             if (adminCelebSub) adminCelebSub.value = "5 Years of Leadership • With Uffizio";
             if (adminCelebQuote) adminCelebQuote.value = "“Five years of passion, vision, and guiding our journey forward.”";
           } else if (tier === '10yr') {
-            if (adminCelebTitle) adminCelebTitle.value = "Celebrating A Decade of Excellence";
+            if (adminCelebTitle) adminCelebTitle.value = "Celebrating A Decade of Excellence With Uffizio";
             if (adminCelebSub) adminCelebSub.value = "10 Years of Timeless Impact & Legacy";
             if (adminCelebQuote) adminCelebQuote.value = "“A decade of loyalty, brilliance, and being an unbreakable pillar of Uffizio.”";
           } else if (tier === '15yr') {
-            if (adminCelebTitle) adminCelebTitle.value = "Celebrating 15 Years of Sovereign Leadership";
+            if (adminCelebTitle) adminCelebTitle.value = "Celebrating 15 Years of Sovereign Leadership With Uffizio";
             if (adminCelebSub) adminCelebSub.value = "Architect of Our Success & Culture";
             if (adminCelebQuote) adminCelebQuote.value = "“Fifteen years of forging paths, inspiring generations, and building our foundation.”";
           } else if (tier === '20yr') {
-            if (adminCelebTitle) adminCelebTitle.value = "Honoring Two Decades of Timeless Heritage";
+            if (adminCelebTitle) adminCelebTitle.value = "Honoring Two Decades of Timeless Heritage With Uffizio";
             if (adminCelebSub) adminCelebSub.value = "20 Years of Invaluable Dedication With Uffizio";
             if (adminCelebQuote) adminCelebQuote.value = "“Twenty years of extraordinary dedication, enduring wisdom, and a legacy that inspires us all.”";
           }
