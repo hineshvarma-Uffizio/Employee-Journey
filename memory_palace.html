@@ -8730,6 +8730,38 @@
         height: 380px;
         padding: 18px;
       }
+
+      /* Modern Chambers Tablet Overrides (1024px) */
+      .creations-split-container {
+        gap: 20px;
+        max-width: 940px;
+      }
+      .split-creation-card {
+        min-height: 84px;
+      }
+      .creations-common-image-card {
+        min-height: 320px;
+      }
+      .memories2-uneven-stage {
+        max-height: calc(100vh - 160px);
+        max-height: calc(100dvh - 160px);
+        overflow-y: auto;
+      }
+      .values-orbital-stage {
+        gap: 22px;
+        max-width: 940px;
+      }
+      .future-board {
+        gap: 20px;
+      }
+      .future-artwork-container {
+        height: 340px;
+      }
+      #chamber-thankyou .chamber-content {
+        max-height: calc(100vh - 150px);
+        max-height: calc(100dvh - 150px);
+        overflow-y: auto;
+      }
     }
 
     /* --------------------------------------------------------------------------
@@ -8942,7 +8974,73 @@
         font-size: 15px;
       }
 
-      /* Room 03: What You Created (Vertical Stacking) */
+      /* Room 03: What You Created (Part 2 - Split Showcase & Impact) */
+      .creations-split-container {
+        display: flex;
+        flex-direction: column-reverse;
+        gap: 14px;
+        width: 100%;
+        height: 100%;
+        max-height: none;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        padding: 4px 2px 24px 2px;
+      }
+      .creations-split-left {
+        width: 100%;
+        min-height: auto;
+        height: auto;
+        flex: 0 0 auto;
+      }
+      .creations-split-cards-grid {
+        width: 100%;
+        min-height: auto;
+        height: auto;
+        gap: 10px;
+        overflow: visible;
+        max-height: none;
+      }
+      .split-creation-card {
+        width: 100%;
+        min-height: 76px;
+        max-height: none;
+        padding: 0;
+        border-radius: 12px;
+      }
+      .split-card-icon-col {
+        width: 52px;
+        min-width: 52px;
+      }
+      .split-card-icon-svg {
+        width: 24px;
+        height: 24px;
+      }
+      .split-card-content-col {
+        padding: 10px 14px;
+      }
+      .split-creation-card .split-card-title {
+        font-size: 14.5px;
+        line-height: 1.35;
+      }
+      .creations-split-right {
+        width: 100%;
+        flex: 0 0 auto;
+      }
+      .creations-common-image-card {
+        min-height: 180px;
+        max-height: 220px;
+        border-radius: 14px;
+      }
+      .common-img-frame {
+        height: 180px;
+        border-radius: 12px;
+      }
+      .common-showcase-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      /* Legacy Room 03 Support */
       .room-created {
         flex-direction: column;
         gap: 12px;
@@ -9001,7 +9099,7 @@
         font-size: 12px;
       }
 
-      /* Room 04: People & Bonds (Vertical Stacking) */
+      /* Room 04: People & Bonds (Team Sticky Notes) */
       .room-people {
         flex-direction: column;
         gap: 12px;
@@ -9010,7 +9108,7 @@
         overflow-y: auto;
         -webkit-overflow-scrolling: touch;
         justify-content: flex-start;
-        padding: 8px 6px;
+        padding: 6px 4px 24px 4px;
       }
       .team-wall-board {
         width: 100% !important;
@@ -9018,34 +9116,35 @@
         height: auto !important;
         min-height: unset !important;
         max-height: none !important;
-        padding: 18px 12px !important;
+        padding: 16px 10px !important;
         overflow: visible !important;
       }
       .wall-sticky-canvas {
         grid-template-columns: repeat(2, 1fr) !important;
         gap: 12px !important;
-        padding: 8px 4px !important;
+        padding: 6px 2px !important;
         overflow: visible !important;
       }
       .sticky-note {
-        min-height: 210px;
-        padding: 16px 14px 14px 14px;
-        font-size: 16px;
+        min-height: 190px;
+        padding: 14px 12px 12px 12px;
+        font-size: 15px;
       }
       .sticky-note p,
       .sticky-note-text {
-        font-size: 16px;
+        font-size: 15px;
+        line-height: 1.45;
       }
       .note-author-avatar-wrap,
       .note-author-avatar {
-        width: 50px;
-        height: 50px;
+        width: 44px;
+        height: 44px;
       }
       .note-author-name {
-        font-size: 13.5px;
+        font-size: 13px;
       }
       .note-author-role {
-        font-size: 12px;
+        font-size: 11.5px;
       }
       @media (max-width: 540px) {
         .wall-sticky-canvas {
@@ -9054,7 +9153,45 @@
         }
       }
 
-      /* Room 05: Photo Collage */
+      /* Room 05: Annual Memories Collage (Part 2 & Legacy) */
+      .memories2-uneven-stage {
+        width: 100%;
+        height: 100%;
+        max-height: calc(100vh - 140px);
+        max-height: calc(100dvh - 140px);
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        padding: 8px 4px 24px 4px;
+      }
+      .memories-scatter-board {
+        display: grid !important;
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)) !important;
+        gap: 12px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 6px !important;
+        position: static !important;
+        transform: none !important;
+      }
+      .memories-scatter-frame {
+        position: static !important;
+        width: 100% !important;
+        margin: 0 !important;
+        transform: none !important;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4) !important;
+      }
+      .scatter-photo-box {
+        height: 120px !important;
+      }
+      .scatter-caption {
+        font-size: 12.5px !important;
+        padding: 6px 8px !important;
+      }
+      .memories-standalone-collage-img {
+        max-height: calc(100dvh - 160px);
+        width: 95%;
+        object-fit: contain;
+      }
       .collage-board-container {
         width: 96%;
         height: calc(100vh - 160px);
@@ -9078,44 +9215,104 @@
         font-size: 13px;
       }
 
-      /* Room 06: Proud Moments (Clean Gallery) */
+      /* Room 06: The Values You Bring (Orbital Nucleus & Cards) */
+      .values-orbital-stage {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        width: 100%;
+        height: 100%;
+        max-height: calc(100vh - 140px);
+        max-height: calc(100dvh - 140px);
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        padding: 8px 6px 24px 6px;
+        align-items: center;
+      }
+      .values-center-nucleus {
+        order: -1;
+        margin: 0 auto;
+        width: 240px;
+        height: 240px;
+        flex-shrink: 0;
+      }
+      .orbit-ring-outer {
+        width: 240px;
+        height: 240px;
+      }
+      .orbit-ring-inner {
+        width: 195px;
+        height: 195px;
+      }
+      .values-avatar-frame {
+        width: 155px;
+        height: 155px;
+      }
+      .values-constellation-col {
+        width: 100%;
+        max-width: 100%;
+        gap: 12px;
+        align-items: stretch !important;
+      }
+      .value-card {
+        width: 100%;
+        padding: 12px 14px;
+        border-radius: 12px;
+      }
+      .value-card-header {
+        gap: 10px;
+      }
+      .value-card-icon {
+        width: 32px;
+        height: 32px;
+        font-size: 16px;
+      }
+      .value-card-title {
+        font-size: 15px;
+      }
+      .value-card-desc {
+        font-size: 13px;
+        line-height: 1.45;
+      }
+
+      /* Room 07: Your Proud Moments (Gallery & Actions) */
       .room-proud {
         flex-direction: column;
         width: 100%;
         height: 100%;
         overflow-y: auto;
         -webkit-overflow-scrolling: touch;
-        justify-content: center;
+        justify-content: flex-start;
         align-items: center;
-        padding: 10px 6px;
+        padding: 8px 6px 24px 6px;
       }
       .proud-gallery-area {
         width: 100%;
         max-width: 100%;
-        gap: 16px;
+        gap: 14px;
       }
       .polaroids-row {
         flex-direction: column;
-        gap: 16px;
+        gap: 14px;
         align-items: center;
         justify-content: center;
         width: 100%;
       }
       .polaroid-frame {
         width: 100%;
-        max-width: 280px;
-        padding: 12px 12px 24px 12px;
+        max-width: 270px;
+        padding: 10px 10px 20px 10px;
         transform: none !important;
       }
       .polaroid-img-box {
-        height: 200px;
+        height: 190px;
       }
       .polaroid-caption {
-        font-size: 18px;
+        font-size: 16px;
         margin-top: 8px;
       }
       .celebration-action-bar {
-        padding: 10px 14px;
+        padding: 8px 12px;
       }
       .celebration-text h4 {
         font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
@@ -9129,17 +9326,59 @@
         font-size: 13px;
       }
 
-      /* Room 07: The Future (Vertical Stacking) */
+      /* Room 08: The Future Horizon (Prompt Cards & Vision Board) */
       .room-future {
-        flex-direction: column;
-        gap: 12px;
         width: 100%;
         height: 100%;
         overflow-y: auto;
         -webkit-overflow-scrolling: touch;
-        justify-content: flex-start;
-        padding: 4px 2px;
+        padding: 6px 4px 24px 4px;
       }
+      .future-board {
+        display: flex;
+        flex-direction: column-reverse;
+        gap: 14px;
+        width: 100%;
+        max-height: calc(100vh - 140px);
+        max-height: calc(100dvh - 140px);
+      }
+      .future-col-left,
+      .future-col-right {
+        width: 100%;
+        max-width: 100%;
+        flex: 0 0 auto;
+      }
+      .future-artwork-container {
+        height: 190px;
+        width: 100%;
+        border-radius: 14px;
+      }
+      .future-artwork-img {
+        height: 190px;
+        width: 100%;
+        object-fit: cover;
+      }
+      .future-cards-list {
+        gap: 10px;
+      }
+      .future-card {
+        padding: 12px 14px;
+        gap: 12px;
+        border-radius: 12px;
+      }
+      .future-card-icon-wrap {
+        width: 38px;
+        height: 38px;
+        min-width: 38px;
+      }
+      .future-card-title {
+        font-size: 14px;
+      }
+      .future-card-sub {
+        font-size: 12.5px;
+        line-height: 1.4;
+      }
+      /* Legacy Room 08 Support */
       .horizon-observatory-window {
         width: 100%;
         flex: 0 0 auto;
@@ -9192,6 +9431,87 @@
         font-size: 13px;
       }
 
+      /* Room 09: Gratitude & Thank You Finale */
+      #chamber-thankyou .chamber-content {
+        max-height: calc(100vh - 120px);
+        max-height: calc(100dvh - 120px);
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        padding: 8px 6px 36px 6px;
+        justify-content: flex-start;
+      }
+      .room-thankyou {
+        width: 100%;
+        max-width: 100%;
+      }
+      .thankyou-card-monument {
+        width: 100%;
+        padding: 4px 2px;
+      }
+      .thankyou-avatar-halo {
+        width: 86px;
+        height: 86px;
+      }
+      .thankyou-main-title {
+        font-size: clamp(20px, 5.2vw, 26px);
+        line-height: 1.25;
+      }
+      .thankyou-subtitle {
+        font-size: 13.5px;
+        margin-top: 4px;
+      }
+      .thankyou-message-card {
+        padding: 16px 14px;
+        max-width: 100%;
+        margin-top: 12px;
+      }
+      .thankyou-quote-decor {
+        font-size: 38px;
+        top: -12px;
+        left: 10px;
+      }
+      .thankyou-letter-text {
+        font-size: 13.5px;
+        line-height: 1.6;
+      }
+      .thankyou-signature-line {
+        font-size: 14.5px;
+        margin-top: 12px;
+      }
+      .thankyou-actions-row {
+        gap: 8px;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-top: 14px;
+      }
+      .thankyou-confetti-btn,
+      .thankyou-souvenir-btn,
+      .thankyou-return-btn {
+        padding: 8px 14px;
+        font-size: 12.5px;
+      }
+      .thankyou-share-hub-card {
+        margin-top: 16px;
+        padding: 16px 14px;
+        width: 100%;
+      }
+      .share-hub-title {
+        font-size: 16px;
+      }
+      .share-hub-subtitle {
+        font-size: 12.5px;
+      }
+      .share-hub-actions {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px;
+      }
+      .share-hub-btn {
+        padding: 7px 12px;
+        font-size: 12px;
+        min-height: 38px;
+      }
+
       /* Modals & Overlays on Mobile */
       .palace-modal {
         width: 95vw !important;
@@ -9211,6 +9531,10 @@
         white-space: nowrap;
         flex-shrink: 0;
       }
+      .admin-form-grid {
+        grid-template-columns: 1fr !important;
+        gap: 12px;
+      }
       .collage-lightbox-card {
         width: 96vw;
         max-height: 88vh;
@@ -9227,7 +9551,7 @@
 
     /* --------------------------------------------------------------------------
        EXTRA-COMPACT MOBILE PHONES (640px and below)
-       Converts floorplan nodes to circular badges (★, 01, 02, ..., 07)
+       Converts floorplan nodes to circular badges (★, 01, 02, ..., 08, 💖)
        -------------------------------------------------------------------------- */
     @media (max-width: 640px) {
       .floorplan-nav .chamber-node span:not(.num) {
@@ -9244,6 +9568,33 @@
         font-size: 11.5px;
         opacity: 0.9;
       }
+      .rooms-visibility-summary {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+      }
+      .template-picker-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+      }
+      .room-card-fields {
+        grid-template-columns: 1fr !important;
+      }
+      .values-center-nucleus {
+        width: 210px;
+        height: 210px;
+      }
+      .orbit-ring-outer {
+        width: 210px;
+        height: 210px;
+      }
+      .orbit-ring-inner {
+        width: 170px;
+        height: 170px;
+      }
+      .values-avatar-frame {
+        width: 135px;
+        height: 135px;
+      }
     }
 
     /* --------------------------------------------------------------------------
@@ -9256,23 +9607,20 @@
         transform-origin: center center;
       }
       .celebration-portrait-column {
-        width: 190px !important;
-        height: 260px !important;
+        width: 170px !important;
+        height: 230px !important;
       }
       .celebration-main-title {
-        font-size: clamp(20px, 5.5vw, 26px) !important;
+        font-size: clamp(19px, 5.2vw, 24px) !important;
       }
       .celebration-employee-name {
-        font-size: clamp(20px, 5vw, 26px) !important;
+        font-size: clamp(20px, 5.2vw, 26px) !important;
       }
       .celebration-quote-card {
-        padding: 10px 12px;
+        padding: 8px 10px;
       }
       .celebration-quote-text {
-        font-size: 14.5px;
-      }
-      .walk-btn span:last-child:not(:first-child) {
-        /* On <= 480px, show compact arrow on walk buttons */
+        font-size: 13.5px;
       }
       #btnWalkPrev span:last-child {
         display: none;
@@ -9281,9 +9629,128 @@
         display: none;
       }
       .walk-btn {
-        padding: 6px 12px;
-        font-size: 13px;
+        padding: 6px 10px;
+        font-size: 12.5px;
         font-weight: 800;
+      }
+      .split-creation-card {
+        min-height: 68px;
+        padding: 0;
+      }
+      .split-card-icon-col {
+        width: 44px;
+        min-width: 44px;
+      }
+      .split-card-content-col {
+        padding: 8px 10px;
+      }
+      .split-creation-card .split-card-title {
+        font-size: 13.5px;
+      }
+      .creations-common-image-card {
+        min-height: 150px;
+        max-height: 170px;
+      }
+      .common-img-frame {
+        height: 150px;
+      }
+      .memories-scatter-board {
+        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)) !important;
+        gap: 8px !important;
+      }
+      .scatter-photo-box {
+        height: 100px !important;
+      }
+      .values-center-nucleus {
+        width: 180px;
+        height: 180px;
+      }
+      .orbit-ring-outer {
+        width: 180px;
+        height: 180px;
+      }
+      .orbit-ring-inner {
+        width: 145px;
+        height: 145px;
+      }
+      .values-avatar-frame {
+        width: 115px;
+        height: 115px;
+      }
+      .value-card {
+        padding: 10px 12px;
+      }
+      .value-card-title {
+        font-size: 13.5px;
+      }
+      .value-card-desc {
+        font-size: 12px;
+      }
+      .polaroid-frame {
+        max-width: 240px;
+      }
+      .polaroid-img-box {
+        height: 170px;
+      }
+      .future-artwork-container {
+        height: 150px;
+      }
+      .future-artwork-img {
+        height: 150px;
+      }
+      .future-card {
+        padding: 10px 12px;
+        gap: 10px;
+      }
+      .future-card-icon-wrap {
+        width: 32px;
+        height: 32px;
+        min-width: 32px;
+      }
+      .future-card-title {
+        font-size: 13px;
+      }
+      .future-card-sub {
+        font-size: 11.5px;
+      }
+      .thankyou-avatar-halo {
+        width: 74px;
+        height: 74px;
+      }
+      .thankyou-main-title {
+        font-size: 19px;
+      }
+      .thankyou-letter-text {
+        font-size: 13px;
+      }
+    }
+
+    /* --------------------------------------------------------------------------
+       ULTRA-COMPACT PHONES (360px and below)
+       -------------------------------------------------------------------------- */
+    @media (max-width: 360px) {
+      .portal-arch-structure {
+        transform: scale(0.60);
+        transform-origin: center center;
+      }
+      .celebration-portrait-column {
+        width: 140px !important;
+        height: 190px !important;
+      }
+      .horizontal-milestones-list {
+        gap: 10px;
+      }
+      .horizontal-milestone-item {
+        min-width: 170px;
+      }
+      .wall-sticky-canvas {
+        grid-template-columns: 1fr !important;
+      }
+      .memories-scatter-board {
+        grid-template-columns: 1fr !important;
+      }
+      .polaroid-frame {
+        max-width: 220px;
       }
     }
 
@@ -9292,42 +9759,90 @@
        -------------------------------------------------------------------------- */
     @media (max-height: 700px) {
       .portal-arch-structure {
-        transform: scale(0.64);
+        transform: scale(0.58);
         transform-origin: center center;
       }
       .portal-scroll-prompt {
-        bottom: 6px;
+        bottom: 4px;
       }
       .chamber-placard {
-        top: 6px;
+        top: 4px;
       }
       #chamber-3 .chamber-content {
-        margin-top: 56px !important;
-        height: calc(100% - 70px) !important;
+        margin-top: 48px !important;
+        height: calc(100% - 56px) !important;
       }
       .chamber-name {
-        font-size: clamp(17px, 4vw, 22px);
+        font-size: clamp(16px, 3.8vw, 20px);
+      }
+      .chamber-desc {
+        display: none;
       }
       .chamber-content {
-        margin-top: 42px;
-        height: calc(100% - 50px);
+        margin-top: 36px;
+        height: calc(100% - 44px);
       }
       .celebration-stage-container {
-        padding: 8px 0;
-        gap: 12px;
+        padding: 4px 0;
+        gap: 8px;
+        max-height: calc(100dvh - 90px);
       }
       .celebration-portrait-column {
-        width: 160px;
-        height: 220px;
+        width: 140px;
+        height: 180px;
       }
       .celebration-employee-name {
-        margin-bottom: 8px;
+        margin-bottom: 4px;
+        font-size: 20px !important;
       }
       .celebration-quote-card {
-        margin-bottom: 12px;
+        margin-bottom: 8px;
+        padding: 6px 10px;
+      }
+      .celebration-quote-text {
+        font-size: 13px;
       }
       .celebration-journey-bar {
-        margin-bottom: 12px;
+        margin-bottom: 6px;
+      }
+      .interactive-laptop {
+        height: 130px;
+      }
+      .creations-common-image-card {
+        min-height: 140px;
+        max-height: 160px;
+      }
+      .common-img-frame {
+        height: 140px;
+      }
+      .values-center-nucleus {
+        width: 170px;
+        height: 170px;
+      }
+      .orbit-ring-outer {
+        width: 170px;
+        height: 170px;
+      }
+      .orbit-ring-inner {
+        width: 135px;
+        height: 135px;
+      }
+      .values-avatar-frame {
+        width: 105px;
+        height: 105px;
+      }
+      .future-artwork-container {
+        height: 140px;
+      }
+      .future-artwork-img {
+        height: 140px;
+      }
+      .thankyou-avatar-halo {
+        width: 68px;
+        height: 68px;
+      }
+      .thankyou-hero-header {
+        margin-bottom: 8px;
       }
     }
 
@@ -9941,6 +10456,8 @@
         -webkit-mask-image: radial-gradient(ellipse 90% 75% at 50% 50%, #000 15%, rgba(0, 0, 0, 0.7) 45%, rgba(0, 0, 0, 0.2) 70%, transparent 95%);
         mask-image: radial-gradient(ellipse 90% 75% at 50% 50%, #000 15%, rgba(0, 0, 0, 0.7) 45%, rgba(0, 0, 0, 0.2) 70%, transparent 95%);
       }
+    }
+
     /* ==========================================================================
        SOCIAL MEDIA SHARING HUB & PDF STYLING
        ========================================================================== */
