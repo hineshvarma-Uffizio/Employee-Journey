@@ -1909,6 +1909,313 @@
       z-index: 101;
     }
 
+    /* 3-Dot More Menu Button in Header (Desktop hidden, Mobile visible) */
+    .btn-header-more-dots {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      background: rgba(30, 41, 59, 0.75);
+      border: 1px solid var(--glass-border);
+      color: var(--gold-light);
+      cursor: pointer;
+      padding: 0;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      flex-shrink: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .btn-header-more-dots:hover,
+    .btn-header-more-dots:active {
+      background: rgba(51, 65, 85, 0.95);
+      border-color: var(--gold-primary);
+      color: #ffffff;
+      box-shadow: 0 0 16px var(--gold-glow);
+      transform: scale(1.04);
+    }
+    .btn-header-more-dots .dots-svg {
+      width: 22px;
+      height: 22px;
+      fill: currentColor;
+    }
+
+    /* Body lock when mobile sidebar drawer is open */
+    body.mobile-sidebar-open {
+      overflow: hidden !important;
+    }
+
+    /* Mobile Navigation Sidebar Backdrop */
+    .mobile-nav-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(3, 7, 18, 0.72);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 99998;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                  visibility 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      pointer-events: none;
+    }
+    .mobile-nav-backdrop.open {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    /* Mobile Navigation Sidebar Drawer (Vertical List) */
+    .mobile-nav-sidebar {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 320px;
+      max-width: 86vw;
+      height: 100vh;
+      height: 100dvh;
+      background: linear-gradient(180deg, rgba(15, 23, 42, 0.97) 0%, rgba(10, 16, 30, 0.98) 100%);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border-left: 1px solid rgba(212, 175, 55, 0.35);
+      box-shadow: -10px 0 35px rgba(0, 0, 0, 0.8), 0 0 30px rgba(212, 175, 55, 0.15);
+      z-index: 99999;
+      display: flex;
+      flex-direction: column;
+      transform: translateX(105%);
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: transform;
+      overflow: hidden;
+    }
+    .mobile-nav-sidebar.open {
+      transform: translateX(0);
+    }
+
+    /* Sidebar Header */
+    .mobile-sidebar-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.02);
+      flex-shrink: 0;
+    }
+    .mobile-sidebar-title-box {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .sidebar-gold-crown {
+      font-size: 22px;
+      filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.5));
+    }
+    .sidebar-title-texts {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .sidebar-title {
+      margin: 0;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--gold-light);
+      letter-spacing: 0.5px;
+      font-family: 'Cinzel', serif, Georgia;
+    }
+    .sidebar-subtitle {
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.5);
+    }
+    .mobile-sidebar-close {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .mobile-sidebar-close:hover,
+    .mobile-sidebar-close:active {
+      background: rgba(239, 68, 68, 0.2);
+      border-color: rgba(239, 68, 68, 0.5);
+      color: #ffffff;
+      transform: scale(1.08);
+    }
+
+    /* Sidebar Actions List (Vertical List) */
+    .mobile-sidebar-actions-list {
+      flex: 1;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      padding: 14px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .mobile-sidebar-actions-list::-webkit-scrollbar {
+      width: 4px;
+    }
+    .mobile-sidebar-actions-list::-webkit-scrollbar-thumb {
+      background: rgba(212, 175, 55, 0.3);
+      border-radius: 4px;
+    }
+
+    .sidebar-action-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      width: 100%;
+      padding: 12px 14px;
+      background: rgba(30, 41, 59, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 14px;
+      color: var(--text-main);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-align: left;
+      font-family: inherit;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .sidebar-action-item:hover,
+    .sidebar-action-item:active {
+      background: rgba(51, 65, 85, 0.7);
+      border-color: rgba(212, 175, 55, 0.4);
+      transform: translateX(-2px);
+    }
+    .sidebar-action-item.sidebar-item-featured {
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.15) 0%, rgba(30, 41, 59, 0.75) 100%);
+      border: 1px solid rgba(212, 175, 55, 0.45);
+      box-shadow: 0 0 15px rgba(212, 175, 55, 0.12);
+    }
+    .sidebar-action-item.sidebar-item-featured:hover,
+    .sidebar-action-item.sidebar-item-featured:active {
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.28) 0%, rgba(51, 65, 85, 0.85) 100%);
+      border-color: var(--gold-primary);
+    }
+    .sidebar-action-icon-col {
+      width: 36px;
+      height: 36px;
+      min-width: 36px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 17px;
+    }
+    .sidebar-action-item.sidebar-item-featured .sidebar-action-icon-col {
+      background: rgba(212, 175, 55, 0.2);
+      border-color: rgba(212, 175, 55, 0.5);
+    }
+    .sidebar-action-info-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 0;
+    }
+    .sidebar-action-title {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #f1f5f9;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .sidebar-action-desc {
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.5);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .sidebar-action-chevron {
+      font-size: 18px;
+      color: rgba(255, 255, 255, 0.35);
+      padding-right: 2px;
+    }
+    .sidebar-action-badge {
+      font-size: 10.5px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .sidebar-action-badge.badge-edit {
+      background: rgba(245, 158, 11, 0.2);
+      border: 1px solid rgba(245, 158, 11, 0.5);
+      color: #fcd34d;
+    }
+    .sidebar-action-badge.badge-view {
+      background: rgba(16, 185, 129, 0.2);
+      border: 1px solid rgba(16, 185, 129, 0.5);
+      color: #6ee7b7;
+    }
+    .sidebar-action-toggle-pill {
+      font-size: 10.5px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 10px;
+    }
+    .sidebar-action-toggle-pill.pill-on {
+      background: rgba(16, 185, 129, 0.25);
+      border: 1px solid rgba(52, 211, 153, 0.6);
+      color: #a7f3d0;
+    }
+    .sidebar-action-toggle-pill.pill-off {
+      background: rgba(148, 163, 184, 0.15);
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      color: #94a3b8;
+    }
+
+    /* Sidebar Footer / Employee Card */
+    .mobile-sidebar-footer {
+      padding: 14px 16px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(15, 23, 42, 0.6);
+      flex-shrink: 0;
+    }
+    .sidebar-footer-employee {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 8px 10px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+    }
+    .sidebar-emp-avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--gold-primary);
+      box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+    }
+    .sidebar-emp-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .sidebar-emp-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: #ffffff;
+    }
+    .sidebar-emp-tag {
+      font-size: 11px;
+      color: var(--gold-light);
+    }
+
     /* ==========================================================================
        THE 2.5D ARCHITECTURAL MEMORY PALACE VIEWPORT & ROOM CONTAINER
        ========================================================================== */
@@ -8771,36 +9078,25 @@
       /* Header Scaling */
       header.palace-header {
         height: 56px;
-        padding: 0 10px;
+        padding: 0 12px;
       }
       .header-uffizio-logo {
-        height: 22px;
-        max-width: 100px;
+        height: 24px;
+        max-width: 110px;
       }
       .header-actions {
-        gap: 5px;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
-        max-width: calc(100% - 105px);
+        gap: 0;
+        overflow: visible;
+        max-width: none;
         justify-content: flex-end;
       }
-      .header-actions::-webkit-scrollbar {
-        display: none;
+      /* Hide all action pills in top header on mobile */
+      .header-actions .action-pill {
+        display: none !important;
       }
-      .action-pill {
-        padding: 5px 9px;
-        font-size: 12.5px;
-        gap: 4px;
-        border-radius: 16px;
-        white-space: nowrap;
-        flex-shrink: 0;
-      }
-      #modeBadgeText {
-        display: none;
-      }
-      #audioStatusText {
-        display: none;
+      /* Reveal 3-Dot Menu Button */
+      .btn-header-more-dots {
+        display: flex !important;
       }
 
       /* Viewport Sizing for dynamic address bars */
@@ -8813,58 +9109,83 @@
       /* Footer HUD Scaling */
       footer.palace-footer {
         height: 56px;
-        padding: 0 8px;
+        padding: 0 16px;
         justify-content: space-between;
         position: absolute;
         bottom: 0;
         left: 0;
         width: 100%;
+        display: flex;
+        align-items: center;
       }
+      /* Remove middle floorplan navigation container entirely on mobile */
+      .floorplan-nav {
+        display: none !important;
+      }
+      /* Only Previous and Step Forward buttons remain, cleanly spaced across bottom */
       .corridor-stepper {
         position: static;
         left: auto;
-        gap: 4px;
+        width: 100% !important;
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        gap: 12px;
         flex-shrink: 0;
-        order: 2;
+        order: 1;
+        margin: 0 !important;
       }
       .walk-btn {
-        padding: 6px 10px;
+        padding: 8px 16px;
         font-size: 13px;
-        gap: 3px;
+        font-weight: 700;
+        gap: 6px;
         border-radius: 20px;
+        display: inline-flex !important;
+        align-items: center !important;
       }
-      .floorplan-nav {
-        order: 1;
-        position: static;
-        margin: 0 4px;
-        padding: 3px 6px;
-        border-radius: 25px;
-        gap: 3px;
-        max-width: calc(100% - 100px);
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
-        flex-shrink: 1;
-        justify-content: flex-start;
-      }
-      .floorplan-nav::-webkit-scrollbar {
-        display: none;
-      }
-      .chamber-node {
-        padding: 5px 8px;
-        font-size: 12px;
-        gap: 3px;
-        flex-shrink: 0;
+      .walk-btn span {
+        display: inline-block !important;
       }
 
-      /* Stage 0 Arch Structure */
+      /* Stage 0 Arch Structure - Centered optically & vertically */
       .portal-arch-structure {
-        transform: scale(0.72);
-        transform-origin: center center;
+        transform: translateY(26px) scale(0.72) !important;
+        transform-origin: center center !important;
+        margin: 0 auto !important;
       }
+      /* "Scroll Down or click door to enter" Label - End to End width */
       .portal-scroll-prompt {
-        top: auto;
-        bottom: 12px;
+        top: auto !important;
+        bottom: 16px !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        width: calc(100% - 24px) !important;
+        max-width: 440px !important;
+        box-sizing: border-box !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 0 !important;
+      }
+      .portal-scroll-prompt .prompt-pill {
+        width: 100% !important;
+        box-sizing: border-box !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        text-align: center !important;
+        white-space: nowrap !important;
+        padding: 11px 16px !important;
+        font-size: clamp(10.5px, 3.2vw, 12.5px) !important;
+        letter-spacing: clamp(1px, 0.4vw, 2px) !important;
+        border-radius: 28px !important;
+        background: rgba(15, 23, 42, 0.92) !important;
+        border: 1px solid var(--gold-primary) !important;
+        box-shadow: 0 0 20px var(--gold-glow), 0 4px 15px rgba(0, 0, 0, 0.5) !important;
+      }
+      .portal-scroll-prompt .scroll-mouse-cue {
+        display: none !important;
       }
 
       /* Chamber Placard and General Content Stage */
@@ -9603,8 +9924,8 @@
        -------------------------------------------------------------------------- */
     @media (max-width: 480px) {
       .portal-arch-structure {
-        transform: scale(0.68);
-        transform-origin: center center;
+        transform: translateY(22px) scale(0.68) !important;
+        transform-origin: center center !important;
       }
       .celebration-portrait-column {
         width: 170px !important;
@@ -9622,16 +9943,14 @@
       .celebration-quote-text {
         font-size: 13.5px;
       }
-      #btnWalkPrev span:last-child {
-        display: none;
-      }
-      #btnWalkNext span:first-child {
-        display: none;
+      #btnWalkPrev span,
+      #btnWalkNext span {
+        display: inline-block !important;
       }
       .walk-btn {
-        padding: 6px 10px;
-        font-size: 12.5px;
-        font-weight: 800;
+        padding: 7px 12px;
+        font-size: 12px;
+        font-weight: 700;
       }
       .split-creation-card {
         min-height: 68px;
@@ -9730,8 +10049,8 @@
        -------------------------------------------------------------------------- */
     @media (max-width: 360px) {
       .portal-arch-structure {
-        transform: scale(0.60);
-        transform-origin: center center;
+        transform: translateY(18px) scale(0.58) !important;
+        transform-origin: center center !important;
       }
       .celebration-portrait-column {
         width: 140px !important;
@@ -9759,11 +10078,11 @@
        -------------------------------------------------------------------------- */
     @media (max-height: 700px) {
       .portal-arch-structure {
-        transform: scale(0.58);
-        transform-origin: center center;
+        transform: translateY(14px) scale(0.54) !important;
+        transform-origin: center center !important;
       }
       .portal-scroll-prompt {
-        bottom: 4px;
+        bottom: 8px !important;
       }
       .chamber-placard {
         top: 4px;
@@ -11349,11 +11668,130 @@
       <button class="action-pill admin-pill-btn" id="profileEditBtn" title="Open Admin Panel to edit employee details & photos">
         <span>⚙️ Admin Panel</span>
       </button>
+
+      <!-- Mobile 3-Dot Menu Button (Visible on Mobile <= 768px) -->
+      <button class="btn-header-more-dots" id="btnHeaderMoreDots" aria-label="Open Navigation Menu" title="Menu & Actions" onclick="openMobileNavSidebar()">
+        <svg class="dots-svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+          <circle cx="12" cy="5" r="2.2" />
+          <circle cx="12" cy="12" r="2.2" />
+          <circle cx="12" cy="19" r="2.2" />
+        </svg>
+      </button>
     </div>
 
     <!-- Continuous Scroll Progress Line -->
     <div class="header-progress-line" id="headerProgressLine"></div>
   </header>
+
+  <!-- Mobile Navigation Sidebar Backdrop -->
+  <div class="mobile-nav-backdrop" id="mobileNavBackdrop" onclick="closeMobileNavSidebar()" aria-hidden="true"></div>
+
+  <!-- Mobile Navigation Sidebar Drawer (Vertical List) -->
+  <aside class="mobile-nav-sidebar" id="mobileNavSidebar" aria-label="Navigation Drawer">
+    <div class="mobile-sidebar-header">
+      <div class="mobile-sidebar-title-box">
+        <span class="sidebar-gold-crown">👑</span>
+        <div class="sidebar-title-texts">
+          <h3 class="sidebar-title">Journey Menu</h3>
+          <span class="sidebar-subtitle">Quick Actions & Settings</span>
+        </div>
+      </div>
+      <button class="mobile-sidebar-close" id="mobileSidebarClose" onclick="closeMobileNavSidebar()" aria-label="Close Menu">✕</button>
+    </div>
+
+    <div class="mobile-sidebar-actions-list">
+      <!-- 1. Edit / View Mode Toggle -->
+      <button type="button" class="sidebar-action-item" id="sidebarActionEditMode" onclick="handleSidebarAction('edit-mode')">
+        <div class="sidebar-action-icon-col" id="sidebarModeIconCol">✏️</div>
+        <div class="sidebar-action-info-col">
+          <div class="sidebar-action-title" id="sidebarModeTitle">Edit Mode</div>
+          <div class="sidebar-action-desc">Toggle View / Edit permissions</div>
+        </div>
+        <span class="sidebar-action-badge badge-edit" id="sidebarModeBadge">Active</span>
+      </button>
+
+      <!-- 2. Share Presentation Link -->
+      <button type="button" class="sidebar-action-item" id="sidebarActionShare" onclick="handleSidebarAction('share')">
+        <div class="sidebar-action-icon-col">🔗</div>
+        <div class="sidebar-action-info-col">
+          <div class="sidebar-action-title">Share Journey Link</div>
+          <div class="sidebar-action-desc">Copy View or Edit presentation URL</div>
+        </div>
+        <span class="sidebar-action-chevron">›</span>
+      </button>
+
+      <!-- 3. Export PDF -->
+      <button type="button" class="sidebar-action-item" id="sidebarActionPDF" onclick="handleSidebarAction('export-pdf')">
+        <div class="sidebar-action-icon-col">📄</div>
+        <div class="sidebar-action-info-col">
+          <div class="sidebar-action-title">Export as PDF</div>
+          <div class="sidebar-action-desc">Generate executive souvenir PDF</div>
+        </div>
+        <span class="sidebar-action-chevron">›</span>
+      </button>
+
+      <!-- 4. Save & Download -->
+      <button type="button" class="sidebar-action-item" id="sidebarActionSave" onclick="handleSidebarAction('save-download')">
+        <div class="sidebar-action-icon-col">💾</div>
+        <div class="sidebar-action-info-col">
+          <div class="sidebar-action-title">Save & Download</div>
+          <div class="sidebar-action-desc">Download updated HTML file</div>
+        </div>
+        <span class="sidebar-action-chevron">›</span>
+      </button>
+
+      <!-- 5. Live On-Screen Edit -->
+      <button type="button" class="sidebar-action-item" id="sidebarActionLiveEdit" onclick="handleSidebarAction('live-edit')">
+        <div class="sidebar-action-icon-col">🖊️</div>
+        <div class="sidebar-action-info-col">
+          <div class="sidebar-action-title">Live On-Screen Edit</div>
+          <div class="sidebar-action-desc">Tap any text directly to customize</div>
+        </div>
+        <span class="sidebar-action-toggle-pill" id="sidebarLiveEditPill">OFF</span>
+      </button>
+
+      <!-- 6. Admin Control Panel (Featured Highlight) -->
+      <button type="button" class="sidebar-action-item sidebar-item-featured" id="sidebarActionAdmin" onclick="handleSidebarAction('admin')">
+        <div class="sidebar-action-icon-col">⚙️</div>
+        <div class="sidebar-action-info-col">
+          <div class="sidebar-action-title">Admin Control Panel</div>
+          <div class="sidebar-action-desc">Manage photos, profile & chambers</div>
+        </div>
+        <span class="sidebar-action-chevron">›</span>
+      </button>
+
+      <!-- 7. Palace Ambient Sound Toggle -->
+      <button type="button" class="sidebar-action-item" id="sidebarActionAudio" onclick="handleSidebarAction('audio')">
+        <div class="sidebar-action-icon-col" id="sidebarAudioIconCol">🎵</div>
+        <div class="sidebar-action-info-col">
+          <div class="sidebar-action-title">Ambient BGM Sound</div>
+          <div class="sidebar-action-desc" id="sidebarAudioDesc">Play or mute palace audio</div>
+        </div>
+        <span class="sidebar-action-toggle-pill" id="sidebarAudioPill">Muted</span>
+      </button>
+
+      <!-- 8. Fullscreen Toggle -->
+      <button type="button" class="sidebar-action-item" id="sidebarActionFullscreen" onclick="handleSidebarAction('fullscreen')">
+        <div class="sidebar-action-icon-col">⛶</div>
+        <div class="sidebar-action-info-col">
+          <div class="sidebar-action-title">Full Screen View</div>
+          <div class="sidebar-action-desc">Immersive full display</div>
+        </div>
+        <span class="sidebar-action-chevron">›</span>
+      </button>
+    </div>
+
+    <!-- Sidebar Footer / Employee Quick Info -->
+    <div class="mobile-sidebar-footer">
+      <div class="sidebar-footer-employee">
+        <img src="dhara_profile.jpg" alt="Profile" class="sidebar-emp-avatar" id="sidebarEmpAvatar" onerror="this.src='manushi_hero.jpg'">
+        <div class="sidebar-emp-info">
+          <span class="sidebar-emp-name" id="sidebarEmpName">Dhara Patel</span>
+          <span class="sidebar-emp-tag">1 Year Anniversary</span>
+        </div>
+      </div>
+    </div>
+  </aside>
 
   <!-- ==========================================================================
        THE 2.5D MEMORY PALACE VIEWPORT
@@ -23706,6 +24144,111 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
     function closeAdminPanel() {
       profileModalBackdrop.classList.remove('active');
     }
+
+    // ==========================================================================
+    // MOBILE 3-DOT NAVIGATION SIDEBAR CONTROLLER
+    // ==========================================================================
+    function openMobileNavSidebar() {
+      const sidebar = document.getElementById('mobileNavSidebar');
+      const backdrop = document.getElementById('mobileNavBackdrop');
+      if (sidebar && backdrop) {
+        updateSidebarStatus();
+        sidebar.classList.add('open');
+        backdrop.classList.add('open');
+        document.body.classList.add('mobile-sidebar-open');
+      }
+    }
+
+    function closeMobileNavSidebar() {
+      const sidebar = document.getElementById('mobileNavSidebar');
+      const backdrop = document.getElementById('mobileNavBackdrop');
+      if (sidebar && backdrop) {
+        sidebar.classList.remove('open');
+        backdrop.classList.remove('open');
+        document.body.classList.remove('mobile-sidebar-open');
+      }
+    }
+
+    function updateSidebarStatus() {
+      const isEdit = !document.body.classList.contains('view-mode-active');
+      const sidebarModeTitle = document.getElementById('sidebarModeTitle');
+      const sidebarModeBadge = document.getElementById('sidebarModeBadge');
+      if (sidebarModeTitle) sidebarModeTitle.textContent = isEdit ? 'Edit Mode' : 'View Mode';
+      if (sidebarModeBadge) {
+        sidebarModeBadge.textContent = isEdit ? 'Active' : 'Locked';
+        sidebarModeBadge.className = 'sidebar-action-badge ' + (isEdit ? 'badge-edit' : 'badge-view');
+      }
+
+      const isLiveEdit = document.body.classList.contains('live-edit-mode-active');
+      const liveEditPill = document.getElementById('sidebarLiveEditPill');
+      if (liveEditPill) {
+        liveEditPill.textContent = isLiveEdit ? 'ON' : 'OFF';
+        liveEditPill.className = 'sidebar-action-toggle-pill ' + (isLiveEdit ? 'pill-on' : 'pill-off');
+      }
+
+      const isMuted = typeof palaceAudio !== 'undefined' && palaceAudio.isMuted;
+      const audioPill = document.getElementById('sidebarAudioPill');
+      const audioDesc = document.getElementById('sidebarAudioDesc');
+      if (audioPill) {
+        audioPill.textContent = isMuted ? 'Muted' : 'Playing';
+        audioPill.className = 'sidebar-action-toggle-pill ' + (isMuted ? 'pill-off' : 'pill-on');
+      }
+      if (audioDesc) audioDesc.textContent = isMuted ? 'Palace sound muted' : 'Playing ambient BGM';
+
+      const emp = (typeof palaceState !== 'undefined' && palaceState.employee) || {};
+      const nameEl = document.getElementById('sidebarEmpName');
+      const avatarEl = document.getElementById('sidebarEmpAvatar');
+      if (nameEl && emp.name) nameEl.textContent = emp.name;
+      if (avatarEl && emp.photo) avatarEl.src = emp.photo;
+    }
+
+    function handleSidebarAction(action) {
+      closeMobileNavSidebar();
+      setTimeout(() => {
+        switch (action) {
+          case 'edit-mode':
+            const modeBadge = document.getElementById('palaceModeBadge');
+            if (modeBadge) modeBadge.click();
+            break;
+          case 'share':
+            const shareBtn = document.getElementById('shareJourneyBtn');
+            if (shareBtn) shareBtn.click();
+            break;
+          case 'export-pdf':
+            if (typeof window.printJourneyPDF === 'function') {
+              window.printJourneyPDF();
+            }
+            break;
+          case 'save-download':
+            const saveBtn = document.getElementById('saveDownloadBtn');
+            if (saveBtn) saveBtn.click();
+            break;
+          case 'live-edit':
+            const liveBtn = document.getElementById('liveEditToggleBtn');
+            if (liveBtn) liveBtn.click();
+            break;
+          case 'admin':
+            openAdminPanel();
+            break;
+          case 'audio':
+            if (typeof palaceAudio !== 'undefined' && typeof palaceAudio.toggleMute === 'function') {
+              palaceAudio.toggleMute();
+            }
+            break;
+          case 'fullscreen':
+            if (!document.fullscreenElement) {
+              document.documentElement.requestFullscreen().catch(() => {});
+            } else {
+              document.exitFullscreen().catch(() => {});
+            }
+            break;
+        }
+      }, 160);
+    }
+
+    window.openMobileNavSidebar = openMobileNavSidebar;
+    window.closeMobileNavSidebar = closeMobileNavSidebar;
+    window.handleSidebarAction = handleSidebarAction;
 
     if (profileEditBtn) profileEditBtn.addEventListener('click', openAdminPanel);
     if (floatingAdminBtn) floatingAdminBtn.addEventListener('click', openAdminPanel);
