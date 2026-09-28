@@ -9455,7 +9455,7 @@
         flex-direction: column !important;
         align-items: center !important;
         justify-content: center !important;
-        margin: 12px 0 !important;
+        margin: 8px 0 !important;
         position: relative !important;
         width: 100% !important;
         padding: 0 !important;
@@ -9467,40 +9467,31 @@
 
       #chamber-1 .evolution-connector-line-top,
       #chamber-1 .evolution-connector-line-bottom {
-        display: block !important;
-        width: 2px !important;
-        height: 16px !important;
-        border-radius: 1px !important;
-      }
-
-      #chamber-1 .evolution-connector-line-top {
-        background: linear-gradient(to bottom, rgba(0, 229, 255, 0.2), #00e5ff) !important;
-        box-shadow: 0 0 8px rgba(0, 229, 255, 0.6) !important;
+        display: none !important;
       }
 
       #chamber-1 .evolution-connector-arrow {
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
-        width: 32px !important;
-        height: 32px !important;
-        border-radius: 50% !important;
-        border: 1.5px solid #00e5ff !important;
-        background: rgba(4, 15, 34, 0.95) !important;
-        box-shadow: 0 0 14px rgba(0, 229, 255, 0.55), inset 0 0 8px rgba(0, 229, 255, 0.2) !important;
+        width: auto !important;
+        height: auto !important;
+        border: none !important;
+        border-radius: 0 !important;
+        background: transparent !important;
+        box-shadow: none !important;
         color: #00e5ff !important;
         margin: 0 !important;
+        padding: 2px 0 !important;
       }
 
       #chamber-1 .evolution-connector-arrow svg {
-        width: 15px !important;
-        height: 15px !important;
+        width: 22px !important;
+        height: 22px !important;
         stroke: #00e5ff !important;
-      }
-
-      #chamber-1 .evolution-connector-line-bottom {
-        background: linear-gradient(to bottom, #00e5ff, rgba(0, 229, 255, 0.2)) !important;
-        box-shadow: 0 0 8px rgba(0, 229, 255, 0.6) !important;
+        stroke-width: 2.5 !important;
+        filter: drop-shadow(0 0 6px rgba(0, 229, 255, 0.8)) !important;
+        display: block !important;
       }
 
       @media (max-width: 360px) {
@@ -9511,17 +9502,9 @@
         #chamber-1 .evolution-pill-text {
           font-size: 14px !important;
         }
-        #chamber-1 .evolution-connector-arrow {
-          width: 28px !important;
-          height: 28px !important;
-        }
         #chamber-1 .evolution-connector-arrow svg {
-          width: 13px !important;
-          height: 13px !important;
-        }
-        #chamber-1 .evolution-connector-line-top,
-        #chamber-1 .evolution-connector-line-bottom {
-          height: 12px !important;
+          width: 18px !important;
+          height: 18px !important;
         }
       }
 
@@ -12575,14 +12558,12 @@
                   <div class="evolution-pill-text evolution-then-text" contenteditable="true" data-editable="true" data-point-idx="0" title="Click to edit text">Learning the environment</div>
                 </div>
                 <div class="evolution-pill-connector" aria-hidden="true">
-                  <div class="evolution-connector-line evolution-connector-line-top"></div>
                   <div class="evolution-connector-arrow">
-                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                       <line x1="12" y1="5" x2="12" y2="19"></line>
                       <polyline points="19 12 12 19 5 12"></polyline>
                     </svg>
                   </div>
-                  <div class="evolution-connector-line evolution-connector-line-bottom"></div>
                   <div class="evolution-pill-line"></div>
                 </div>
                 <div class="evolution-pill-side evolution-now-side">
@@ -12596,14 +12577,12 @@
                   <div class="evolution-pill-text evolution-then-text" contenteditable="true" data-editable="true" data-point-idx="1" title="Click to edit text">Understanding the product</div>
                 </div>
                 <div class="evolution-pill-connector" aria-hidden="true">
-                  <div class="evolution-connector-line evolution-connector-line-top"></div>
                   <div class="evolution-connector-arrow">
-                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                       <line x1="12" y1="5" x2="12" y2="19"></line>
                       <polyline points="19 12 12 19 5 12"></polyline>
                     </svg>
                   </div>
-                  <div class="evolution-connector-line evolution-connector-line-bottom"></div>
                   <div class="evolution-pill-line"></div>
                 </div>
                 <div class="evolution-pill-side evolution-now-side">
@@ -12617,14 +12596,12 @@
                   <div class="evolution-pill-text evolution-then-text" contenteditable="true" data-editable="true" data-point-idx="2" title="Click to edit text">Getting familiar with the role</div>
                 </div>
                 <div class="evolution-pill-connector" aria-hidden="true">
-                  <div class="evolution-connector-line evolution-connector-line-top"></div>
                   <div class="evolution-connector-arrow">
-                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                       <line x1="12" y1="5" x2="12" y2="19"></line>
                       <polyline points="19 12 12 19 5 12"></polyline>
                     </svg>
                   </div>
-                  <div class="evolution-connector-line evolution-connector-line-bottom"></div>
                   <div class="evolution-pill-line"></div>
                 </div>
                 <div class="evolution-pill-side evolution-now-side">
