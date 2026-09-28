@@ -13977,12 +13977,15 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
     }
 
     function persistPalaceState() {
+      const activeSlug = (currentEmpSlug || 'dhara').toLowerCase().trim();
       const key = getStorageKeyForProfile(currentEmpSlug);
+      palaceState.profileVersion = Math.max(palaceState.profileVersion || 7, 7);
       try {
-        localStorage.setItem(key, JSON.stringify(palaceState));
+        const stateStr = JSON.stringify(palaceState);
+        localStorage.setItem(key, stateStr);
         if (!currentEmpSlug || currentEmpSlug === 'dhara') {
-          localStorage.setItem('palace_full_profile', JSON.stringify(palaceState));
-          localStorage.setItem('palace_profile_dhara', JSON.stringify(palaceState));
+          localStorage.setItem('palace_full_profile', stateStr);
+          localStorage.setItem('palace_profile_dhara', stateStr);
         }
       } catch (e) {
         console.warn("Storage quota exceeded in localStorage, relying on IndexedDB", e);
@@ -13991,6 +13994,12 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
       if (!currentEmpSlug || currentEmpSlug === 'dhara') {
         saveToIndexedDB(palaceState, 'dhara');
         saveToIndexedDB(palaceState, '');
+      }
+      if (window.BUILTIN_PROFILES) {
+        window.BUILTIN_PROFILES[activeSlug] = JSON.parse(JSON.stringify(palaceState));
+        if (!currentEmpSlug || currentEmpSlug === 'dhara') {
+          window.BUILTIN_PROFILES['dhara'] = JSON.parse(JSON.stringify(palaceState));
+        }
       }
     }
 
@@ -14485,15 +14494,15 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
 
     // Load from localStorage if present (only when not in baked view-only mode from an exported presentation)
     const activeStorageKey = getStorageKeyForProfile(currentEmpSlug);
-    const savedFullProfile = localStorage.getItem(activeStorageKey);
+    let savedFullProfile = localStorage.getItem(activeStorageKey);
+    if (!savedFullProfile && (!currentEmpSlug || currentEmpSlug === 'dhara')) {
+      savedFullProfile = localStorage.getItem('palace_full_profile') || localStorage.getItem('palace_profile_dhara');
+    }
     const _reqAccess = _urlParams.get('access') || _urlParams.get('mode');
     if (savedFullProfile && !palaceState.isStandalone) {
       try {
         const parsed = JSON.parse(savedFullProfile);
-        if (!parsed.profileVersion || parsed.profileVersion < (palaceState.profileVersion || 1)) {
-          console.log("Upgrading stale localStorage profile to latest baked profile version", palaceState.profileVersion);
-          localStorage.setItem(activeStorageKey, JSON.stringify(palaceState));
-        } else {
+        if (parsed && typeof parsed === 'object') {
           if (parsed.employee) {
             if (parsed.employee.name === 'Manushi Patel') parsed.employee.name = 'Dhara Patel';
             palaceState.employee = { ...palaceState.employee, ...parsed.employee };
@@ -14553,6 +14562,12 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
           if (parsed.future) {
             palaceState.future = { ...palaceState.future, ...parsed.future };
           }
+          if (parsed.thankYou) {
+            palaceState.thankYou = { ...palaceState.thankYou, ...parsed.thankYou };
+          }
+          if (parsed.milestoneTier) {
+            palaceState.milestoneTier = parsed.milestoneTier;
+          }
           if (parsed.chamberStories) {
             palaceState.chamberStories = { ...palaceState.chamberStories, ...parsed.chamberStories };
           }
@@ -14569,9 +14584,14 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
               if (c.id === 'chamber-memories-2' && (c.navLabel === 'Memories II' || !c.navLabel)) c.navLabel = 'Memories';
             });
           }
+          palaceState.profileVersion = Math.max(parsed.profileVersion || 7, palaceState.profileVersion || 7);
+          if (window.BUILTIN_PROFILES) {
+            window.BUILTIN_PROFILES[currentEmpSlug || 'dhara'] = JSON.parse(JSON.stringify(palaceState));
+            window.BUILTIN_PROFILES['dhara'] = JSON.parse(JSON.stringify(palaceState));
+          }
         }
       } catch(e) {
-        console.warn("Could not parse saved palace_full_profile", e);
+        console.warn("Could not parse saved palace profile", e);
       }
     }
 
@@ -16791,60 +16811,113 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
     });
 
     function renderPlacards() {
-      const cs = palaceState.chamberStories || {};
+      const chambersList = palaceState.chambers || [];
+      const getChamber = (id) => chambersList.find(c => c.id === id);
+
+      // Chamber 0: First Day
+      const c0 = getChamber('chamber-0');
       const ch0Title = document.getElementById('chamber1Title');
       const ch0Desc = document.getElementById('chamber1Desc');
-      if (ch0Title && cs.ch1Title) {
-        if (cs.ch1Title.includes('<span')) {
-          ch0Title.innerHTML = cs.ch1Title;
-        } else if (cs.ch1Title && cs.ch1Title.toLowerCase() === 'where your journey began') {
+      if (ch0Title && c0 && c0.title) {
+        if (c0.title.includes('<span')) {
+          ch0Title.innerHTML = c0.title;
+        } else if (c0.title.toLowerCase() === 'where your journey began') {
           ch0Title.innerHTML = 'Where your journey <span class="serif-accent">began</span>';
         } else {
-          ch0Title.innerHTML = toSentenceCase(cs.ch1Title);
+          ch0Title.innerHTML = toSentenceCase(c0.title);
         }
       }
-      if (ch0Desc && cs.ch1Sub) ch0Desc.textContent = cs.ch1Sub;
+      if (ch0Desc && c0) ch0Desc.textContent = c0.sub || '';
 
+      // Chamber 1: Learned / Evolution
+      const c1 = getChamber('chamber-1');
       const ch1Placard = document.querySelector('#chamber-1 .chamber-name');
       const ch1Desc = document.querySelector('#chamber-1 .chamber-desc');
-      if (ch1Placard && cs.ch2Title) ch1Placard.textContent = cs.ch2Title;
-      if (ch1Desc && cs.ch2Sub) ch1Desc.textContent = cs.ch2Sub;
+      if (ch1Placard && c1 && c1.title) ch1Placard.textContent = toSentenceCase(c1.title);
+      if (ch1Desc && c1) ch1Desc.textContent = c1.sub || '';
 
+      // Chamber 2: Legacy What You Created
+      const c2 = getChamber('chamber-2');
       const ch2Placard = document.querySelector('#chamber-2 .chamber-name');
       const ch2Desc = document.querySelector('#chamber-2 .chamber-desc');
-      if (ch2Placard && cs.ch3Title) ch2Placard.textContent = cs.ch3Title;
-      if (ch2Desc && cs.ch3Sub) ch2Desc.textContent = cs.ch3Sub;
+      if (ch2Placard && c2 && c2.title) ch2Placard.textContent = toSentenceCase(c2.title);
+      if (ch2Desc && c2) ch2Desc.textContent = c2.sub || '';
 
+      // Chamber 2b: Created Part 2 / Innovation
+      const c2b = getChamber('chamber-2b');
       const ch2bPlacard = document.querySelector('#chamber-2b .chamber-name');
       const ch2bDesc = document.querySelector('#chamber-2b .chamber-desc');
-      if (ch2bPlacard && cs.ch2bTitle) ch2bPlacard.textContent = cs.ch2bTitle;
-      if (ch2bDesc && cs.ch2bSub) ch2bDesc.textContent = cs.ch2bSub;
+      if (ch2bPlacard && c2b && c2b.title) ch2bPlacard.textContent = toSentenceCase(c2b.title);
+      if (ch2bDesc && c2b) ch2bDesc.textContent = c2b.sub || '';
 
+      // Chamber 3: People
+      const c3 = getChamber('chamber-3');
       const ch3Placard = document.querySelector('#chamber-3 .chamber-name');
       const ch3Desc = document.querySelector('#chamber-3 .chamber-desc');
-      if (ch3Placard && cs.ch4Title) ch3Placard.textContent = cs.ch4Title;
-      if (ch3Desc && cs.ch4Sub) ch3Desc.textContent = cs.ch4Sub;
+      if (ch3Placard && c3 && c3.title) ch3Placard.textContent = toSentenceCase(c3.title);
+      if (ch3Desc && c3) ch3Desc.textContent = c3.sub || '';
 
+      // Chamber Memories: Legacy
+      const cMem = getChamber('chamber-memories');
       const chMemTitle = document.getElementById('chamberMemoriesTitle');
       const chMemDesc = document.getElementById('chamberMemoriesDesc');
-      if (chMemTitle && cs.chMemTitle) chMemTitle.textContent = cs.chMemTitle;
-      if (chMemDesc && cs.chMemDesc) chMemDesc.textContent = cs.chMemDesc;
+      if (chMemTitle && cMem && cMem.title) chMemTitle.textContent = toSentenceCase(cMem.title);
+      if (chMemDesc && cMem) chMemDesc.textContent = cMem.sub || '';
 
-      const chMem2Title = document.getElementById('chamberMemories2Title');
-      const chMem2Desc = document.getElementById('chamberMemories2Desc');
-      if (chMem2Title && cs.chMem2Title) chMem2Title.textContent = cs.chMem2Title;
-      if (chMem2Desc && cs.chMem2Desc) chMem2Desc.textContent = cs.chMem2Desc;
+      // Chamber Memories 2: Celebrating a year of memories
+      const cMem2 = getChamber('chamber-memories-2');
+      const chMem2Title = document.getElementById('chamberMemories2Title') || document.querySelector('#chamber-memories-2 .chamber-name');
+      const chMem2Desc = document.getElementById('chamberMemories2Desc') || document.querySelector('#chamber-memories-2 .chamber-desc');
+      if (chMem2Title && cMem2 && cMem2.title) chMem2Title.textContent = toSentenceCase(cMem2.title);
+      if (chMem2Desc && cMem2) chMem2Desc.textContent = cMem2.sub || '';
 
-      const chValTitle = document.getElementById('chamberValuesTitle');
-      const chValDesc = document.getElementById('chamberValuesDesc');
-      if (cs.chValTitle === 'Your Values' || !cs.chValTitle) {
-        cs.chValTitle = 'The Values You Bring';
+      // Chamber Values: The values you bring
+      const cVal = getChamber('chamber-values');
+      const chValTitle = document.getElementById('chamberValuesTitle') || document.querySelector('#chamber-values .chamber-name');
+      const chValDesc = document.getElementById('chamberValuesDesc') || document.querySelector('#chamber-values .chamber-desc');
+      if (chValTitle && cVal && cVal.title) chValTitle.textContent = toSentenceCase(cVal.title);
+      if (chValDesc && cVal) chValDesc.textContent = cVal.sub || '';
+
+      // Chamber 4: Proud Moments
+      const c4 = getChamber('chamber-4');
+      const ch4Placard = document.querySelector('#chamber-4 .chamber-name');
+      const ch4Desc = document.querySelector('#chamber-4 .chamber-desc');
+      if (ch4Placard && c4 && c4.title) ch4Placard.textContent = toSentenceCase(c4.title);
+      if (ch4Desc && c4) ch4Desc.textContent = c4.sub || '';
+
+      // Chamber 5: Future
+      const c5 = getChamber('chamber-5');
+      const ch5Title = document.getElementById('chamberFutureTitle') || document.querySelector('#chamber-5 .chamber-name');
+      const ch5Desc = document.getElementById('chamberFutureDesc') || document.querySelector('#chamber-5 .chamber-desc');
+      if (ch5Title && c5 && c5.title) ch5Title.textContent = toSentenceCase(c5.title);
+      if (ch5Desc && c5) ch5Desc.textContent = c5.sub || '';
+
+      // Chamber Milestone: Celebration
+      const cM = getChamber('chamber-milestone');
+      if (cM && cM.title) {
+        const celebFormatted = typeof escapeHtml === 'function' ? escapeHtml(toSentenceCase(cM.title)).replace(/\r?\n/g, '<br>') : toSentenceCase(cM.title).replace(/\r?\n/g, '<br>');
+        const cTitle = document.querySelector('.celebration-main-title');
+        if (cTitle) cTitle.innerHTML = celebFormatted;
+        const dTitle = document.querySelector('.doorway-main-title');
+        if (dTitle) dTitle.innerHTML = celebFormatted;
       }
-      if (chValTitle && cs.chValTitle) chValTitle.textContent = cs.chValTitle;
-      if (chValDesc && cs.chValDesc) chValDesc.textContent = cs.chValDesc;
 
-      const ch6Wish = document.querySelector('#chamber-5 .wish-quote-card p');
-      if (ch6Wish && cs.ch6Wish) ch6Wish.textContent = `“${cs.ch6Wish}”`;
+      // Chamber Thank You:
+      const cTy = getChamber('chamber-thankyou');
+      if (cTy && cTy.title) {
+        const tyMainTitle = document.querySelector('#chamber-thankyou .thankyou-main-title');
+        if (tyMainTitle && (!palaceState.thankYou || !palaceState.thankYou.title)) tyMainTitle.textContent = toSentenceCase(cTy.title);
+      }
+
+      // Backward sync palaceState.chamberStories
+      if (palaceState.chamberStories) {
+        if (c0) { palaceState.chamberStories.ch1Title = c0.title; palaceState.chamberStories.ch1Sub = c0.sub || ''; }
+        if (c1) { palaceState.chamberStories.ch2Title = c1.title; palaceState.chamberStories.ch2Sub = c1.sub || ''; }
+        if (c2b) { palaceState.chamberStories.ch3Title = c2b.title; palaceState.chamberStories.ch2bTitle = c2b.title; palaceState.chamberStories.ch3Sub = c2b.sub || ''; }
+        if (c3) { palaceState.chamberStories.ch4Title = c3.title; palaceState.chamberStories.ch4Sub = c3.sub || ''; }
+        if (cVal) { palaceState.chamberStories.chValTitle = cVal.title; palaceState.chamberStories.chValDesc = cVal.sub || ''; }
+        if (cMem2) { palaceState.chamberStories.chMem2Title = cMem2.title; palaceState.chamberStories.chMem2Desc = cMem2.sub || ''; }
+      }
     }
 
     // 6. Universal Update Function
@@ -19188,11 +19261,11 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
       const s = (slug || 'dhara').toLowerCase().trim();
       const localKey = getStorageKeyForProfile(s);
 
-      // 1. Check localStorage
+      // 1. Check localStorage across all possible profile keys
       try {
         let cached = localStorage.getItem(localKey);
         if (!cached && (s === 'dhara' || !s)) {
-          cached = localStorage.getItem('palace_full_profile');
+          cached = localStorage.getItem('palace_full_profile') || localStorage.getItem('palace_profile_dhara');
         }
         if (cached) {
           const parsed = JSON.parse(cached);
@@ -19206,14 +19279,25 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
       try {
         let idbData = await loadFromIndexedDB(s);
         if (!idbData && (s === 'dhara' || !s)) {
-          idbData = await loadFromIndexedDB('palace_full_profile');
+          idbData = await loadFromIndexedDB('palace_full_profile') || await loadFromIndexedDB('dhara') || await loadFromIndexedDB('');
         }
         if (idbData && (idbData.employee || idbData.chambers)) {
           return idbData;
         }
       } catch(e) {}
 
-      // 3. Check fetch (if hosted on HTTP)
+      // 3. Current active palaceState if matches current slug and already has customized data
+      const currentActiveSlug = (currentEmpSlug || 'dhara').toLowerCase().trim();
+      if (s === currentActiveSlug && palaceState && (palaceState.employee || palaceState.chambers)) {
+        return JSON.parse(JSON.stringify(palaceState));
+      }
+
+      // 4. Check BUILTIN_PROFILES
+      if (window.BUILTIN_PROFILES && window.BUILTIN_PROFILES[s]) {
+        return JSON.parse(JSON.stringify(window.BUILTIN_PROFILES[s]));
+      }
+
+      // 5. Check fetch (if hosted on HTTP and not found locally)
       try {
         const resp = await fetch(`profiles/${encodeURIComponent(s)}.json?v=${Date.now()}`);
         if (resp.ok) {
@@ -19222,12 +19306,7 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
         }
       } catch(e) {}
 
-      // 4. Check BUILTIN_PROFILES fallback
-      if (window.BUILTIN_PROFILES && window.BUILTIN_PROFILES[s]) {
-        return JSON.parse(JSON.stringify(window.BUILTIN_PROFILES[s]));
-      }
-
-      // 5. Fallback to Dhara
+      // 6. Fallback to Dhara
       if (window.BUILTIN_PROFILES && window.BUILTIN_PROFILES['dhara']) {
         return JSON.parse(JSON.stringify(window.BUILTIN_PROFILES['dhara']));
       }
@@ -19243,17 +19322,6 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
         data.evolution.growthLabel = '';
       }
 
-      // Clean baseline reset from template to prevent cross-profile property bleed
-      if (window.BUILTIN_PROFILES && window.BUILTIN_PROFILES['template']) {
-        const base = JSON.parse(JSON.stringify(window.BUILTIN_PROFILES['template']));
-        Object.keys(palaceState).forEach(k => {
-          if (!(k in base)) delete palaceState[k];
-        });
-        Object.keys(base).forEach(k => {
-          palaceState[k] = base[k];
-        });
-      }
-
       Object.keys(data).forEach(k => {
         if (data[k] !== undefined && data[k] !== null) {
           if (typeof data[k] === 'object' && !Array.isArray(data[k]) && palaceState[k] && typeof palaceState[k] === 'object' && !Array.isArray(palaceState[k])) {
@@ -19265,9 +19333,10 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
       });
 
       // Explicitly guarantee milestoneTier is cleanly set
-      palaceState.milestoneTier = data.milestoneTier || '1yr';
+      palaceState.milestoneTier = data.milestoneTier || palaceState.milestoneTier || '1yr';
 
       updatePalaceFromState();
+      renderPlacards();
       if (typeof populateAdminInputs === 'function') {
         populateAdminInputs();
       }
@@ -19316,6 +19385,17 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
         }
         window.history.replaceState(null, '', url.toString());
       } catch(e) {}
+
+      // Reset baseline only when switching to another profile
+      if (window.BUILTIN_PROFILES && window.BUILTIN_PROFILES['template']) {
+        const base = JSON.parse(JSON.stringify(window.BUILTIN_PROFILES['template']));
+        Object.keys(palaceState).forEach(k => {
+          if (!(k in base)) delete palaceState[k];
+        });
+        Object.keys(base).forEach(k => {
+          palaceState[k] = base[k];
+        });
+      }
 
       applyLoadedProfile(profileData);
       updateSwitcherUI(targetSlug);
@@ -22774,61 +22854,67 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
 
         // Collect Skills from dynamic inputs
         const sItems = document.querySelectorAll('#adminSkillsList .admin-dynamic-item');
-        const newSkills = [];
-        sItems.forEach(item => {
-          const t = item.querySelector('.skill-input-title').value.trim();
-          const p = parseInt(item.querySelector('.skill-input-pct').value, 10) || 90;
-          const i = item.querySelector('.skill-input-icon').value.trim() || '⚡';
-          const d = item.querySelector('.skill-input-desc').value.trim();
-          if (t) newSkills.push({ title: t, desc: d, pct: p, icon: i });
-        });
-        palaceState.skills = newSkills;
+        if (sItems && sItems.length > 0) {
+          const newSkills = [];
+          sItems.forEach(item => {
+            const t = item.querySelector('.skill-input-title').value.trim();
+            const p = parseInt(item.querySelector('.skill-input-pct').value, 10) || 90;
+            const i = item.querySelector('.skill-input-icon').value.trim() || '⚡';
+            const d = item.querySelector('.skill-input-desc').value.trim();
+            if (t) newSkills.push({ title: t, desc: d, pct: p, icon: i });
+          });
+          if (newSkills.length > 0) palaceState.skills = newSkills;
+        }
 
         // Collect Projects / Tasks from dynamic inputs
         const pItems = document.querySelectorAll('#adminProjectsList .admin-dynamic-item');
-        const newContributions = [];
-        pItems.forEach((item, idx) => {
-          const pTitle = item.querySelector('.proj-input-title')?.value.trim() || `Task ${idx + 1}`;
-          const pDesc = item.querySelector('.proj-input-desc')?.value.trim() || '';
-          const cTitle = item.querySelector('.proj-input-contrib-title')?.value.trim() || '';
-          const cDesc = item.querySelector('.proj-input-contrib-desc')?.value.trim() || '';
-          const metric = item.querySelector('.proj-input-metric')?.value.trim() || '';
-          const iTitle = item.querySelector('.proj-input-impact-title')?.value.trim() || '';
-          const iDesc = item.querySelector('.proj-input-impact-desc')?.value.trim() || '';
-          const img = item.querySelector('.proj-input-image')?.value.trim() || (palaceState.contributions && palaceState.contributions[idx]?.image) || '';
+        if (pItems && pItems.length > 0) {
+          const newContributions = [];
+          pItems.forEach((item, idx) => {
+            const pTitle = item.querySelector('.proj-input-title')?.value.trim() || `Task ${idx + 1}`;
+            const pDesc = item.querySelector('.proj-input-desc')?.value.trim() || '';
+            const cTitle = item.querySelector('.proj-input-contrib-title')?.value.trim() || '';
+            const cDesc = item.querySelector('.proj-input-contrib-desc')?.value.trim() || '';
+            const metric = item.querySelector('.proj-input-metric')?.value.trim() || '';
+            const iTitle = item.querySelector('.proj-input-impact-title')?.value.trim() || '';
+            const iDesc = item.querySelector('.proj-input-impact-desc')?.value.trim() || '';
+            const img = item.querySelector('.proj-input-image')?.value.trim() || (palaceState.contributions && palaceState.contributions[idx]?.image) || '';
 
-          newContributions.push({
-            id: idx,
-            image: img,
-            project: { title: pTitle, desc: pDesc },
-            contribution: { title: cTitle, desc: cDesc },
-            impact: { title: iTitle, desc: iDesc, metricVal1: metric, metricLbl1: '' }
+            newContributions.push({
+              id: idx,
+              image: img,
+              project: { title: pTitle, desc: pDesc },
+              contribution: { title: cTitle, desc: cDesc },
+              impact: { title: iTitle, desc: iDesc, metricVal1: metric, metricLbl1: '' }
+            });
           });
-        });
-        palaceState.contributions = newContributions;
+          if (newContributions.length > 0) palaceState.contributions = newContributions;
+        }
 
         // Collect Projects / Tasks 2 from dynamic inputs
         const pItems2 = document.querySelectorAll('#adminProjectsList2 .admin-dynamic-item');
-        const newContributions2 = [];
-        pItems2.forEach((item, idx) => {
-          const pTitle = item.querySelector('.proj-input-title')?.value.trim() || `Task ${idx + 1}`;
-          const pDesc = item.querySelector('.proj-input-desc')?.value.trim() || '';
-          const cTitle = item.querySelector('.proj-input-contrib-title')?.value.trim() || '';
-          const cDesc = item.querySelector('.proj-input-contrib-desc')?.value.trim() || '';
-          const metric = item.querySelector('.proj-input-metric')?.value.trim() || '';
-          const iTitle = item.querySelector('.proj-input-impact-title')?.value.trim() || '';
-          const iDesc = item.querySelector('.proj-input-impact-desc')?.value.trim() || '';
-          const img = item.querySelector('.proj-input-image')?.value.trim() || (palaceState.contributions2 && palaceState.contributions2[idx]?.image) || '';
+        if (pItems2 && pItems2.length > 0) {
+          const newContributions2 = [];
+          pItems2.forEach((item, idx) => {
+            const pTitle = item.querySelector('.proj-input-title')?.value.trim() || `Task ${idx + 1}`;
+            const pDesc = item.querySelector('.proj-input-desc')?.value.trim() || '';
+            const cTitle = item.querySelector('.proj-input-contrib-title')?.value.trim() || '';
+            const cDesc = item.querySelector('.proj-input-contrib-desc')?.value.trim() || '';
+            const metric = item.querySelector('.proj-input-metric')?.value.trim() || '';
+            const iTitle = item.querySelector('.proj-input-impact-title')?.value.trim() || '';
+            const iDesc = item.querySelector('.proj-input-impact-desc')?.value.trim() || '';
+            const img = item.querySelector('.proj-input-image')?.value.trim() || (palaceState.contributions2 && palaceState.contributions2[idx]?.image) || '';
 
-          newContributions2.push({
-            id: idx,
-            image: img,
-            project: { title: pTitle, desc: pDesc },
-            contribution: { title: cTitle, desc: cDesc },
-            impact: { title: iTitle, desc: iDesc, metricVal1: metric, metricLbl1: '' }
+            newContributions2.push({
+              id: idx,
+              image: img,
+              project: { title: pTitle, desc: pDesc },
+              contribution: { title: cTitle, desc: cDesc },
+              impact: { title: iTitle, desc: iDesc, metricVal1: metric, metricLbl1: '' }
+            });
           });
-        });
-        palaceState.contributions2 = newContributions2;
+          if (newContributions2.length > 0) palaceState.contributions2 = newContributions2;
+        }
 
         // Save Chamber 2b Common Image & Captions
         const adminCommonImgUrl = document.getElementById('adminCommonImgUrl');
@@ -23044,22 +23130,30 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
         const c1 = palaceState.chambers.find(c => c.id === 'chamber-1');
         const c2b = palaceState.chambers.find(c => c.id === 'chamber-2b');
         const c3 = palaceState.chambers.find(c => c.id === 'chamber-3');
+        const cVal = palaceState.chambers.find(c => c.id === 'chamber-values');
+        const cMem2 = palaceState.chambers.find(c => c.id === 'chamber-memories-2');
 
         palaceState.chamberStories = {
           ch1Title: (c0 && c0.title) || "Where Your Journey Began",
-          ch1Sub: "",
+          ch1Sub: (c0 && c0.sub) || "",
           ch2Title: (c1 && c1.title) || "What You Learned",
-          ch2Sub: "",
+          ch2Sub: (c1 && c1.sub) || "",
           ch3Title: (c2b && c2b.title) || "Building Impact Through Innovation",
-          ch3Sub: "",
+          ch3Sub: (c2b && c2b.sub) || "",
           ch2bTitle: (c2b && c2b.title) || "Building Impact Through Innovation",
-          ch2bSub: "",
+          ch2bSub: (c2b && c2b.sub) || "",
           ch4Title: (c3 && c3.title) || "The People & Bonds",
-          ch4Sub: "",
+          ch4Sub: (c3 && c3.sub) || "",
+          chValTitle: (cVal && cVal.title) || "The Values You Bring",
+          chValDesc: (cVal && cVal.sub) || "",
+          chMem2Title: (cMem2 && cMem2.title) || "Celebrating A Year Of Memories",
+          chMem2Desc: (cMem2 && cMem2.sub) || "",
           ch6Wish: ""
         };
 
-        // Persist to localStorage & IndexedDB
+        palaceState.profileVersion = Math.max(palaceState.profileVersion || 7, 7);
+
+        // Persist to localStorage, IndexedDB & BUILTIN_PROFILES
         persistPalaceState();
 
         // Also update live DOM initialPalaceState tag with latest edited state
@@ -23074,6 +23168,14 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
         }
 
         updatePalaceFromState();
+        renderPlacards();
+        updateSwitcherUI(currentEmpSlug || 'dhara');
+        if (typeof populateProfileDropdown === 'function') {
+          populateProfileDropdown();
+        }
+        if (typeof populateAdminInputs === 'function') {
+          populateAdminInputs();
+        }
         closeAdminPanel();
 
         alert("✨ Employee Journey successfully customized and applied!");
