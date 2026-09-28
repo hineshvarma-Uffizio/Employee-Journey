@@ -3616,7 +3616,7 @@
 
     .evolution-pill-card {
       display: grid;
-      grid-template-columns: 1fr 180px 1fr;
+      grid-template-columns: 1fr auto 1fr;
       align-items: center;
       gap: 24px;
       background: rgba(4, 15, 34, 0.85);
@@ -3659,13 +3659,13 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 100%;
+      padding: 0 6px;
     }
 
     .evolution-pill-line {
       height: 2.5px;
-      width: 100%;
-      max-width: 180px;
+      width: 80px;
+      max-width: 80px;
       background: #00e5ff;
       border-radius: 2px;
       box-shadow: 0 0 10px #00e5ff, 0 0 20px rgba(0, 229, 255, 0.7);
@@ -4290,7 +4290,7 @@
         gap: 12px;
       }
       .evolution-pill-card {
-        grid-template-columns: 1fr 120px 1fr;
+        grid-template-columns: 1fr auto 1fr;
         padding: 18px 24px;
         gap: 16px;
       }
@@ -4298,7 +4298,8 @@
         font-size: 14.5px;
       }
       .evolution-pill-line {
-        max-width: 120px;
+        width: 55px;
+        max-width: 55px;
       }
       .evolution-bridge-conduit {
         display: none;
@@ -4316,7 +4317,7 @@
 
     @media (max-width: 600px) {
       .evolution-pill-card {
-        grid-template-columns: 1fr 60px 1fr;
+        grid-template-columns: 1fr auto 1fr;
         padding: 14px 16px;
         gap: 10px;
         border-radius: 16px;
@@ -4326,7 +4327,8 @@
       }
       .evolution-pill-line {
         height: 2px;
-        max-width: 60px;
+        width: 36px;
+        max-width: 36px;
       }
     }
     /* ==========================================================================
@@ -10352,9 +10354,14 @@
         justify-content: center !important;
       }
       .evolution-pill-card {
+        grid-template-columns: 1fr auto 1fr !important;
         border: 1.5px solid #00d2ff !important;
         background: rgba(4, 15, 34, 0.95) !important;
         box-shadow: none !important;
+      }
+      .evolution-pill-line {
+        width: 14mm !important;
+        max-width: 14mm !important;
       }
       .evolution-card {
         flex: 1 1 0 !important;
