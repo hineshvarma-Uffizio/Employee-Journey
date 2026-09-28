@@ -9423,39 +9423,21 @@
       }
 
       #chamber-1 .evolution-icon-box {
-        display: flex !important;
-        width: 48px !important;
-        height: 48px !important;
-        border-radius: 14px !important;
-        background: rgba(0, 180, 255, 0.12) !important;
-        border: 1.5px solid rgba(0, 229, 255, 0.38) !important;
-        box-shadow: 0 0 16px rgba(0, 229, 255, 0.25), inset 0 0 10px rgba(0, 229, 255, 0.1) !important;
-        align-items: center !important;
-        justify-content: center !important;
-        margin-bottom: 12px !important;
-        color: #00e5ff !important;
-        transition: transform 0.2s ease, box-shadow 0.2s ease !important;
-      }
-
-      #chamber-1 .evolution-icon-box .point-svg {
-        width: 24px !important;
-        height: 24px !important;
-        stroke: #00e5ff !important;
-        color: #00e5ff !important;
-        filter: drop-shadow(0 0 6px rgba(0, 229, 255, 0.5)) !important;
+        display: none !important;
       }
 
       #chamber-1 .evolution-pill-text {
         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif !important;
         font-size: 15.5px !important;
-        font-weight: 700 !important;
+        font-weight: 600 !important;
         color: #ffffff !important;
         text-align: center !important;
-        line-height: 1.4 !important;
-        letter-spacing: 0.15px !important;
+        line-height: 1.45 !important;
+        letter-spacing: 0.2px !important;
         margin: 0 !important;
-        max-width: 280px !important;
+        max-width: 270px !important;
         word-break: break-word !important;
+        padding: 2px 4px !important;
       }
 
       #chamber-1 .evolution-then-text {
@@ -9473,7 +9455,7 @@
         flex-direction: column !important;
         align-items: center !important;
         justify-content: center !important;
-        margin: 10px 0 !important;
+        margin: 12px 0 !important;
         position: relative !important;
         width: 100% !important;
         padding: 0 !important;
@@ -9487,7 +9469,7 @@
       #chamber-1 .evolution-connector-line-bottom {
         display: block !important;
         width: 2px !important;
-        height: 18px !important;
+        height: 16px !important;
         border-radius: 1px !important;
       }
 
@@ -9523,19 +9505,11 @@
 
       @media (max-width: 360px) {
         #chamber-1 .evolution-pill-card {
-          max-width: 290px !important;
-          padding: 20px 14px !important;
+          max-width: 280px !important;
+          padding: 18px 14px !important;
         }
         #chamber-1 .evolution-pill-text {
           font-size: 14px !important;
-        }
-        #chamber-1 .evolution-icon-box {
-          width: 42px !important;
-          height: 42px !important;
-        }
-        #chamber-1 .evolution-icon-box .point-svg {
-          width: 20px !important;
-          height: 20px !important;
         }
         #chamber-1 .evolution-connector-arrow {
           width: 28px !important;
@@ -9547,7 +9521,7 @@
         }
         #chamber-1 .evolution-connector-line-top,
         #chamber-1 .evolution-connector-line-bottom {
-          height: 14px !important;
+          height: 12px !important;
         }
       }
 
@@ -12598,9 +12572,6 @@
               <!-- Row 1 -->
               <div class="evolution-pill-card" data-row-idx="0">
                 <div class="evolution-pill-side evolution-then-side">
-                  <div class="evolution-icon-box evolution-then-icon then-icon" data-row-idx="0" aria-hidden="true">
-                    <svg class="point-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20"/><path d="M12 2a14.5 14.5 0 0 1 0 20"/><path d="M2 12h20"/></svg>
-                  </div>
                   <div class="evolution-pill-text evolution-then-text" contenteditable="true" data-editable="true" data-point-idx="0" title="Click to edit text">Learning the environment</div>
                 </div>
                 <div class="evolution-pill-connector" aria-hidden="true">
@@ -12615,9 +12586,6 @@
                   <div class="evolution-pill-line"></div>
                 </div>
                 <div class="evolution-pill-side evolution-now-side">
-                  <div class="evolution-icon-box evolution-now-icon now-icon" data-row-idx="0" aria-hidden="true">
-                    <svg class="point-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
-                  </div>
                   <div class="evolution-pill-text evolution-now-text" contenteditable="true" data-editable="true" data-point-idx="0" title="Click to edit text">More confidence</div>
                 </div>
               </div>
@@ -12625,9 +12593,6 @@
               <!-- Row 2 -->
               <div class="evolution-pill-card" data-row-idx="1">
                 <div class="evolution-pill-side evolution-then-side">
-                  <div class="evolution-icon-box evolution-then-icon then-icon" data-row-idx="1" aria-hidden="true">
-                    <svg class="point-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
-                  </div>
                   <div class="evolution-pill-text evolution-then-text" contenteditable="true" data-editable="true" data-point-idx="1" title="Click to edit text">Understanding the product</div>
                 </div>
                 <div class="evolution-pill-connector" aria-hidden="true">
@@ -12642,9 +12607,6 @@
                   <div class="evolution-pill-line"></div>
                 </div>
                 <div class="evolution-pill-side evolution-now-side">
-                  <div class="evolution-icon-box evolution-now-icon now-icon" data-row-idx="1" aria-hidden="true">
-                    <svg class="point-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
-                  </div>
                   <div class="evolution-pill-text evolution-now-text" contenteditable="true" data-editable="true" data-point-idx="1" title="Click to edit text">Better understanding</div>
                 </div>
               </div>
@@ -12652,9 +12614,6 @@
               <!-- Row 3 -->
               <div class="evolution-pill-card" data-row-idx="2">
                 <div class="evolution-pill-side evolution-then-side">
-                  <div class="evolution-icon-box evolution-then-icon then-icon" data-row-idx="2" aria-hidden="true">
-                    <svg class="point-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
-                  </div>
                   <div class="evolution-pill-text evolution-then-text" contenteditable="true" data-editable="true" data-point-idx="2" title="Click to edit text">Getting familiar with the role</div>
                 </div>
                 <div class="evolution-pill-connector" aria-hidden="true">
@@ -12669,9 +12628,6 @@
                   <div class="evolution-pill-line"></div>
                 </div>
                 <div class="evolution-pill-side evolution-now-side">
-                  <div class="evolution-icon-box evolution-now-icon now-icon" data-row-idx="2" aria-hidden="true">
-                    <svg class="point-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m2 4 3 12h14l3-12-6 7-4-7-4 7-6-7zm3 16h14"/></svg>
-                  </div>
                   <div class="evolution-pill-text evolution-now-text" contenteditable="true" data-editable="true" data-point-idx="2" title="Click to edit text">Greater ownership</div>
                 </div>
               </div>
