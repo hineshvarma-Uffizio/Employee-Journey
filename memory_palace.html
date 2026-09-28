@@ -10749,6 +10749,7 @@
 
           <!-- Elegant Floating Header: Heading + Subtitle -->
           <div class="portal-arch-header">
+            <div class="portal-arch-logo-wrap" title="Uffizio"><img id="portalArchLogo" class="portal-arch-logo" src="uffizio_logo_white.png" alt="Uffizio Logo"></div>
             <div class="portal-arch-title" contenteditable="true" data-editable="true" title="Click to edit entrance title">WELCOME TO YOUR JOURNEY</div>
             <div class="portal-arch-sub" contenteditable="true" data-editable="true" title="Click to edit entrance subtitle">WALK THROUGH YOUR YEAR • 2025 → 2026</div>
           </div>
@@ -11647,15 +11648,19 @@
         <!-- Titles & Prompt Section -->
         <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:10px; padding:12px; margin-bottom:12px;">
           <h5 style="color:var(--gold-primary); font-size:12px; font-weight:700; text-transform:uppercase; margin:0 0 8px 0;">✨ Entrance Heading & Prompt</h5>
-          <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+          <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-bottom:10px;">
             <div class="form-group" style="margin:0;">
               <label>Doorway Main Heading</label>
-              <input type="text" class="form-input" id="adminEntranceTitle" placeholder="Celebrating Your First Year With Uffizio">
+              <input type="text" class="form-input" id="adminEntranceTitle" placeholder="WELCOME TO YOUR JOURNEY">
             </div>
             <div class="form-group" style="margin:0;">
-              <label>Enter Button / Prompt</label>
-              <input type="text" class="form-input" id="adminEntrancePrompt" placeholder="Scroll Down or Click Door to Enter">
+              <label>Doorway Subtitle</label>
+              <input type="text" class="form-input" id="adminEntranceSub" placeholder="WALK THROUGH YOUR YEAR • 2025 → 2026">
             </div>
+          </div>
+          <div class="form-group" style="margin:0;">
+            <label>Enter Button / Prompt</label>
+            <input type="text" class="form-input" id="adminEntrancePrompt" placeholder="Scroll Down or Click Door to Enter">
           </div>
         </div>
 
@@ -13073,6 +13078,7 @@
 
     const palaceState = {
       "profileVersion": 6,
+      "milestoneTier": "1yr",
       "chambers": [
         {
           "id": "chamber-milestone",
@@ -19104,7 +19110,10 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
 
       // 1. Check localStorage
       try {
-        const cached = localStorage.getItem(localKey);
+        let cached = localStorage.getItem(localKey);
+        if (!cached && (s === 'dhara' || !s)) {
+          cached = localStorage.getItem('palace_full_profile');
+        }
         if (cached) {
           const parsed = JSON.parse(cached);
           if (parsed && (parsed.employee || parsed.chambers)) {
@@ -19115,7 +19124,10 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
 
       // 2. Check IndexedDB
       try {
-        const idbData = await loadFromIndexedDB(s);
+        let idbData = await loadFromIndexedDB(s);
+        if (!idbData && (s === 'dhara' || !s)) {
+          idbData = await loadFromIndexedDB('palace_full_profile');
+        }
         if (idbData && (idbData.employee || idbData.chambers)) {
           return idbData;
         }
@@ -19150,6 +19162,18 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
         }
         data.evolution.growthLabel = '';
       }
+
+      // Clean baseline reset from template to prevent cross-profile property bleed
+      if (window.BUILTIN_PROFILES && window.BUILTIN_PROFILES['template']) {
+        const base = JSON.parse(JSON.stringify(window.BUILTIN_PROFILES['template']));
+        Object.keys(palaceState).forEach(k => {
+          if (!(k in base)) delete palaceState[k];
+        });
+        Object.keys(base).forEach(k => {
+          palaceState[k] = base[k];
+        });
+      }
+
       Object.keys(data).forEach(k => {
         if (data[k] !== undefined && data[k] !== null) {
           if (typeof data[k] === 'object' && !Array.isArray(data[k]) && palaceState[k] && typeof palaceState[k] === 'object' && !Array.isArray(palaceState[k])) {
@@ -19159,6 +19183,10 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
           }
         }
       });
+
+      // Explicitly guarantee milestoneTier is cleanly set
+      palaceState.milestoneTier = data.milestoneTier || '1yr';
+
       updatePalaceFromState();
       if (typeof populateAdminInputs === 'function') {
         populateAdminInputs();
