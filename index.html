@@ -3566,14 +3566,16 @@
        ========================================================================== */
     .room-learned-dashboard {
       width: 100%;
-      max-width: 1080px;
+      max-width: 960px;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      gap: 28px;
+      align-items: center;
+      gap: 16px;
       position: relative;
       z-index: 10;
-      padding: 20px 0;
+      padding: 10px 0;
+      margin: 0 auto;
     }
 
     /* Tagline Eyebrow Pill */
@@ -3599,13 +3601,93 @@
       filter: drop-shadow(0 0 6px var(--gold-glow));
     }
 
-    /* Top Evolution Visual: THEN vs NOW */
-    .evolution-comparison-stage {
+    /* Top Evolution Visual: THEN vs NOW - 3 Horizontal Pill Cards UI */
+    .evolution-comparison-stage,
+    .evolution-stacked-stage {
       display: flex;
-      align-items: stretch;
-      justify-content: space-between;
-      gap: 20px;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
       width: 100%;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .evolution-pill-card {
+      display: grid;
+      grid-template-columns: 1fr 180px 1fr;
+      align-items: center;
+      gap: 24px;
+      background: rgba(4, 15, 34, 0.85);
+      border: 1.5px solid #00d2ff;
+      border-radius: 20px;
+      padding: 22px 48px;
+      box-shadow: 0 0 16px rgba(0, 210, 255, 0.22), inset 0 0 12px rgba(0, 210, 255, 0.04);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+      box-sizing: border-box;
+      width: 100%;
+    }
+
+    .evolution-pill-card:hover {
+      transform: translateY(-2px);
+      border-color: #38e1ff;
+      box-shadow: 0 0 24px rgba(0, 210, 255, 0.38), inset 0 0 16px rgba(0, 210, 255, 0.08);
+    }
+
+    .evolution-pill-text {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      font-size: 16px;
+      font-weight: 500;
+      color: #ffffff;
+      line-height: 1.45;
+      letter-spacing: 0.2px;
+      user-select: text;
+    }
+
+    .evolution-then-text {
+      text-align: left;
+    }
+
+    .evolution-now-text {
+      text-align: left;
+    }
+
+    .evolution-pill-connector {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+    }
+
+    .evolution-pill-line {
+      height: 2.5px;
+      width: 100%;
+      max-width: 180px;
+      background: #00e5ff;
+      border-radius: 2px;
+      box-shadow: 0 0 10px #00e5ff, 0 0 20px rgba(0, 229, 255, 0.7);
+    }
+
+    .evolution-pill-card [contenteditable="true"] {
+      cursor: text !important;
+      outline: none;
+      transition: outline 0.2s, background 0.2s;
+    }
+
+    .evolution-pill-card [contenteditable="true"]:hover {
+      outline: 1px dashed rgba(0, 229, 255, 0.5) !important;
+      outline-offset: 4px;
+      border-radius: 4px;
+    }
+
+    .evolution-pill-card [contenteditable="true"]:focus {
+      outline: 2px solid #00e5ff !important;
+      outline-offset: 4px;
+      background: rgba(0, 229, 255, 0.12) !important;
+      border-radius: 4px;
     }
 
     .evolution-card {
@@ -4202,9 +4284,21 @@
 
     /* Responsive Mobile & Tablet Rules for Room 02 */
     @media (max-width: 900px) {
-      .evolution-comparison-stage {
+      .evolution-comparison-stage,
+      .evolution-stacked-stage {
         flex-direction: column;
         gap: 12px;
+      }
+      .evolution-pill-card {
+        grid-template-columns: 1fr 120px 1fr;
+        padding: 18px 24px;
+        gap: 16px;
+      }
+      .evolution-pill-text {
+        font-size: 14.5px;
+      }
+      .evolution-pill-line {
+        max-width: 120px;
       }
       .evolution-bridge-conduit {
         display: none;
@@ -4217,6 +4311,22 @@
       .visual-skill-pill-card {
         flex: 0 0 240px;
         min-width: 240px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .evolution-pill-card {
+        grid-template-columns: 1fr 60px 1fr;
+        padding: 14px 16px;
+        gap: 10px;
+        border-radius: 16px;
+      }
+      .evolution-pill-text {
+        font-size: 13px;
+      }
+      .evolution-pill-line {
+        height: 2px;
+        max-width: 60px;
       }
     }
     /* ==========================================================================
@@ -10149,6 +10259,7 @@
 
       .milestone-horizontal-card,
       .evolution-card,
+      .evolution-pill-card,
       .split-creation-card,
       .creations-common-image-card,
       .value-card,
@@ -10231,12 +10342,19 @@
         max-width: 78mm !important;
       }
 
-      .evolution-comparison-stage {
+      .evolution-comparison-stage,
+      .evolution-stacked-stage {
         display: flex !important;
-        flex-direction: row !important;
-        gap: 10mm !important;
+        flex-direction: column !important;
+        gap: 3.5mm !important;
         width: 100% !important;
+        max-width: 220mm !important;
         justify-content: center !important;
+      }
+      .evolution-pill-card {
+        border: 1.5px solid #00d2ff !important;
+        background: rgba(4, 15, 34, 0.95) !important;
+        box-shadow: none !important;
       }
       .evolution-card {
         flex: 1 1 0 !important;
@@ -10498,6 +10616,7 @@
     /* Preserve rich dark theme card styles with authentic gradients */
     body.pdf-capturing-mode .milestone-horizontal-card,
     body.pdf-capturing-mode .evolution-card,
+    body.pdf-capturing-mode .evolution-pill-card,
     body.pdf-capturing-mode .value-card,
     body.pdf-capturing-mode .future-card,
     body.pdf-capturing-mode .thankyou-card-monument {
@@ -10954,89 +11073,34 @@
         <div class="chamber-content">
           <div class="room-learned-dashboard">
             
-            <!-- Top Evolution Visual: THEN vs NOW (Premium Cohesive Vector Icons & Click-to-Upload) -->
-            <div class="evolution-comparison-stage">
+            <!-- Evolution Comparison Stage: 3 Horizontal Capsule Cards -->
+            <div class="evolution-comparison-stage evolution-stacked-stage">
               
-              <!-- Left Card: Day 01 -->
-              <div class="evolution-card evolution-then">
-                <div class="evolution-card-header">
-                  <h3 class="evolution-heading then-heading" contenteditable="true" data-editable="true" title="Click to edit heading">Day 01</h3>
+              <!-- Row 1 -->
+              <div class="evolution-pill-card" data-row-idx="0">
+                <div class="evolution-pill-text evolution-then-text" contenteditable="true" data-editable="true" data-point-idx="0" title="Click to edit text">Learning the environment</div>
+                <div class="evolution-pill-connector" aria-hidden="true">
+                  <div class="evolution-pill-line"></div>
                 </div>
-                <div class="evolution-card-body">
-                  <div class="evolution-point-item">
-                    <div class="point-icon-box then-icon" data-point-type="then" data-point-idx="0" title="Click to upload custom SVG or PNG icon" onclick="triggerEvolutionIconUpload('then', 0)">
-                      <svg class="point-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20"/><path d="M12 2a14.5 14.5 0 0 1 0 20"/><path d="M2 12h20"/></svg>
-                    </div>
-                    <div class="point-text" contenteditable="true" data-editable="true" title="Click to edit text">Learning the environment</div>
-                  </div>
-                  <div class="evolution-point-item">
-                    <div class="point-icon-box then-icon" data-point-type="then" data-point-idx="1" title="Click to upload custom SVG or PNG icon" onclick="triggerEvolutionIconUpload('then', 1)">
-                      <svg class="point-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
-                    </div>
-                    <div class="point-text" contenteditable="true" data-editable="true" title="Click to edit text">Understanding the product</div>
-                  </div>
-                  <div class="evolution-point-item">
-                    <div class="point-icon-box then-icon" data-point-type="then" data-point-idx="2" title="Click to upload custom SVG or PNG icon" onclick="triggerEvolutionIconUpload('then', 2)">
-                      <svg class="point-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
-                    </div>
-                    <div class="point-text" contenteditable="true" data-editable="true" title="Click to edit text">Getting familiar with the role</div>
-                  </div>
-                </div>
+                <div class="evolution-pill-text evolution-now-text" contenteditable="true" data-editable="true" data-point-idx="0" title="Click to edit text">More confidence</div>
               </div>
 
-              <!-- Center: Point-to-Point Growth Connectors -->
-              <div class="evolution-bridge-conduit" aria-label="Growth Evolution Connectors">
-                <div class="conduit-header-spacer"></div>
-                <div class="conduit-track-list">
-                  <div class="conduit-track" data-track="0" title="Learning to Confidence">
-                    <div class="conduit-wire">
-                      <div class="conduit-line-glow"></div>
-                      <div class="conduit-line-core"></div>
-                      <div class="conduit-pulse-particle"></div>
-                    </div>
-                  </div>
-                  <div class="conduit-track" data-track="1" title="Understanding to Mastery">
-                    <div class="conduit-wire">
-                      <div class="conduit-line-glow"></div>
-                      <div class="conduit-line-core"></div>
-                      <div class="conduit-pulse-particle"></div>
-                    </div>
-                  </div>
-                  <div class="conduit-track" data-track="2" title="Role to Ownership">
-                    <div class="conduit-wire">
-                      <div class="conduit-line-glow"></div>
-                      <div class="conduit-line-core"></div>
-                      <div class="conduit-pulse-particle"></div>
-                    </div>
-                  </div>
+              <!-- Row 2 -->
+              <div class="evolution-pill-card" data-row-idx="1">
+                <div class="evolution-pill-text evolution-then-text" contenteditable="true" data-editable="true" data-point-idx="1" title="Click to edit text">Understanding the product</div>
+                <div class="evolution-pill-connector" aria-hidden="true">
+                  <div class="evolution-pill-line"></div>
                 </div>
+                <div class="evolution-pill-text evolution-now-text" contenteditable="true" data-editable="true" data-point-idx="1" title="Click to edit text">Better understanding</div>
               </div>
 
-              <!-- Right Card: Today -->
-              <div class="evolution-card evolution-now">
-                <div class="evolution-card-header">
-                  <h3 class="evolution-heading now-heading" contenteditable="true" data-editable="true" title="Click to edit heading">Today</h3>
+              <!-- Row 3 -->
+              <div class="evolution-pill-card" data-row-idx="2">
+                <div class="evolution-pill-text evolution-then-text" contenteditable="true" data-editable="true" data-point-idx="2" title="Click to edit text">Getting familiar with the role</div>
+                <div class="evolution-pill-connector" aria-hidden="true">
+                  <div class="evolution-pill-line"></div>
                 </div>
-                <div class="evolution-card-body">
-                  <div class="evolution-point-item">
-                    <div class="point-icon-box now-icon" data-point-type="now" data-point-idx="0" title="Click to upload custom SVG or PNG icon" onclick="triggerEvolutionIconUpload('now', 0)">
-                      <svg class="point-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
-                    </div>
-                    <div class="point-text highlight-gold" contenteditable="true" data-editable="true" title="Click to edit text">More confidence</div>
-                  </div>
-                  <div class="evolution-point-item">
-                    <div class="point-icon-box now-icon" data-point-type="now" data-point-idx="1" title="Click to upload custom SVG or PNG icon" onclick="triggerEvolutionIconUpload('now', 1)">
-                      <svg class="point-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
-                    </div>
-                    <div class="point-text highlight-cyan" contenteditable="true" data-editable="true" title="Click to edit text">Better understanding</div>
-                  </div>
-                  <div class="evolution-point-item">
-                    <div class="point-icon-box now-icon" data-point-type="now" data-point-idx="2" title="Click to upload custom SVG or PNG icon" onclick="triggerEvolutionIconUpload('now', 2)">
-                      <svg class="point-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m2 4 3 12h14l3-12-6 7-4-7-4 7-6-7zm3 16h14"/></svg>
-                    </div>
-                    <div class="point-text highlight-emerald" contenteditable="true" data-editable="true" title="Click to edit text">Greater ownership</div>
-                  </div>
-                </div>
+                <div class="evolution-pill-text evolution-now-text" contenteditable="true" data-editable="true" data-point-idx="2" title="Click to edit text">Greater ownership</div>
               </div>
 
             </div>
@@ -14999,6 +15063,22 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
       const evo = palaceState.evolution;
       if (!evo) return;
 
+      // Update 3 Horizontal Capsule / Pill Cards UI
+      const pillCards = document.querySelectorAll('.evolution-pill-card');
+      if (pillCards && pillCards.length > 0) {
+        pillCards.forEach((card, idx) => {
+          const thenEl = card.querySelector('.evolution-then-text');
+          const nowEl = card.querySelector('.evolution-now-text');
+          if (thenEl && evo.thenPoints && evo.thenPoints[idx] && evo.thenPoints[idx].text !== undefined) {
+            thenEl.textContent = evo.thenPoints[idx].text;
+          }
+          if (nowEl && evo.nowPoints && evo.nowPoints[idx] && evo.nowPoints[idx].text !== undefined) {
+            nowEl.textContent = evo.nowPoints[idx].text;
+          }
+        });
+      }
+
+      // Legacy support for two-column card layout if present
       const thenTitle = document.querySelector('.evolution-then .evolution-heading');
       if (thenTitle && evo.thenTitle) thenTitle.textContent = evo.thenTitle;
 
@@ -23301,6 +23381,9 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
       // Make all editorial headings, titles, descriptions, and quotes editable
       const editableSelectors = [
         '[data-editable="true"]',
+        '.evolution-pill-text',
+        '.evolution-then-text',
+        '.evolution-now-text',
         '.evolution-heading',
         '.point-text',
         '.conduit-lbl',
@@ -23392,14 +23475,25 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
         const sRight = document.getElementById('doorSealRight');
         if (sRight) palaceState.doorWingRight = sRight.textContent.trim();
 
-        // Evolution (What You Learned)
-        const liveThenTitle = document.querySelector('.evolution-then .evolution-heading');
-        const liveGrowthLbl = document.querySelector('.conduit-lbl');
-        const liveNowTitle = document.querySelector('.evolution-now .evolution-heading');
-        const liveThenItems = document.querySelectorAll('.evolution-then .evolution-point-item');
-        const liveNowItems = document.querySelectorAll('.evolution-now .evolution-point-item');
-
-        if (liveThenTitle || liveNowTitle) {
+        // Evolution (What You Learned) - Pill Cards UI & Legacy
+        const liveThenPills = document.querySelectorAll('.evolution-pill-card .evolution-then-text');
+        const liveNowPills = document.querySelectorAll('.evolution-pill-card .evolution-now-text');
+        if (liveThenPills.length > 0 || liveNowPills.length > 0) {
+          palaceState.evolution = palaceState.evolution || {};
+          if (liveThenPills.length > 0) {
+            palaceState.evolution.thenPoints = Array.from(liveThenPills).map((el, i) => ({
+              icon: (palaceState.evolution.thenPoints && palaceState.evolution.thenPoints[i] && palaceState.evolution.thenPoints[i].icon) || ['globe', 'box', 'compass'][i] || 'globe',
+              text: el.textContent.trim()
+            }));
+          }
+          if (liveNowPills.length > 0) {
+            palaceState.evolution.nowPoints = Array.from(liveNowPills).map((el, i) => ({
+              icon: (palaceState.evolution.nowPoints && palaceState.evolution.nowPoints[i] && palaceState.evolution.nowPoints[i].icon) || ['shield', 'target', 'crown'][i] || 'shield',
+              text: el.textContent.trim(),
+              colorClass: (palaceState.evolution.nowPoints && palaceState.evolution.nowPoints[i] && palaceState.evolution.nowPoints[i].colorClass) || ''
+            }));
+          }
+        } else if (liveThenTitle || liveNowTitle) {
           palaceState.evolution = palaceState.evolution || {};
           if (liveThenTitle) palaceState.evolution.thenTitle = liveThenTitle.textContent.trim();
           if (liveGrowthLbl) palaceState.evolution.growthLabel = liveGrowthLbl.textContent.trim();
@@ -23684,6 +23778,26 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
         if (commonTitleEl2) palaceState.chamber2bCommonTitle = commonTitleEl2.textContent.trim();
         const commonDescEl2 = document.getElementById('chamber2bCommonDesc');
         if (commonDescEl2) palaceState.chamber2bCommonDesc = commonDescEl2.textContent.trim();
+
+        // 4c. Evolution (What You Learned) Pill cards
+        const capThenPills = document.querySelectorAll('.evolution-pill-card .evolution-then-text');
+        const capNowPills = document.querySelectorAll('.evolution-pill-card .evolution-now-text');
+        if (capThenPills.length > 0 || capNowPills.length > 0) {
+          palaceState.evolution = palaceState.evolution || {};
+          if (capThenPills.length > 0) {
+            palaceState.evolution.thenPoints = Array.from(capThenPills).map((el, i) => ({
+              icon: (palaceState.evolution.thenPoints && palaceState.evolution.thenPoints[i] && palaceState.evolution.thenPoints[i].icon) || ['globe', 'box', 'compass'][i] || 'globe',
+              text: el.textContent.trim()
+            }));
+          }
+          if (capNowPills.length > 0) {
+            palaceState.evolution.nowPoints = Array.from(capNowPills).map((el, i) => ({
+              icon: (palaceState.evolution.nowPoints && palaceState.evolution.nowPoints[i] && palaceState.evolution.nowPoints[i].icon) || ['shield', 'target', 'crown'][i] || 'shield',
+              text: el.textContent.trim(),
+              colorClass: (palaceState.evolution.nowPoints && palaceState.evolution.nowPoints[i] && palaceState.evolution.nowPoints[i].colorClass) || ''
+            }));
+          }
+        }
 
         if (false) {
           const liveRows = document.querySelectorAll('#impactTableBody .impact-table-row');
