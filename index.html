@@ -14597,44 +14597,40 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
 
     // Secondary restore from IndexedDB if localStorage was cleared or limited
     loadFromIndexedDB().then(idbData => {
-      if (idbData && idbData.memories && Array.isArray(idbData.memories) && idbData.memories.length > 0) {
-        const needsRestore = !palaceState.memories || 
-          idbData.memories.length !== palaceState.memories.length ||
-          idbData.memories.some((m, i) => m.image && m.image !== (palaceState.memories[i] && palaceState.memories[i].image));
-        if (needsRestore) {
+      if (!idbData) return;
+      if (!savedFullProfile) {
+        if (idbData.memories && Array.isArray(idbData.memories) && idbData.memories.length > 0) {
           palaceState.memories = idbData.memories;
           renderMemories();
         }
-      }
-      if (idbData && idbData.memories2Mode) {
-        palaceState.memories2Mode = idbData.memories2Mode;
-      }
-      if (idbData && idbData.memories2CollageImage) {
-        palaceState.memories2CollageImage = idbData.memories2CollageImage === 'memories_collage_part2.jpg' ? 'memories_collage_part2.png' : idbData.memories2CollageImage;
-      }
-      if (idbData && idbData.memories2 && Array.isArray(idbData.memories2) && idbData.memories2.length > 0) {
-        palaceState.memories2 = idbData.memories2;
-        if (!palaceState.memories2CollageImage && idbData.memories2[0] && idbData.memories2[0].image) {
-          palaceState.memories2CollageImage = idbData.memories2[0].image;
+        if (idbData.memories2Mode) {
+          palaceState.memories2Mode = idbData.memories2Mode;
         }
-      }
-      renderMemories2();
-      if (idbData && idbData.values && Array.isArray(idbData.values) && idbData.values.length > 0) {
-        if (!palaceState.values || palaceState.values.length === 0) {
-          palaceState.values = idbData.values;
-          if (typeof renderValuesRoom === 'function') renderValuesRoom();
+        if (idbData.memories2CollageImage) {
+          palaceState.memories2CollageImage = idbData.memories2CollageImage === 'memories_collage_part2.jpg' ? 'memories_collage_part2.png' : idbData.memories2CollageImage;
         }
-      }
-      if (idbData && idbData.proud) {
-        palaceState.proud = { ...palaceState.proud, ...idbData.proud };
-        if (typeof renderProudRoom === 'function') renderProudRoom();
-      }
-      if (idbData && idbData.future) {
-        palaceState.future = { ...palaceState.future, ...idbData.future };
-        if (typeof renderFutureRoom === 'function') renderFutureRoom();
-      }
-      if (idbData && idbData.chambers && Array.isArray(idbData.chambers) && idbData.chambers.length > 0) {
-        if (!savedFullProfile) {
+        if (idbData.memories2 && Array.isArray(idbData.memories2) && idbData.memories2.length > 0) {
+          palaceState.memories2 = idbData.memories2;
+          if (!palaceState.memories2CollageImage && idbData.memories2[0] && idbData.memories2[0].image) {
+            palaceState.memories2CollageImage = idbData.memories2[0].image;
+          }
+        }
+        renderMemories2();
+        if (idbData.values && Array.isArray(idbData.values) && idbData.values.length > 0) {
+          if (!palaceState.values || palaceState.values.length === 0) {
+            palaceState.values = idbData.values;
+            if (typeof renderValuesRoom === 'function') renderValuesRoom();
+          }
+        }
+        if (idbData.proud) {
+          palaceState.proud = { ...palaceState.proud, ...idbData.proud };
+          if (typeof renderProudRoom === 'function') renderProudRoom();
+        }
+        if (idbData.future) {
+          palaceState.future = { ...palaceState.future, ...idbData.future };
+          if (typeof renderFutureRoom === 'function') renderFutureRoom();
+        }
+        if (idbData.chambers && Array.isArray(idbData.chambers) && idbData.chambers.length > 0) {
           palaceState.chambers = idbData.chambers.filter(c => c.id !== 'chamber-2' && c.id !== 'chamber-memories');
           palaceState.chambers.forEach(c => {
             if (c.id === 'chamber-2b' && (c.navLabel === 'Created II' || !c.navLabel)) c.navLabel = 'Created';
@@ -14642,6 +14638,29 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
           });
           syncPalaceNavigation();
           if (typeof renderAdminRoomsManager === 'function') renderAdminRoomsManager();
+        }
+      } else {
+        // savedFullProfile exists in localStorage (primary source of truth)
+        // Only recover base64 images that might have exceeded localStorage quota:
+        if (idbData.memories && Array.isArray(idbData.memories) && palaceState.memories) {
+          let restoredAny = false;
+          idbData.memories.forEach((m, idx) => {
+            if (palaceState.memories[idx] && !palaceState.memories[idx].image && m.image) {
+              palaceState.memories[idx].image = m.image;
+              restoredAny = true;
+            }
+          });
+          if (restoredAny) renderMemories();
+        }
+        if (idbData.memories2 && Array.isArray(idbData.memories2) && palaceState.memories2) {
+          let restoredAny2 = false;
+          idbData.memories2.forEach((m, idx) => {
+            if (palaceState.memories2[idx] && !palaceState.memories2[idx].image && m.image) {
+              palaceState.memories2[idx].image = m.image;
+              restoredAny2 = true;
+            }
+          });
+          if (restoredAny2) renderMemories2();
         }
       }
     });
@@ -17349,7 +17368,9 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
               }
               if (chamberId === 'chamber-thankyou' && palaceState.thankYou) {
                 palaceState.thankYou.title = e.target.value;
+                if (typeof renderThankYouRoom === 'function') renderThankYouRoom();
               }
+              renderPlacards();
               syncPalaceNavigation();
               persistPalaceState();
               const ovHeading = document.querySelector(`.admin-room-card[data-room-id="${chamberId}"] .room-display-heading`);
@@ -17497,7 +17518,11 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
           if (r) {
             r.title = e.target.value;
             if (id === 'chamber-milestone' && palaceState.celebration) palaceState.celebration.title = e.target.value;
-            if (id === 'chamber-thankyou' && palaceState.thankYou) palaceState.thankYou.title = e.target.value;
+            if (id === 'chamber-thankyou' && palaceState.thankYou) {
+              palaceState.thankYou.title = e.target.value;
+              if (typeof renderThankYouRoom === 'function') renderThankYouRoom();
+            }
+            renderPlacards();
             syncPalaceNavigation();
             persistPalaceState();
             const map = CHAMBER_TAB_INPUT_MAP[id];
@@ -20406,6 +20431,9 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
     [entTitleEl, entSubEl, entPromptEl, dSealLeft, dSealRight].forEach(el => {
       if (!el) return;
       el.addEventListener('blur', () => {
+        const profileModalBackdrop = document.getElementById('profileModalBackdrop');
+        if (profileModalBackdrop && profileModalBackdrop.classList.contains('active')) return;
+        if (typeof isLiveEditActive === 'undefined' || !isLiveEditActive) return;
         captureLiveEditsToState();
         persistPalaceState();
       });
@@ -21256,18 +21284,23 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
     window.deleteMilestone = function(idx) {
       if (palaceState.milestones) {
         palaceState.milestones.splice(idx, 1);
+        persistPalaceState();
         renderAdminMilestonesList();
+        renderMilestones();
       }
     };
     window.deleteSkill = function(idx) {
       if (palaceState.skills) {
         palaceState.skills.splice(idx, 1);
+        persistPalaceState();
         renderAdminSkillsList();
+        renderSkills();
       }
     };
     window.deleteProject = function(idx) {
       if (palaceState.contributions && palaceState.contributions[idx]) {
         palaceState.contributions.splice(idx, 1);
+        persistPalaceState();
         renderAdminProjectsList();
         renderProjects();
       }
@@ -21275,6 +21308,7 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
     window.deleteProject2 = function(idx) {
       if (palaceState.contributions2 && palaceState.contributions2[idx]) {
         palaceState.contributions2.splice(idx, 1);
+        persistPalaceState();
         renderAdminProjectsList2();
         renderProjects2();
       }
@@ -21282,7 +21316,9 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
     window.deleteNote = function(idx) {
       if (palaceState.stickyNotes) {
         palaceState.stickyNotes.splice(idx, 1);
+        persistPalaceState();
         renderAdminNotesList();
+        renderStickyNotes();
       }
     };
 
@@ -21292,7 +21328,9 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
       btnAddMilestone.addEventListener('click', () => {
         if (!palaceState.milestones) palaceState.milestones = [];
         palaceState.milestones.push({ date: "New Date", title: "New Milestone", sub: "Description" });
+        persistPalaceState();
         renderAdminMilestonesList();
+        renderMilestones();
       });
     }
 
@@ -21301,7 +21339,9 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
       btnAddSkill.addEventListener('click', () => {
         if (!palaceState.skills) palaceState.skills = [];
         palaceState.skills.push({ title: "New Skill", desc: "Skill Description", pct: 90, icon: "⭐" });
+        persistPalaceState();
         renderAdminSkillsList();
+        renderSkills();
       });
     }
 
@@ -21329,6 +21369,7 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
         });
         renderAdminProjectsList();
         renderProjects();
+        persistPalaceState();
 
         const container = document.getElementById('adminProjectsList');
         if (container) {
@@ -21367,6 +21408,7 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
         });
         renderAdminProjectsList2();
         renderProjects2();
+        persistPalaceState();
 
         const container = document.getElementById('adminProjectsList2');
         if (container) {
@@ -21383,7 +21425,9 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
       btnAddNote.addEventListener('click', () => {
         if (!palaceState.stickyNotes) palaceState.stickyNotes = [];
         palaceState.stickyNotes.push({ text: "Congratulations on an incredible milestone!", author: "Teammate", color: "yellow" });
+        persistPalaceState();
         renderAdminNotesList();
+        renderStickyNotes();
       });
     }
 
@@ -22434,8 +22478,522 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
         }
       });
       setupChamberTabHeadingListeners();
+      setupAdminPanelLiveSync();
 
       adminStatusMsg.textContent = "";
+    }
+
+    /* ==========================================================================
+       REAL-TIME ADMIN PANEL LIVE SYNC CONTROLLER
+       ========================================================================== */
+    function setupAdminPanelLiveSync() {
+      if (window._adminLiveSyncInitialized) return;
+      window._adminLiveSyncInitialized = true;
+
+      let persistTimer = null;
+      function schedulePersist() {
+        clearTimeout(persistTimer);
+        persistTimer = setTimeout(() => {
+          persistPalaceState();
+        }, 300);
+      }
+
+      // 1. Profile Tab
+      if (inputEmployeeName) {
+        inputEmployeeName.addEventListener('input', (e) => {
+          const val = e.target.value.trim();
+          palaceState.employee = palaceState.employee || {};
+          if (val) palaceState.employee.name = val;
+          const dName = document.getElementById('doorwayEmpName');
+          if (dName) dName.textContent = val || palaceState.employee.name || '';
+          const cName = document.getElementById('celebrationEmpName');
+          if (cName) cName.textContent = val || palaceState.employee.name || '';
+          const topBadge = document.getElementById('topActiveProfileName');
+          if (topBadge) topBadge.textContent = val || palaceState.employee.name || '';
+          const swBadge = document.getElementById('switcherActiveBadge');
+          if (swBadge) swBadge.textContent = 'Active: ' + (val || palaceState.employee.name || '');
+          schedulePersist();
+        });
+      }
+
+      if (inputEmployeeRole) {
+        inputEmployeeRole.addEventListener('input', (e) => {
+          palaceState.employee = palaceState.employee || {};
+          palaceState.employee.role = e.target.value.trim();
+          schedulePersist();
+        });
+      }
+
+      if (inputEmployeeDate) {
+        inputEmployeeDate.addEventListener('input', (e) => {
+          palaceState.employee = palaceState.employee || {};
+          palaceState.employee.date = e.target.value.trim();
+          schedulePersist();
+        });
+      }
+
+      if (inputEmployeeYears) {
+        inputEmployeeYears.addEventListener('input', (e) => {
+          palaceState.employee = palaceState.employee || {};
+          palaceState.employee.years = e.target.value.trim();
+          const dSealR = document.getElementById('doorSealRight');
+          if (dSealR) dSealR.textContent = e.target.value.trim();
+          schedulePersist();
+        });
+      }
+
+      if (inputEmployeePhoto) {
+        inputEmployeePhoto.addEventListener('input', (e) => {
+          const url = e.target.value.trim();
+          if (url) {
+            palaceState.employee = palaceState.employee || {};
+            palaceState.employee.photo = url;
+            if (adminPhotoPreview) adminPhotoPreview.src = url;
+            const dImg = document.getElementById('doorwayPortraitImg');
+            if (dImg) dImg.src = url;
+            const cImg = document.getElementById('celebrationPortraitImg');
+            if (cImg) cImg.src = url;
+            schedulePersist();
+          }
+        });
+      }
+
+      const inputDoorLeft = document.getElementById('inputDoorLeftText');
+      if (inputDoorLeft) {
+        inputDoorLeft.addEventListener('input', (e) => {
+          palaceState.doorWingLeft = e.target.value.trim();
+          const dSealL = document.getElementById('doorSealLeft');
+          if (dSealL) dSealL.textContent = e.target.value.trim();
+          schedulePersist();
+        });
+      }
+
+      const inputDoorRight = document.getElementById('inputDoorRightText');
+      if (inputDoorRight) {
+        inputDoorRight.addEventListener('input', (e) => {
+          palaceState.doorWingRight = e.target.value.trim();
+          const dSealR = document.getElementById('doorSealRight');
+          if (dSealR) dSealR.textContent = e.target.value.trim();
+          schedulePersist();
+        });
+      }
+
+      const adminMilestoneTierEl = document.getElementById('adminMilestoneTier');
+      if (adminMilestoneTierEl) {
+        adminMilestoneTierEl.addEventListener('change', (e) => {
+          palaceState.milestoneTier = e.target.value;
+          if (typeof applyThemeTier === 'function') applyThemeTier(e.target.value);
+          schedulePersist();
+        });
+      }
+
+      // 2. Entrance / Welcome Tab
+      const adminEntTitle = document.getElementById('adminEntranceTitle');
+      if (adminEntTitle) {
+        adminEntTitle.addEventListener('input', (e) => {
+          palaceState.entrance = palaceState.entrance || {};
+          palaceState.entrance.title = e.target.value;
+          const portalTitle = document.querySelector('.portal-arch-title');
+          if (portalTitle) portalTitle.textContent = e.target.value;
+          schedulePersist();
+        });
+      }
+
+      const adminEntSub = document.getElementById('adminEntranceSub');
+      if (adminEntSub) {
+        adminEntSub.addEventListener('input', (e) => {
+          palaceState.entrance = palaceState.entrance || {};
+          palaceState.entrance.subtitle = e.target.value;
+          const portalSub = document.querySelector('.portal-arch-sub');
+          if (portalSub) portalSub.textContent = e.target.value;
+          schedulePersist();
+        });
+      }
+
+      const adminEntPrompt = document.getElementById('adminEntrancePrompt');
+      if (adminEntPrompt) {
+        adminEntPrompt.addEventListener('input', (e) => {
+          palaceState.entrance = palaceState.entrance || {};
+          palaceState.entrance.prompt = e.target.value;
+          const portalPrompt = document.getElementById('portalPromptText');
+          if (portalPrompt && !isDoorOpen) portalPrompt.textContent = e.target.value;
+          schedulePersist();
+        });
+      }
+
+      const adminEntDoorLeft = document.getElementById('adminEntranceDoorLeft');
+      if (adminEntDoorLeft) {
+        adminEntDoorLeft.addEventListener('input', (e) => {
+          palaceState.doorWingLeft = e.target.value;
+          const dSealL = document.getElementById('doorSealLeft');
+          if (dSealL) dSealL.textContent = e.target.value;
+          schedulePersist();
+        });
+      }
+
+      const adminEntDoorRight = document.getElementById('adminEntranceDoorRight');
+      if (adminEntDoorRight) {
+        adminEntDoorRight.addEventListener('input', (e) => {
+          palaceState.doorWingRight = e.target.value;
+          const dSealR = document.getElementById('doorSealRight');
+          if (dSealR) dSealR.textContent = e.target.value;
+          schedulePersist();
+        });
+      }
+
+      // 3. Celebration Screen Tab
+      if (adminCelebTitle) {
+        adminCelebTitle.addEventListener('input', (e) => {
+          palaceState.celebration = palaceState.celebration || {};
+          palaceState.celebration.title = e.target.value;
+          const formatted = typeof escapeHtml === 'function' ? escapeHtml(e.target.value).replace(/\r?\n/g, '<br>') : e.target.value.replace(/\r?\n/g, '<br>');
+          const cTitle = document.querySelector('.celebration-main-title');
+          if (cTitle) cTitle.innerHTML = formatted;
+          const dTitle = document.querySelector('.doorway-main-title');
+          if (dTitle) dTitle.innerHTML = formatted;
+          const c0 = (palaceState.chambers || []).find(c => c.id === 'chamber-milestone');
+          if (c0) c0.title = e.target.value;
+          renderPlacards();
+          syncPalaceNavigation();
+          schedulePersist();
+        });
+      }
+
+      if (adminCelebSub) {
+        adminCelebSub.addEventListener('input', (e) => {
+          palaceState.celebration = palaceState.celebration || {};
+          palaceState.celebration.sub = e.target.value;
+          schedulePersist();
+        });
+      }
+
+      if (adminCelebQuote) {
+        adminCelebQuote.addEventListener('input', (e) => {
+          palaceState.celebration = palaceState.celebration || {};
+          palaceState.celebration.quote = e.target.value;
+          const cQuote = document.querySelector('.celebration-quote-text');
+          if (cQuote) cQuote.textContent = e.target.value;
+          schedulePersist();
+        });
+      }
+
+      // 4. Dynamic Milestones List Container Delegation
+      const milestonesContainer = document.getElementById('adminMilestonesList');
+      if (milestonesContainer && !milestonesContainer.dataset.liveBound) {
+        milestonesContainer.dataset.liveBound = 'true';
+        milestonesContainer.addEventListener('input', () => {
+          const mItems = milestonesContainer.querySelectorAll('.admin-dynamic-item');
+          const newMilestones = [];
+          mItems.forEach(item => {
+            const d = item.querySelector('.milestone-input-date')?.value.trim() || '';
+            const t = item.querySelector('.milestone-input-title')?.value.trim() || '';
+            const s = item.querySelector('.milestone-input-sub')?.value.trim() || '';
+            if (t || d) newMilestones.push({ date: d, title: t, sub: s });
+          });
+          if (newMilestones.length > 0) {
+            palaceState.milestones = newMilestones;
+            renderMilestones();
+            schedulePersist();
+          }
+        });
+      }
+
+      // 5. Dynamic Skills List Container Delegation
+      const skillsContainer = document.getElementById('adminSkillsList');
+      if (skillsContainer && !skillsContainer.dataset.liveBound) {
+        skillsContainer.dataset.liveBound = 'true';
+        skillsContainer.addEventListener('input', () => {
+          const sItems = skillsContainer.querySelectorAll('.admin-dynamic-item');
+          const newSkills = [];
+          sItems.forEach(item => {
+            const t = item.querySelector('.skill-input-title')?.value.trim() || '';
+            const p = parseInt(item.querySelector('.skill-input-pct')?.value, 10) || 90;
+            const i = item.querySelector('.skill-input-icon')?.value.trim() || '⚡';
+            const d = item.querySelector('.skill-input-desc')?.value.trim() || '';
+            if (t) newSkills.push({ title: t, desc: d, pct: p, icon: i });
+          });
+          if (newSkills.length > 0) {
+            palaceState.skills = newSkills;
+            renderSkills();
+            schedulePersist();
+          }
+        });
+      }
+
+      // 6. Projects 1 & 2 Containers Delegation
+      const projContainer1 = document.getElementById('adminProjectsList');
+      if (projContainer1 && !projContainer1.dataset.liveBound) {
+        projContainer1.dataset.liveBound = 'true';
+        projContainer1.addEventListener('input', () => {
+          const pItems = projContainer1.querySelectorAll('.admin-dynamic-item');
+          const newContribs = [];
+          pItems.forEach((item, idx) => {
+            const pTitle = item.querySelector('.proj-input-title')?.value.trim() || `Task ${idx + 1}`;
+            const pDesc = item.querySelector('.proj-input-desc')?.value.trim() || '';
+            const cTitle = item.querySelector('.proj-input-contrib-title')?.value.trim() || '';
+            const cDesc = item.querySelector('.proj-input-contrib-desc')?.value.trim() || '';
+            const metric = item.querySelector('.proj-input-metric')?.value.trim() || '';
+            const iTitle = item.querySelector('.proj-input-impact-title')?.value.trim() || '';
+            const iDesc = item.querySelector('.proj-input-impact-desc')?.value.trim() || '';
+            const img = item.querySelector('.proj-input-image')?.value.trim() || (palaceState.contributions && palaceState.contributions[idx]?.image) || '';
+            newContribs.push({
+              id: idx,
+              image: img,
+              project: { title: pTitle, desc: pDesc },
+              contribution: { title: cTitle, desc: cDesc },
+              impact: { title: iTitle, desc: iDesc, metricVal1: metric, metricLbl1: '' }
+            });
+          });
+          if (newContribs.length > 0) {
+            palaceState.contributions = newContribs;
+            renderProjects();
+            schedulePersist();
+          }
+        });
+      }
+
+      const projContainer2 = document.getElementById('adminProjectsList2');
+      if (projContainer2 && !projContainer2.dataset.liveBound) {
+        projContainer2.dataset.liveBound = 'true';
+        projContainer2.addEventListener('input', () => {
+          const pItems2 = projContainer2.querySelectorAll('.admin-dynamic-item');
+          const newContribs2 = [];
+          pItems2.forEach((item, idx) => {
+            const pTitle = item.querySelector('.proj-input-title')?.value.trim() || `Task ${idx + 1}`;
+            const pDesc = item.querySelector('.proj-input-desc')?.value.trim() || '';
+            const cTitle = item.querySelector('.proj-input-contrib-title')?.value.trim() || '';
+            const cDesc = item.querySelector('.proj-input-contrib-desc')?.value.trim() || '';
+            const metric = item.querySelector('.proj-input-metric')?.value.trim() || '';
+            const iTitle = item.querySelector('.proj-input-impact-title')?.value.trim() || '';
+            const iDesc = item.querySelector('.proj-input-impact-desc')?.value.trim() || '';
+            const img = item.querySelector('.proj-input-image')?.value.trim() || (palaceState.contributions2 && palaceState.contributions2[idx]?.image) || '';
+            newContribs2.push({
+              id: idx,
+              image: img,
+              project: { title: pTitle, desc: pDesc },
+              contribution: { title: cTitle, desc: cDesc },
+              impact: { title: iTitle, desc: iDesc, metricVal1: metric, metricLbl1: '' }
+            });
+          });
+          if (newContribs2.length > 0) {
+            palaceState.contributions2 = newContribs2;
+            renderProjects2();
+            schedulePersist();
+          }
+        });
+      }
+
+      // Chamber 2b Common Image & Text
+      const adminCommonImgUrl = document.getElementById('adminCommonImgUrl');
+      if (adminCommonImgUrl) {
+        adminCommonImgUrl.addEventListener('input', (e) => {
+          palaceState.chamber2bCommonImage = e.target.value.trim();
+          if (typeof resetChamber2bCommonImage === 'function') resetChamber2bCommonImage();
+          schedulePersist();
+        });
+      }
+      const adminCommonImgTitle = document.getElementById('adminCommonImgTitle');
+      if (adminCommonImgTitle) {
+        adminCommonImgTitle.addEventListener('input', (e) => {
+          palaceState.chamber2bCommonTitle = e.target.value.trim();
+          const el = document.getElementById('chamber2bCommonTitle');
+          if (el) el.textContent = e.target.value.trim();
+          schedulePersist();
+        });
+      }
+      const adminCommonImgDesc = document.getElementById('adminCommonImgDesc');
+      if (adminCommonImgDesc) {
+        adminCommonImgDesc.addEventListener('input', (e) => {
+          palaceState.chamber2bCommonDesc = e.target.value.trim();
+          const el = document.getElementById('chamber2bCommonDesc');
+          if (el) el.textContent = e.target.value.trim();
+          schedulePersist();
+        });
+      }
+
+      // 7. Evolution Live Sync
+      const adminThenTitle = document.getElementById('adminEvolThenTitle');
+      const adminGrowth = document.getElementById('adminEvolGrowthLabel');
+      const adminNowTitle = document.getElementById('adminEvolNowTitle');
+      function syncEvolutionInputs() {
+        palaceState.evolution = palaceState.evolution || {};
+        if (adminThenTitle) palaceState.evolution.thenTitle = adminThenTitle.value.trim() || "Day 01";
+        if (adminGrowth) palaceState.evolution.growthLabel = adminGrowth.value.trim();
+        if (adminNowTitle) palaceState.evolution.nowTitle = adminNowTitle.value.trim() || "Today";
+        [0, 1, 2].forEach(i => {
+          const thenText = document.getElementById(`adminEvolThenText${i}`)?.value.trim();
+          if (thenText !== undefined && palaceState.evolution.thenPoints && palaceState.evolution.thenPoints[i]) {
+            palaceState.evolution.thenPoints[i].text = thenText;
+          }
+          const nowText = document.getElementById(`adminEvolNowText${i}`)?.value.trim();
+          if (nowText !== undefined && palaceState.evolution.nowPoints && palaceState.evolution.nowPoints[i]) {
+            palaceState.evolution.nowPoints[i].text = nowText;
+          }
+        });
+        renderEvolutionRoom();
+        schedulePersist();
+      }
+      [adminThenTitle, adminGrowth, adminNowTitle].forEach(el => {
+        if (el) el.addEventListener('input', syncEvolutionInputs);
+      });
+      [0, 1, 2].forEach(i => {
+        const tEl = document.getElementById(`adminEvolThenText${i}`);
+        const nEl = document.getElementById(`adminEvolNowText${i}`);
+        if (tEl) tEl.addEventListener('input', syncEvolutionInputs);
+        if (nEl) nEl.addEventListener('input', syncEvolutionInputs);
+      });
+
+      // 8. Sticky Notes Live Sync Container Delegation
+      const notesContainer = document.getElementById('adminNotesList');
+      if (notesContainer && !notesContainer.dataset.liveBound) {
+        notesContainer.dataset.liveBound = 'true';
+        notesContainer.addEventListener('input', () => {
+          const nItems = notesContainer.querySelectorAll('.admin-dynamic-item');
+          const newNotes = [];
+          nItems.forEach((item, idx) => {
+            const txt = item.querySelector('.note-input-text')?.value.trim() || '';
+            const aut = item.querySelector('.note-input-author')?.value.trim() || '';
+            const col = item.querySelector('.note-input-color')?.value || '#f5c065';
+            const pho = item.querySelector('.note-input-photo')?.value.trim() || (palaceState.stickyNotes && palaceState.stickyNotes[idx]?.photo) || '';
+            if (txt) newNotes.push({ text: txt, author: aut, color: col, photo: pho });
+          });
+          if (newNotes.length > 0) {
+            palaceState.stickyNotes = newNotes;
+            renderStickyNotes();
+            schedulePersist();
+          }
+        });
+      }
+
+      // 9. Values Live Sync Container Delegation
+      const valContainer = document.getElementById('adminValuesList');
+      if (valContainer && !valContainer.dataset.liveBound) {
+        valContainer.dataset.liveBound = 'true';
+        valContainer.addEventListener('input', () => {
+          const valItems = valContainer.querySelectorAll('.admin-dynamic-item');
+          const newValues = [];
+          valItems.forEach((item, idx) => {
+            const existing = (palaceState.values && palaceState.values[idx]) || {};
+            const selVal = item.querySelector('.val-input-preset')?.value;
+            const finalIcon = (selVal && selVal !== 'custom') ? selVal : (existing.icon || ['shield', 'sprout', 'users', 'target'][idx % 4] || 'diamond');
+            const title = item.querySelector('.val-input-title')?.value.trim() || `VALUE ${idx + 1}`;
+            const badge = item.querySelector('.val-input-badge')?.value.trim() || '';
+            const quote = item.querySelector('.val-input-quote')?.value.trim() || '';
+            const desc = item.querySelector('.val-input-desc')?.value.trim() || '';
+            newValues.push({
+              ...existing,
+              id: existing.id || (Date.now() + idx),
+              icon: finalIcon,
+              title: title,
+              badge: badge,
+              quote: quote,
+              desc: desc
+            });
+          });
+          if (newValues.length > 0) {
+            palaceState.values = newValues;
+            renderValuesRoom();
+            schedulePersist();
+          }
+        });
+      }
+
+      // 10. Proud Moments Live Sync
+      const proudInputs = [
+        'adminProudPlaqueTitle', 'adminProudPlaqueSubtitle', 'adminProudTrophyImg',
+        'adminProudCelebTitle', 'adminProudCelebDesc', 'adminProudCelebBtn',
+        'adminProudPhoto0', 'adminProudCaption0',
+        'adminProudPhoto1', 'adminProudCaption1',
+        'adminProudPhoto2', 'adminProudCaption2'
+      ];
+      function syncProudInputs() {
+        palaceState.proud = palaceState.proud || {};
+        const adminPlaqueT = document.getElementById('adminProudPlaqueTitle');
+        const adminPlaqueS = document.getElementById('adminProudPlaqueSubtitle');
+        const adminTrophyInp = document.getElementById('adminProudTrophyImg');
+        const adminCelebT = document.getElementById('adminProudCelebTitle');
+        const adminCelebD = document.getElementById('adminProudCelebDesc');
+        const adminCelebB = document.getElementById('adminProudCelebBtn');
+        if (adminPlaqueT) palaceState.proud.plaqueTitle = adminPlaqueT.value.trim() || "INNOVATOR OF THE YEAR";
+        if (adminPlaqueS) palaceState.proud.plaqueSubtitle = adminPlaqueS.value.trim() || "2025 - 2026 ANNUAL HONORS";
+        if (adminTrophyInp && adminTrophyInp.value.trim()) palaceState.proud.trophyImg = adminTrophyInp.value.trim();
+        if (adminCelebT) palaceState.proud.celebrateTitle = adminCelebT.value.trim() || "Celebrate This Milestone";
+        if (adminCelebD) palaceState.proud.celebrateDesc = adminCelebD.value.trim() || "";
+        if (adminCelebB) palaceState.proud.celebrateBtn = adminCelebB.value.trim() || "🎉 Fire Confetti!";
+
+        palaceState.proud.polaroids = [0, 1, 2].map(i => {
+          const existing = (palaceState.proud.polaroids && palaceState.proud.polaroids[i]) || {};
+          const photoVal = document.getElementById(`adminProudPhoto${i}`)?.value.trim();
+          const capVal = document.getElementById(`adminProudCaption${i}`)?.value.trim();
+          return {
+            image: photoVal || existing.image || (['proud_polaroid_1.png', 'proud_polaroid_2.png', 'proud_polaroid_3.png'][i]),
+            caption: capVal !== undefined && capVal !== '' ? capVal : (existing.caption || ['v4.0 Launch Night! 🚀', 'Hackathon Runners-up 🏆', 'All-Hands Demo Day 🎤'][i])
+          };
+        });
+        renderProudRoom();
+        schedulePersist();
+      }
+      proudInputs.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.addEventListener('input', syncProudInputs);
+      });
+
+      // 11. Future Live Sync
+      const futureInputs = [
+        'adminFutureTitle', 'adminFutureImage',
+        'adminFutureCardTitle0', 'adminFutureCardSub0',
+        'adminFutureCardTitle1', 'adminFutureCardSub1',
+        'adminFutureCardTitle2', 'adminFutureCardSub2',
+        'adminFutureCardTitle3', 'adminFutureCardSub3'
+      ];
+      function syncFutureInputs() {
+        palaceState.future = palaceState.future || {};
+        const fTitle = document.getElementById('adminFutureTitle');
+        const fImg = document.getElementById('adminFutureImage');
+        if (fTitle) palaceState.future.title = fTitle.value.trim();
+        if (fImg) palaceState.future.image = fImg.value.trim();
+
+        palaceState.future.cards = [0, 1, 2, 3].map(i => {
+          const tInp = document.getElementById(`adminFutureCardTitle${i}`);
+          const sInp = document.getElementById(`adminFutureCardSub${i}`);
+          const existing = (palaceState.future.cards && palaceState.future.cards[i]) || {};
+          return {
+            title: (tInp && tInp.value.trim()) || existing.title || '',
+            sub: (sInp && sInp.value.trim()) || existing.sub || ''
+          };
+        });
+        renderFutureRoom();
+        schedulePersist();
+      }
+      futureInputs.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.addEventListener('input', syncFutureInputs);
+      });
+
+      // 12. Thank You Room Live Sync
+      const tyInputs = [
+        'adminThankYouBadge', 'adminThankYouTitle', 'adminThankYouSub',
+        'adminThankYouMsg', 'adminThankYouSig'
+      ];
+      function syncThankYouInputs() {
+        palaceState.thankYou = palaceState.thankYou || {};
+        const tBadge = document.getElementById('adminThankYouBadge');
+        const tTitle = document.getElementById('adminThankYouTitle');
+        const tSub = document.getElementById('adminThankYouSub');
+        const tMsg = document.getElementById('adminThankYouMsg');
+        const tSig = document.getElementById('adminThankYouSig');
+        if (tBadge) palaceState.thankYou.badge = tBadge.value.trim();
+        if (tTitle) palaceState.thankYou.title = tTitle.value.trim();
+        if (tSub) palaceState.thankYou.subtitle = tSub.value.trim();
+        if (tMsg) palaceState.thankYou.message = tMsg.value.trim();
+        if (tSig) palaceState.thankYou.signature = tSig.value.trim();
+        renderThankYouRoom();
+        schedulePersist();
+      }
+      tyInputs.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.addEventListener('input', syncThankYouInputs);
+      });
     }
 
     // Modal Tabs Logic
@@ -22506,14 +23064,30 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
           ctx.drawImage(img, 0, 0, w, h);
           stagedPhotoData = canvas.toDataURL('image/jpeg', 0.78);
           if (adminPhotoPreview) adminPhotoPreview.src = stagedPhotoData;
+          if (inputEmployeePhoto) inputEmployeePhoto.value = stagedPhotoData;
+          palaceState.employee = palaceState.employee || {};
+          palaceState.employee.photo = stagedPhotoData;
+          const dImg = document.getElementById('doorwayPortraitImg');
+          if (dImg) dImg.src = stagedPhotoData;
+          const cImg = document.getElementById('celebrationPortraitImg');
+          if (cImg) cImg.src = stagedPhotoData;
+          persistPalaceState();
           adminStatusMsg.style.color = '#4ade80';
-          adminStatusMsg.textContent = `Photo "${file.name}" optimized & ready to apply!`;
+          adminStatusMsg.textContent = `Photo "${file.name}" optimized & applied!`;
         };
         img.onerror = () => {
           stagedPhotoData = rawData;
           if (adminPhotoPreview) adminPhotoPreview.src = stagedPhotoData;
+          if (inputEmployeePhoto) inputEmployeePhoto.value = stagedPhotoData;
+          palaceState.employee = palaceState.employee || {};
+          palaceState.employee.photo = stagedPhotoData;
+          const dImg = document.getElementById('doorwayPortraitImg');
+          if (dImg) dImg.src = stagedPhotoData;
+          const cImg = document.getElementById('celebrationPortraitImg');
+          if (cImg) cImg.src = stagedPhotoData;
+          persistPalaceState();
           adminStatusMsg.style.color = '#4ade80';
-          adminStatusMsg.textContent = `Photo "${file.name}" ready to apply.`;
+          adminStatusMsg.textContent = `Photo "${file.name}" applied.`;
         };
         img.src = rawData;
       };
@@ -22609,6 +23183,7 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
         return;
       }
       populateAdminInputs();
+      setupAdminPanelLiveSync();
       profileModalBackdrop.classList.add('active');
     }
     function closeAdminPanel() {
@@ -22744,11 +23319,11 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
 
     if (btnSaveProfile) {
       btnSaveProfile.addEventListener('click', () => {
-        const name = inputEmployeeName.value.trim() || "Dhara Patel";
-        const role = inputEmployeeRole.value.trim() || "Customer Support";
-        const date = inputEmployeeDate.value.trim() || "01 September 2025";
-        const years = inputEmployeeYears.value.trim() || "2025 → 2026";
-        const photo = stagedPhotoData || inputEmployeePhoto.value.trim() || "manushi_hero.jpg";
+        const name = inputEmployeeName.value.trim() || (palaceState.employee && palaceState.employee.name) || "Dhara Patel";
+        const role = inputEmployeeRole.value.trim() || (palaceState.employee && palaceState.employee.role) || "Customer Support";
+        const date = inputEmployeeDate.value.trim() || (palaceState.employee && palaceState.employee.date) || "01 September 2025";
+        const years = inputEmployeeYears.value.trim() || (palaceState.employee && palaceState.employee.years) || "2025 → 2026";
+        const photo = stagedPhotoData || inputEmployeePhoto.value.trim() || (palaceState.employee && palaceState.employee.photo) || "manushi_hero.jpg";
 
         palaceState.employee = { name, role, date, photo, years };
         palaceState.celebration = {
@@ -23178,7 +23753,9 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
         }
         closeAdminPanel();
 
-        alert("✨ Employee Journey successfully customized and applied!");
+        if (typeof showPalaceToast === 'function') {
+          showPalaceToast("✨ ફેરફારો સફળતાપૂર્વક સેવ થઈ ગયા છે અને લાગુ થઈ ગયા છે!", 3500);
+        }
       });
     }
 
@@ -23776,6 +24353,9 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
 
     // Auto-save on blur for live-edited elements
     document.addEventListener('focusout', (e) => {
+      const profileModalBackdrop = document.getElementById('profileModalBackdrop');
+      if (profileModalBackdrop && profileModalBackdrop.classList.contains('active')) return;
+      if (typeof isLiveEditActive === 'undefined' || !isLiveEditActive) return;
       if (e.target && (
         (e.target.closest && (e.target.closest('.evolution-comparison-stage') || e.target.closest('.room-proud') || e.target.closest('#chamber-4'))) ||
         e.target.hasAttribute('contenteditable') ||
@@ -23788,6 +24368,7 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
 
     // Initial render on load
     updatePalaceFromState();
+    setupAdminPanelLiveSync();
     initEmployeeProfile().then(() => {
       populateProfileDropdown();
     });
@@ -23810,7 +24391,14 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
       }
     }
 
-    function captureLiveEditsToState() {
+    function captureLiveEditsToState(force = false) {
+      const profileModalBackdrop = document.getElementById('profileModalBackdrop');
+      if (profileModalBackdrop && profileModalBackdrop.classList.contains('active')) {
+        return;
+      }
+      if (!force && (typeof isLiveEditActive === 'undefined' || !isLiveEditActive)) {
+        return;
+      }
       try {
         // 0. Door Wings Seals
         const sLeft = document.getElementById('doorSealLeft');
