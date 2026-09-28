@@ -9300,39 +9300,23 @@
         max-width: 100%;
       }
 
-      /* Room 01: First Day Timeline */
-      .started-timeline-col {
-        max-width: 100%;
-        width: 100%;
+      /* Room 01: Where your journey began (Vertical Scrolling Chamber) */
+      #chamber-0 .chamber-content {
+        margin-top: 50px !important;
+        height: calc(100% - 58px) !important;
+        max-height: calc(100dvh - 114px) !important;
+        overflow: hidden !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 0 !important;
       }
-      .journey-timeline-card {
-        padding: 16px 14px !important;
-        border-radius: 16px;
-      }
-      .journey-milestones-list {
-        max-height: calc(100vh - 165px);
-        max-height: calc(100dvh - 165px);
-        padding-right: 2px;
-      }
-      .milestone-item {
-        gap: 12px;
-        margin-bottom: 10px;
-      }
-      .milestone-ring-marker {
-        width: 14px;
-        height: 14px;
-      }
-      .milestone-date {
-        font-size: 13.5px;
-      }
-      .milestone-title {
-        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
-        font-size: 13.5px;
-        margin: 1px 0;
-      }
-      .milestone-subtext {
-        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
-        font-size: 13.5px;
+      .room-first-day-hall,
+      .horizontal-journey-hall {
+        width: 100% !important;
+        height: 100% !important;
+        display: block !important;
+        overflow: hidden !important;
+        max-width: 100% !important;
       }
 
       /* Room 02: What You Learned (Vertical Stacking) */
@@ -10206,10 +10190,12 @@
         background: #000000 !important;
       }
       .horizontal-milestones-list {
-        gap: 10px;
+        gap: 16px !important;
+        padding: 4px 2px 16px 2px !important;
       }
       .horizontal-milestone-item {
-        min-width: 170px;
+        min-width: 0 !important;
+        padding-left: 48px !important;
       }
       .wall-sticky-canvas {
         grid-template-columns: 1fr !important;
@@ -10776,52 +10762,206 @@
     }
 
     @media (max-width: 768px) {
+      /* Vertical Timeline Layout for Room 01 (Where your journey began) */
       .horizontal-journey-stage {
-        padding: 4px 0 12px 0;
-        width: 100%;
+        padding: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        max-height: 100% !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: flex-start !important;
       }
+
+      .timeline-camera-hint {
+        display: none !important;
+      }
+
       .horizontal-timeline-track-wrap {
-        padding: 16px 12px 24px 12px;
-        overflow-x: auto !important;
-        overflow-y: visible !important;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
-        justify-content: flex-start;
+        position: relative !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        height: 100% !important;
+        max-height: calc(100dvh - 116px) !important;
+        display: block !important;
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+        -webkit-overflow-scrolling: touch !important;
+        touch-action: pan-y !important;
+        padding: 10px 16px 90px 16px !important;
+        box-sizing: border-box !important;
+        scrollbar-width: thin !important;
+        scrollbar-color: rgba(245, 192, 101, 0.3) transparent !important;
       }
+
       .horizontal-timeline-track-wrap::-webkit-scrollbar {
-        display: none;
+        width: 4px !important;
+        display: block !important;
       }
+
+      .horizontal-timeline-track-wrap::-webkit-scrollbar-track {
+        background: transparent !important;
+      }
+
+      .horizontal-timeline-track-wrap::-webkit-scrollbar-thumb {
+        background: rgba(245, 192, 101, 0.3) !important;
+        border-radius: 4px !important;
+      }
+
+      /* Hide horizontal SVG path on mobile */
+      .timeline-journey-svg {
+        display: none !important;
+      }
+
+      /* Vertical Milestones Column with Glowing Central Spine */
       .horizontal-milestones-list {
-        min-width: 600px !important;
-        gap: 14px;
-        padding: 0 8px;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+        justify-content: flex-start !important;
+        gap: 22px !important;
+        width: 100% !important;
+        max-width: 460px !important;
+        min-width: 0 !important;
+        margin: 0 auto !important;
+        padding: 6px 4px 16px 4px !important;
+        position: relative !important;
       }
+
+      /* Glowing Continuous Vertical Timeline Spine */
+      .horizontal-milestones-list::before {
+        content: '' !important;
+        position: absolute !important;
+        left: 20px !important;
+        top: 18px !important;
+        bottom: 40px !important;
+        width: 2px !important;
+        background: linear-gradient(180deg, var(--gold-primary) 0%, #00e5ff 45%, var(--gold-primary) 100%) !important;
+        box-shadow: 0 0 8px rgba(0, 229, 255, 0.45), 0 0 14px rgba(245, 192, 101, 0.35) !important;
+        border-radius: 2px !important;
+        z-index: 1 !important;
+      }
+
+      /* Individual Milestone Item in Vertical Flow */
       .horizontal-milestone-item {
-        min-width: 190px;
-        max-width: 220px;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        position: relative !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        padding-left: 52px !important;
+        box-sizing: border-box !important;
+        margin: 0 !important;
+        cursor: pointer !important;
+        opacity: 0.88 !important;
+        filter: none !important;
+        transition: opacity 0.3s ease !important;
       }
+
+      .horizontal-milestone-item.is-current {
+        opacity: 1 !important;
+        z-index: 5 !important;
+      }
+
+      .horizontal-milestone-item.is-past {
+        opacity: 0.82 !important;
+      }
+
+      .horizontal-milestone-item.is-future {
+        opacity: 0.75 !important;
+      }
+
+      /* Interactive Node Pin directly on the Vertical Spine (left 20px) */
+      .milestone-node-anchor {
+        position: absolute !important;
+        left: 3px !important;
+        top: 2px !important;
+        width: 36px !important;
+        height: 36px !important;
+        margin: 0 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        z-index: 3 !important;
+        transform: none !important;
+      }
+
+      /* Date Badge Positioned Above Narrative Card */
+      .milestone-date-badge {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        margin-bottom: 8px !important;
+        transform: none !important;
+        z-index: 2 !important;
+      }
+
+      .milestone-date {
+        font-size: 12px !important;
+        font-weight: 600 !important;
+        padding: 3px 10px !important;
+        border-radius: 10px !important;
+      }
+
+      /* Clean, Touch-Friendly Narrative Card */
       .milestone-narrative-card {
-        padding: 12px 12px;
-        min-height: 115px;
+        width: 100% !important;
+        box-sizing: border-box !important;
+        text-align: left !important;
+        padding: 14px 16px !important;
+        min-height: auto !important;
+        border-radius: 16px !important;
+        transform: none !important;
+        z-index: 2 !important;
       }
+
+      .horizontal-milestone-item.is-current .milestone-narrative-card {
+        transform: none !important;
+      }
+
+      .horizontal-milestone-item.is-past:hover .milestone-narrative-card,
+      .horizontal-milestone-item.is-future:hover .milestone-narrative-card {
+        transform: none !important;
+      }
+
       .milestone-title {
-        font-size: 13px;
+        font-size: 14.5px !important;
+        font-weight: 700 !important;
+        line-height: 1.35 !important;
+        margin-bottom: 4px !important;
+        text-align: left !important;
       }
+
       .milestone-subtext {
-        font-size: 13px;
+        font-size: 13px !important;
+        line-height: 1.45 !important;
+        text-align: left !important;
+        margin-bottom: 0 !important;
+      }
+
+      .milestone-status-tag {
+        display: inline-block !important;
+        margin-top: 8px !important;
+        font-size: 11px !important;
+        padding: 2.5px 8px !important;
+        border-radius: 8px !important;
+        align-self: flex-start !important;
       }
     }
 
     @media (max-height: 700px) {
       .horizontal-journey-stage {
-        padding: 2px 0 8px 0;
+        padding: 0 !important;
       }
       .horizontal-timeline-track-wrap {
-        padding: 12px 8px 16px 8px;
+        padding: 8px 12px 80px 12px !important;
       }
       .milestone-narrative-card {
-        min-height: 110px;
-        padding: 10px 12px;
+        min-height: auto !important;
+        padding: 12px 14px !important;
       }
     }
 
@@ -15984,11 +16124,19 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
         currentFocusMilestoneIdx = activeNodeIdx;
         palaceAudio.playChime();
 
-        if (wrap && wrap.scrollWidth > wrap.clientWidth + 10) {
-          const targetItem = items[activeNodeIdx];
-          if (targetItem) {
-            const scrollTarget = targetItem.offsetLeft - (wrap.clientWidth - targetItem.offsetWidth) / 2;
-            wrap.scrollTo({ left: scrollTarget, behavior: 'smooth' });
+        if (wrap) {
+          if (wrap.scrollHeight > wrap.clientHeight + 10) {
+            const targetItem = items[activeNodeIdx];
+            if (targetItem) {
+              const scrollTarget = targetItem.offsetTop - (wrap.clientHeight - targetItem.offsetHeight) / 2;
+              wrap.scrollTo({ top: scrollTarget, behavior: 'smooth' });
+            }
+          } else if (wrap.scrollWidth > wrap.clientWidth + 10) {
+            const targetItem = items[activeNodeIdx];
+            if (targetItem) {
+              const scrollTarget = targetItem.offsetLeft - (wrap.clientWidth - targetItem.offsetWidth) / 2;
+              wrap.scrollTo({ left: scrollTarget, behavior: 'smooth' });
+            }
           }
         }
       }
@@ -21359,6 +21507,19 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
       }
 
       if (isCurrentRoom('chamber-0')) {
+        if (window.innerWidth <= 768) {
+          // On mobile responsive, Room 01 is a fluid vertical timeline scrolled with finger touch.
+          // Stage navigation occurs only when swiping at boundaries.
+          if (diffY > 38 || diffX > 45) {
+            goToStage(currentStage + 1);
+            return;
+          } else if (diffY < -38 || diffX < -45) {
+            goToStage(currentStage - 1);
+            return;
+          }
+          return;
+        }
+
         const milestones = palaceState.milestones || [];
         const maxIdx = milestones.length > 0 ? milestones.length - 1 : 0;
         const deltaTouch = Math.abs(diffX) > Math.abs(diffY) ? diffX : diffY;
