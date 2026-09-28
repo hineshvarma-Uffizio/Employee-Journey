@@ -10191,11 +10191,11 @@
       }
       .horizontal-milestones-list {
         gap: 16px !important;
-        padding: 4px 2px 16px 2px !important;
+        padding: 4px 0 16px 0 !important;
       }
       .horizontal-milestone-item {
         min-width: 0 !important;
-        padding-left: 48px !important;
+        padding-left: 52px !important;
       }
       .wall-sticky-canvas {
         grid-template-columns: 1fr !important;
@@ -10825,22 +10825,23 @@
         max-width: 460px !important;
         min-width: 0 !important;
         margin: 0 auto !important;
-        padding: 6px 4px 16px 4px !important;
+        padding: 6px 0 20px 0 !important;
         position: relative !important;
       }
 
-      /* Glowing Continuous Vertical Timeline Spine */
+      /* Glowing Continuous Vertical Timeline Spine (Exact Center: X = 22px) */
       .horizontal-milestones-list::before {
         content: '' !important;
         position: absolute !important;
-        left: 20px !important;
-        top: 18px !important;
+        left: 21px !important;
+        top: 20px !important;
         bottom: 40px !important;
         width: 2px !important;
         background: linear-gradient(180deg, var(--gold-primary) 0%, #00e5ff 45%, var(--gold-primary) 100%) !important;
         box-shadow: 0 0 8px rgba(0, 229, 255, 0.45), 0 0 14px rgba(245, 192, 101, 0.35) !important;
         border-radius: 2px !important;
         z-index: 1 !important;
+        pointer-events: none !important;
       }
 
       /* Individual Milestone Item in Vertical Flow */
@@ -10852,7 +10853,7 @@
         width: 100% !important;
         max-width: 100% !important;
         min-width: 0 !important;
-        padding-left: 52px !important;
+        padding-left: 54px !important;
         box-sizing: border-box !important;
         margin: 0 !important;
         cursor: pointer !important;
@@ -10874,10 +10875,10 @@
         opacity: 0.75 !important;
       }
 
-      /* Interactive Node Pin directly on the Vertical Spine (left 20px) */
+      /* Interactive Node Pin directly on the Vertical Spine (Exact Center: 4px + 18px = 22px) */
       .milestone-node-anchor {
         position: absolute !important;
-        left: 3px !important;
+        left: 4px !important;
         top: 2px !important;
         width: 36px !important;
         height: 36px !important;
@@ -10897,6 +10898,10 @@
         margin-bottom: 8px !important;
         transform: none !important;
         z-index: 2 !important;
+      }
+
+      .horizontal-milestone-item.is-current .milestone-date-badge {
+        transform: none !important;
       }
 
       .milestone-date {
@@ -16124,19 +16129,11 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
         currentFocusMilestoneIdx = activeNodeIdx;
         palaceAudio.playChime();
 
-        if (wrap) {
-          if (wrap.scrollHeight > wrap.clientHeight + 10) {
-            const targetItem = items[activeNodeIdx];
-            if (targetItem) {
-              const scrollTarget = targetItem.offsetTop - (wrap.clientHeight - targetItem.offsetHeight) / 2;
-              wrap.scrollTo({ top: scrollTarget, behavior: 'smooth' });
-            }
-          } else if (wrap.scrollWidth > wrap.clientWidth + 10) {
-            const targetItem = items[activeNodeIdx];
-            if (targetItem) {
-              const scrollTarget = targetItem.offsetLeft - (wrap.clientWidth - targetItem.offsetWidth) / 2;
-              wrap.scrollTo({ left: scrollTarget, behavior: 'smooth' });
-            }
+        if (wrap && window.innerWidth > 768 && wrap.scrollWidth > wrap.clientWidth + 10) {
+          const targetItem = items[activeNodeIdx];
+          if (targetItem) {
+            const scrollTarget = targetItem.offsetLeft - (wrap.clientWidth - targetItem.offsetWidth) / 2;
+            wrap.scrollTo({ left: scrollTarget, behavior: 'smooth' });
           }
         }
       }
@@ -16205,6 +16202,17 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
       milestoneStepStartTime = performance.now();
       if (milestoneSilenceTimer) clearTimeout(milestoneSilenceTimer);
       queueTimelineProgress(targetIdx);
+
+      // On mobile vertical timeline, smoothly scroll clicked milestone into view
+      if (window.innerWidth <= 768) {
+        const wrap = document.getElementById('horizontalTimelineTrackWrap');
+        const milestoneEls = document.querySelectorAll('.horizontal-milestone-item');
+        const targetEl = milestoneEls[targetIdx];
+        if (wrap && targetEl) {
+          const scrollTarget = targetEl.offsetTop - (wrap.clientHeight - targetEl.offsetHeight) / 2;
+          wrap.scrollTo({ top: scrollTarget, behavior: 'smooth' });
+        }
+      }
     }
 
     // Reset Camera View (Kept for compatibility)
@@ -16249,6 +16257,13 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
         renderMilestones();
       }
 
+      if (window.innerWidth <= 768) {
+        const wrap = document.getElementById('horizontalTimelineTrackWrap');
+        if (wrap) {
+          wrap.scrollTo({ top: startFromLast ? wrap.scrollHeight : 0, behavior: 'auto' });
+        }
+      }
+
       renderTimelineProgress(currentTimelineProgress);
 
       // Unlock scroll only AFTER room transition completes smoothly
@@ -16263,6 +16278,64 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
         updateTimelineSvgGeometry(false);
       }
     });
+
+    // Update active milestone dynamically on mobile finger scroll without triggering programmatic jumps
+    function updateMobileActiveMilestoneOnScroll() {
+      const wrap = document.getElementById('horizontalTimelineTrackWrap');
+      if (!wrap || window.innerWidth > 768) return;
+      const items = wrap.querySelectorAll('.horizontal-milestone-item');
+      if (items.length === 0) return;
+
+      const wrapRect = wrap.getBoundingClientRect();
+      const wrapCenterY = wrapRect.top + wrapRect.height * 0.38;
+
+      let closestIdx = 0;
+      let minDistance = Infinity;
+
+      items.forEach((item, idx) => {
+        const rect = item.getBoundingClientRect();
+        const itemCenterY = rect.top + rect.height / 2;
+        const dist = Math.abs(itemCenterY - wrapCenterY);
+        if (dist < minDistance) {
+          minDistance = dist;
+          closestIdx = idx;
+        }
+      });
+
+      if (closestIdx !== currentFocusMilestoneIdx) {
+        currentFocusMilestoneIdx = closestIdx;
+        currentMilestoneStop = closestIdx;
+        items.forEach((item, idx) => {
+          item.classList.remove('is-past', 'is-current', 'is-future');
+          const tag = item.querySelector('.milestone-status-tag');
+          if (idx === closestIdx) {
+            item.classList.add('is-current');
+            if (tag) tag.textContent = '⚡ Current Milestone';
+          } else if (idx < closestIdx) {
+            item.classList.add('is-past');
+            if (tag) tag.textContent = '✓ Milestone Reached';
+          } else {
+            item.classList.add('is-future');
+            if (tag) tag.textContent = '⏳ Upcoming';
+          }
+        });
+      }
+    }
+
+    const hTrackWrapEl = document.getElementById('horizontalTimelineTrackWrap');
+    if (hTrackWrapEl) {
+      let isHScrollTicking = false;
+      hTrackWrapEl.addEventListener('scroll', () => {
+        if (window.innerWidth > 768) return;
+        if (!isHScrollTicking) {
+          requestAnimationFrame(() => {
+            updateMobileActiveMilestoneOnScroll();
+            isHScrollTicking = false;
+          });
+          isHScrollTicking = true;
+        }
+      }, { passive: true });
+    }
 
 
         // Helper to check if a specific chamber ID is the currently displayed room
@@ -21258,6 +21331,8 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
             el.classList?.contains('project-wall-board') ||
             el.classList?.contains('creations-split-cards-grid') ||
             el.classList?.contains('journey-milestones-list') ||
+            el.classList?.contains('horizontal-timeline-track-wrap') ||
+            el.classList?.contains('horizontal-milestones-list') ||
             el.classList?.contains('admin-tab-content') ||
             el.tagName === 'TEXTAREA'
           ) {
@@ -21272,60 +21347,58 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
             else if (e.deltaMode === 2) wheelDelta *= 100;
 
             const isMemoriesGrid = el.classList?.contains('collage-mosaic-grid');
+            const isTimelineWrap = (el.classList?.contains('horizontal-timeline-track-wrap') || el.closest?.('.horizontal-timeline-track-wrap')) && window.innerWidth <= 768;
 
-            if (isMemoriesGrid) {
-              const atBottom = el.scrollTop + el.clientHeight >= el.scrollHeight - 6;
-              const atTop = el.scrollTop <= 6;
+            if (isMemoriesGrid || isTimelineWrap) {
+              const targetBox = isTimelineWrap ? (el.classList?.contains('horizontal-timeline-track-wrap') ? el : el.closest('.horizontal-timeline-track-wrap')) : el;
+              const atBottom = targetBox.scrollTop + targetBox.clientHeight >= targetBox.scrollHeight - 6;
+              const atTop = targetBox.scrollTop <= 6;
 
               if (wheelDelta > 0) { // Scrolling DOWN
                 if (!atBottom) {
-                  // Scrolling down inside memories: mark active & consume event (native smooth scroll handles visual movement)
-                  el._isInternalScrolling = true;
-                  clearTimeout(el._scrollGestureTimer);
-                  el._scrollGestureTimer = setTimeout(() => {
-                    el._isInternalScrolling = false;
+                  targetBox.scrollTop += wheelDelta;
+                  targetBox._isInternalScrolling = true;
+                  clearTimeout(targetBox._scrollGestureTimer);
+                  targetBox._scrollGestureTimer = setTimeout(() => {
+                    targetBox._isInternalScrolling = false;
                   }, 320);
                   internalScrollConsumed = true;
                   break;
                 } else {
                   // At bottom boundary:
-                  if (el._isInternalScrolling) {
+                  if (targetBox._isInternalScrolling) {
                     // Still part of the same scroll gesture that brought us to the bottom:
-                    // DO NOT change room! Consume event and keep user inside Room 05!
-                    clearTimeout(el._scrollGestureTimer);
-                    el._scrollGestureTimer = setTimeout(() => {
-                      el._isInternalScrolling = false;
+                    clearTimeout(targetBox._scrollGestureTimer);
+                    targetBox._scrollGestureTimer = setTimeout(() => {
+                      targetBox._isInternalScrolling = false;
                     }, 320);
                     internalScrollConsumed = true;
                     break;
                   }
                   // Not actively internal scrolling: user stopped and is now scrolling down a SECOND time!
-                  // Allow fall-through to advance to Room 06!
                 }
               } else if (wheelDelta < 0) { // Scrolling UP
                 if (!atTop) {
-                  // Scrolling up inside memories: mark active & consume event
-                  el._isInternalScrolling = true;
-                  clearTimeout(el._scrollGestureTimer);
-                  el._scrollGestureTimer = setTimeout(() => {
-                    el._isInternalScrolling = false;
+                  targetBox.scrollTop += wheelDelta;
+                  targetBox._isInternalScrolling = true;
+                  clearTimeout(targetBox._scrollGestureTimer);
+                  targetBox._scrollGestureTimer = setTimeout(() => {
+                    targetBox._isInternalScrolling = false;
                   }, 320);
                   internalScrollConsumed = true;
                   break;
                 } else {
                   // At top boundary:
-                  if (el._isInternalScrolling) {
+                  if (targetBox._isInternalScrolling) {
                     // Still part of the same scroll gesture that brought us to the top:
-                    // DO NOT change room! Consume event and keep user inside Room 05!
-                    clearTimeout(el._scrollGestureTimer);
-                    el._scrollGestureTimer = setTimeout(() => {
-                      el._isInternalScrolling = false;
+                    clearTimeout(targetBox._scrollGestureTimer);
+                    targetBox._scrollGestureTimer = setTimeout(() => {
+                      targetBox._isInternalScrolling = false;
                     }, 320);
                     internalScrollConsumed = true;
                     break;
                   }
                   // User stopped and is now scrolling up a SECOND time!
-                  // Allow fall-through to retreat to Room 04!
                 }
               }
             } else {
@@ -21371,7 +21444,7 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
       wheelSilenceTimer = setTimeout(() => { wheelDeltaAccumulator = 0; }, 240);
 
       // Room 01: Timeline navigation - Guaranteed stop on each milestone, instant advance on next scroll!
-      if (isCurrentRoom('chamber-0')) {
+      if (isCurrentRoom('chamber-0') && window.innerWidth > 768) {
         if (!room01ScrollReady) {
           wheelDeltaAccumulator = 0;
           return;
@@ -21509,13 +21582,18 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
       if (isCurrentRoom('chamber-0')) {
         if (window.innerWidth <= 768) {
           // On mobile responsive, Room 01 is a fluid vertical timeline scrolled with finger touch.
-          // Stage navigation occurs only when swiping at boundaries.
-          if (diffY > 38 || diffX > 45) {
-            goToStage(currentStage + 1);
-            return;
-          } else if (diffY < -38 || diffX < -45) {
-            goToStage(currentStage - 1);
-            return;
+          const wrap = document.getElementById('horizontalTimelineTrackWrap');
+          if (wrap) {
+            const atBottom = wrap.scrollTop + wrap.clientHeight >= wrap.scrollHeight - 8;
+            const atTop = wrap.scrollTop <= 8;
+            // Only advance/retreat on intentional strong swipe when at the very edge of the timeline
+            if (atBottom && diffY > 80 && Math.abs(diffY) > Math.abs(diffX) * 1.5) {
+              goToStage(currentStage + 1);
+              return;
+            } else if (atTop && diffY < -80 && Math.abs(diffY) > Math.abs(diffX) * 1.5) {
+              goToStage(currentStage - 1);
+              return;
+            }
           }
           return;
         }
@@ -21665,6 +21743,15 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
           isStoppedAtMilestone = false;
           targetTimelineProgress = currentMilestoneStop;
           queueTimelineProgress(targetTimelineProgress);
+          if (window.innerWidth <= 768) {
+            const wrap = document.getElementById('horizontalTimelineTrackWrap');
+            const milestoneEls = document.querySelectorAll('.horizontal-milestone-item');
+            const targetEl = milestoneEls[currentMilestoneStop];
+            if (wrap && targetEl) {
+              const scrollTarget = targetEl.offsetTop - (wrap.clientHeight - targetEl.offsetHeight) / 2;
+              wrap.scrollTo({ top: scrollTarget, behavior: 'smooth' });
+            }
+          }
           return;
         }
       }
@@ -21680,6 +21767,15 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
           isStoppedAtMilestone = false;
           targetTimelineProgress = currentMilestoneStop;
           queueTimelineProgress(targetTimelineProgress);
+          if (window.innerWidth <= 768) {
+            const wrap = document.getElementById('horizontalTimelineTrackWrap');
+            const milestoneEls = document.querySelectorAll('.horizontal-milestone-item');
+            const targetEl = milestoneEls[currentMilestoneStop];
+            if (wrap && targetEl) {
+              const scrollTarget = targetEl.offsetTop - (wrap.clientHeight - targetEl.offsetHeight) / 2;
+              wrap.scrollTo({ top: scrollTarget, behavior: 'smooth' });
+            }
+          }
           return;
         }
       }
