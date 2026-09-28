@@ -3504,6 +3504,25 @@
         width: 260px;
         height: 360px;
       }
+      .celebration-portrait-frame {
+        width: 100% !important;
+        height: 100% !important;
+        max-width: 260px !important;
+        max-height: 360px !important;
+        padding: 0 !important;
+        background: transparent !important;
+        border: 2px solid var(--gold-primary) !important;
+        border-radius: 200px 200px 20px 20px !important;
+        box-shadow: 0 0 16px rgba(212, 175, 55, 0.3), 0 16px 40px rgba(0, 0, 0, 0.75) !important;
+      }
+      .celebration-portrait-inner {
+        width: 100% !important;
+        height: 100% !important;
+        border-radius: 198px 198px 18px 18px !important;
+        overflow: hidden !important;
+        border: none !important;
+        background: #000000 !important;
+      }
       .celebration-content-column {
         padding-left: 0;
         align-items: center;
@@ -3516,8 +3535,20 @@
         display: none;
       }
       .celebration-quote-card {
-        border-left: none;
-        border-top: 2px solid var(--gold-primary);
+        border-top: none !important;
+        border-right: none !important;
+        border-bottom: none !important;
+        border-left: 3px solid var(--gold-primary) !important;
+        border-radius: 0 !important;
+        background: transparent !important;
+        box-shadow: none !important;
+        padding: 6px 0 6px 16px !important;
+        text-align: left !important;
+        max-width: min(92%, 460px) !important;
+        margin: 0 auto 20px auto !important;
+      }
+      .celebration-quote-text {
+        text-align: left !important;
       }
     }
 
@@ -9216,6 +9247,44 @@
         display: none !important;
       }
 
+      /* Stage 1 Celebration: Thin solid gold portrait border & editorial quote line (no box) */
+      .celebration-portrait-frame {
+        padding: 0 !important;
+        background: transparent !important;
+        border: 2px solid var(--gold-primary) !important;
+        border-radius: 120px 120px 18px 18px !important;
+        box-shadow: 0 0 15px rgba(212, 175, 55, 0.28), 0 12px 30px rgba(0, 0, 0, 0.7) !important;
+      }
+      .celebration-portrait-inner {
+        width: 100% !important;
+        height: 100% !important;
+        border-radius: 118px 118px 16px 16px !important;
+        overflow: hidden !important;
+        border: none !important;
+        background: #000000 !important;
+      }
+      .celebration-quote-card {
+        border-top: none !important;
+        border-right: none !important;
+        border-bottom: none !important;
+        border-left: 3px solid var(--gold-primary) !important;
+        border-radius: 0 !important;
+        background: transparent !important;
+        box-shadow: none !important;
+        padding: 5px 0 5px 14px !important;
+        text-align: left !important;
+        max-width: min(92%, 360px) !important;
+        margin: 0 auto 18px auto !important;
+      }
+      .celebration-quote-text {
+        font-size: 14px !important;
+        line-height: 1.55 !important;
+        text-align: left !important;
+        color: #cbd5e1 !important;
+        font-style: italic !important;
+        margin: 0 !important;
+      }
+
       /* Chamber Placard and General Content Stage */
       .chamber-placard {
         top: 10px;
@@ -9959,6 +10028,25 @@
         width: 170px !important;
         height: 230px !important;
       }
+      .celebration-portrait-frame {
+        width: 170px !important;
+        height: 230px !important;
+        max-width: 170px !important;
+        max-height: 230px !important;
+        padding: 0 !important;
+        background: transparent !important;
+        border: 2px solid var(--gold-primary) !important;
+        border-radius: 95px 95px 16px 16px !important;
+        box-shadow: 0 0 14px rgba(212, 175, 55, 0.28), 0 10px 25px rgba(0, 0, 0, 0.7) !important;
+      }
+      .celebration-portrait-inner {
+        width: 100% !important;
+        height: 100% !important;
+        border-radius: 93px 93px 14px 14px !important;
+        overflow: hidden !important;
+        border: none !important;
+        background: #000000 !important;
+      }
       .celebration-main-title {
         font-size: clamp(19px, 5.2vw, 24px) !important;
       }
@@ -9966,10 +10054,25 @@
         font-size: clamp(20px, 5.2vw, 26px) !important;
       }
       .celebration-quote-card {
-        padding: 8px 10px;
+        border-top: none !important;
+        border-right: none !important;
+        border-bottom: none !important;
+        border-left: 3px solid var(--gold-primary) !important;
+        border-radius: 0 !important;
+        background: transparent !important;
+        box-shadow: none !important;
+        padding: 4px 0 4px 14px !important;
+        text-align: left !important;
+        max-width: min(94%, 330px) !important;
+        margin: 0 auto 16px auto !important;
       }
       .celebration-quote-text {
-        font-size: 13.5px;
+        font-size: 13.5px !important;
+        line-height: 1.55 !important;
+        text-align: left !important;
+        color: #cbd5e1 !important;
+        font-style: italic !important;
+        margin: 0 !important;
       }
       #btnWalkPrev span,
       #btnWalkNext span {
@@ -10084,6 +10187,24 @@
         width: 140px !important;
         height: 190px !important;
       }
+      .celebration-portrait-frame {
+        width: 140px !important;
+        height: 190px !important;
+        max-width: 140px !important;
+        max-height: 190px !important;
+        padding: 0 !important;
+        background: transparent !important;
+        border: 2px solid var(--gold-primary) !important;
+        border-radius: 80px 80px 14px 14px !important;
+      }
+      .celebration-portrait-inner {
+        width: 100% !important;
+        height: 100% !important;
+        border-radius: 78px 78px 12px 12px !important;
+        overflow: hidden !important;
+        border: none !important;
+        background: #000000 !important;
+      }
       .horizontal-milestones-list {
         gap: 10px;
       }
@@ -10138,16 +10259,48 @@
         width: 140px;
         height: 180px;
       }
+      .celebration-portrait-frame {
+        width: 140px !important;
+        height: 180px !important;
+        max-width: 140px !important;
+        max-height: 180px !important;
+        padding: 0 !important;
+        background: transparent !important;
+        border: 2px solid var(--gold-primary) !important;
+        border-radius: 80px 80px 14px 14px !important;
+      }
+      .celebration-portrait-inner {
+        width: 100% !important;
+        height: 100% !important;
+        border-radius: 78px 78px 12px 12px !important;
+        overflow: hidden !important;
+        border: none !important;
+        background: #000000 !important;
+      }
       .celebration-employee-name {
         margin-bottom: 4px;
         font-size: 20px !important;
       }
       .celebration-quote-card {
-        margin-bottom: 8px;
-        padding: 6px 10px;
+        border-top: none !important;
+        border-right: none !important;
+        border-bottom: none !important;
+        border-left: 3px solid var(--gold-primary) !important;
+        border-radius: 0 !important;
+        background: transparent !important;
+        box-shadow: none !important;
+        margin-bottom: 8px !important;
+        padding: 3px 0 3px 12px !important;
+        text-align: left !important;
+        max-width: min(94%, 300px) !important;
       }
       .celebration-quote-text {
-        font-size: 13px;
+        font-size: 12px !important;
+        line-height: 1.5 !important;
+        text-align: left !important;
+        color: #cbd5e1 !important;
+        font-style: italic !important;
+        margin: 0 !important;
       }
       .celebration-journey-bar {
         margin-bottom: 6px;
