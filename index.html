@@ -4028,6 +4028,20 @@
       border-radius: 4px;
     }
 
+    .evolution-pill-side {
+      display: contents;
+    }
+
+    .evolution-icon-box {
+      display: none;
+    }
+
+    .evolution-connector-line-top,
+    .evolution-connector-arrow,
+    .evolution-connector-line-bottom {
+      display: none;
+    }
+
     .evolution-card {
       flex: 1;
       min-width: 0;
@@ -9319,7 +9333,224 @@
         max-width: 100% !important;
       }
 
-      /* Room 02: What You Learned (Vertical Stacking) */
+      /* Room 02: What You Learned (Option 3 Vertical Journey Cards - Responsive Mobile) */
+      #chamber-1 .chamber-content {
+        margin-top: 50px !important;
+        height: calc(100% - 50px) !important;
+        max-height: calc(100dvh - 106px) !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 0 !important;
+        overflow: hidden !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+      }
+
+      #chamber-1 .room-learned-dashboard {
+        width: 100% !important;
+        max-width: 100% !important;
+        height: 100% !important;
+        max-height: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        overflow: hidden !important;
+      }
+
+      #chamber-1 .evolution-comparison-stage,
+      #chamber-1 .evolution-stacked-stage {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: flex-start !important;
+        gap: 18px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        height: 100% !important;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        padding: 8px 16px 120px 16px !important;
+        box-sizing: border-box !important;
+        scroll-behavior: smooth !important;
+      }
+
+      #chamber-1 .evolution-comparison-stage::-webkit-scrollbar {
+        width: 4px;
+      }
+      #chamber-1 .evolution-comparison-stage::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      #chamber-1 .evolution-comparison-stage::-webkit-scrollbar-thumb {
+        background: rgba(0, 229, 255, 0.3);
+        border-radius: 4px;
+      }
+
+      #chamber-1 .evolution-pill-card {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        text-align: center !important;
+        width: 100% !important;
+        max-width: 340px !important;
+        padding: 24px 20px !important;
+        border-radius: 22px !important;
+        border: 1.5px solid rgba(0, 229, 255, 0.45) !important;
+        background: linear-gradient(165deg, rgba(8, 22, 45, 0.94) 0%, rgba(3, 10, 24, 0.98) 100%) !important;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 24px rgba(0, 229, 255, 0.16), inset 0 0 16px rgba(0, 229, 255, 0.05) !important;
+        backdrop-filter: blur(16px) !important;
+        -webkit-backdrop-filter: blur(16px) !important;
+        gap: 0 !important;
+        box-sizing: border-box !important;
+        flex-shrink: 0 !important;
+        transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease !important;
+      }
+
+      #chamber-1 .evolution-pill-card:hover,
+      #chamber-1 .evolution-pill-card:active {
+        transform: translateY(-2px) !important;
+        border-color: rgba(0, 229, 255, 0.8) !important;
+        box-shadow: 0 12px 36px rgba(0, 0, 0, 0.7), 0 0 30px rgba(0, 229, 255, 0.28), inset 0 0 20px rgba(0, 229, 255, 0.08) !important;
+      }
+
+      #chamber-1 .evolution-pill-side {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        text-align: center !important;
+        width: 100% !important;
+      }
+
+      #chamber-1 .evolution-icon-box {
+        display: flex !important;
+        width: 48px !important;
+        height: 48px !important;
+        border-radius: 14px !important;
+        background: rgba(0, 180, 255, 0.12) !important;
+        border: 1.5px solid rgba(0, 229, 255, 0.38) !important;
+        box-shadow: 0 0 16px rgba(0, 229, 255, 0.25), inset 0 0 10px rgba(0, 229, 255, 0.1) !important;
+        align-items: center !important;
+        justify-content: center !important;
+        margin-bottom: 12px !important;
+        color: #00e5ff !important;
+        transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+      }
+
+      #chamber-1 .evolution-icon-box .point-svg {
+        width: 24px !important;
+        height: 24px !important;
+        stroke: #00e5ff !important;
+        color: #00e5ff !important;
+        filter: drop-shadow(0 0 6px rgba(0, 229, 255, 0.5)) !important;
+      }
+
+      #chamber-1 .evolution-pill-text {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif !important;
+        font-size: 15.5px !important;
+        font-weight: 700 !important;
+        color: #ffffff !important;
+        text-align: center !important;
+        line-height: 1.4 !important;
+        letter-spacing: 0.15px !important;
+        margin: 0 !important;
+        max-width: 280px !important;
+        word-break: break-word !important;
+      }
+
+      #chamber-1 .evolution-then-text {
+        text-align: center !important;
+        color: #f1f5f9 !important;
+      }
+
+      #chamber-1 .evolution-now-text {
+        text-align: center !important;
+        color: #ffffff !important;
+      }
+
+      #chamber-1 .evolution-pill-connector {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        margin: 10px 0 !important;
+        position: relative !important;
+        width: 100% !important;
+        padding: 0 !important;
+      }
+
+      #chamber-1 .evolution-pill-line {
+        display: none !important;
+      }
+
+      #chamber-1 .evolution-connector-line-top,
+      #chamber-1 .evolution-connector-line-bottom {
+        display: block !important;
+        width: 2px !important;
+        height: 18px !important;
+        border-radius: 1px !important;
+      }
+
+      #chamber-1 .evolution-connector-line-top {
+        background: linear-gradient(to bottom, rgba(0, 229, 255, 0.2), #00e5ff) !important;
+        box-shadow: 0 0 8px rgba(0, 229, 255, 0.6) !important;
+      }
+
+      #chamber-1 .evolution-connector-arrow {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        width: 32px !important;
+        height: 32px !important;
+        border-radius: 50% !important;
+        border: 1.5px solid #00e5ff !important;
+        background: rgba(4, 15, 34, 0.95) !important;
+        box-shadow: 0 0 14px rgba(0, 229, 255, 0.55), inset 0 0 8px rgba(0, 229, 255, 0.2) !important;
+        color: #00e5ff !important;
+        margin: 0 !important;
+      }
+
+      #chamber-1 .evolution-connector-arrow svg {
+        width: 15px !important;
+        height: 15px !important;
+        stroke: #00e5ff !important;
+      }
+
+      #chamber-1 .evolution-connector-line-bottom {
+        background: linear-gradient(to bottom, #00e5ff, rgba(0, 229, 255, 0.2)) !important;
+        box-shadow: 0 0 8px rgba(0, 229, 255, 0.6) !important;
+      }
+
+      @media (max-width: 360px) {
+        #chamber-1 .evolution-pill-card {
+          max-width: 290px !important;
+          padding: 20px 14px !important;
+        }
+        #chamber-1 .evolution-pill-text {
+          font-size: 14px !important;
+        }
+        #chamber-1 .evolution-icon-box {
+          width: 42px !important;
+          height: 42px !important;
+        }
+        #chamber-1 .evolution-icon-box .point-svg {
+          width: 20px !important;
+          height: 20px !important;
+        }
+        #chamber-1 .evolution-connector-arrow {
+          width: 28px !important;
+          height: 28px !important;
+        }
+        #chamber-1 .evolution-connector-arrow svg {
+          width: 13px !important;
+          height: 13px !important;
+        }
+        #chamber-1 .evolution-connector-line-top,
+        #chamber-1 .evolution-connector-line-bottom {
+          height: 14px !important;
+        }
+      }
+
       .room-learned {
         flex-direction: column;
         gap: 12px;
@@ -12361,34 +12592,88 @@
         <div class="chamber-content">
           <div class="room-learned-dashboard">
             
-            <!-- Evolution Comparison Stage: 3 Horizontal Capsule Cards -->
+            <!-- Evolution Comparison Stage: 3 Capsule Cards (Option 3 on mobile) -->
             <div class="evolution-comparison-stage evolution-stacked-stage">
               
               <!-- Row 1 -->
               <div class="evolution-pill-card" data-row-idx="0">
-                <div class="evolution-pill-text evolution-then-text" contenteditable="true" data-editable="true" data-point-idx="0" title="Click to edit text">Learning the environment</div>
+                <div class="evolution-pill-side evolution-then-side">
+                  <div class="evolution-icon-box evolution-then-icon then-icon" data-row-idx="0" aria-hidden="true">
+                    <svg class="point-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20"/><path d="M12 2a14.5 14.5 0 0 1 0 20"/><path d="M2 12h20"/></svg>
+                  </div>
+                  <div class="evolution-pill-text evolution-then-text" contenteditable="true" data-editable="true" data-point-idx="0" title="Click to edit text">Learning the environment</div>
+                </div>
                 <div class="evolution-pill-connector" aria-hidden="true">
+                  <div class="evolution-connector-line evolution-connector-line-top"></div>
+                  <div class="evolution-connector-arrow">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                      <line x1="12" y1="5" x2="12" y2="19"></line>
+                      <polyline points="19 12 12 19 5 12"></polyline>
+                    </svg>
+                  </div>
+                  <div class="evolution-connector-line evolution-connector-line-bottom"></div>
                   <div class="evolution-pill-line"></div>
                 </div>
-                <div class="evolution-pill-text evolution-now-text" contenteditable="true" data-editable="true" data-point-idx="0" title="Click to edit text">More confidence</div>
+                <div class="evolution-pill-side evolution-now-side">
+                  <div class="evolution-icon-box evolution-now-icon now-icon" data-row-idx="0" aria-hidden="true">
+                    <svg class="point-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+                  </div>
+                  <div class="evolution-pill-text evolution-now-text" contenteditable="true" data-editable="true" data-point-idx="0" title="Click to edit text">More confidence</div>
+                </div>
               </div>
 
               <!-- Row 2 -->
               <div class="evolution-pill-card" data-row-idx="1">
-                <div class="evolution-pill-text evolution-then-text" contenteditable="true" data-editable="true" data-point-idx="1" title="Click to edit text">Understanding the product</div>
+                <div class="evolution-pill-side evolution-then-side">
+                  <div class="evolution-icon-box evolution-then-icon then-icon" data-row-idx="1" aria-hidden="true">
+                    <svg class="point-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
+                  </div>
+                  <div class="evolution-pill-text evolution-then-text" contenteditable="true" data-editable="true" data-point-idx="1" title="Click to edit text">Understanding the product</div>
+                </div>
                 <div class="evolution-pill-connector" aria-hidden="true">
+                  <div class="evolution-connector-line evolution-connector-line-top"></div>
+                  <div class="evolution-connector-arrow">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                      <line x1="12" y1="5" x2="12" y2="19"></line>
+                      <polyline points="19 12 12 19 5 12"></polyline>
+                    </svg>
+                  </div>
+                  <div class="evolution-connector-line evolution-connector-line-bottom"></div>
                   <div class="evolution-pill-line"></div>
                 </div>
-                <div class="evolution-pill-text evolution-now-text" contenteditable="true" data-editable="true" data-point-idx="1" title="Click to edit text">Better understanding</div>
+                <div class="evolution-pill-side evolution-now-side">
+                  <div class="evolution-icon-box evolution-now-icon now-icon" data-row-idx="1" aria-hidden="true">
+                    <svg class="point-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+                  </div>
+                  <div class="evolution-pill-text evolution-now-text" contenteditable="true" data-editable="true" data-point-idx="1" title="Click to edit text">Better understanding</div>
+                </div>
               </div>
 
               <!-- Row 3 -->
               <div class="evolution-pill-card" data-row-idx="2">
-                <div class="evolution-pill-text evolution-then-text" contenteditable="true" data-editable="true" data-point-idx="2" title="Click to edit text">Getting familiar with the role</div>
+                <div class="evolution-pill-side evolution-then-side">
+                  <div class="evolution-icon-box evolution-then-icon then-icon" data-row-idx="2" aria-hidden="true">
+                    <svg class="point-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
+                  </div>
+                  <div class="evolution-pill-text evolution-then-text" contenteditable="true" data-editable="true" data-point-idx="2" title="Click to edit text">Getting familiar with the role</div>
+                </div>
                 <div class="evolution-pill-connector" aria-hidden="true">
+                  <div class="evolution-connector-line evolution-connector-line-top"></div>
+                  <div class="evolution-connector-arrow">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                      <line x1="12" y1="5" x2="12" y2="19"></line>
+                      <polyline points="19 12 12 19 5 12"></polyline>
+                    </svg>
+                  </div>
+                  <div class="evolution-connector-line evolution-connector-line-bottom"></div>
                   <div class="evolution-pill-line"></div>
                 </div>
-                <div class="evolution-pill-text evolution-now-text" contenteditable="true" data-editable="true" data-point-idx="2" title="Click to edit text">Greater ownership</div>
+                <div class="evolution-pill-side evolution-now-side">
+                  <div class="evolution-icon-box evolution-now-icon now-icon" data-row-idx="2" aria-hidden="true">
+                    <svg class="point-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m2 4 3 12h14l3-12-6 7-4-7-4 7-6-7zm3 16h14"/></svg>
+                  </div>
+                  <div class="evolution-pill-text evolution-now-text" contenteditable="true" data-editable="true" data-point-idx="2" title="Click to edit text">Greater ownership</div>
+                </div>
               </div>
 
             </div>
@@ -16379,7 +16664,10 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
       award: '<svg class="point-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="m15.477 12.89 2.523 8.11-6-3-6 3 2.523-8.11"/></svg>',
       users: '<svg class="point-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>',
       star: '<svg class="point-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>',
-      check: '<svg class="point-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>'
+      check: '<svg class="point-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>',
+      book: '<svg class="point-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>',
+      chart: '<svg class="point-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><rect width="4" height="7" x="7" y="10" rx="1"/><rect width="4" height="12" x="15" y="5" rx="1"/></svg>',
+      growth: '<svg class="point-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><rect width="4" height="7" x="7" y="10" rx="1"/><rect width="4" height="12" x="15" y="5" rx="1"/></svg>'
     };
 
     function renderIconContent(iconData, fallbackKey) {
@@ -16487,6 +16775,8 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
       // Update 3 Horizontal Capsule / Pill Cards UI
       const pillCards = document.querySelectorAll('.evolution-pill-card');
       if (pillCards && pillCards.length > 0) {
+        const thenFallbacks = ['globe', 'box', 'compass'];
+        const nowFallbacks = ['shield', 'target', 'crown'];
         pillCards.forEach((card, idx) => {
           const thenEl = card.querySelector('.evolution-then-text');
           const nowEl = card.querySelector('.evolution-now-text');
@@ -16495,6 +16785,15 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
           }
           if (nowEl && evo.nowPoints && evo.nowPoints[idx] && evo.nowPoints[idx].text !== undefined) {
             nowEl.textContent = evo.nowPoints[idx].text;
+          }
+
+          const thenIconBox = card.querySelector('.evolution-then-icon');
+          const nowIconBox = card.querySelector('.evolution-now-icon');
+          if (thenIconBox && evo.thenPoints && evo.thenPoints[idx]) {
+            thenIconBox.innerHTML = renderIconContent(evo.thenPoints[idx].icon, thenFallbacks[idx] || 'globe');
+          }
+          if (nowIconBox && evo.nowPoints && evo.nowPoints[idx]) {
+            nowIconBox.innerHTML = renderIconContent(evo.nowPoints[idx].icon, nowFallbacks[idx] || 'shield');
           }
         });
       }
@@ -21243,6 +21542,10 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
           const comingFromBack = fromStage > targetStage;
           activateRoom01Motion(comingFromBack);
         } else if (targetChamber.id === 'chamber-1') {
+          const evoStage = document.querySelector('#chamber-1 .evolution-comparison-stage');
+          if (evoStage && window.innerWidth <= 768) {
+            evoStage.scrollTop = 0;
+          }
           setTimeout(() => {
             if (window.updateSkillsFadeMask) window.updateSkillsFadeMask();
           }, 120);
@@ -21330,7 +21633,8 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
         if (!el || el === window || el === document || el === document.body || el === document.documentElement) continue;
 
         // Never trap or consume wheel events inside non-scrollable chambers like Your Values
-        if (el.closest && (el.closest('#chamber-values') || el.closest('#chamber-milestone') || el.closest('#chamber-1') || el.closest('#chamber-4') || el.closest('#chamber-5') || el.closest('#chamber-thankyou'))) {
+        const isChamber1ScrollableMobile = window.innerWidth <= 768 && el.closest && el.closest('#chamber-1');
+        if (!isChamber1ScrollableMobile && el.closest && (el.closest('#chamber-values') || el.closest('#chamber-milestone') || el.closest('#chamber-1') || el.closest('#chamber-4') || el.closest('#chamber-5') || el.closest('#chamber-thankyou'))) {
           continue;
         }
 
@@ -21351,6 +21655,8 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
             el.classList?.contains('journey-milestones-list') ||
             el.classList?.contains('horizontal-timeline-track-wrap') ||
             el.classList?.contains('horizontal-milestones-list') ||
+            el.classList?.contains('evolution-comparison-stage') ||
+            el.classList?.contains('evolution-stacked-stage') ||
             el.classList?.contains('admin-tab-content') ||
             el.tagName === 'TEXTAREA'
           ) {
@@ -21366,9 +21672,10 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
 
             const isMemoriesGrid = el.classList?.contains('collage-mosaic-grid');
             const isTimelineWrap = (el.classList?.contains('horizontal-timeline-track-wrap') || el.closest?.('.horizontal-timeline-track-wrap')) && window.innerWidth <= 768;
+            const isEvolutionStage = (el.classList?.contains('evolution-comparison-stage') || el.closest?.('.evolution-comparison-stage')) && window.innerWidth <= 768;
 
-            if (isMemoriesGrid || isTimelineWrap) {
-              const targetBox = isTimelineWrap ? (el.classList?.contains('horizontal-timeline-track-wrap') ? el : el.closest('.horizontal-timeline-track-wrap')) : el;
+            if (isMemoriesGrid || isTimelineWrap || isEvolutionStage) {
+              const targetBox = isTimelineWrap ? (el.classList?.contains('horizontal-timeline-track-wrap') ? el : el.closest('.horizontal-timeline-track-wrap')) : (isEvolutionStage ? (el.classList?.contains('evolution-comparison-stage') ? el : el.closest('.evolution-comparison-stage')) : el);
               const atBottom = targetBox.scrollTop + targetBox.clientHeight >= targetBox.scrollHeight - 6;
               const atTop = targetBox.scrollTop <= 6;
 
@@ -21646,6 +21953,24 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
             goToStage(currentStage - 1);
             return;
           }
+        }
+      }
+
+      if (isCurrentRoom('chamber-1')) {
+        if (window.innerWidth <= 768) {
+          const stageEl = document.querySelector('#chamber-1 .evolution-comparison-stage');
+          if (stageEl) {
+            const atBottom = stageEl.scrollTop + stageEl.clientHeight >= stageEl.scrollHeight - 10;
+            const atTop = stageEl.scrollTop <= 10;
+            if (atBottom && diffY > 80 && Math.abs(diffY) > Math.abs(diffX) * 1.5) {
+              goToStage(currentStage + 1);
+              return;
+            } else if (atTop && diffY < -80 && Math.abs(diffY) > Math.abs(diffX) * 1.5) {
+              goToStage(currentStage - 1);
+              return;
+            }
+          }
+          return;
         }
       }
 
