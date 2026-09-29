@@ -9250,7 +9250,7 @@
 
       /* Stage 0 Arch Structure - Centered optically & vertically */
       .portal-arch-structure {
-        transform: translateY(26px) scale(0.72) !important;
+        transform: scale(0.72) !important;
         transform-origin: center center !important;
         margin: 0 auto !important;
       }
@@ -9370,7 +9370,7 @@
         width: 100% !important;
         max-width: 100% !important;
         margin: 0 auto 50px auto !important; /* Exactly 50px gap between heading & content */
-        padding: 16px 12px 0 12px !important;
+        padding: 32px 12px 0 12px !important; /* 32px top space above heading */
         box-sizing: border-box !important;
         opacity: 1 !important;
         visibility: visible !important;
@@ -10169,8 +10169,8 @@
         pointer-events: none !important;
       }
       .values-avatar-frame {
-        width: 88px !important;
-        height: 88px !important;
+        width: 120px !important;
+        height: 120px !important;
         border-radius: 50% !important;
         position: relative !important;
         border: 3.5px solid var(--gold-primary, #f5c065) !important;
@@ -10482,8 +10482,8 @@
         padding: 16px 12px;
       }
       .thankyou-avatar-halo {
-        width: 110px;
-        height: 110px;
+        width: 140px;
+        height: 140px;
       }
       .thankyou-main-title {
         font-size: clamp(20px, 5.2vw, 26px);
@@ -14959,9 +14959,9 @@
     window.addEventListener('resize', resizeCanvas);
     resizeCanvas();
 
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 28; i++) {
       const angle = Math.random() * Math.PI * 2; // Uneven multidirectional (any angle 0-360 deg)
-      const speed = Math.random() * 1.1 + 0.8; // Increased speed (0.8 to 1.9 px/frame)
+      const speed = Math.random() * 0.4 + 0.2; // Slow gentle drift (0.2 to 0.6 px/frame)
       particles.push({
         x: Math.random() * window.innerWidth,
         y: Math.random() * window.innerHeight,
