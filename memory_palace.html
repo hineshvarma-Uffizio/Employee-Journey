@@ -9455,7 +9455,7 @@
         height: 100% !important;
         overflow-y: auto !important;
         -webkit-overflow-scrolling: touch !important;
-        padding: 8px 16px 120px 16px !important;
+        padding: 0 16px 120px 16px !important;
         box-sizing: border-box !important;
         scroll-behavior: smooth !important;
       }
@@ -9686,7 +9686,7 @@
         max-height: 100% !important;
         overflow-y: auto !important;
         -webkit-overflow-scrolling: touch !important;
-        padding: 4px 0 80px 0 !important;
+        padding: 0 0 80px 0 !important;
         box-sizing: border-box !important;
         scroll-behavior: smooth !important;
       }
@@ -9857,7 +9857,7 @@
         overflow-y: auto !important;
         -webkit-overflow-scrolling: touch !important;
         justify-content: flex-start !important;
-        padding: 4px 6px 75px 6px !important;
+        padding: 0 6px 75px 6px !important;
         box-sizing: border-box !important;
       }
       .team-wall-board {
@@ -9972,7 +9972,7 @@
         overflow-y: auto !important;
         overflow-x: hidden !important;
         -webkit-overflow-scrolling: touch !important;
-        padding: 6px 4px 80px 4px !important;
+        padding: 0 4px 80px 4px !important;
         box-sizing: border-box !important;
         display: block !important;
         scroll-behavior: smooth !important;
@@ -10326,6 +10326,15 @@
         -webkit-overflow-scrolling: touch !important;
         padding: 0 6px 85px 6px !important;
         box-sizing: border-box !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+      }
+      /* Placard inside room-future on mobile must be full-width and centered */
+      .room-future > .chamber-placard {
+        width: 100% !important;
+        text-align: center !important;
+        flex-shrink: 0 !important;
       }
       .future-board {
         display: flex !important;
@@ -10336,6 +10345,7 @@
         margin: 0 auto !important;
         height: auto !important;
         max-height: none !important;
+        flex: 0 0 auto !important;
         box-sizing: border-box !important;
       }
       .future-col-left,
@@ -11453,7 +11463,7 @@
         overflow-x: hidden !important;
         -webkit-overflow-scrolling: touch !important;
         touch-action: pan-y !important;
-        padding: 10px 16px 130px 16px !important;
+        padding: 0 16px 130px 16px !important;
         box-sizing: border-box !important;
         scrollbar-width: thin !important;
         scrollbar-color: rgba(245, 192, 101, 0.3) transparent !important;
