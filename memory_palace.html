@@ -1000,14 +1000,20 @@
     }
 
     .values-col-left {
+      grid-column: 1;
+      grid-row: 1;
       align-items: flex-end;
     }
     .values-col-right {
+      grid-column: 3;
+      grid-row: 1;
       align-items: flex-start;
     }
 
     /* Central Employee Nucleus */
     .values-center-nucleus {
+      grid-column: 2;
+      grid-row: 1;
       position: relative;
       width: 360px;
       height: 360px;
@@ -1303,14 +1309,19 @@
     /* Responsive Queries for Room: Values */
     @media (max-width: 992px) {
       .values-orbital-stage {
-        grid-template-columns: 1fr;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         gap: 20px;
         max-height: calc(100vh - 190px);
         overflow-y: auto;
+        padding-top: 14px;
         padding-bottom: 30px;
       }
       .values-center-nucleus {
-        order: -1;
+        grid-column: auto;
+        grid-row: auto;
+        order: 0;
         margin: 0 auto;
         width: 280px;
         height: 280px;
@@ -1328,6 +1339,8 @@
         height: 195px;
       }
       .values-constellation-col {
+        grid-column: auto;
+        grid-row: auto;
         max-width: 100%;
         align-items: stretch !important;
       }
@@ -9980,8 +9993,8 @@
 
       /* Room 06: The Values You Bring (Orbital Nucleus & Cards) */
       #chamber-values .chamber-content {
-        margin-top: 60px !important;
-        height: calc(100% - 60px) !important;
+        margin-top: 54px !important;
+        height: calc(100% - 54px) !important;
         max-height: calc(100dvh - 110px) !important;
         width: 100% !important;
         max-width: 100% !important;
@@ -10004,13 +10017,15 @@
         overflow-y: auto !important;
         overflow-x: hidden !important;
         -webkit-overflow-scrolling: touch !important;
-        padding: 18px 6px 90px 6px !important;
+        padding: 16px 8px 90px 8px !important;
         align-items: center !important;
         box-sizing: border-box !important;
       }
       .values-center-nucleus {
-        order: -1 !important;
-        margin: 4px auto 16px auto !important;
+        grid-column: auto !important;
+        grid-row: auto !important;
+        order: 0 !important;
+        margin: 2px auto 14px auto !important;
         width: 170px !important;
         height: 170px !important;
         flex-shrink: 0 !important;
@@ -10072,6 +10087,8 @@
         display: block !important;
       }
       .values-constellation-col {
+        grid-column: auto !important;
+        grid-row: auto !important;
         width: 100% !important;
         max-width: 100% !important;
         gap: 10px !important;
@@ -17658,16 +17675,16 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
       const rightValues = values.slice(Math.ceil(values.length / 2));
 
       stage.innerHTML = `
-        <div class="values-constellation-col values-col-left">
-          ${leftValues.map((v, idx) => renderValueCardHtml(v, idx)).join('')}
-        </div>
-
         <div class="values-center-nucleus">
           <div class="orbit-ring-outer"></div>
           <div class="orbit-ring-inner"></div>
           <div class="values-avatar-frame" onclick="openAdminPanelToValuesTab()" title="Click to manage employee values">
             <img src="${emp.photo || 'manushi_hero.jpg'}" alt="${escapeHtml(emp.name || 'Employee')}" class="values-nucleus-avatar" onerror="this.src='manushi_hero.jpg'">
           </div>
+        </div>
+
+        <div class="values-constellation-col values-col-left">
+          ${leftValues.map((v, idx) => renderValueCardHtml(v, idx)).join('')}
         </div>
 
         <div class="values-constellation-col values-col-right">
@@ -21785,12 +21802,18 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
             }
           }
         } else if (targetChamber.id === 'chamber-values') {
-          setTimeout(() => {
+          const resetValuesScroll = () => {
             const vStage = document.getElementById('valuesOrbitalStage');
             if (vStage) {
               vStage.scrollTop = 0;
             }
-          }, 40);
+          };
+          resetValuesScroll();
+          setTimeout(resetValuesScroll, 40);
+          setTimeout(resetValuesScroll, 150);
+          setTimeout(resetValuesScroll, 400);
+          setTimeout(resetValuesScroll, 850);
+          setTimeout(resetValuesScroll, 1000);
         } else if (targetChamber.id === 'chamber-thankyou') {
           setTimeout(() => {
             palaceAudio.playChime();
@@ -22189,6 +22212,24 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
             }
           }
           return;
+        }
+      }
+
+      if (isCurrentRoom('chamber-values')) {
+        if (window.innerWidth <= 768) {
+          const vStage = document.getElementById('valuesOrbitalStage');
+          if (vStage && vStage.scrollHeight > vStage.clientHeight + 8) {
+            const atBottom = vStage.scrollTop + vStage.clientHeight >= vStage.scrollHeight - 10;
+            const atTop = vStage.scrollTop <= 10;
+            if (atBottom && diffY > 60 && Math.abs(diffY) > Math.abs(diffX) * 1.4) {
+              goToStage(currentStage + 1);
+              return;
+            } else if (atTop && diffY < -60 && Math.abs(diffY) > Math.abs(diffX) * 1.4) {
+              goToStage(currentStage - 1);
+              return;
+            }
+            return;
+          }
         }
       }
 
