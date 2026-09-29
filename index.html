@@ -9816,24 +9816,94 @@
       }
 
       /* Room 05: Annual Memories Collage (Part 2 & Legacy) */
+      #chamber-memories-2 .chamber-content {
+        margin-top: 70px !important;
+        height: calc(100% - 70px) !important;
+        max-height: calc(100dvh - 126px) !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 0 12px !important;
+        overflow: hidden !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: flex-start !important;
+        box-sizing: border-box !important;
+      }
       .memories2-uneven-stage {
-        width: 100%;
-        height: 100%;
-        max-height: calc(100vh - 140px);
-        max-height: calc(100dvh - 140px);
-        overflow-y: auto;
-        -webkit-overflow-scrolling: touch;
-        padding: 8px 4px 24px 4px;
+        width: 100% !important;
+        max-width: 100% !important;
+        height: 100% !important;
+        max-height: 100% !important;
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+        -webkit-overflow-scrolling: touch !important;
+        padding: 6px 4px 80px 4px !important;
+        box-sizing: border-box !important;
+        display: block !important;
+        scroll-behavior: smooth !important;
       }
       .memories-scatter-board {
         display: grid !important;
-        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)) !important;
-        gap: 12px !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 16px 12px !important;
         width: 100% !important;
         max-width: 100% !important;
-        padding: 6px !important;
-        position: static !important;
+        height: auto !important;
+        min-height: auto !important;
+        max-height: none !important;
+        padding: 4px 2px 24px 2px !important;
+        margin: 0 auto !important;
+        position: relative !important;
         transform: none !important;
+        box-sizing: border-box !important;
+      }
+      .memories-uneven-card {
+        position: relative !important;
+        left: auto !important;
+        top: auto !important;
+        right: auto !important;
+        bottom: auto !important;
+        transform: none !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        height: auto !important;
+        padding: 6px 6px 14px 6px !important;
+        margin: 0 !important;
+        border-radius: 6px !important;
+        background: #ffffff !important;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45) !important;
+        box-sizing: border-box !important;
+        display: flex !important;
+        flex-direction: column !important;
+        z-index: 1 !important;
+        cursor: pointer !important;
+        transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+      }
+      .memories-uneven-card:hover,
+      .memories-uneven-card:active {
+        transform: translateY(-2px) scale(1.02) !important;
+        box-shadow: 0 10px 28px rgba(0, 0, 0, 0.65) !important;
+        z-index: 5 !important;
+      }
+      .memories-uneven-img-wrap {
+        width: 100% !important;
+        height: 145px !important;
+        position: relative !important;
+        overflow: hidden !important;
+        border-radius: 4px !important;
+        background: #0b1120 !important;
+        display: block !important;
+      }
+      .memories-uneven-img-wrap img {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+        display: block !important;
+        transform: none !important;
+      }
+      .memories-uneven-zoom-btn {
+        display: none !important;
       }
       .memories-scatter-frame {
         position: static !important;
@@ -10354,11 +10424,11 @@
         max-height: 240px !important;
       }
       .memories-scatter-board {
-        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)) !important;
-        gap: 8px !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 12px 10px !important;
       }
-      .scatter-photo-box {
-        height: 100px !important;
+      .memories-uneven-img-wrap {
+        height: 130px !important;
       }
       .values-center-nucleus {
         width: 180px;
@@ -10466,7 +10536,7 @@
         grid-template-columns: 1fr !important;
       }
       .memories-scatter-board {
-        grid-template-columns: 1fr !important;
+        grid-template-columns: repeat(2, 1fr) !important;
       }
       .polaroid-frame {
         max-width: 220px;
@@ -10490,6 +10560,7 @@
       #chamber-0 .chamber-content,
       #chamber-1 .chamber-content,
       #chamber-2b .chamber-content,
+      #chamber-memories-2 .chamber-content,
       #chamber-3 .chamber-content {
         margin-top: 56px !important;
         height: calc(100% - 56px) !important;
@@ -18122,6 +18193,11 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
 
     function adjustCardToImageAspect(card, imgEl, slot) {
       if (!imgEl || !card || !slot) return;
+      if (window.innerWidth <= 768) {
+        card.style.width = '';
+        card.style.height = '';
+        return;
+      }
       const nw = imgEl.naturalWidth;
       const nh = imgEl.naturalHeight;
       if (!nw || !nh) return;
@@ -18189,16 +18265,18 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
           card.className = 'memories-uneven-card';
           card.dataset.idx = idx;
 
-          const cx = slot.left + slot.width / 2;
-          // Scale cy so cards stay within board — min 40% ensures no heading overlap
-          const rawCy = slot.top + slot.height / 2;
-          const cy = Math.max(12 + rawCy * 0.68, 40);
-          card.style.left = `${cx.toFixed(2)}%`;
-          card.style.top = `${cy.toFixed(2)}%`;
-          card.style.transform = `translate(-50%, -50%) rotate(${slot.rot}deg)`;
-          card.style.zIndex = slot.z || 2;
-          card.style.width = `${slot.width}%`;
-          card.style.height = 'auto';
+          if (window.innerWidth > 768) {
+            const cx = slot.left + slot.width / 2;
+            // Scale cy so cards stay within board — min 40% ensures no heading overlap
+            const rawCy = slot.top + slot.height / 2;
+            const cy = Math.max(12 + rawCy * 0.68, 40);
+            card.style.left = `${cx.toFixed(2)}%`;
+            card.style.top = `${cy.toFixed(2)}%`;
+            card.style.transform = `translate(-50%, -50%) rotate(${slot.rot}deg)`;
+            card.style.zIndex = slot.z || 2;
+            card.style.width = `${slot.width}%`;
+            card.style.height = 'auto';
+          }
           card.setAttribute('title', `${m.title || 'Memory Photo'} (Click to zoom)`);
 
           const imgEl = document.createElement('img');
@@ -18237,16 +18315,18 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
           board.appendChild(card);
         });
 
-        // Boost z-index of the card closest to center so it appears on top
-        const allCards = board.querySelectorAll('.memories-uneven-card');
-        let minDist = Infinity, centerCard = null;
-        allCards.forEach(c => {
-          const cl = parseFloat(c.style.left);
-          const ct = parseFloat(c.style.top);
-          const dist = (cl - 50) * (cl - 50) + (ct - 50) * (ct - 50);
-          if (dist < minDist) { minDist = dist; centerCard = c; }
-        });
-        if (centerCard) centerCard.style.zIndex = '9';
+        if (window.innerWidth > 768) {
+          // Boost z-index of the card closest to center so it appears on top
+          const allCards = board.querySelectorAll('.memories-uneven-card');
+          let minDist = Infinity, centerCard = null;
+          allCards.forEach(c => {
+            const cl = parseFloat(c.style.left);
+            const ct = parseFloat(c.style.top);
+            const dist = (cl - 50) * (cl - 50) + (ct - 50) * (ct - 50);
+            if (dist < minDist) { minDist = dist; centerCard = c; }
+          });
+          if (centerCard) centerCard.style.zIndex = '9';
+        }
 
       } else {
         // More than 12 photos: Organic scrollable scrapbook scatter-wall!
@@ -18295,19 +18375,7 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
       clearTimeout(_mem2ResizeDebounce);
       _mem2ResizeDebounce = setTimeout(() => {
         if (palaceState.memories2Mode === 'uneven' || !palaceState.memories2Mode) {
-          const board = document.getElementById('memoriesScatterBoard');
-          if (board && !board.classList.contains('is-scrollable') && board.offsetParent !== null) {
-            const cards = board.querySelectorAll('.memories-uneven-card');
-            const items = palaceState.memories2 || [];
-            const slots = getUnevenLayoutSlots(items.length);
-            if (slots && cards.length > 0) {
-              cards.forEach((card, idx) => {
-                const imgEl = card.querySelector('img');
-                const slot = slots[idx] || slots[slots.length - 1];
-                if (imgEl && slot) adjustCardToImageAspect(card, imgEl, slot);
-              });
-            }
-          }
+          renderMemories2Uneven();
         }
       }, 150);
     });
@@ -21671,6 +21739,7 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
             el.classList?.contains('project-wall-board') ||
             el.classList?.contains('creations-split-cards-grid') ||
             el.classList?.contains('creations-split-container') ||
+            el.classList?.contains('memories2-uneven-stage') ||
             el.classList?.contains('journey-milestones-list') ||
             el.classList?.contains('horizontal-timeline-track-wrap') ||
             el.classList?.contains('horizontal-milestones-list') ||
@@ -21693,15 +21762,18 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
             const isTimelineWrap = (el.classList?.contains('horizontal-timeline-track-wrap') || el.closest?.('.horizontal-timeline-track-wrap')) && window.innerWidth <= 768;
             const isEvolutionStage = (el.classList?.contains('evolution-comparison-stage') || el.closest?.('.evolution-comparison-stage')) && window.innerWidth <= 768;
             const isCreationsSplitContainer = (el.classList?.contains('creations-split-container') || el.closest?.('.creations-split-container')) && window.innerWidth <= 768;
+            const isMemoriesUnevenStage = (el.classList?.contains('memories2-uneven-stage') || el.closest?.('.memories2-uneven-stage')) && window.innerWidth <= 768;
 
-            if (isMemoriesGrid || isTimelineWrap || isEvolutionStage || isCreationsSplitContainer) {
+            if (isMemoriesGrid || isTimelineWrap || isEvolutionStage || isCreationsSplitContainer || isMemoriesUnevenStage) {
               const targetBox = isTimelineWrap
                 ? (el.classList?.contains('horizontal-timeline-track-wrap') ? el : el.closest('.horizontal-timeline-track-wrap'))
                 : (isEvolutionStage
                   ? (el.classList?.contains('evolution-comparison-stage') ? el : el.closest('.evolution-comparison-stage'))
                   : (isCreationsSplitContainer
                     ? (el.classList?.contains('creations-split-container') ? el : el.closest('.creations-split-container'))
-                    : el));
+                    : (isMemoriesUnevenStage
+                      ? (el.classList?.contains('memories2-uneven-stage') ? el : el.closest('.memories2-uneven-stage'))
+                      : el)));
               const atBottom = targetBox.scrollTop + targetBox.clientHeight >= targetBox.scrollHeight - 6;
               const atTop = targetBox.scrollTop <= 6;
 
