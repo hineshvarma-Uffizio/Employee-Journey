@@ -9354,37 +9354,55 @@
         margin: 0 !important;
       }
 
-      /* Chamber Placard and General Content Stage */
+      /* Chamber Placard and General Content Stage - Scrolls naturally with room content */
       .chamber-placard {
-        top: 24px !important;
-        width: 92% !important;
-        left: 50% !important;
+        position: relative !important;
+        top: auto !important;
+        left: auto !important;
+        transform: none !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 auto 50px auto !important; /* Exactly 50px gap between heading & content */
+        padding: 16px 12px 0 12px !important;
+        box-sizing: border-box !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        pointer-events: auto !important;
+        text-align: center !important;
+        z-index: 10 !important;
+        flex-shrink: 0 !important;
+      }
+      .palace-chamber.active .chamber-placard {
+        transform: none !important;
+        opacity: 1 !important;
       }
       .chamber-name {
-        font-size: clamp(20px, 5vw, 25px) !important;
+        font-size: clamp(20px, 5.2vw, 26px) !important;
         letter-spacing: 0.2px !important;
         line-height: 1.3 !important;
         margin: 0 auto !important;
+        display: block !important;
+        text-align: center !important;
+        color: #ffffff !important;
+        text-shadow: 0 4px 20px rgba(0, 44, 107, 0.95), 0 0 35px rgba(0, 44, 107, 0.6) !important;
       }
       .chamber-desc {
-        font-size: 13px !important;
-        line-height: 1.4 !important;
-        color: #94a3b8 !important;
-        margin: 4px auto 0 auto !important;
-        max-width: 340px !important;
+        display: none !important;
       }
       .chamber-content {
-        margin-top: 72px !important;
-        height: calc(100% - 76px) !important;
-        width: 96% !important;
+        margin-top: 0 !important;
+        height: 100% !important;
+        max-height: calc(100dvh - 112px) !important;
+        width: 100% !important;
         max-width: 100% !important;
+        padding-top: 0 !important;
       }
 
       /* Room 01: Where your journey began (Vertical Scrolling Chamber) */
       #chamber-0 .chamber-content {
-        margin-top: 70px !important;
-        height: calc(100% - 70px) !important;
-        max-height: calc(100dvh - 126px) !important;
+        margin-top: 0 !important;
+        height: 100% !important;
+        max-height: calc(100dvh - 112px) !important;
         overflow: hidden !important;
         width: 100% !important;
         max-width: 100% !important;
@@ -9401,9 +9419,9 @@
 
       /* Room 02: What You Learned (Option 3 Vertical Journey Cards - Responsive Mobile) */
       #chamber-1 .chamber-content {
-        margin-top: 70px !important;
-        height: calc(100% - 70px) !important;
-        max-height: calc(100dvh - 126px) !important;
+        margin-top: 0 !important;
+        height: 100% !important;
+        max-height: calc(100dvh - 112px) !important;
         width: 100% !important;
         max-width: 100% !important;
         padding: 0 !important;
@@ -9632,9 +9650,9 @@
 
       /* Room 03: What You Created (Part 2 - Split Showcase & Impact) */
       #chamber-2b .chamber-content {
-        margin-top: 70px !important;
-        height: calc(100% - 70px) !important;
-        max-height: calc(100dvh - 126px) !important;
+        margin-top: 0 !important;
+        height: 100% !important;
+        max-height: calc(100dvh - 112px) !important;
         width: 100% !important;
         max-width: 100% !important;
         padding: 0 16px !important;
@@ -9818,9 +9836,9 @@
 
       /* Room 04: People & Bonds (The People Behind Your Journey) */
       #chamber-3 .chamber-content {
-        margin-top: 58px !important;
-        height: calc(100% - 58px) !important;
-        max-height: calc(100dvh - 116px) !important;
+        margin-top: 0 !important;
+        height: 100% !important;
+        max-height: calc(100dvh - 112px) !important;
         width: 100% !important;
         max-width: 100% !important;
         padding: 0 8px !important;
@@ -9933,9 +9951,9 @@
 
       /* Room 05: Annual Memories Collage (Part 2 & Legacy) */
       #chamber-memories-2 .chamber-content {
-        margin-top: 70px !important;
-        height: calc(100% - 70px) !important;
-        max-height: calc(100dvh - 126px) !important;
+        margin-top: 0 !important;
+        height: 100% !important;
+        max-height: calc(100dvh - 112px) !important;
         width: 100% !important;
         max-width: 100% !important;
         padding: 0 12px !important;
@@ -10072,9 +10090,9 @@
 
       /* Room 06: The Values You Bring (Orbital Nucleus & Cards) */
       #chamber-values .chamber-content {
-        margin-top: 76px !important;
-        height: calc(100% - 76px) !important;
-        max-height: calc(100dvh - 132px) !important;
+        margin-top: 0 !important;
+        height: 100% !important;
+        max-height: calc(100dvh - 112px) !important;
         width: 100% !important;
         max-width: 100% !important;
         padding: 0 8px !important;
@@ -10090,20 +10108,21 @@
         flex-direction: column !important;
         align-items: center !important;
         justify-content: flex-start !important;
-        gap: 12px !important;
+        gap: 0 !important;
         width: 100% !important;
         max-width: 480px !important;
         height: 100% !important;
         max-height: 100% !important;
-        overflow: hidden !important;
-        padding: 4px 4px 10px 4px !important;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        padding: 0 4px 85px 4px !important;
         box-sizing: border-box !important;
       }
       .values-center-nucleus {
         grid-column: auto !important;
         grid-row: auto !important;
         order: 0 !important;
-        margin: 6px auto 14px auto !important;
+        margin: 0 auto 20px auto !important;
         width: 136px !important;
         height: 136px !important;
         flex-shrink: 0 !important;
@@ -10171,12 +10190,12 @@
         gap: 12px !important;
         width: 100% !important;
         max-width: 440px !important;
-        flex: 1 !important;
+        flex: 0 0 auto !important;
+        height: auto !important;
+        max-height: none !important;
         min-height: 0 !important;
-        overflow-y: auto !important;
-        overflow-x: hidden !important;
-        -webkit-overflow-scrolling: touch !important;
-        padding: 4px 6px 85px 6px !important;
+        overflow: visible !important;
+        padding: 0 4px !important;
         box-sizing: border-box !important;
       }
       .values-cards-scroll-stage::-webkit-scrollbar {
@@ -10220,15 +10239,30 @@
       }
 
       /* Room 07: Your Proud Moments (Gallery & Actions) */
+      #chamber-4 .chamber-content {
+        margin-top: 0 !important;
+        height: 100% !important;
+        max-height: calc(100dvh - 112px) !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 0 8px !important;
+        overflow: hidden !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: flex-start !important;
+        box-sizing: border-box !important;
+      }
       .room-proud {
-        flex-direction: column;
-        width: 100%;
-        height: 100%;
-        overflow-y: auto;
-        -webkit-overflow-scrolling: touch;
-        justify-content: flex-start;
-        align-items: center;
-        padding: 8px 6px 24px 6px;
+        flex-direction: column !important;
+        width: 100% !important;
+        height: 100% !important;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        justify-content: flex-start !important;
+        align-items: center !important;
+        padding: 0 6px 85px 6px !important;
+        box-sizing: border-box !important;
       }
       .proud-gallery-area {
         width: 100%;
@@ -10272,9 +10306,9 @@
 
       /* Room 08: The Future Horizon (Prompt Cards & Vision Board) */
       #chamber-5 .chamber-content {
-        margin-top: 58px !important;
-        height: calc(100% - 58px) !important;
-        max-height: calc(100dvh - 116px) !important;
+        margin-top: 0 !important;
+        height: 100% !important;
+        max-height: calc(100dvh - 112px) !important;
         width: 100% !important;
         max-width: 100% !important;
         padding: 0 8px !important;
@@ -10290,7 +10324,7 @@
         height: 100% !important;
         overflow-y: auto !important;
         -webkit-overflow-scrolling: touch !important;
-        padding: 4px 6px 85px 6px !important;
+        padding: 0 6px 85px 6px !important;
         box-sizing: border-box !important;
       }
       .future-board {
@@ -10804,7 +10838,7 @@
     /* --------------------------------------------------------------------------
        SHORT SCREENS / LANDSCAPE SMARTPHONES (max-height: 700px)
        -------------------------------------------------------------------------- */
-    @media (max-height: 700px) {
+    @media (max-height: 700px) and (min-width: 769px) {
       .portal-arch-structure {
         transform: translateY(14px) scale(0.54) !important;
         transform-origin: center center !important;
@@ -17856,6 +17890,7 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
       stage.scrollTop = 0;
       const cStage = document.getElementById('valuesCardsScrollStage');
       if (cStage) cStage.scrollTop = 0;
+      if (typeof syncMobilePlacards === 'function') syncMobilePlacards();
     }
 
     function renderValueCardHtml(v, idx) {
@@ -18986,9 +19021,53 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
         if (c2b) { palaceState.chamberStories.ch3Title = c2b.title; palaceState.chamberStories.ch2bTitle = c2b.title; palaceState.chamberStories.ch3Sub = c2b.sub || ''; }
         if (c3) { palaceState.chamberStories.ch4Title = c3.title; palaceState.chamberStories.ch4Sub = c3.sub || ''; }
         if (cVal) { palaceState.chamberStories.chValTitle = cVal.title; palaceState.chamberStories.chValDesc = cVal.sub || ''; }
-        if (cMem2) { palaceState.chamberStories.chMem2Title = cMem2.title; palaceState.chamberStories.chMem2Desc = cMem2.sub || ''; }
+      }
+
+      if (typeof syncMobilePlacards === 'function') {
+        syncMobilePlacards();
       }
     }
+
+    // Responsive Mobile Placards Engine:
+    // Moves .chamber-placard inside the scroll container of each chamber on mobile so it scrolls naturally with content with an exact 50px gap.
+    // On desktop, restores .chamber-placard before .chamber-content in .palace-chamber.
+    function syncMobilePlacards() {
+      const isMobile = window.innerWidth <= 768;
+      const chamberConfigs = [
+        { id: 'chamber-0', container: '#horizontalTimelineTrackWrap' },
+        { id: 'chamber-1', container: '#chamber-1 .evolution-comparison-stage' },
+        { id: 'chamber-2b', container: '#chamber-2b .creations-split-container' },
+        { id: 'chamber-3', container: '#chamber-3 .room-people' },
+        { id: 'chamber-memories-2', container: '#chamber-memories-2 .memories2-uneven-stage' },
+        { id: 'chamber-values', container: '#valuesOrbitalStage' },
+        { id: 'chamber-4', container: '#chamber-4 .room-proud' },
+        { id: 'chamber-5', container: '#chamber-5 .room-future' }
+      ];
+
+      chamberConfigs.forEach(cfg => {
+        const chamber = document.getElementById(cfg.id);
+        if (!chamber) return;
+        const placard = chamber.querySelector('.chamber-placard');
+        if (!placard) return;
+
+        if (isMobile) {
+          const container = document.querySelector(cfg.container);
+          if (container && placard.parentElement !== container) {
+            container.prepend(placard);
+          }
+        } else {
+          const content = chamber.querySelector('.chamber-content');
+          if (content && placard.parentElement !== chamber) {
+            chamber.insertBefore(placard, content);
+          }
+        }
+      });
+      if (typeof updateTimelineSvgGeometry === 'function') {
+        updateTimelineSvgGeometry(false);
+      }
+    }
+
+    window.addEventListener('resize', syncMobilePlacards);
 
     // 6. Universal Update Function
     
@@ -21915,6 +21994,9 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
       }
 
       if (targetChamber) {
+        if (typeof syncMobilePlacards === 'function') {
+          syncMobilePlacards();
+        }
         if (targetChamber.id === 'chamber-0') {
           const comingFromBack = fromStage > targetStage;
           activateRoom01Motion(comingFromBack);
@@ -21940,6 +22022,10 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
         } else if (targetChamber.id === 'chamber-2b') {
           setTimeout(() => {
             resetChamber2bCommonImage();
+            const s2b = document.querySelector('#chamber-2b .creations-split-container');
+            if (s2b && window.innerWidth <= 768) {
+              s2b.scrollTop = (fromStage < targetStage) ? 0 : s2b.scrollHeight;
+            }
           }, 60);
         } else if (targetChamber.id === 'chamber-3') {
           setTimeout(() => {
@@ -21964,6 +22050,10 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
               grid.scrollTop = grid.scrollHeight;
             }
           }
+          const rProud = document.querySelector('#chamber-4 .room-proud');
+          if (rProud && window.innerWidth <= 768) {
+            rProud.scrollTop = (fromStage < targetStage) ? 0 : rProud.scrollHeight;
+          }
         } else if (targetChamber.id === 'chamber-memories-2') {
           setTimeout(() => palaceAudio.playChime(), 380);
           const grid2 = document.getElementById('collageMosaicGrid2');
@@ -21975,6 +22065,10 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
             } else {
               grid2.scrollTop = grid2.scrollHeight;
             }
+          }
+          const mem2Uneven = document.querySelector('#chamber-memories-2 .memories2-uneven-stage');
+          if (mem2Uneven && window.innerWidth <= 768) {
+            mem2Uneven.scrollTop = (fromStage < targetStage) ? 0 : mem2Uneven.scrollHeight;
           }
         } else if (targetChamber.id === 'chamber-values') {
           const resetValuesScroll = () => {
@@ -22045,7 +22139,16 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
         if (!el || el === window || el === document || el === document.body || el === document.documentElement) continue;
 
         // Never trap or consume wheel events inside non-scrollable chambers like Your Values (on desktop)
-        const isScrollableMobileChamber = window.innerWidth <= 768 && el.closest && (el.closest('#chamber-1') || el.closest('#chamber-values') || el.closest('#chamber-3') || el.closest('#chamber-5'));
+        const isScrollableMobileChamber = window.innerWidth <= 768 && el.closest && (
+          el.closest('#chamber-0') ||
+          el.closest('#chamber-1') ||
+          el.closest('#chamber-2b') ||
+          el.closest('#chamber-3') ||
+          el.closest('#chamber-memories-2') ||
+          el.closest('#chamber-values') ||
+          el.closest('#chamber-4') ||
+          el.closest('#chamber-5')
+        );
         if (!isScrollableMobileChamber && el.closest && (el.closest('#chamber-values') || el.closest('#chamber-milestone') || el.closest('#chamber-1') || el.closest('#chamber-4') || el.closest('#chamber-5') || el.closest('#chamber-thankyou'))) {
           continue;
         }
@@ -22074,6 +22177,7 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
             el.classList?.contains('values-cards-scroll-stage') ||
             el.classList?.contains('values-orbital-stage') ||
             el.classList?.contains('room-people') ||
+            el.classList?.contains('room-proud') ||
             el.classList?.contains('room-future') ||
             el.classList?.contains('admin-tab-content') ||
             el.tagName === 'TEXTAREA'
@@ -22095,9 +22199,10 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
             const isMemoriesUnevenStage = (el.classList?.contains('memories2-uneven-stage') || el.closest?.('.memories2-uneven-stage')) && window.innerWidth <= 768;
             const isValuesStage = (el.classList?.contains('values-cards-scroll-stage') || el.closest?.('.values-cards-scroll-stage') || el.classList?.contains('values-orbital-stage') || el.closest?.('.values-orbital-stage')) && window.innerWidth <= 768;
             const isPeopleStage = (el.classList?.contains('room-people') || el.closest?.('.room-people')) && window.innerWidth <= 768;
+            const isProudStage = (el.classList?.contains('room-proud') || el.closest?.('.room-proud')) && window.innerWidth <= 768;
             const isFutureStage = (el.classList?.contains('room-future') || el.closest?.('.room-future')) && window.innerWidth <= 768;
 
-            if (isMemoriesGrid || isTimelineWrap || isEvolutionStage || isCreationsSplitContainer || isMemoriesUnevenStage || isValuesStage || isPeopleStage || isFutureStage) {
+            if (isMemoriesGrid || isTimelineWrap || isEvolutionStage || isCreationsSplitContainer || isMemoriesUnevenStage || isValuesStage || isPeopleStage || isProudStage || isFutureStage) {
               const targetBox = isTimelineWrap
                 ? (el.classList?.contains('horizontal-timeline-track-wrap') ? el : el.closest('.horizontal-timeline-track-wrap'))
                 : (isEvolutionStage
@@ -22107,12 +22212,14 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
                     : (isMemoriesUnevenStage
                       ? (el.classList?.contains('memories2-uneven-stage') ? el : el.closest('.memories2-uneven-stage'))
                       : (isValuesStage
-                        ? (document.getElementById('valuesCardsScrollStage') || (el.classList?.contains('values-cards-scroll-stage') ? el : el.closest('.values-cards-scroll-stage')) || (el.classList?.contains('values-orbital-stage') ? el : el.closest('.values-orbital-stage')))
+                        ? (document.getElementById('valuesOrbitalStage') || document.getElementById('valuesCardsScrollStage') || el)
                         : (isPeopleStage
                           ? (el.classList?.contains('room-people') ? el : el.closest('.room-people'))
-                          : (isFutureStage
-                            ? (el.classList?.contains('room-future') ? el : el.closest('.room-future'))
-                            : el))))));
+                          : (isProudStage
+                            ? (el.classList?.contains('room-proud') ? el : el.closest('.room-proud'))
+                            : (isFutureStage
+                              ? (el.classList?.contains('room-future') ? el : el.closest('.room-future'))
+                              : el)))))));
               const atBottom = targetBox.scrollTop + targetBox.clientHeight >= targetBox.scrollHeight - 6;
               const atTop = targetBox.scrollTop <= 6;
 
@@ -22411,6 +22518,24 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
         }
       }
 
+      if (isCurrentRoom('chamber-2b')) {
+        if (window.innerWidth <= 768) {
+          const rSplit = document.querySelector('#chamber-2b .creations-split-container');
+          if (rSplit && rSplit.scrollHeight > rSplit.clientHeight + 8) {
+            const atBottom = rSplit.scrollTop + rSplit.clientHeight >= rSplit.scrollHeight - 10;
+            const atTop = rSplit.scrollTop <= 10;
+            if (atBottom && diffY > 60 && Math.abs(diffY) > Math.abs(diffX) * 1.4) {
+              goToStage(currentStage + 1);
+              return;
+            } else if (atTop && diffY < -60 && Math.abs(diffY) > Math.abs(diffX) * 1.4) {
+              goToStage(currentStage - 1);
+              return;
+            }
+            return;
+          }
+        }
+      }
+
       if (isCurrentRoom('chamber-3')) {
         if (window.innerWidth <= 768) {
           const rPeople = document.querySelector('#chamber-3 .room-people');
@@ -22429,12 +22554,48 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
         }
       }
 
+      if (isCurrentRoom('chamber-memories-2')) {
+        if (window.innerWidth <= 768) {
+          const rMem2 = document.querySelector('#chamber-memories-2 .memories2-uneven-stage');
+          if (rMem2 && rMem2.scrollHeight > rMem2.clientHeight + 8) {
+            const atBottom = rMem2.scrollTop + rMem2.clientHeight >= rMem2.scrollHeight - 10;
+            const atTop = rMem2.scrollTop <= 10;
+            if (atBottom && diffY > 60 && Math.abs(diffY) > Math.abs(diffX) * 1.4) {
+              goToStage(currentStage + 1);
+              return;
+            } else if (atTop && diffY < -60 && Math.abs(diffY) > Math.abs(diffX) * 1.4) {
+              goToStage(currentStage - 1);
+              return;
+            }
+            return;
+          }
+        }
+      }
+
       if (isCurrentRoom('chamber-values')) {
         if (window.innerWidth <= 768) {
-          const vStage = document.getElementById('valuesCardsScrollStage') || document.getElementById('valuesOrbitalStage');
+          const vStage = document.getElementById('valuesOrbitalStage') || document.getElementById('valuesCardsScrollStage');
           if (vStage && vStage.scrollHeight > vStage.clientHeight + 8) {
             const atBottom = vStage.scrollTop + vStage.clientHeight >= vStage.scrollHeight - 10;
             const atTop = vStage.scrollTop <= 10;
+            if (atBottom && diffY > 60 && Math.abs(diffY) > Math.abs(diffX) * 1.4) {
+              goToStage(currentStage + 1);
+              return;
+            } else if (atTop && diffY < -60 && Math.abs(diffY) > Math.abs(diffX) * 1.4) {
+              goToStage(currentStage - 1);
+              return;
+            }
+            return;
+          }
+        }
+      }
+
+      if (isCurrentRoom('chamber-4')) {
+        if (window.innerWidth <= 768) {
+          const rProud = document.querySelector('#chamber-4 .room-proud');
+          if (rProud && rProud.scrollHeight > rProud.clientHeight + 8) {
+            const atBottom = rProud.scrollTop + rProud.clientHeight >= rProud.scrollHeight - 10;
+            const atTop = rProud.scrollTop <= 10;
             if (atBottom && diffY > 60 && Math.abs(diffY) > Math.abs(diffX) * 1.4) {
               goToStage(currentStage + 1);
               return;
