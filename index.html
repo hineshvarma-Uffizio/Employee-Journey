@@ -9369,8 +9369,8 @@
         transform: none !important;
         width: 100% !important;
         max-width: 100% !important;
-        margin: 0 auto 50px auto !important; /* Exactly 50px gap between heading & content */
-        padding: 32px 12px 0 12px !important; /* 32px top space above heading */
+        margin: 0 auto 32px auto !important; /* Exactly 32px gap between heading & content */
+        padding: 42px 12px 0 12px !important; /* 42px top space above heading */
         box-sizing: border-box !important;
         opacity: 1 !important;
         visibility: visible !important;
@@ -13490,7 +13490,7 @@
        ========================================================================== -->
   <footer class="palace-footer">
     <div class="corridor-stepper">
-      <button class="walk-btn" id="btnWalkPrev" disabled title="Step back to previous level (Up Arrow / Scroll Up)">
+      <button class="walk-btn" id="btnWalkPrev" title="Step back to previous level (Up Arrow / Scroll Up)">
         <span>‹</span>
         <span>Previous</span>
       </button>
@@ -21802,9 +21802,9 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
         }
       });
 
-      btnWalkPrev.disabled = (stage === 0);
-      btnWalkNext.disabled = (stage === totalStages - 1);
-      btnWalkNext.textContent = (stage === totalStages - 1) ? "Journey Complete ✨" : "Step Forward ›";
+      btnWalkPrev.disabled = false;
+      btnWalkNext.disabled = false;
+      btnWalkNext.textContent = (stage === totalStages - 1) ? "Start Again ↺" : "Step Forward ›";
     }
 
     let lastTransitionTime = 0;
@@ -21924,11 +21924,6 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
       if (targetStage === currentStage || isTransitioning) return;
 
       const fromStage = currentStage;
-      currentStage = targetStage;
-      isTransitioning = true;
-      lastTransitionTime = performance.now();
-
-      palaceAudio.init();
 
       // ==============================================================
       // CASE 1: Moving from Stage 0 (Door) -> Stage 1 (Milestone Room)
@@ -21937,6 +21932,12 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
         stepInsidePalace();
         return;
       }
+
+      currentStage = targetStage;
+      isTransitioning = true;
+      lastTransitionTime = performance.now();
+
+      palaceAudio.init();
 
       // ==============================================================
       // CASE 2: Moving Back to Stage 0 (Door) from any Room
@@ -22219,6 +22220,24 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
             if (e.deltaMode === 1) wheelDelta *= 32;
             else if (e.deltaMode === 2) wheelDelta *= 100;
 
+            // Hard wheel scroll detection: vigorous wheel impulse directly transitions rooms
+            if (Math.abs(wheelDelta) >= 180) {
+              const now = performance.now();
+              if (!isTransitioning && (now - lastTransitionTime >= TRANSITION_LOCK_MS)) {
+                lastTransitionTime = now;
+                if (wheelDelta > 0) {
+                  if (currentStage === 0) stepInsidePalace();
+                  else if (currentStage >= totalStages - 1) goToStage(0);
+                  else goToStage(currentStage + 1);
+                } else {
+                  if (currentStage === 0) goToStage(totalStages - 1);
+                  else goToStage(currentStage - 1);
+                }
+                internalScrollConsumed = true;
+                break;
+              }
+            }
+
             const isMemoriesGrid = el.classList?.contains('collage-mosaic-grid');
             const isTimelineWrap = (el.classList?.contains('horizontal-timeline-track-wrap') || el.closest?.('.horizontal-timeline-track-wrap')) && window.innerWidth <= 768;
             const isEvolutionStage = (el.classList?.contains('evolution-comparison-stage') || el.closest?.('.evolution-comparison-stage')) && window.innerWidth <= 768;
@@ -22444,10 +22463,12 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
     // Touch Swipes (Mobile & Tablets)
     let touchStartX = 0;
     let touchStartY = 0;
+    let touchStartTime = 0;
     let touchStartTarget = null;
     window.addEventListener('touchstart', (e) => {
       touchStartX = e.touches[0].clientX;
       touchStartY = e.touches[0].clientY;
+      touchStartTime = performance.now();
       touchStartTarget = e.target;
       palaceAudio.init();
     }, { passive: true });
@@ -22462,6 +22483,36 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
       const touchEndY = e.changedTouches[0].clientY;
       const diffX = touchStartX - touchEndX;
       const diffY = touchStartY - touchEndY;
+
+      // Hard Scrolling Detection (Responsive):
+      // A quick flick or deep swipe (diffY >= 105px, OR velocity >= 0.55 px/ms with diffY >= 65px)
+      // When hard scrolling is detected, navigate directly between rooms!
+      const isVerticalGesture = Math.abs(diffY) > Math.abs(diffX) * 1.25;
+      const touchDuration = Math.max(now - touchStartTime, 1);
+      const velocityY = Math.abs(diffY) / touchDuration;
+      const isHardScroll = isVerticalGesture && (Math.abs(diffY) >= 105 || (velocityY >= 0.55 && Math.abs(diffY) >= 65));
+
+      if (isHardScroll) {
+        lastTransitionTime = performance.now();
+        if (diffY > 0) {
+          // Hard scroll DOWN / Swipe UP -> advance
+          if (currentStage === 0) {
+            stepInsidePalace();
+          } else if (currentStage >= totalStages - 1) {
+            goToStage(0);
+          } else {
+            goToStage(currentStage + 1);
+          }
+        } else if (diffY < 0) {
+          // Hard scroll UP / Swipe DOWN -> retreat
+          if (currentStage === 0) {
+            goToStage(totalStages - 1);
+          } else {
+            goToStage(currentStage - 1);
+          }
+        }
+        return;
+      }
 
       // Check if touch occurred inside an internal scrollable element that hasn't hit its boundary
       if (touchStartTarget) {
@@ -22756,6 +22807,10 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
 
     // Walk forward / back buttons
     btnWalkNext.addEventListener('click', () => {
+      if (currentStage === 0) {
+        stepInsidePalace();
+        return;
+      }
       if (isCurrentRoom('chamber-0')) {
         milestoneGestureActive = false;
         if (milestoneSilenceTimer) clearTimeout(milestoneSilenceTimer);
@@ -22777,10 +22832,18 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
           return;
         }
       }
+      if (currentStage >= totalStages - 1) {
+        goToStage(0);
+        return;
+      }
       goToStage(currentStage + 1);
     });
 
     btnWalkPrev.addEventListener('click', () => {
+      if (currentStage === 0) {
+        goToStage(totalStages - 1);
+        return;
+      }
       if (isCurrentRoom('chamber-0')) {
         milestoneGestureActive = false;
         if (milestoneSilenceTimer) clearTimeout(milestoneSilenceTimer);
