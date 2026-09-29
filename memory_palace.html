@@ -1029,7 +1029,7 @@
       width: 360px;
       height: 360px;
       border-radius: 50%;
-      border: 1.5px solid rgba(245, 192, 101, 0.65);
+      border: 1.5px dashed rgba(245, 192, 101, 0.38);
       animation: rotateOrbitRingOuter 28s linear infinite;
       pointer-events: none;
       box-sizing: border-box;
@@ -1058,7 +1058,7 @@
       width: 300px;
       height: 300px;
       border-radius: 50%;
-      border: 1.5px solid rgba(96, 165, 250, 0.55);
+      border: 1px dashed rgba(59, 130, 246, 0.45);
       animation: rotateOrbitRingInner 20s linear infinite reverse;
       pointer-events: none;
       box-sizing: border-box;
@@ -9980,13 +9980,13 @@
 
       /* Room 06: The Values You Bring (Orbital Nucleus & Cards) */
       #chamber-values .chamber-content {
-        margin-top: 65px !important;
-        height: calc(100% - 65px) !important;
-        max-height: calc(100dvh - 120px) !important;
+        margin-top: 60px !important;
+        height: calc(100% - 60px) !important;
+        max-height: calc(100dvh - 110px) !important;
         width: 100% !important;
         max-width: 100% !important;
-        padding: 0 12px !important;
-        overflow: hidden !important;
+        padding: 0 10px !important;
+        overflow: visible !important;
         display: flex !important;
         flex-direction: column !important;
         align-items: center !important;
@@ -9996,7 +9996,7 @@
       .values-orbital-stage {
         display: flex !important;
         flex-direction: column !important;
-        gap: 12px !important;
+        gap: 14px !important;
         width: 100% !important;
         max-width: 480px !important;
         height: 100% !important;
@@ -10004,15 +10004,15 @@
         overflow-y: auto !important;
         overflow-x: hidden !important;
         -webkit-overflow-scrolling: touch !important;
-        padding: 8px 4px 60px 4px !important;
+        padding: 18px 6px 90px 6px !important;
         align-items: center !important;
         box-sizing: border-box !important;
       }
       .values-center-nucleus {
         order: -1 !important;
-        margin: 2px auto 8px auto !important;
-        width: 165px !important;
-        height: 165px !important;
+        margin: 4px auto 16px auto !important;
+        width: 170px !important;
+        height: 170px !important;
         flex-shrink: 0 !important;
         position: relative !important;
         display: flex !important;
@@ -10026,10 +10026,10 @@
         left: 0 !important;
         right: 0 !important;
         margin: auto !important;
-        width: 165px !important;
-        height: 165px !important;
+        width: 170px !important;
+        height: 170px !important;
         border-radius: 50% !important;
-        border: 1.5px solid rgba(245, 192, 101, 0.75) !important;
+        border: 1.5px dashed rgba(245, 192, 101, 0.38) !important;
         box-sizing: border-box !important;
         pointer-events: none !important;
       }
@@ -10040,22 +10040,22 @@
         left: 0 !important;
         right: 0 !important;
         margin: auto !important;
-        width: 134px !important;
-        height: 134px !important;
+        width: 138px !important;
+        height: 138px !important;
         border-radius: 50% !important;
-        border: 1.5px solid rgba(96, 165, 250, 0.65) !important;
+        border: 1px dashed rgba(59, 130, 246, 0.45) !important;
         box-sizing: border-box !important;
         pointer-events: none !important;
       }
       .values-avatar-frame {
-        width: 106px !important;
-        height: 106px !important;
+        width: 108px !important;
+        height: 108px !important;
         border-radius: 50% !important;
         position: relative !important;
-        border: 3.5px solid #f5c065 !important;
+        border: 3.5px solid var(--gold-primary, #f5c065) !important;
         background: #081022 !important;
         padding: 2px !important;
-        box-shadow: 0 0 0 2px rgba(11, 17, 32, 0.9), 0 0 20px rgba(245, 192, 101, 0.55), 0 8px 24px rgba(0, 0, 0, 0.75) !important;
+        box-shadow: 0 0 0 2px rgba(11, 17, 32, 0.9), 0 0 20px rgba(245, 192, 101, 0.5), 0 8px 24px rgba(0, 0, 0, 0.75) !important;
         box-sizing: border-box !important;
         overflow: hidden !important;
         display: flex !important;
@@ -17674,6 +17674,7 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
           ${rightValues.map((v, idx) => renderValueCardHtml(v, idx + leftValues.length)).join('')}
         </div>
       `;
+      stage.scrollTop = 0;
     }
 
     function renderValueCardHtml(v, idx) {
@@ -21783,6 +21784,13 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
               grid2.scrollTop = grid2.scrollHeight;
             }
           }
+        } else if (targetChamber.id === 'chamber-values') {
+          setTimeout(() => {
+            const vStage = document.getElementById('valuesOrbitalStage');
+            if (vStage) {
+              vStage.scrollTop = 0;
+            }
+          }, 40);
         } else if (targetChamber.id === 'chamber-thankyou') {
           setTimeout(() => {
             palaceAudio.playChime();
@@ -21827,9 +21835,9 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
       for (const el of path) {
         if (!el || el === window || el === document || el === document.body || el === document.documentElement) continue;
 
-        // Never trap or consume wheel events inside non-scrollable chambers like Your Values
-        const isChamber1ScrollableMobile = window.innerWidth <= 768 && el.closest && el.closest('#chamber-1');
-        if (!isChamber1ScrollableMobile && el.closest && (el.closest('#chamber-values') || el.closest('#chamber-milestone') || el.closest('#chamber-1') || el.closest('#chamber-4') || el.closest('#chamber-5') || el.closest('#chamber-thankyou'))) {
+        // Never trap or consume wheel events inside non-scrollable chambers like Your Values (on desktop)
+        const isScrollableMobileChamber = window.innerWidth <= 768 && el.closest && (el.closest('#chamber-1') || el.closest('#chamber-values'));
+        if (!isScrollableMobileChamber && el.closest && (el.closest('#chamber-values') || el.closest('#chamber-milestone') || el.closest('#chamber-1') || el.closest('#chamber-4') || el.closest('#chamber-5') || el.closest('#chamber-thankyou'))) {
           continue;
         }
 
@@ -21872,8 +21880,9 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
             const isEvolutionStage = (el.classList?.contains('evolution-comparison-stage') || el.closest?.('.evolution-comparison-stage')) && window.innerWidth <= 768;
             const isCreationsSplitContainer = (el.classList?.contains('creations-split-container') || el.closest?.('.creations-split-container')) && window.innerWidth <= 768;
             const isMemoriesUnevenStage = (el.classList?.contains('memories2-uneven-stage') || el.closest?.('.memories2-uneven-stage')) && window.innerWidth <= 768;
+            const isValuesStage = (el.classList?.contains('values-orbital-stage') || el.closest?.('.values-orbital-stage')) && window.innerWidth <= 768;
 
-            if (isMemoriesGrid || isTimelineWrap || isEvolutionStage || isCreationsSplitContainer || isMemoriesUnevenStage) {
+            if (isMemoriesGrid || isTimelineWrap || isEvolutionStage || isCreationsSplitContainer || isMemoriesUnevenStage || isValuesStage) {
               const targetBox = isTimelineWrap
                 ? (el.classList?.contains('horizontal-timeline-track-wrap') ? el : el.closest('.horizontal-timeline-track-wrap'))
                 : (isEvolutionStage
@@ -21882,7 +21891,9 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
                     ? (el.classList?.contains('creations-split-container') ? el : el.closest('.creations-split-container'))
                     : (isMemoriesUnevenStage
                       ? (el.classList?.contains('memories2-uneven-stage') ? el : el.closest('.memories2-uneven-stage'))
-                      : el)));
+                      : (isValuesStage
+                        ? (el.classList?.contains('values-orbital-stage') ? el : el.closest('.values-orbital-stage'))
+                        : el))));
               const atBottom = targetBox.scrollTop + targetBox.clientHeight >= targetBox.scrollHeight - 6;
               const atTop = targetBox.scrollTop <= 6;
 
