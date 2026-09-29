@@ -565,7 +565,7 @@
       "title": "",
       "date": "",
       "tag": "",
-      "image": "memory_1_photo.jpg",
+      "image": "memories_photo_1.png",
       "desc": "Stepping into the Uffizio family on Day 1 with excitement, high aspirations, and warm welcomes."
     },
     {
@@ -573,7 +573,7 @@
       "title": "",
       "date": "",
       "tag": "",
-      "image": "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&auto=format&fit=crop&q=80",
+      "image": "memories_photo_2.png",
       "desc": "Collaborative problem-solving, whiteboard brainstorms, and late-night pizza coding sessions."
     },
     {
@@ -581,7 +581,7 @@
       "title": "",
       "date": "",
       "tag": "",
-      "image": "https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=600&auto=format&fit=crop&q=80",
+      "image": "memories_photo_3.png",
       "desc": "Unwinding outside the office with laughter, fun activities, and deep conversations."
     },
     {
@@ -609,15 +609,32 @@
       "desc": "Looking back at an incredible year of personal evolution, achievements, and strong bonds."
     }
   ],
+  "memories2Mode": "uneven",
   "memories2CollageImage": "memories_collage_part2.png",
   "memories2": [
     {
-      "id": 101,
-      "title": "Year in Memories Collage",
+      "id": 201,
+      "title": "Office Celebrations",
       "date": "2025 → 2026",
-      "tag": "📸 Collage",
-      "image": "memories_collage_part2.png",
-      "desc": "Curated moments, team laughter, and workplace milestones."
+      "tag": "📸 Celebrations",
+      "image": "memories_photo_1.png",
+      "desc": "Celebrating shared victories, festive joy, and memorable workplace milestones."
+    },
+    {
+      "id": 202,
+      "title": "Creative Collaboration",
+      "date": "2025 → 2026",
+      "tag": "📸 Teamwork",
+      "image": "memories_photo_2.png",
+      "desc": "Collaborative problem-solving, whiteboard brainstorms, and cross-functional synergy."
+    },
+    {
+      "id": 203,
+      "title": "Beyond The Workplace",
+      "date": "2025 → 2026",
+      "tag": "📸 Moments",
+      "image": "memories_photo_3.png",
+      "desc": "Unwinding outside the office, travel adventures, and creating cherished memories."
     }
   ],
   "values": [
