@@ -990,6 +990,10 @@
       padding: 10px 12px;
     }
 
+    .values-cards-scroll-stage {
+      display: contents;
+    }
+
     .values-constellation-col {
       display: flex;
       flex-direction: column;
@@ -1312,35 +1316,49 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 20px;
-        max-height: calc(100vh - 190px);
-        overflow-y: auto;
-        padding-top: 14px;
-        padding-bottom: 30px;
+        gap: 16px;
+        height: 100%;
+        max-height: calc(100vh - 180px);
+        overflow: hidden;
+        padding-top: 6px;
       }
       .values-center-nucleus {
         grid-column: auto;
         grid-row: auto;
+        flex-shrink: 0;
         order: 0;
         margin: 0 auto;
-        width: 280px;
-        height: 280px;
+        width: 220px;
+        height: 220px;
       }
       .orbit-ring-outer {
-        width: 280px;
-        height: 280px;
+        width: 220px;
+        height: 220px;
       }
       .orbit-ring-inner {
-        width: 235px;
-        height: 235px;
+        width: 180px;
+        height: 180px;
       }
       .values-avatar-frame {
-        width: 195px;
-        height: 195px;
+        width: 145px;
+        height: 145px;
+      }
+      .values-cards-scroll-stage {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        width: 100%;
+        max-width: 580px;
+        flex: 1;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        padding: 4px 8px 40px 8px;
+        box-sizing: border-box;
       }
       .values-constellation-col {
         grid-column: auto;
         grid-row: auto;
+        width: 100%;
         max-width: 100%;
         align-items: stretch !important;
       }
@@ -9993,13 +10011,13 @@
 
       /* Room 06: The Values You Bring (Orbital Nucleus & Cards) */
       #chamber-values .chamber-content {
-        margin-top: 54px !important;
-        height: calc(100% - 54px) !important;
-        max-height: calc(100dvh - 110px) !important;
+        margin-top: 50px !important;
+        height: calc(100% - 50px) !important;
+        max-height: calc(100dvh - 106px) !important;
         width: 100% !important;
         max-width: 100% !important;
-        padding: 0 10px !important;
-        overflow: visible !important;
+        padding: 0 8px !important;
+        overflow: hidden !important;
         display: flex !important;
         flex-direction: column !important;
         align-items: center !important;
@@ -10009,30 +10027,30 @@
       .values-orbital-stage {
         display: flex !important;
         flex-direction: column !important;
-        gap: 14px !important;
+        align-items: center !important;
+        justify-content: flex-start !important;
+        gap: 8px !important;
         width: 100% !important;
         max-width: 480px !important;
         height: 100% !important;
         max-height: 100% !important;
-        overflow-y: auto !important;
-        overflow-x: hidden !important;
-        -webkit-overflow-scrolling: touch !important;
-        padding: 16px 8px 90px 8px !important;
-        align-items: center !important;
+        overflow: hidden !important;
+        padding: 2px 4px 10px 4px !important;
         box-sizing: border-box !important;
       }
       .values-center-nucleus {
         grid-column: auto !important;
         grid-row: auto !important;
         order: 0 !important;
-        margin: 2px auto 14px auto !important;
-        width: 170px !important;
-        height: 170px !important;
+        margin: 0 auto 6px auto !important;
+        width: 136px !important;
+        height: 136px !important;
         flex-shrink: 0 !important;
         position: relative !important;
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
+        z-index: 10 !important;
       }
       .orbit-ring-outer {
         position: absolute !important;
@@ -10041,8 +10059,8 @@
         left: 0 !important;
         right: 0 !important;
         margin: auto !important;
-        width: 170px !important;
-        height: 170px !important;
+        width: 136px !important;
+        height: 136px !important;
         border-radius: 50% !important;
         border: 1.5px dashed rgba(245, 192, 101, 0.38) !important;
         box-sizing: border-box !important;
@@ -10055,16 +10073,16 @@
         left: 0 !important;
         right: 0 !important;
         margin: auto !important;
-        width: 138px !important;
-        height: 138px !important;
+        width: 110px !important;
+        height: 110px !important;
         border-radius: 50% !important;
         border: 1px dashed rgba(59, 130, 246, 0.45) !important;
         box-sizing: border-box !important;
         pointer-events: none !important;
       }
       .values-avatar-frame {
-        width: 108px !important;
-        height: 108px !important;
+        width: 88px !important;
+        height: 88px !important;
         border-radius: 50% !important;
         position: relative !important;
         border: 3.5px solid var(--gold-primary, #f5c065) !important;
@@ -10086,12 +10104,36 @@
         object-position: center 15% !important;
         display: block !important;
       }
+      .values-cards-scroll-stage {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 12px !important;
+        width: 100% !important;
+        max-width: 440px !important;
+        flex: 1 !important;
+        min-height: 0 !important;
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+        -webkit-overflow-scrolling: touch !important;
+        padding: 4px 6px 85px 6px !important;
+        box-sizing: border-box !important;
+      }
+      .values-cards-scroll-stage::-webkit-scrollbar {
+        width: 4px;
+      }
+      .values-cards-scroll-stage::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      .values-cards-scroll-stage::-webkit-scrollbar-thumb {
+        background: rgba(245, 192, 101, 0.35);
+        border-radius: 4px;
+      }
       .values-constellation-col {
         grid-column: auto !important;
         grid-row: auto !important;
         width: 100% !important;
         max-width: 100% !important;
-        gap: 10px !important;
+        gap: 12px !important;
         align-items: stretch !important;
       }
       .value-card {
@@ -10421,20 +10463,20 @@
         grid-template-columns: 1fr !important;
       }
       .values-center-nucleus {
-        width: 155px !important;
-        height: 155px !important;
+        width: 130px !important;
+        height: 130px !important;
       }
       .orbit-ring-outer {
-        width: 155px !important;
-        height: 155px !important;
+        width: 130px !important;
+        height: 130px !important;
       }
       .orbit-ring-inner {
-        width: 126px !important;
-        height: 126px !important;
+        width: 106px !important;
+        height: 106px !important;
       }
       .values-avatar-frame {
-        width: 100px !important;
-        height: 100px !important;
+        width: 84px !important;
+        height: 84px !important;
       }
     }
 
@@ -10551,21 +10593,21 @@
         border-radius: 11px !important;
       }
       .values-center-nucleus {
-        width: 148px !important;
-        height: 148px !important;
-        margin: 2px auto 6px auto !important;
+        width: 124px !important;
+        height: 124px !important;
+        margin: 0 auto 6px auto !important;
       }
       .orbit-ring-outer {
-        width: 148px !important;
-        height: 148px !important;
+        width: 124px !important;
+        height: 124px !important;
       }
       .orbit-ring-inner {
-        width: 120px !important;
-        height: 120px !important;
+        width: 100px !important;
+        height: 100px !important;
       }
       .values-avatar-frame {
-        width: 95px !important;
-        height: 95px !important;
+        width: 80px !important;
+        height: 80px !important;
         border-width: 3px !important;
       }
       .value-card {
@@ -10684,11 +10726,33 @@
       #chamber-1 .chamber-content,
       #chamber-2b .chamber-content,
       #chamber-memories-2 .chamber-content,
-      #chamber-values .chamber-content,
       #chamber-3 .chamber-content {
         margin-top: 56px !important;
         height: calc(100% - 56px) !important;
         max-height: calc(100dvh - 112px) !important;
+      }
+      #chamber-values .chamber-content {
+        margin-top: 48px !important;
+        height: calc(100% - 48px) !important;
+        max-height: calc(100dvh - 104px) !important;
+        overflow: hidden !important;
+      }
+      #chamber-values .values-center-nucleus {
+        width: 118px !important;
+        height: 118px !important;
+        margin: 0 auto 4px auto !important;
+      }
+      #chamber-values .orbit-ring-outer {
+        width: 118px !important;
+        height: 118px !important;
+      }
+      #chamber-values .orbit-ring-inner {
+        width: 96px !important;
+        height: 96px !important;
+      }
+      #chamber-values .values-avatar-frame {
+        width: 74px !important;
+        height: 74px !important;
       }
       .chamber-name {
         font-size: clamp(17px, 4vw, 22px) !important;
@@ -10770,21 +10834,21 @@
         min-height: 190px !important;
       }
       .values-center-nucleus {
-        width: 140px !important;
-        height: 140px !important;
-        margin: 2px auto 6px auto !important;
+        width: 118px !important;
+        height: 118px !important;
+        margin: 0 auto 4px auto !important;
       }
       .orbit-ring-outer {
-        width: 140px !important;
-        height: 140px !important;
+        width: 118px !important;
+        height: 118px !important;
       }
       .orbit-ring-inner {
-        width: 114px !important;
-        height: 114px !important;
+        width: 96px !important;
+        height: 96px !important;
       }
       .values-avatar-frame {
-        width: 90px !important;
-        height: 90px !important;
+        width: 74px !important;
+        height: 74px !important;
         border-width: 2.5px !important;
       }
       .future-artwork-container {
@@ -17683,15 +17747,19 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
           </div>
         </div>
 
-        <div class="values-constellation-col values-col-left">
-          ${leftValues.map((v, idx) => renderValueCardHtml(v, idx)).join('')}
-        </div>
+        <div class="values-cards-scroll-stage" id="valuesCardsScrollStage">
+          <div class="values-constellation-col values-col-left">
+            ${leftValues.map((v, idx) => renderValueCardHtml(v, idx)).join('')}
+          </div>
 
-        <div class="values-constellation-col values-col-right">
-          ${rightValues.map((v, idx) => renderValueCardHtml(v, idx + leftValues.length)).join('')}
+          <div class="values-constellation-col values-col-right">
+            ${rightValues.map((v, idx) => renderValueCardHtml(v, idx + leftValues.length)).join('')}
+          </div>
         </div>
       `;
       stage.scrollTop = 0;
+      const cStage = document.getElementById('valuesCardsScrollStage');
+      if (cStage) cStage.scrollTop = 0;
     }
 
     function renderValueCardHtml(v, idx) {
@@ -21804,9 +21872,9 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
         } else if (targetChamber.id === 'chamber-values') {
           const resetValuesScroll = () => {
             const vStage = document.getElementById('valuesOrbitalStage');
-            if (vStage) {
-              vStage.scrollTop = 0;
-            }
+            if (vStage) vStage.scrollTop = 0;
+            const cStage = document.getElementById('valuesCardsScrollStage');
+            if (cStage) cStage.scrollTop = 0;
           };
           resetValuesScroll();
           setTimeout(resetValuesScroll, 40);
@@ -21885,6 +21953,8 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
             el.classList?.contains('horizontal-milestones-list') ||
             el.classList?.contains('evolution-comparison-stage') ||
             el.classList?.contains('evolution-stacked-stage') ||
+            el.classList?.contains('values-cards-scroll-stage') ||
+            el.classList?.contains('values-orbital-stage') ||
             el.classList?.contains('admin-tab-content') ||
             el.tagName === 'TEXTAREA'
           ) {
@@ -21903,7 +21973,7 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
             const isEvolutionStage = (el.classList?.contains('evolution-comparison-stage') || el.closest?.('.evolution-comparison-stage')) && window.innerWidth <= 768;
             const isCreationsSplitContainer = (el.classList?.contains('creations-split-container') || el.closest?.('.creations-split-container')) && window.innerWidth <= 768;
             const isMemoriesUnevenStage = (el.classList?.contains('memories2-uneven-stage') || el.closest?.('.memories2-uneven-stage')) && window.innerWidth <= 768;
-            const isValuesStage = (el.classList?.contains('values-orbital-stage') || el.closest?.('.values-orbital-stage')) && window.innerWidth <= 768;
+            const isValuesStage = (el.classList?.contains('values-cards-scroll-stage') || el.closest?.('.values-cards-scroll-stage') || el.classList?.contains('values-orbital-stage') || el.closest?.('.values-orbital-stage')) && window.innerWidth <= 768;
 
             if (isMemoriesGrid || isTimelineWrap || isEvolutionStage || isCreationsSplitContainer || isMemoriesUnevenStage || isValuesStage) {
               const targetBox = isTimelineWrap
@@ -21915,7 +21985,7 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
                     : (isMemoriesUnevenStage
                       ? (el.classList?.contains('memories2-uneven-stage') ? el : el.closest('.memories2-uneven-stage'))
                       : (isValuesStage
-                        ? (el.classList?.contains('values-orbital-stage') ? el : el.closest('.values-orbital-stage'))
+                        ? (document.getElementById('valuesCardsScrollStage') || (el.classList?.contains('values-cards-scroll-stage') ? el : el.closest('.values-cards-scroll-stage')) || (el.classList?.contains('values-orbital-stage') ? el : el.closest('.values-orbital-stage')))
                         : el))));
               const atBottom = targetBox.scrollTop + targetBox.clientHeight >= targetBox.scrollHeight - 6;
               const atTop = targetBox.scrollTop <= 6;
@@ -22217,7 +22287,7 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
 
       if (isCurrentRoom('chamber-values')) {
         if (window.innerWidth <= 768) {
-          const vStage = document.getElementById('valuesOrbitalStage');
+          const vStage = document.getElementById('valuesCardsScrollStage') || document.getElementById('valuesOrbitalStage');
           if (vStage && vStage.scrollHeight > vStage.clientHeight + 8) {
             const atBottom = vStage.scrollTop + vStage.clientHeight >= vStage.scrollHeight - 10;
             const atTop = vStage.scrollTop <= 10;
