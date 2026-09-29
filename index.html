@@ -9576,37 +9576,116 @@
       }
 
       /* Room 03: What You Created (Part 2 - Split Showcase & Impact) */
+      #chamber-2b .chamber-content {
+        margin-top: 70px !important;
+        height: calc(100% - 70px) !important;
+        max-height: calc(100dvh - 126px) !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 0 16px !important;
+        overflow: hidden !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: flex-start !important;
+        box-sizing: border-box !important;
+      }
+      #chamber-2b .room-difference-dashboard {
+        width: 100% !important;
+        max-width: 100% !important;
+        height: 100% !important;
+        max-height: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: flex-start !important;
+        align-items: center !important;
+        overflow: hidden !important;
+      }
       .creations-split-container {
-        display: flex;
-        flex-direction: column-reverse;
-        gap: 14px;
-        width: 100%;
-        height: 100%;
-        max-height: none;
-        overflow-y: auto;
-        -webkit-overflow-scrolling: touch;
-        padding: 4px 2px 24px 2px;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 60px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        height: 100% !important;
+        max-height: 100% !important;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        padding: 4px 0 80px 0 !important;
+        box-sizing: border-box !important;
+        scroll-behavior: smooth !important;
+      }
+      .creations-split-right {
+        order: 1 !important;
+        width: 100% !important;
+        height: auto !important;
+        min-height: auto !important;
+        max-height: none !important;
+        flex: 0 0 auto !important;
+        display: flex !important;
+        flex-direction: column !important;
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+      .creations-common-image-card {
+        width: 100% !important;
+        height: auto !important;
+        min-height: auto !important;
+        max-height: none !important;
+        border-radius: 16px !important;
+        overflow: hidden !important;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45), 0 0 16px rgba(59, 130, 246, 0.15) !important;
+        border: 1px solid rgba(59, 130, 246, 0.4) !important;
+        background: rgba(8, 16, 34, 0.95) !important;
+      }
+      .common-img-frame {
+        width: 100% !important;
+        height: 235px !important;
+        min-height: 220px !important;
+        max-height: 260px !important;
+        border-radius: 14px !important;
+        position: relative !important;
+        overflow: hidden !important;
+      }
+      .common-showcase-img {
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+        object-position: center 30% !important;
       }
       .creations-split-left {
-        width: 100%;
-        min-height: auto;
-        height: auto;
-        flex: 0 0 auto;
+        order: 2 !important;
+        width: 100% !important;
+        min-height: auto !important;
+        height: auto !important;
+        flex: 0 0 auto !important;
+        margin: 0 !important;
+        padding: 0 !important;
       }
       .creations-split-cards-grid {
-        width: 100%;
-        min-height: auto;
-        height: auto;
-        gap: 10px;
-        overflow: visible;
-        max-height: none;
+        width: 100% !important;
+        min-height: auto !important;
+        height: auto !important;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 12px !important;
+        overflow: visible !important;
+        max-height: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
       }
       .split-creation-card {
-        width: 100%;
-        min-height: 76px;
-        max-height: none;
-        padding: 0;
-        border-radius: 12px;
+        width: 100% !important;
+        min-height: 78px !important;
+        max-height: none !important;
+        padding: 0 !important;
+        border-radius: 12px !important;
+        flex: 0 0 auto !important;
       }
       .split-card-icon-col {
         width: 52px;
@@ -9622,24 +9701,6 @@
       .split-creation-card .split-card-title {
         font-size: 14.5px;
         line-height: 1.35;
-      }
-      .creations-split-right {
-        width: 100%;
-        flex: 0 0 auto;
-      }
-      .creations-common-image-card {
-        min-height: 180px;
-        max-height: 220px;
-        border-radius: 14px;
-      }
-      .common-img-frame {
-        height: 180px;
-        border-radius: 12px;
-      }
-      .common-showcase-img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
       }
       /* Legacy Room 03 Support */
       .room-created {
@@ -10281,11 +10342,16 @@
         font-size: 13.5px;
       }
       .creations-common-image-card {
-        min-height: 150px;
-        max-height: 170px;
+        width: 100% !important;
+        height: auto !important;
+        min-height: auto !important;
+        max-height: none !important;
       }
       .common-img-frame {
-        height: 150px;
+        width: 100% !important;
+        height: 220px !important;
+        min-height: 200px !important;
+        max-height: 240px !important;
       }
       .memories-scatter-board {
         grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)) !important;
@@ -10423,6 +10489,7 @@
       }
       #chamber-0 .chamber-content,
       #chamber-1 .chamber-content,
+      #chamber-2b .chamber-content,
       #chamber-3 .chamber-content {
         margin-top: 56px !important;
         height: calc(100% - 56px) !important;
@@ -10497,11 +10564,15 @@
         height: 130px;
       }
       .creations-common-image-card {
-        min-height: 140px;
-        max-height: 160px;
+        width: 100% !important;
+        height: auto !important;
+        min-height: auto !important;
+        max-height: none !important;
       }
       .common-img-frame {
-        height: 140px;
+        width: 100% !important;
+        height: 200px !important;
+        min-height: 190px !important;
       }
       .values-center-nucleus {
         width: 170px;
@@ -21599,6 +21670,7 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
             el.classList?.contains('wall-sticky-canvas') ||
             el.classList?.contains('project-wall-board') ||
             el.classList?.contains('creations-split-cards-grid') ||
+            el.classList?.contains('creations-split-container') ||
             el.classList?.contains('journey-milestones-list') ||
             el.classList?.contains('horizontal-timeline-track-wrap') ||
             el.classList?.contains('horizontal-milestones-list') ||
@@ -21620,9 +21692,16 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
             const isMemoriesGrid = el.classList?.contains('collage-mosaic-grid');
             const isTimelineWrap = (el.classList?.contains('horizontal-timeline-track-wrap') || el.closest?.('.horizontal-timeline-track-wrap')) && window.innerWidth <= 768;
             const isEvolutionStage = (el.classList?.contains('evolution-comparison-stage') || el.closest?.('.evolution-comparison-stage')) && window.innerWidth <= 768;
+            const isCreationsSplitContainer = (el.classList?.contains('creations-split-container') || el.closest?.('.creations-split-container')) && window.innerWidth <= 768;
 
-            if (isMemoriesGrid || isTimelineWrap || isEvolutionStage) {
-              const targetBox = isTimelineWrap ? (el.classList?.contains('horizontal-timeline-track-wrap') ? el : el.closest('.horizontal-timeline-track-wrap')) : (isEvolutionStage ? (el.classList?.contains('evolution-comparison-stage') ? el : el.closest('.evolution-comparison-stage')) : el);
+            if (isMemoriesGrid || isTimelineWrap || isEvolutionStage || isCreationsSplitContainer) {
+              const targetBox = isTimelineWrap
+                ? (el.classList?.contains('horizontal-timeline-track-wrap') ? el : el.closest('.horizontal-timeline-track-wrap'))
+                : (isEvolutionStage
+                  ? (el.classList?.contains('evolution-comparison-stage') ? el : el.closest('.evolution-comparison-stage'))
+                  : (isCreationsSplitContainer
+                    ? (el.classList?.contains('creations-split-container') ? el : el.closest('.creations-split-container'))
+                    : el));
               const atBottom = targetBox.scrollTop + targetBox.clientHeight >= targetBox.scrollHeight - 6;
               const atTop = targetBox.scrollTop <= 6;
 
