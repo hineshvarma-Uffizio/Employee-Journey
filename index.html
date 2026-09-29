@@ -7744,30 +7744,33 @@
         -webkit-overflow-scrolling: touch;
       }
       .memories-scatter-board {
-        display: grid !important;
-        grid-template-columns: repeat(2, 1fr) !important;
-        align-items: start !important;
-        gap: 16px 12px !important;
-        position: static !important;
+        column-count: 2 !important;
+        column-gap: 12px !important;
+        display: block !important;
+        position: relative !important;
         width: 100% !important;
         max-height: none !important;
         min-height: auto !important;
       }
       .memories-uneven-card {
-        position: static !important;
+        break-inside: avoid !important;
+        page-break-inside: avoid !important;
+        -webkit-column-break-inside: avoid !important;
+        display: inline-block !important;
+        position: relative !important;
         width: 100% !important;
         height: auto !important;
-        padding: 6px 6px 8px 6px !important;
-        margin: 0 !important;
-      }
-      .memories-uneven-card:nth-child(even) {
-        transform: rotate(2.5deg);
-      }
-      .memories-uneven-card:nth-child(odd) {
-        transform: rotate(-2.5deg);
+        padding: 0 !important;
+        margin: 0 0 12px 0 !important;
+        border-radius: 14px !important;
+        background: transparent !important;
+        overflow: hidden !important;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45) !important;
+        border: 1px solid rgba(255, 255, 255, 0.12) !important;
+        transform: none !important;
       }
       .memories-uneven-card:hover {
-        transform: scale(1.05) rotate(0deg) !important;
+        transform: scale(1.02) !important;
       }
     }
 
@@ -9844,62 +9847,69 @@
         scroll-behavior: smooth !important;
       }
       .memories-scatter-board {
-        display: grid !important;
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: 16px 12px !important;
+        column-count: 2 !important;
+        column-gap: 12px !important;
         width: 100% !important;
         max-width: 100% !important;
         height: auto !important;
         min-height: auto !important;
         max-height: none !important;
-        padding: 4px 2px 24px 2px !important;
+        padding: 4px 2px 40px 2px !important;
         margin: 0 auto !important;
         position: relative !important;
         transform: none !important;
         box-sizing: border-box !important;
+        display: block !important;
       }
       .memories-uneven-card {
+        break-inside: avoid !important;
+        page-break-inside: avoid !important;
+        -webkit-column-break-inside: avoid !important;
+        display: inline-block !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        height: auto !important;
+        margin: 0 0 12px 0 !important;
         position: relative !important;
         left: auto !important;
         top: auto !important;
         right: auto !important;
         bottom: auto !important;
         transform: none !important;
-        width: 100% !important;
-        max-width: 100% !important;
-        height: auto !important;
-        padding: 6px 6px 14px 6px !important;
-        margin: 0 !important;
-        border-radius: 6px !important;
-        background: #ffffff !important;
-        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45) !important;
+        padding: 0 !important;
+        border-radius: 14px !important;
+        background: transparent !important;
+        overflow: hidden !important;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45) !important;
+        border: 1px solid rgba(255, 255, 255, 0.12) !important;
         box-sizing: border-box !important;
-        display: flex !important;
-        flex-direction: column !important;
-        z-index: 1 !important;
         cursor: pointer !important;
         transition: transform 0.2s ease, box-shadow 0.2s ease !important;
       }
       .memories-uneven-card:hover,
       .memories-uneven-card:active {
         transform: translateY(-2px) scale(1.02) !important;
-        box-shadow: 0 10px 28px rgba(0, 0, 0, 0.65) !important;
-        z-index: 5 !important;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.65) !important;
       }
       .memories-uneven-img-wrap {
         width: 100% !important;
-        height: 145px !important;
+        height: auto !important;
+        max-height: none !important;
         position: relative !important;
         overflow: hidden !important;
-        border-radius: 4px !important;
-        background: #0b1120 !important;
+        border-radius: 13px !important;
+        background: rgba(15, 23, 42, 0.4) !important;
         display: block !important;
+        line-height: 0 !important;
       }
       .memories-uneven-img-wrap img {
         width: 100% !important;
-        height: 100% !important;
+        height: auto !important;
+        min-height: 110px !important;
+        max-height: 280px !important;
         object-fit: cover !important;
         display: block !important;
+        border-radius: 13px !important;
         transform: none !important;
       }
       .memories-uneven-zoom-btn {
@@ -10424,11 +10434,22 @@
         max-height: 240px !important;
       }
       .memories-scatter-board {
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: 12px 10px !important;
+        column-count: 2 !important;
+        column-gap: 10px !important;
+      }
+      .memories-uneven-card {
+        margin-bottom: 10px !important;
+        border-radius: 12px !important;
       }
       .memories-uneven-img-wrap {
-        height: 130px !important;
+        height: auto !important;
+        border-radius: 11px !important;
+      }
+      .memories-uneven-img-wrap img {
+        height: auto !important;
+        min-height: 100px !important;
+        max-height: 250px !important;
+        border-radius: 11px !important;
       }
       .values-center-nucleus {
         width: 180px;
@@ -10536,7 +10557,8 @@
         grid-template-columns: 1fr !important;
       }
       .memories-scatter-board {
-        grid-template-columns: repeat(2, 1fr) !important;
+        column-count: 2 !important;
+        column-gap: 10px !important;
       }
       .polaroid-frame {
         max-width: 220px;
