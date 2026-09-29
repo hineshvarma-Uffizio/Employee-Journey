@@ -9301,24 +9301,35 @@
 
       /* Chamber Placard and General Content Stage */
       .chamber-placard {
-        top: 10px;
-        width: 95%;
+        top: 24px !important;
+        width: 92% !important;
+        left: 50% !important;
       }
       .chamber-name {
-        font-size: clamp(18px, 5vw, 26px);
+        font-size: clamp(20px, 5vw, 25px) !important;
+        letter-spacing: 0.2px !important;
+        line-height: 1.3 !important;
+        margin: 0 auto !important;
+      }
+      .chamber-desc {
+        font-size: 13px !important;
+        line-height: 1.4 !important;
+        color: #94a3b8 !important;
+        margin: 4px auto 0 auto !important;
+        max-width: 340px !important;
       }
       .chamber-content {
-        margin-top: 50px;
-        height: calc(100% - 60px);
-        width: 96%;
-        max-width: 100%;
+        margin-top: 72px !important;
+        height: calc(100% - 76px) !important;
+        width: 96% !important;
+        max-width: 100% !important;
       }
 
       /* Room 01: Where your journey began (Vertical Scrolling Chamber) */
       #chamber-0 .chamber-content {
-        margin-top: 50px !important;
-        height: calc(100% - 58px) !important;
-        max-height: calc(100dvh - 114px) !important;
+        margin-top: 70px !important;
+        height: calc(100% - 70px) !important;
+        max-height: calc(100dvh - 126px) !important;
         overflow: hidden !important;
         width: 100% !important;
         max-width: 100% !important;
@@ -9335,9 +9346,9 @@
 
       /* Room 02: What You Learned (Option 3 Vertical Journey Cards - Responsive Mobile) */
       #chamber-1 .chamber-content {
-        margin-top: 50px !important;
-        height: calc(100% - 50px) !important;
-        max-height: calc(100dvh - 106px) !important;
+        margin-top: 70px !important;
+        height: calc(100% - 70px) !important;
+        max-height: calc(100dvh - 126px) !important;
         width: 100% !important;
         max-width: 100% !important;
         padding: 0 !important;
@@ -10408,21 +10419,24 @@
         bottom: 8px !important;
       }
       .chamber-placard {
-        top: 4px;
+        top: 16px !important;
       }
+      #chamber-0 .chamber-content,
+      #chamber-1 .chamber-content,
       #chamber-3 .chamber-content {
-        margin-top: 48px !important;
+        margin-top: 56px !important;
         height: calc(100% - 56px) !important;
+        max-height: calc(100dvh - 112px) !important;
       }
       .chamber-name {
-        font-size: clamp(16px, 3.8vw, 20px);
+        font-size: clamp(17px, 4vw, 22px) !important;
       }
       .chamber-desc {
         display: none;
       }
       .chamber-content {
-        margin-top: 36px;
-        height: calc(100% - 44px);
+        margin-top: 56px !important;
+        height: calc(100% - 62px) !important;
       }
       .celebration-stage-container {
         padding: 4px 0;
