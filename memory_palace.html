@@ -9354,6 +9354,13 @@
         margin: 0 !important;
       }
 
+      /* Hide 3D architectural shell elements on mobile - prevents background transparency bleed */
+      .room-shell,
+      .room-wall,
+      .room-floor {
+        display: none !important;
+      }
+
       /* Chamber Placard and General Content Stage - Scrolls naturally with room content */
       .chamber-placard {
         position: relative !important;
@@ -9449,7 +9456,7 @@
         flex-direction: column !important;
         align-items: center !important;
         justify-content: flex-start !important;
-        gap: 18px !important;
+        gap: 0 !important;
         width: 100% !important;
         max-width: 100% !important;
         height: 100% !important;
@@ -9488,6 +9495,7 @@
         gap: 0 !important;
         box-sizing: border-box !important;
         flex-shrink: 0 !important;
+        margin-bottom: 18px !important;
         transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease !important;
       }
 
@@ -9679,7 +9687,7 @@
       .creations-split-container {
         display: flex !important;
         flex-direction: column !important;
-        gap: 60px !important;
+        gap: 0 !important;
         width: 100% !important;
         max-width: 100% !important;
         height: 100% !important;
@@ -9699,7 +9707,7 @@
         flex: 0 0 auto !important;
         display: flex !important;
         flex-direction: column !important;
-        margin: 0 !important;
+        margin: 0 0 40px 0 !important;
         padding: 0 !important;
       }
       .creations-common-image-card {
@@ -10329,6 +10337,8 @@
         display: flex !important;
         flex-direction: column !important;
         align-items: center !important;
+        justify-content: flex-start !important;
+        scroll-behavior: smooth !important;
       }
       /* Placard inside room-future on mobile must be full-width and centered */
       .room-future > .chamber-placard {
@@ -10453,20 +10463,27 @@
         max-height: calc(100dvh - 120px);
         overflow-y: auto;
         -webkit-overflow-scrolling: touch;
-        padding: 8px 6px 36px 6px;
-        justify-content: flex-start;
+        padding: 0 6px 36px 6px;
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        flex-direction: column;
       }
       .room-thankyou {
         width: 100%;
         max-width: 100%;
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        flex-direction: column;
       }
       .thankyou-card-monument {
         width: 100%;
-        padding: 4px 2px;
+        padding: 16px 12px;
       }
       .thankyou-avatar-halo {
-        width: 86px;
-        height: 86px;
+        width: 110px;
+        height: 110px;
       }
       .thankyou-main-title {
         font-size: clamp(20px, 5.2vw, 26px);
