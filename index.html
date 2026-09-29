@@ -2424,17 +2424,16 @@
     }
 
     .palace-portal-stage.hidden-forward {
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-      z-index: 10;
-      transition: none;
+      display: none !important;
+      opacity: 0 !important;
+      visibility: hidden !important;
+      pointer-events: none !important;
+      z-index: -999 !important;
+      transition: none !important;
     }
 
-    .palace-portal-stage.hidden-forward .portal-arch-structure {
-      transform: scale(4.8) translate3d(0, 0, 0);
-      transform-origin: 50% 50%;
-      transition: none;
+    .palace-portal-stage.hidden-forward * {
+      display: none !important;
     }
 
     /* Seamless doorway reveal for Stage 1 celebration chamber */
@@ -6576,7 +6575,7 @@
       box-shadow: 0 4px 15px var(--gold-glow);
     }
 
-    .walk-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+    .walk-btn:disabled { opacity: 0.3; cursor: not-allowed; pointer-events: none; }
 
     .walk-btn.btn-next-room {
       background: linear-gradient(135deg, rgba(245, 192, 101, 0.25), rgba(245, 192, 101, 0.1));
@@ -9248,6 +9247,13 @@
         display: inline-block !important;
       }
 
+      .palace-portal-stage.hidden-forward,
+      .palace-portal-stage.hidden-forward * {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+      }
+
       /* Stage 0 Arch Structure - Centered optically & vertically */
       .portal-arch-structure {
         transform: scale(0.72) !important;
@@ -11711,6 +11717,19 @@
       }
     }
 
+    /* Strictly suppress Grand Door portal stage & aperture inside palace chambers */
+    body.inside-palace-chambers #portalStage,
+    body.inside-palace-chambers .palace-portal-stage,
+    body.inside-palace-chambers .portal-arch-structure,
+    body.inside-palace-chambers .portal-doorway-aperture,
+    body.inside-palace-chambers .portal-doors-wrapper {
+      display: none !important;
+      visibility: hidden !important;
+      opacity: 0 !important;
+      pointer-events: none !important;
+      z-index: -9999 !important;
+    }
+
     .royal-ethnic-svg-tile {
       position: absolute;
       inset: 0;
@@ -13490,7 +13509,7 @@
        ========================================================================== -->
   <footer class="palace-footer">
     <div class="corridor-stepper">
-      <button class="walk-btn" id="btnWalkPrev" title="Step back to previous level (Up Arrow / Scroll Up)">
+      <button class="walk-btn" id="btnWalkPrev" disabled title="Step back to previous level (Up Arrow / Scroll Up)">
         <span>‹</span>
         <span>Previous</span>
       </button>
@@ -14959,19 +14978,19 @@
     window.addEventListener('resize', resizeCanvas);
     resizeCanvas();
 
-    for (let i = 0; i < 28; i++) {
+    for (let i = 0; i < 18; i++) {
       const angle = Math.random() * Math.PI * 2; // Uneven multidirectional (any angle 0-360 deg)
-      const speed = Math.random() * 0.4 + 0.2; // Slow gentle drift (0.2 to 0.6 px/frame)
+      const speed = Math.random() * 0.10 + 0.04; // Very slow, gentle ambient drift (0.04 to 0.14 px/frame)
       particles.push({
         x: Math.random() * window.innerWidth,
         y: Math.random() * window.innerHeight,
-        size: Math.random() * 2.2 + 0.8,
+        size: Math.random() * 2.0 + 0.7,
         speed: speed,
         angle: angle,
-        wobble: (Math.random() - 0.5) * 0.025, // Organic meandering curve
-        baseAlpha: Math.random() * 0.5 + 0.25,
+        wobble: (Math.random() - 0.5) * 0.008, // Subtle organic meandering curve
+        baseAlpha: Math.random() * 0.45 + 0.2,
         pulse: Math.random() * Math.PI * 2,
-        pulseSpeed: Math.random() * 0.03 + 0.015
+        pulseSpeed: Math.random() * 0.015 + 0.008
       });
     }
 
@@ -21773,8 +21792,15 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
       if (document.body && document.body.classList) {
         if (stage > 0) {
           document.body.classList.add('inside-palace-chambers');
+          if (portalStage) {
+            portalStage.style.display = 'none';
+            portalStage.classList.add('hidden-forward');
+          }
         } else {
           document.body.classList.remove('inside-palace-chambers');
+          if (portalStage) {
+            portalStage.style.display = '';
+          }
         }
       }
       // Progress line
@@ -21802,9 +21828,9 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
         }
       });
 
-      btnWalkPrev.disabled = false;
-      btnWalkNext.disabled = false;
-      btnWalkNext.textContent = (stage === totalStages - 1) ? "Start Again ↺" : "Step Forward ›";
+      btnWalkPrev.disabled = (stage === 0);
+      btnWalkNext.disabled = (stage === totalStages - 1);
+      btnWalkNext.innerHTML = (stage === totalStages - 1) ? '<span>Journey Complete</span> <span>✨</span>' : '<span>Step Forward</span> <span>›</span>';
     }
 
     let lastTransitionTime = 0;
@@ -21912,6 +21938,7 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
           doorwayNextScreen.classList.remove('doorway-fade-out');
         }
         portalStage.classList.add('hidden-forward');
+        portalStage.style.display = 'none';
         if (milestoneChamber) {
           milestoneChamber.classList.remove('entering-from-door');
         }
@@ -21953,6 +21980,7 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
         });
 
         // Setup portal stage & arch at zoomed-in scale without transition, then glide back out to scale 1
+        portalStage.style.display = '';
         portalStage.style.transition = 'none';
         portalArch.style.transition = 'none';
         portalStage.classList.remove('hidden-forward');
@@ -21995,6 +22023,7 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
       // Ensure portal remains safely hidden
       portalDoorsWrapper.classList.add('portal-doors-open');
       portalStage.classList.add('hidden-forward');
+      portalStage.style.display = 'none';
 
       const targetRoomIdx = targetStage - 1;
       chambers.forEach((c, idx) => {
@@ -22220,24 +22249,6 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
             if (e.deltaMode === 1) wheelDelta *= 32;
             else if (e.deltaMode === 2) wheelDelta *= 100;
 
-            // Hard wheel scroll detection: vigorous wheel impulse directly transitions rooms
-            if (Math.abs(wheelDelta) >= 180) {
-              const now = performance.now();
-              if (!isTransitioning && (now - lastTransitionTime >= TRANSITION_LOCK_MS)) {
-                lastTransitionTime = now;
-                if (wheelDelta > 0) {
-                  if (currentStage === 0) stepInsidePalace();
-                  else if (currentStage >= totalStages - 1) goToStage(0);
-                  else goToStage(currentStage + 1);
-                } else {
-                  if (currentStage === 0) goToStage(totalStages - 1);
-                  else goToStage(currentStage - 1);
-                }
-                internalScrollConsumed = true;
-                break;
-              }
-            }
-
             const isMemoriesGrid = el.classList?.contains('collage-mosaic-grid');
             const isTimelineWrap = (el.classList?.contains('horizontal-timeline-track-wrap') || el.closest?.('.horizontal-timeline-track-wrap')) && window.innerWidth <= 768;
             const isEvolutionStage = (el.classList?.contains('evolution-comparison-stage') || el.closest?.('.evolution-comparison-stage')) && window.innerWidth <= 768;
@@ -22444,7 +22455,7 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
           } else {
             stepInsidePalace();
           }
-        } else {
+        } else if (currentStage < totalStages - 1) {
           goToStage(currentStage + 1);
         }
       } else if (wheelDeltaAccumulator < -WHEEL_SENSITIVITY) {
@@ -22454,7 +22465,7 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
           if (isDoorOpen) {
             closeDoor();
           }
-        } else {
+        } else if (currentStage > 0) {
           goToStage(currentStage - 1);
         }
       }
@@ -22483,36 +22494,6 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
       const touchEndY = e.changedTouches[0].clientY;
       const diffX = touchStartX - touchEndX;
       const diffY = touchStartY - touchEndY;
-
-      // Hard Scrolling Detection (Responsive):
-      // A quick flick or deep swipe (diffY >= 105px, OR velocity >= 0.55 px/ms with diffY >= 65px)
-      // When hard scrolling is detected, navigate directly between rooms!
-      const isVerticalGesture = Math.abs(diffY) > Math.abs(diffX) * 1.25;
-      const touchDuration = Math.max(now - touchStartTime, 1);
-      const velocityY = Math.abs(diffY) / touchDuration;
-      const isHardScroll = isVerticalGesture && (Math.abs(diffY) >= 105 || (velocityY >= 0.55 && Math.abs(diffY) >= 65));
-
-      if (isHardScroll) {
-        lastTransitionTime = performance.now();
-        if (diffY > 0) {
-          // Hard scroll DOWN / Swipe UP -> advance
-          if (currentStage === 0) {
-            stepInsidePalace();
-          } else if (currentStage >= totalStages - 1) {
-            goToStage(0);
-          } else {
-            goToStage(currentStage + 1);
-          }
-        } else if (diffY < 0) {
-          // Hard scroll UP / Swipe DOWN -> retreat
-          if (currentStage === 0) {
-            goToStage(totalStages - 1);
-          } else {
-            goToStage(currentStage - 1);
-          }
-        }
-        return;
-      }
 
       // Check if touch occurred inside an internal scrollable element that hasn't hit its boundary
       if (touchStartTarget) {
@@ -22712,7 +22693,7 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
           } else {
             stepInsidePalace();
           }
-        } else {
+        } else if (currentStage < totalStages - 1) {
           goToStage(currentStage + 1);
         }
       } else if (diffY < -38) {
@@ -22721,7 +22702,7 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
           if (isDoorOpen) {
             closeDoor();
           }
-        } else {
+        } else if (currentStage > 0) {
           goToStage(currentStage - 1);
         }
       }
@@ -22768,7 +22749,7 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
         if (currentStage === 0) {
           if (!isDoorOpen) openDoor();
           else stepInsidePalace();
-        } else {
+        } else if (currentStage < totalStages - 1) {
           goToStage(currentStage + 1);
         }
       } else if (e.key === 'ArrowUp' || e.key === 'PageUp' || e.key === 'a' || e.key === 'A' || e.key === 'w' || e.key === 'W' || (isCurrentRoom('chamber-0') && e.key === 'ArrowLeft')) {
@@ -22785,7 +22766,7 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
         }
         if (currentStage === 0) {
           if (isDoorOpen) closeDoor();
-        } else {
+        } else if (currentStage > 0) {
           goToStage(currentStage - 1);
         }
       } else if (e.key === 'm' || e.key === 'M') {
@@ -22808,7 +22789,11 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
     // Walk forward / back buttons
     btnWalkNext.addEventListener('click', () => {
       if (currentStage === 0) {
-        stepInsidePalace();
+        if (!isDoorOpen) {
+          openDoor();
+        } else {
+          stepInsidePalace();
+        }
         return;
       }
       if (isCurrentRoom('chamber-0')) {
@@ -22833,16 +22818,14 @@ window.BUILTIN_PROFILES["template"] = JSON.parse(`{"profileVersion": 6, "chamber
         }
       }
       if (currentStage >= totalStages - 1) {
-        goToStage(0);
-        return;
+        return; // Do not loop on last screen
       }
       goToStage(currentStage + 1);
     });
 
     btnWalkPrev.addEventListener('click', () => {
       if (currentStage === 0) {
-        goToStage(totalStages - 1);
-        return;
+        return; // Do not loop on first screen
       }
       if (isCurrentRoom('chamber-0')) {
         milestoneGestureActive = false;
