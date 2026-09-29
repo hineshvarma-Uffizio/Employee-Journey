@@ -978,13 +978,6 @@
       justify-content: center;
     }
 
-    #chamber-values.active .chamber-placard {
-      opacity: 1 !important;
-      visibility: visible !important;
-      display: block !important;
-      transform: translate(-50%, 0) !important;
-    }
-
     .values-orbital-stage {
       width: 100%;
       max-width: 1200px;
@@ -10139,10 +10132,21 @@
         padding: 0 4px 85px 4px !important;
         box-sizing: border-box !important;
       }
-      .values-orbital-stage > .chamber-placard {
+      .values-orbital-stage > .chamber-placard,
+      #chamber-values .chamber-placard,
+      #chamber-values.active .chamber-placard {
+        position: relative !important;
+        top: auto !important;
+        left: auto !important;
+        right: auto !important;
+        transform: none !important;
         width: 100% !important;
         max-width: 100% !important;
         text-align: center !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
         flex-shrink: 0 !important;
         order: -1 !important;
         margin: 0 auto 32px auto !important;
@@ -10150,6 +10154,12 @@
         box-sizing: border-box !important;
         opacity: 1 !important;
         visibility: visible !important;
+      }
+      #chamberValuesTitle {
+        text-align: center !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 auto !important;
         display: block !important;
       }
       .values-center-nucleus {
