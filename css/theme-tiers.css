@@ -195,40 +195,119 @@ body.theme-tier-3yr .doorway-portrait-glow {
   display: none !important;
 }
 
-/* 6. Classical Foundation Cards with Deep Cobalt Glass & Moonlight Platinum Borders */
+/* 6. Classical Foundation Cards with Subtle Moonlight Platinum Silver Borders across All Chambers */
 body.theme-tier-3yr .celebration-quote-card,
+body.theme-tier-3yr .evolution-pill-card,
 body.theme-tier-3yr .evolution-card,
+body.theme-tier-3yr .visual-skill-pill-card,
+body.theme-tier-3yr .split-creation-card,
+body.theme-tier-3yr .split-creation-card.theme-blue,
+body.theme-tier-3yr .split-creation-card.theme-purple,
+body.theme-tier-3yr .split-creation-card.theme-emerald,
+body.theme-tier-3yr .split-creation-card.theme-amber,
 body.theme-tier-3yr .creation-visual-card,
 body.theme-tier-3yr .creations-common-image-card,
 body.theme-tier-3yr .memories-uneven-card,
+body.theme-tier-3yr .collage-lightbox-card,
 body.theme-tier-3yr .value-card,
+body.theme-tier-3yr .polaroid-frame,
+body.theme-tier-3yr .admin-proud-polaroid-card,
+body.theme-tier-3yr .sticky-note,
+body.theme-tier-3yr .post-note-card,
 body.theme-tier-3yr .future-card,
 body.theme-tier-3yr .thankyou-card-monument,
-body.theme-tier-3yr .milestone-narrative-card {
-  background: linear-gradient(135deg, rgba(6, 17, 38, 0.88) 0%, rgba(3, 10, 24, 0.94) 100%) !important;
-  border-radius: 6px;
-  border: 1.5px solid rgba(241, 245, 249, 0.52) !important;
-  outline: 1px solid rgba(0, 71, 171, 0.55) !important;
-  outline-offset: -5px;
-  box-shadow: 0 14px 40px rgba(0, 71, 171, 0.6), inset 0 0 25px rgba(241, 245, 249, 0.05) !important;
+body.theme-tier-3yr .thankyou-message-card,
+body.theme-tier-3yr .milestone-narrative-card,
+body.theme-tier-3yr .palace-modal-card,
+body.theme-tier-3yr .project-lightbox-card,
+body.theme-tier-3yr .timeline-camera-hint {
+  border: 1.2px solid rgba(226, 232, 240, 0.48) !important;
+  outline: none !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.65), 0 0 16px rgba(0, 71, 171, 0.32), inset 0 0 12px rgba(241, 245, 249, 0.03) !important;
   position: relative;
 }
 
-/* 7. Classical Pillar Dentils Top Accent on Cards */
-body.theme-tier-3yr .evolution-card::before,
-body.theme-tier-3yr .creation-visual-card::before,
-body.theme-tier-3yr .value-card::before,
-body.theme-tier-3yr .future-card::before,
-body.theme-tier-3yr .thankyou-card-monument::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background-image: repeating-linear-gradient(90deg, #f1f5f9 0 6px, transparent 6px 14px) !important;
-  opacity: 0.75;
-  pointer-events: none;
+/* Background gradient for foundation cards */
+body.theme-tier-3yr .celebration-quote-card,
+body.theme-tier-3yr .evolution-pill-card,
+body.theme-tier-3yr .evolution-card,
+body.theme-tier-3yr .visual-skill-pill-card,
+body.theme-tier-3yr .split-creation-card,
+body.theme-tier-3yr .creation-visual-card,
+body.theme-tier-3yr .creations-common-image-card,
+body.theme-tier-3yr .value-card,
+body.theme-tier-3yr .future-card,
+body.theme-tier-3yr .thankyou-card-monument,
+body.theme-tier-3yr .thankyou-message-card,
+body.theme-tier-3yr .milestone-narrative-card {
+  background: linear-gradient(135deg, rgba(6, 17, 38, 0.88) 0%, rgba(3, 10, 24, 0.94) 100%) !important;
+}
+
+/* 7. Hover States: Luminous Moonlight Platinum Highlight */
+body.theme-tier-3yr .evolution-pill-card:hover,
+body.theme-tier-3yr .split-creation-card:hover,
+body.theme-tier-3yr .split-creation-card.theme-blue:hover,
+body.theme-tier-3yr .split-creation-card.theme-purple:hover,
+body.theme-tier-3yr .split-creation-card.theme-emerald:hover,
+body.theme-tier-3yr .split-creation-card.theme-amber:hover,
+body.theme-tier-3yr .creations-common-image-card:hover,
+body.theme-tier-3yr .polaroid-frame:hover,
+body.theme-tier-3yr .memories-uneven-card:hover,
+body.theme-tier-3yr .value-card:hover,
+body.theme-tier-3yr .future-card:hover,
+body.theme-tier-3yr .sticky-note:hover,
+body.theme-tier-3yr .thankyou-card-monument:hover {
+  border-color: rgba(255, 255, 255, 0.88) !important;
+  box-shadow: 0 14px 42px rgba(0, 0, 0, 0.78), 0 0 25px rgba(0, 71, 171, 0.55), 0 0 10px rgba(241, 245, 249, 0.3) !important;
+}
+
+/* Internal Card Dividers & Coordinated Sub-elements */
+body.theme-tier-3yr .split-card-icon-col {
+  border-right: 1px solid rgba(226, 232, 240, 0.28) !important;
+  color: #cbd5e1 !important;
+}
+
+body.theme-tier-3yr .evolution-pill-line {
+  background: linear-gradient(90deg, rgba(226, 232, 240, 0.15), #cbd5e1, rgba(226, 232, 240, 0.15)) !important;
+}
+
+body.theme-tier-3yr .evolution-connector-arrow {
+  color: #cbd5e1 !important;
+}
+
+body.theme-tier-3yr .future-card-icon-wrap,
+body.theme-tier-3yr .future-card-icon-wrap.icon-theme-blue,
+body.theme-tier-3yr .future-card-icon-wrap.icon-theme-gold {
+  border: 1px solid rgba(226, 232, 240, 0.45) !important;
+  background: linear-gradient(145deg, #071530 0%, #030a1a 100%) !important;
+  color: #e2e8f0 !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5), 0 0 12px rgba(0, 71, 171, 0.35) !important;
+}
+
+body.theme-tier-3yr .future-card:hover .future-card-icon-wrap {
+  border-color: rgba(255, 255, 255, 0.88) !important;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.65), 0 0 18px rgba(0, 71, 171, 0.6) !important;
+}
+
+body.theme-tier-3yr .value-icon-box {
+  border: 1px solid rgba(226, 232, 240, 0.4) !important;
+  background: rgba(0, 71, 171, 0.25) !important;
+  color: #f1f5f9 !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.45) !important;
+}
+
+body.theme-tier-3yr .values-avatar-frame {
+  border: 2px solid rgba(226, 232, 240, 0.75) !important;
+  box-shadow: 0 0 25px rgba(0, 71, 171, 0.65), 0 0 10px rgba(241, 245, 249, 0.3) !important;
+}
+
+body.theme-tier-3yr .thankyou-avatar-halo {
+  border: 2px solid rgba(226, 232, 240, 0.75) !important;
+  box-shadow: 0 0 25px rgba(0, 71, 171, 0.65), 0 0 10px rgba(241, 245, 249, 0.3) !important;
+}
+
+body.theme-tier-3yr .polaroid-img-box {
+  border: 1px solid rgba(226, 232, 240, 0.22) !important;
 }
 
 /* 8. Milestone Journey Nodes & Track in Moonlight Platinum & Cobalt Blue */
