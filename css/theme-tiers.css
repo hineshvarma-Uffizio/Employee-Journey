@@ -258,6 +258,25 @@ body.theme-tier-3yr .door-face.back.right {
   border-radius: 0 126px 0 0 !important;
 }
 
+/* Inward Opening 3D Mechanics for 3 Years (Recessed Portal Architecture) */
+body.theme-tier-3yr .portal-doors-open .photo-door-leaf.left {
+  transform: rotateY(84deg) translate3d(0, 0, 0) !important;
+}
+
+body.theme-tier-3yr .portal-doors-open .photo-door-leaf.right {
+  transform: rotateY(-84deg) translate3d(0, 0, 0) !important;
+}
+
+body.theme-tier-3yr .portal-arch-structure.zooming-through .portal-doors-open .photo-door-leaf.left,
+body.theme-tier-3yr .portal-arch-structure.zooming-through.door-open .photo-door-leaf.left {
+  transform: rotateY(92deg) translate3d(0, 0, 0) !important;
+}
+
+body.theme-tier-3yr .portal-arch-structure.zooming-through .portal-doors-open .photo-door-leaf.right,
+body.theme-tier-3yr .portal-arch-structure.zooming-through.door-open .photo-door-leaf.right {
+  transform: rotateY(-92deg) translate3d(0, 0, 0) !important;
+}
+
 body.theme-tier-3yr .portal-arch-glow-backdrop {
   top: 70px !important;
   left: 60px !important;
