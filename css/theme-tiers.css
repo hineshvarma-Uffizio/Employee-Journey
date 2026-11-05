@@ -1,0 +1,433 @@
+/* ==========================================================================
+   YEAR-WISE ARCHITECTURAL & MOTIF DESIGN SYSTEM
+   ==========================================================================
+   Transforming structural forms, frames, corners, and motifs across milestone tiers:
+   - Tier 1yr : Rising Pioneer (Modern Celestial Glass & Starlight Borders)
+   - Tier 3yr : Core Pillar (Classical Architectural Double-Bevel & Stone Columns)
+   - Tier 5yr : Half-Decade Leader (Royal Baroque Filigree & Gold Leaf Accents)
+   - Tier 10yr: Decade Legend (Crystalline Prism Diamond-Cut Polygon Corners)
+   - Tier 15yr: Sovereign Architect (Grand Art Deco Stepped Chevrons & Emerald Inlays)
+   - Tier 20yr: Heritage Icon (Imperial Coronation 24K Rope & Royal Damask Tapestry)
+   ========================================================================== */
+
+/* ==========================================================================
+   TIER 1 (1 YEAR • RISING PIONEER): MODERN CELESTIAL & SLEEK GLASS
+   ========================================================================== */
+body.theme-tier-1yr .chamber-placard {
+  border-radius: 999px;
+  border: 1px solid rgba(245, 192, 101, 0.4);
+  box-shadow: 0 10px 30px rgba(0, 44, 107, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(16px);
+}
+
+body.theme-tier-1yr .celebration-portrait-frame {
+  border-radius: 20px;
+  border: 1.5px solid rgba(245, 192, 101, 0.5);
+  box-shadow: 0 12px 35px rgba(0, 44, 107, 0.7), 0 0 25px rgba(245, 192, 101, 0.25);
+}
+
+body.theme-tier-1yr .celebration-quote-card,
+body.theme-tier-1yr .evolution-card,
+body.theme-tier-1yr .creation-visual-card,
+body.theme-tier-1yr .creations-common-image-card,
+body.theme-tier-1yr .memories-uneven-card,
+body.theme-tier-1yr .value-card,
+body.theme-tier-1yr .future-card,
+body.theme-tier-1yr .thankyou-card-monument,
+body.theme-tier-1yr .milestone-narrative-card {
+  border-radius: 16px;
+  border: 1px solid rgba(245, 192, 101, 0.35);
+  box-shadow: 0 10px 30px rgba(0, 44, 107, 0.45);
+  backdrop-filter: blur(14px);
+  position: relative;
+}
+
+body.theme-tier-1yr .milestone-node-pin {
+  border-radius: 50%;
+  border: 2px solid var(--gold-primary);
+  box-shadow: 0 0 20px rgba(0, 229, 255, 0.6);
+}
+
+/* ==========================================================================
+   TIER 3 (3 YEARS • CORE PILLAR): CLASSICAL ARCHITECTURAL DOUBLE-BEVEL
+   ========================================================================== */
+body.theme-tier-3yr .chamber-placard {
+  border-radius: 4px;
+  border: 2px solid #e2e8f0;
+  outline: 1px solid rgba(56, 189, 248, 0.4);
+  outline-offset: -4px;
+  box-shadow: 0 12px 35px rgba(3, 105, 161, 0.6), inset 0 0 15px rgba(226, 232, 240, 0.1);
+}
+
+body.theme-tier-3yr .celebration-portrait-frame {
+  border-radius: 6px;
+  border: 2.5px solid #e2e8f0;
+  outline: 1.5px solid rgba(56, 189, 248, 0.5);
+  outline-offset: -6px;
+  box-shadow: 0 15px 45px rgba(3, 105, 161, 0.65), 0 0 30px rgba(226, 232, 240, 0.3);
+}
+
+body.theme-tier-3yr .celebration-quote-card,
+body.theme-tier-3yr .evolution-card,
+body.theme-tier-3yr .creation-visual-card,
+body.theme-tier-3yr .creations-common-image-card,
+body.theme-tier-3yr .memories-uneven-card,
+body.theme-tier-3yr .value-card,
+body.theme-tier-3yr .future-card,
+body.theme-tier-3yr .thankyou-card-monument,
+body.theme-tier-3yr .milestone-narrative-card {
+  border-radius: 6px;
+  border: 2px solid rgba(226, 232, 240, 0.55);
+  outline: 1px solid rgba(56, 189, 248, 0.35);
+  outline-offset: -5px;
+  box-shadow: 0 14px 40px rgba(3, 105, 161, 0.5), inset 0 0 20px rgba(226, 232, 240, 0.06);
+  position: relative;
+}
+
+/* Classical Pillar Dentils Top Accent */
+body.theme-tier-3yr .evolution-card::before,
+body.theme-tier-3yr .creation-visual-card::before,
+body.theme-tier-3yr .value-card::before,
+body.theme-tier-3yr .future-card::before,
+body.theme-tier-3yr .thankyou-card-monument::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background-image: repeating-linear-gradient(90deg, #e2e8f0 0 6px, transparent 6px 14px);
+  opacity: 0.65;
+  pointer-events: none;
+}
+
+body.theme-tier-3yr .milestone-node-pin {
+  border-radius: 4px;
+  border: 2px solid #e2e8f0;
+  outline: 1px solid rgba(56, 189, 248, 0.6);
+  outline-offset: 2px;
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.7);
+  transform: rotate(45deg);
+}
+
+body.theme-tier-3yr .milestone-node-core {
+  transform: rotate(-45deg);
+}
+
+/* ==========================================================================
+   TIER 5 (5 YEARS • HALF-DECADE LEADER): ROYAL BAROQUE & GOLD FILIGREE
+   ========================================================================== */
+body.theme-tier-5yr .chamber-placard {
+  border-radius: 24px 4px 24px 4px;
+  border: 2px solid #fbbf24;
+  box-shadow: 0 14px 40px rgba(180, 83, 9, 0.55), inset 0 0 20px rgba(251, 191, 36, 0.2);
+  background: linear-gradient(135deg, rgba(28, 20, 9, 0.95), rgba(15, 11, 5, 0.98));
+}
+
+body.theme-tier-5yr .celebration-portrait-frame {
+  border-radius: 30px 6px 30px 6px;
+  border: 3px solid #fbbf24;
+  box-shadow: 0 18px 50px rgba(180, 83, 9, 0.6), 0 0 35px rgba(245, 158, 11, 0.4), inset 0 0 25px rgba(251, 191, 36, 0.25);
+}
+
+body.theme-tier-5yr .celebration-quote-card,
+body.theme-tier-5yr .evolution-card,
+body.theme-tier-5yr .creation-visual-card,
+body.theme-tier-5yr .creations-common-image-card,
+body.theme-tier-5yr .memories-uneven-card,
+body.theme-tier-5yr .value-card,
+body.theme-tier-5yr .future-card,
+body.theme-tier-5yr .thankyou-card-monument,
+body.theme-tier-5yr .milestone-narrative-card {
+  border-radius: 22px 4px 22px 4px;
+  border: 2px solid rgba(251, 191, 36, 0.6);
+  box-shadow: 0 16px 45px rgba(180, 83, 9, 0.4), inset 0 0 25px rgba(245, 158, 11, 0.12);
+  background: linear-gradient(145deg, rgba(28, 20, 9, 0.92), rgba(15, 11, 5, 0.96));
+  position: relative;
+}
+
+/* Baroque Corner Filigree Ornamental Flairs */
+body.theme-tier-5yr .evolution-card::before,
+body.theme-tier-5yr .creation-visual-card::before,
+body.theme-tier-5yr .value-card::before,
+body.theme-tier-5yr .future-card::before,
+body.theme-tier-5yr .thankyou-card-monument::before {
+  content: '⚜';
+  position: absolute;
+  top: 8px;
+  left: 12px;
+  font-size: 16px;
+  color: #fbbf24;
+  text-shadow: 0 0 12px rgba(245, 158, 11, 0.8);
+  opacity: 0.85;
+  pointer-events: none;
+}
+
+body.theme-tier-5yr .evolution-card::after,
+body.theme-tier-5yr .creation-visual-card::after,
+body.theme-tier-5yr .value-card::after,
+body.theme-tier-5yr .future-card::after,
+body.theme-tier-5yr .thankyou-card-monument::after {
+  content: '⚜';
+  position: absolute;
+  bottom: 8px;
+  right: 12px;
+  font-size: 16px;
+  color: #fbbf24;
+  text-shadow: 0 0 12px rgba(245, 158, 11, 0.8);
+  opacity: 0.85;
+  pointer-events: none;
+}
+
+body.theme-tier-5yr .milestone-node-pin {
+  border-radius: 50%;
+  border: 2.5px solid #fbbf24;
+  box-shadow: 0 0 25px rgba(245, 158, 11, 0.8), inset 0 0 12px rgba(180, 83, 9, 0.8);
+  background: radial-gradient(circle, #fbbf24, #b45309);
+}
+
+/* ==========================================================================
+   TIER 10 (10 YEARS • DECADE LEGEND): CRYSTALLINE PRISM & DIAMOND CUT
+   ========================================================================== */
+body.theme-tier-10yr .chamber-placard {
+  clip-path: polygon(14px 0, calc(100% - 14px) 0, 100% 14px, 100% calc(100% - 14px), calc(100% - 14px) 100%, 14px 100%, 0 calc(100% - 14px), 0 14px);
+  border-radius: 0;
+  border: 1.5px solid rgba(196, 181, 253, 0.8);
+  box-shadow: 0 16px 45px rgba(79, 70, 229, 0.55), 0 0 30px rgba(165, 243, 252, 0.45);
+  background: linear-gradient(135deg, rgba(14, 18, 53, 0.95), rgba(7, 9, 30, 0.98));
+}
+
+body.theme-tier-10yr .celebration-portrait-frame {
+  clip-path: polygon(20px 0, calc(100% - 20px) 0, 100% 20px, 100% calc(100% - 20px), calc(100% - 20px) 100%, 20px 100%, 0 calc(100% - 20px), 0 20px);
+  border-radius: 0;
+  border: 2px solid #c4b5fd;
+  box-shadow: 0 18px 50px rgba(79, 70, 229, 0.6), 0 0 35px rgba(165, 243, 252, 0.55), inset 0 0 25px rgba(168, 85, 247, 0.3);
+}
+
+body.theme-tier-10yr .celebration-quote-card,
+body.theme-tier-10yr .evolution-card,
+body.theme-tier-10yr .creation-visual-card,
+body.theme-tier-10yr .creations-common-image-card,
+body.theme-tier-10yr .memories-uneven-card,
+body.theme-tier-10yr .value-card,
+body.theme-tier-10yr .future-card,
+body.theme-tier-10yr .thankyou-card-monument,
+body.theme-tier-10yr .milestone-narrative-card {
+  clip-path: polygon(14px 0, calc(100% - 14px) 0, 100% 14px, 100% calc(100% - 14px), calc(100% - 14px) 100%, 14px 100%, 0 calc(100% - 14px), 0 14px);
+  border-radius: 0;
+  border: 1.5px solid rgba(196, 181, 253, 0.6);
+  box-shadow: 0 16px 45px rgba(79, 70, 229, 0.45), 0 0 25px rgba(165, 243, 252, 0.35);
+  background: linear-gradient(135deg, rgba(14, 18, 53, 0.94) 0%, rgba(24, 30, 85, 0.95) 50%, rgba(14, 18, 53, 0.94) 100%);
+  position: relative;
+}
+
+/* Prismatic Light Crystal Corner Glint */
+body.theme-tier-10yr .evolution-card::before,
+body.theme-tier-10yr .creation-visual-card::before,
+body.theme-tier-10yr .value-card::before,
+body.theme-tier-10yr .future-card::before,
+body.theme-tier-10yr .thankyou-card-monument::before {
+  content: '✦';
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  font-size: 14px;
+  color: #a5f3fc;
+  text-shadow: 0 0 14px rgba(165, 243, 252, 0.9), 0 0 25px rgba(168, 85, 247, 0.8);
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+body.theme-tier-10yr .milestone-node-pin {
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+  border-radius: 0;
+  border: 2px solid #a5f3fc;
+  box-shadow: 0 0 25px rgba(165, 243, 252, 0.9);
+  background: linear-gradient(135deg, #c4b5fd, #38bdf8);
+}
+
+/* ==========================================================================
+   TIER 15 (15 YEARS • SOVEREIGN ARCHITECT): GRAND ART DECO & EMERALD INLAYS
+   ========================================================================== */
+body.theme-tier-15yr .chamber-placard {
+  clip-path: polygon(0 12px, 12px 12px, 12px 0, calc(100% - 12px) 0, calc(100% - 12px) 12px, 100% 12px, 100% calc(100% - 12px), calc(100% - 12px) calc(100% - 12px), calc(100% - 12px) 100%, 12px 100%, 12px calc(100% - 12px), 0 calc(100% - 12px));
+  border-radius: 0;
+  border: 2px solid #34d399;
+  box-shadow: 0 16px 45px rgba(5, 150, 105, 0.5), inset 0 0 20px rgba(6, 78, 59, 0.5);
+  background: linear-gradient(135deg, rgba(6, 36, 27, 0.96), rgba(3, 18, 14, 0.98));
+}
+
+body.theme-tier-15yr .celebration-portrait-frame {
+  clip-path: polygon(0 16px, 16px 16px, 16px 0, calc(100% - 16px) 0, calc(100% - 16px) 16px, 100% 16px, 100% calc(100% - 16px), calc(100% - 16px) calc(100% - 16px), calc(100% - 16px) 100%, 16px 100%, 16px calc(100% - 16px), 0 calc(100% - 16px));
+  border-radius: 0;
+  border: 2.5px solid #34d399;
+  box-shadow: 0 18px 55px rgba(5, 150, 105, 0.6), 0 0 35px rgba(52, 211, 153, 0.45);
+}
+
+body.theme-tier-15yr .celebration-quote-card,
+body.theme-tier-15yr .evolution-card,
+body.theme-tier-15yr .creation-visual-card,
+body.theme-tier-15yr .creations-common-image-card,
+body.theme-tier-15yr .memories-uneven-card,
+body.theme-tier-15yr .value-card,
+body.theme-tier-15yr .future-card,
+body.theme-tier-15yr .thankyou-card-monument,
+body.theme-tier-15yr .milestone-narrative-card {
+  clip-path: polygon(0 10px, 10px 10px, 10px 0, calc(100% - 10px) 0, calc(100% - 10px) 10px, 100% 10px, 100% calc(100% - 10px), calc(100% - 10px) calc(100% - 10px), calc(100% - 10px) 100%, 10px 100%, 10px calc(100% - 10px), 0 calc(100% - 10px));
+  border-radius: 0;
+  border: 1.5px solid rgba(52, 211, 153, 0.6);
+  box-shadow: 0 15px 45px rgba(5, 150, 105, 0.45), inset 0 0 25px rgba(6, 78, 59, 0.35);
+  background: linear-gradient(135deg, rgba(6, 36, 27, 0.94), rgba(3, 18, 14, 0.98));
+  position: relative;
+}
+
+/* Art Deco Stepped Brass Corner Cap */
+body.theme-tier-15yr .evolution-card::before,
+body.theme-tier-15yr .creation-visual-card::before,
+body.theme-tier-15yr .value-card::before,
+body.theme-tier-15yr .future-card::before,
+body.theme-tier-15yr .thankyou-card-monument::before {
+  content: '▲';
+  position: absolute;
+  top: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 10px;
+  color: #34d399;
+  text-shadow: 0 0 10px rgba(52, 211, 153, 0.9);
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+body.theme-tier-15yr .milestone-node-pin {
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  border-radius: 0;
+  border: 2px solid #34d399;
+  box-shadow: 0 0 25px rgba(52, 211, 153, 0.85);
+  background: linear-gradient(180deg, #34d399, #064e3b);
+}
+
+/* ==========================================================================
+   TIER 20 (20 YEARS • HERITAGE ICON): IMPERIAL CORONATION & 24K BRAIDED ROPE
+   ========================================================================== */
+body.theme-tier-20yr .chamber-placard {
+  border-radius: 8px;
+  border: 3px double #ffd700;
+  outline: 1px solid rgba(255, 215, 0, 0.5);
+  outline-offset: -5px;
+  box-shadow: 0 18px 50px rgba(107, 33, 168, 0.6), 0 0 30px rgba(255, 215, 0, 0.45);
+  background: radial-gradient(circle at center, rgba(88, 28, 135, 0.85), rgba(17, 5, 25, 0.98));
+}
+
+body.theme-tier-20yr .celebration-portrait-frame {
+  border-radius: 12px;
+  border: 3.5px double #ffd700;
+  outline: 1.5px solid rgba(255, 215, 0, 0.6);
+  outline-offset: -7px;
+  box-shadow: 0 20px 60px rgba(107, 33, 168, 0.7), 0 0 40px rgba(255, 215, 0, 0.55), inset 0 0 30px rgba(88, 28, 135, 0.5);
+}
+
+body.theme-tier-20yr .celebration-quote-card,
+body.theme-tier-20yr .evolution-card,
+body.theme-tier-20yr .creation-visual-card,
+body.theme-tier-20yr .creations-common-image-card,
+body.theme-tier-20yr .memories-uneven-card,
+body.theme-tier-20yr .value-card,
+body.theme-tier-20yr .future-card,
+body.theme-tier-20yr .thankyou-card-monument,
+body.theme-tier-20yr .milestone-narrative-card {
+  border-radius: 8px;
+  border: 3px double #ffd700;
+  outline: 1px solid rgba(255, 215, 0, 0.4);
+  outline-offset: -6px;
+  box-shadow: 0 18px 50px rgba(107, 33, 168, 0.5), 0 0 25px rgba(255, 215, 0, 0.35), inset 0 0 25px rgba(88, 28, 135, 0.3);
+  background-image: radial-gradient(ellipse at top, rgba(88, 28, 135, 0.45), transparent 70%), url('../assets/images/branding/royal_damask_mask_512.png');
+  background-size: auto, 160px;
+  background-blend-mode: overlay;
+  position: relative;
+}
+
+/* Imperial Crown & Laurel Embellishment */
+body.theme-tier-20yr .evolution-card::before,
+body.theme-tier-20yr .creation-visual-card::before,
+body.theme-tier-20yr .value-card::before,
+body.theme-tier-20yr .future-card::before,
+body.theme-tier-20yr .thankyou-card-monument::before {
+  content: '👑';
+  position: absolute;
+  top: 8px;
+  left: 14px;
+  font-size: 16px;
+  text-shadow: 0 0 14px rgba(255, 215, 0, 0.9);
+  pointer-events: none;
+}
+
+body.theme-tier-20yr .evolution-card::after,
+body.theme-tier-20yr .creation-visual-card::after,
+body.theme-tier-20yr .value-card::after,
+body.theme-tier-20yr .future-card::after,
+body.theme-tier-20yr .thankyou-card-monument::after {
+  content: '🌿';
+  position: absolute;
+  bottom: 8px;
+  right: 14px;
+  font-size: 15px;
+  opacity: 0.85;
+  filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.7));
+  pointer-events: none;
+}
+
+body.theme-tier-20yr .milestone-node-pin {
+  border-radius: 50%;
+  border: 3px double #ffd700;
+  box-shadow: 0 0 30px rgba(255, 215, 0, 0.9), inset 0 0 15px rgba(107, 33, 168, 0.8);
+  background: radial-gradient(circle, #ffd700 0%, #b45309 60%, #581c87 100%);
+}
+
+/* ==========================================================================
+   PORTAL ARCHWAY ARCHITECTURAL CUSTOMIZATIONS
+   ========================================================================== */
+body.theme-tier-1yr .portal-arch-header {
+  border-bottom: 1.5px solid rgba(245, 192, 101, 0.4);
+}
+
+body.theme-tier-3yr .portal-arch-header {
+  border-top: 2px solid #e2e8f0;
+  border-bottom: 2px solid #e2e8f0;
+  background: rgba(9, 18, 36, 0.8);
+  padding: 14px 28px;
+  box-shadow: 0 8px 30px rgba(3, 105, 161, 0.5);
+}
+
+body.theme-tier-5yr .portal-arch-header {
+  border: 2px solid #fbbf24;
+  border-radius: 20px 4px 20px 4px;
+  background: rgba(28, 20, 9, 0.88);
+  box-shadow: 0 10px 40px rgba(180, 83, 9, 0.6), inset 0 0 20px rgba(251, 191, 36, 0.2);
+  padding: 16px 32px;
+}
+
+body.theme-tier-10yr .portal-arch-header {
+  clip-path: polygon(16px 0, calc(100% - 16px) 0, 100% 16px, 100% calc(100% - 16px), calc(100% - 16px) 100%, 16px 100%, 0 calc(100% - 14px), 0 16px);
+  border: 2px solid #c4b5fd;
+  background: rgba(14, 18, 53, 0.88);
+  box-shadow: 0 10px 40px rgba(79, 70, 229, 0.6), 0 0 30px rgba(165, 243, 252, 0.4);
+  padding: 16px 32px;
+}
+
+body.theme-tier-15yr .portal-arch-header {
+  clip-path: polygon(0 12px, 12px 12px, 12px 0, calc(100% - 12px) 0, calc(100% - 12px) 12px, 100% 12px, 100% calc(100% - 12px), calc(100% - 12px) calc(100% - 12px), calc(100% - 12px) 100%, 12px 100%, 12px calc(100% - 12px), 0 calc(100% - 12px));
+  border: 2.5px solid #34d399;
+  background: rgba(6, 36, 27, 0.88);
+  box-shadow: 0 10px 40px rgba(5, 150, 105, 0.55), inset 0 0 20px rgba(6, 78, 59, 0.5);
+  padding: 16px 32px;
+}
+
+body.theme-tier-20yr .portal-arch-header {
+  border: 3px double #ffd700;
+  outline: 1px solid rgba(255, 215, 0, 0.5);
+  outline-offset: -5px;
+  background: rgba(31, 11, 45, 0.9);
+  box-shadow: 0 12px 50px rgba(107, 33, 168, 0.7), 0 0 35px rgba(255, 215, 0, 0.5);
+  padding: 18px 36px;
+}
