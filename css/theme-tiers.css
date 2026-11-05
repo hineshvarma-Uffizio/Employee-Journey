@@ -215,8 +215,6 @@ body.theme-tier-3yr .admin-proud-polaroid-card,
 body.theme-tier-3yr .sticky-note,
 body.theme-tier-3yr .post-note-card,
 body.theme-tier-3yr .future-card,
-body.theme-tier-3yr .thankyou-card-monument,
-body.theme-tier-3yr .thankyou-message-card,
 body.theme-tier-3yr .milestone-narrative-card,
 body.theme-tier-3yr .palace-modal-card,
 body.theme-tier-3yr .project-lightbox-card,
@@ -237,8 +235,6 @@ body.theme-tier-3yr .creation-visual-card,
 body.theme-tier-3yr .creations-common-image-card,
 body.theme-tier-3yr .value-card,
 body.theme-tier-3yr .future-card,
-body.theme-tier-3yr .thankyou-card-monument,
-body.theme-tier-3yr .thankyou-message-card,
 body.theme-tier-3yr .milestone-narrative-card {
   background: linear-gradient(135deg, rgba(6, 17, 38, 0.88) 0%, rgba(3, 10, 24, 0.94) 100%) !important;
 }
@@ -255,10 +251,67 @@ body.theme-tier-3yr .polaroid-frame:hover,
 body.theme-tier-3yr .memories-uneven-card:hover,
 body.theme-tier-3yr .value-card:hover,
 body.theme-tier-3yr .future-card:hover,
-body.theme-tier-3yr .sticky-note:hover,
-body.theme-tier-3yr .thankyou-card-monument:hover {
+body.theme-tier-3yr .sticky-note:hover {
   border-color: rgba(255, 255, 255, 0.88) !important;
   box-shadow: 0 14px 42px rgba(0, 0, 0, 0.78), 0 0 25px rgba(0, 71, 171, 0.55), 0 0 10px rgba(241, 245, 249, 0.3) !important;
+}
+
+/* 7b. Chamber Thank You: Completely Open & Floating Monument (No Boxes, Frames, or Outlines) */
+body.theme-tier-3yr .thankyou-card-monument,
+body.theme-tier-3yr .thankyou-message-card {
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  outline: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+body.theme-tier-3yr .thankyou-card-monument::before,
+body.theme-tier-3yr .thankyou-message-card::before {
+  content: none !important;
+  display: none !important;
+}
+
+body.theme-tier-3yr .thankyou-avatar-halo {
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+body.theme-tier-3yr .thankyou-avatar-img {
+  border: 3.5px solid #ffffff !important;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.65), 0 0 28px rgba(0, 71, 171, 0.85), 0 0 12px rgba(241, 245, 249, 0.6) !important;
+}
+
+body.theme-tier-3yr .thankyou-avatar-glow {
+  border: 1.5px dashed rgba(241, 245, 249, 0.75) !important;
+}
+
+body.theme-tier-3yr .thankyou-wreath-icon {
+  background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 50%, #94a3b8 100%) !important;
+  color: #002c6b !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6) !important;
+}
+
+body.theme-tier-3yr .thankyou-main-title {
+  color: #ffffff !important;
+  text-shadow: 0 0 25px rgba(0, 71, 171, 0.85), 0 2px 10px rgba(0, 0, 0, 0.8) !important;
+}
+
+body.theme-tier-3yr .thankyou-quote-decor {
+  color: rgba(226, 232, 240, 0.5) !important;
+}
+
+body.theme-tier-3yr .thankyou-letter-text {
+  color: #f8fafc !important;
+}
+
+body.theme-tier-3yr .thankyou-signature-line {
+  color: #f1f5f9 !important;
+  text-shadow: 0 0 18px rgba(0, 71, 171, 0.8) !important;
 }
 
 /* Internal Card Dividers & Coordinated Sub-elements */
@@ -297,11 +350,6 @@ body.theme-tier-3yr .value-icon-box {
 }
 
 body.theme-tier-3yr .values-avatar-frame {
-  border: 2px solid rgba(226, 232, 240, 0.75) !important;
-  box-shadow: 0 0 25px rgba(0, 71, 171, 0.65), 0 0 10px rgba(241, 245, 249, 0.3) !important;
-}
-
-body.theme-tier-3yr .thankyou-avatar-halo {
   border: 2px solid rgba(226, 232, 240, 0.75) !important;
   box-shadow: 0 0 25px rgba(0, 71, 171, 0.65), 0 0 10px rgba(241, 245, 249, 0.3) !important;
 }
