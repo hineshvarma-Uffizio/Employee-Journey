@@ -49,8 +49,8 @@ body.theme-tier-3yr .royal-ethnic-svg-tile {
   mask-image: url('../assets/images/branding/damask_mask_3yr.png') !important;
   -webkit-mask-repeat: repeat !important;
   mask-repeat: repeat !important;
-  -webkit-mask-size: 110px 110px !important;
-  mask-size: 110px 110px !important;
+  -webkit-mask-size: 190px 190px !important;
+  mask-size: 190px 190px !important;
 }
 
 /* 2. Eradicate Old Pattern from Chamber Walls: Fully Replace with Fine Damask & Cobalt Shimmer */
@@ -64,8 +64,8 @@ body.theme-tier-3yr .room-wall::before {
   mask-image: url('../assets/images/branding/damask_mask_3yr.png') !important;
   -webkit-mask-repeat: repeat !important;
   mask-repeat: repeat !important;
-  -webkit-mask-size: 110px 110px !important;
-  mask-size: 110px 110px !important;
+  -webkit-mask-size: 190px 190px !important;
+  mask-size: 190px 190px !important;
   opacity: 0.045 !important;
   pointer-events: none !important;
   z-index: 1 !important;
@@ -231,8 +231,8 @@ body.theme-tier-3yr .btn-monument-action {
 @media (max-width: 640px) {
   body.theme-tier-3yr .royal-ethnic-svg-tile,
   body.theme-tier-3yr .room-wall::before {
-    -webkit-mask-size: 80px 80px !important;
-    mask-size: 80px 80px !important;
+    -webkit-mask-size: 130px 130px !important;
+    mask-size: 130px 130px !important;
   }
 }
 
