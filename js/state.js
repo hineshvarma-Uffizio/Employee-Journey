@@ -41,6 +41,8 @@ window.ASSET_PATH_MAP = {
   'palace_door_frame.png': 'assets/images/portal/palace_door_frame.png',
   'palace_door_left.png': 'assets/images/portal/palace_door_left.png',
   'palace_door_right.png': 'assets/images/portal/palace_door_right.png',
+  'palace_door_left_silver.png': 'assets/images/portal/palace_door_left_silver.png',
+  'palace_door_right_silver.png': 'assets/images/portal/palace_door_right_silver.png',
   'where_it_started.png': 'assets/images/portal/where_it_started.png',
 
   // Profiles
