@@ -2,51 +2,13 @@
    YEAR-WISE ARCHITECTURAL & MOTIF DESIGN SYSTEM
    ==========================================================================
    Transforming structural forms, frames, corners, and motifs across milestone tiers:
-   - Tier 1yr : Rising Pioneer (Modern Celestial Glass & Starlight Borders)
+   - Tier 1yr : 100% Original Default Design (Untouched & Preserved)
    - Tier 3yr : Core Pillar (Classical Architectural Double-Bevel & Stone Columns)
    - Tier 5yr : Half-Decade Leader (Royal Baroque Filigree & Gold Leaf Accents)
    - Tier 10yr: Decade Legend (Crystalline Prism Diamond-Cut Polygon Corners)
    - Tier 15yr: Sovereign Architect (Grand Art Deco Stepped Chevrons & Emerald Inlays)
    - Tier 20yr: Heritage Icon (Imperial Coronation 24K Rope & Royal Damask Tapestry)
    ========================================================================== */
-
-/* ==========================================================================
-   TIER 1 (1 YEAR • RISING PIONEER): MODERN CELESTIAL & SLEEK GLASS
-   ========================================================================== */
-body.theme-tier-1yr .chamber-placard {
-  border-radius: 999px;
-  border: 1px solid rgba(245, 192, 101, 0.4);
-  box-shadow: 0 10px 30px rgba(0, 44, 107, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(16px);
-}
-
-body.theme-tier-1yr .celebration-portrait-frame {
-  border-radius: 20px;
-  border: 1.5px solid rgba(245, 192, 101, 0.5);
-  box-shadow: 0 12px 35px rgba(0, 44, 107, 0.7), 0 0 25px rgba(245, 192, 101, 0.25);
-}
-
-body.theme-tier-1yr .celebration-quote-card,
-body.theme-tier-1yr .evolution-card,
-body.theme-tier-1yr .creation-visual-card,
-body.theme-tier-1yr .creations-common-image-card,
-body.theme-tier-1yr .memories-uneven-card,
-body.theme-tier-1yr .value-card,
-body.theme-tier-1yr .future-card,
-body.theme-tier-1yr .thankyou-card-monument,
-body.theme-tier-1yr .milestone-narrative-card {
-  border-radius: 16px;
-  border: 1px solid rgba(245, 192, 101, 0.35);
-  box-shadow: 0 10px 30px rgba(0, 44, 107, 0.45);
-  backdrop-filter: blur(14px);
-  position: relative;
-}
-
-body.theme-tier-1yr .milestone-node-pin {
-  border-radius: 50%;
-  border: 2px solid var(--gold-primary);
-  box-shadow: 0 0 20px rgba(0, 229, 255, 0.6);
-}
 
 /* ==========================================================================
    TIER 3 (3 YEARS • CORE PILLAR): CLASSICAL ARCHITECTURAL DOUBLE-BEVEL
@@ -387,10 +349,6 @@ body.theme-tier-20yr .milestone-node-pin {
 /* ==========================================================================
    PORTAL ARCHWAY ARCHITECTURAL CUSTOMIZATIONS
    ========================================================================== */
-body.theme-tier-1yr .portal-arch-header {
-  border-bottom: 1.5px solid rgba(245, 192, 101, 0.4);
-}
-
 body.theme-tier-3yr .portal-arch-header {
   border-top: 2px solid #e2e8f0;
   border-bottom: 2px solid #e2e8f0;

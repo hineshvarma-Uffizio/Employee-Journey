@@ -1750,7 +1750,9 @@ const defaultChambers = [
     function applyThemeTier(tier) {
       const activeTier = tier || (palaceState && palaceState.milestoneTier) || '1yr';
       document.body.classList.remove('theme-tier-1yr', 'theme-tier-3yr', 'theme-tier-5yr', 'theme-tier-10yr', 'theme-tier-15yr', 'theme-tier-20yr');
-      document.body.classList.add(`theme-tier-${activeTier}`);
+      if (activeTier && activeTier !== '1yr') {
+        document.body.classList.add(`theme-tier-${activeTier}`);
+      }
     }
 
     function getBuiltinProfilesList() {
