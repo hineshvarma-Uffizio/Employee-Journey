@@ -6,6 +6,8 @@
 window.ASSET_PATH_MAP = {
   // Branding
   'royal_damask_mask_512.png': 'assets/images/branding/royal_damask_mask_512.png',
+  'damask_pattern_3yr.png': 'assets/images/branding/damask_pattern_3yr.png',
+  'damask_mask_3yr.png': 'assets/images/branding/damask_mask_3yr.png',
   'uffizio_logo.png': 'assets/images/branding/uffizio_logo.png',
   'uffizio_logo_white.png': 'assets/images/branding/uffizio_logo_white.png',
   

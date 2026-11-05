@@ -31,6 +31,38 @@
    TIER 3 (3 YEARS • CORE PILLAR): CLASSICAL ARCHITECTURAL DOUBLE-BEVEL
    Clean Headings with Architectural Foundation Cards & Frames
    ========================================================================== */
+/* 3-Year Custom Damask Background Pattern Replacement */
+body.theme-tier-3yr .royal-ethnic-pattern-layer {
+  opacity: 0.085;
+  animation-name: royalPatternGlimmer3Yr;
+}
+
+body.inside-palace-chambers.theme-tier-3yr .royal-ethnic-pattern-layer {
+  opacity: 0.065;
+  animation-name: royalPatternGlimmerRooms3Yr;
+}
+
+body.theme-tier-3yr .royal-ethnic-svg-tile {
+  background: linear-gradient(135deg, #f1f5f9 0%, #cbd5e1 45%, #38bdf8 100%);
+  -webkit-mask-image: url('../assets/images/branding/damask_mask_3yr.png');
+  mask-image: url('../assets/images/branding/damask_mask_3yr.png');
+  -webkit-mask-repeat: repeat;
+  mask-repeat: repeat;
+  -webkit-mask-size: 340px 340px;
+  mask-size: 340px 340px;
+}
+
+@keyframes royalPatternGlimmer3Yr {
+  0% { opacity: 0.07; }
+  50% { opacity: 0.105; }
+  100% { opacity: 0.08; }
+}
+
+@keyframes royalPatternGlimmerRooms3Yr {
+  0% { opacity: 0.055; }
+  50% { opacity: 0.08; }
+  100% { opacity: 0.065; }
+}
 body.theme-tier-3yr .celebration-portrait-frame {
   border-radius: 6px;
   border: 2.5px solid #e2e8f0;
