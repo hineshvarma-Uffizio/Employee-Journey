@@ -53,29 +53,27 @@ body.theme-tier-3yr .royal-ethnic-svg-tile {
   mask-size: 190px 190px !important;
 }
 
-/* 2. Eradicate Old Pattern from Chamber Walls: Fully Replace with Fine Damask & Cobalt Shimmer */
+/* 2. Eradicate Double Overlap in Chambers:
+   Completely remove the duplicate .room-wall::before pattern layer in 3 Years,
+   so ONLY the single master background damask pattern renders cleanly with zero ghosting. */
 body.theme-tier-3yr .room-wall::before {
-  content: '' !important;
-  position: absolute !important;
-  inset: 0 !important;
-  border-radius: inherit !important;
-  background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 40%, #0047ab 100%) !important;
-  -webkit-mask-image: url('../assets/images/branding/damask_mask_3yr.png') !important;
-  mask-image: url('../assets/images/branding/damask_mask_3yr.png') !important;
-  -webkit-mask-repeat: repeat !important;
-  mask-repeat: repeat !important;
-  -webkit-mask-size: 190px 190px !important;
-  mask-size: 190px 190px !important;
-  opacity: 0.045 !important;
+  content: none !important;
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
   pointer-events: none !important;
-  z-index: 1 !important;
 }
 
 /* 3. Deep Cobalt Chamber Ambience & Moonlight Silver Vignette */
 body.theme-tier-3yr .room-wall {
-  background: radial-gradient(ellipse at 50% 30%, rgba(0, 71, 171, 0.42) 0%, rgba(5, 14, 34, 0.88) 65%, #030816 100%) !important;
+  background: radial-gradient(
+    ellipse at 50% 30%,
+    rgba(0, 71, 171, 0.38) 0%,
+    rgba(5, 14, 34, 0.72) 65%,
+    rgba(3, 8, 22, 0.88) 100%
+  ) !important;
   border: 1px solid rgba(241, 245, 249, 0.12) !important;
-  box-shadow: inset 0 0 100px rgba(0, 20, 50, 0.9) !important;
+  box-shadow: inset 0 0 100px rgba(0, 20, 50, 0.85) !important;
 }
 
 body.theme-tier-3yr .royal-ethnic-shimmer-sheen {
@@ -229,8 +227,7 @@ body.theme-tier-3yr .btn-monument-action {
 
 /* 12. Mobile Responsive Pattern Scale */
 @media (max-width: 640px) {
-  body.theme-tier-3yr .royal-ethnic-svg-tile,
-  body.theme-tier-3yr .room-wall::before {
+  body.theme-tier-3yr .royal-ethnic-svg-tile {
     -webkit-mask-size: 130px 130px !important;
     mask-size: 130px 130px !important;
   }
