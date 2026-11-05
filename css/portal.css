@@ -1,0 +1,825 @@
+    /* ==========================================================================
+       THE 2.5D ARCHITECTURAL MEMORY PALACE VIEWPORT & ROOM CONTAINER
+       ========================================================================== */
+    .palace-viewport {
+      position: absolute;
+      top: 72px;
+      left: 0;
+      width: 100%;
+      max-width: 100vw;
+      height: calc(100vh - 72px - 70px);
+      perspective: var(--palace-perspective);
+      perspective-origin: 50% 50%;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+    }
+
+    .palace-stage {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+    }
+
+    /* ==========================================================================
+       STAGE 0: THE GRAND PALACE DOUBLE DOORS (OPENS BEFORE ZOOMING)
+       ========================================================================== */
+    .palace-portal-stage {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform-style: preserve-3d;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      will-change: transform, opacity;
+      z-index: 45;
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translate3d(0, 0, 0px) scale(1);
+      transform-origin: 50% 53.4%;
+      transition: transform 0.9s cubic-bezier(0.2, 1, 0.35, 1),
+                  opacity 0.6s cubic-bezier(0.2, 1, 0.35, 1),
+                  visibility 0s 0.9s;
+    }
+
+    /* Soft Cinematic Corner Vignette on Entrance Screen */
+    .palace-portal-stage::after {
+      content: '';
+      position: absolute;
+      inset: -5%;
+      width: 110%;
+      height: 110%;
+      background: radial-gradient(
+        ellipse 70% 64% at 50% 50%,
+        transparent 35%,
+        rgba(3, 7, 18, 0.35) 65%,
+        rgba(3, 7, 18, 0.8) 100%
+      );
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    /* Portal Door Occlusion Mask (Disabled so Celebration Room is fully visible during zoom) */
+    .portal-door-occlusion-mask {
+      display: none;
+    }
+
+    /* ==========================================================================
+       STAGE 0 -> 1 TRANSITION: CINEMATIC WALK-THROUGH DOORWAY (60FPS LIGHTWEIGHT)
+       ========================================================================== */
+
+    /* Phase 1: Inner Preview Visual dissolves cleanly in place WITHOUT zooming */
+    .doorway-next-screen.doorway-fade-out {
+      opacity: 0 !important;
+      transform: scale(1) !important;
+      transition: opacity 0.22s ease-out !important;
+      pointer-events: none !important;
+    }
+
+    .doorway-next-screen.doorway-fade-out * {
+      opacity: 0 !important;
+      transition: opacity 0.18s ease-out !important;
+    }
+
+    /* Aperture becomes clear glass as visual dissolves */
+    .portal-arch-structure.door-dissolving .portal-doorway-aperture,
+    .portal-arch-structure.zooming-through .portal-doorway-aperture {
+      background: transparent !important;
+      box-shadow: none !important;
+      transition: background 0.2s ease-out, box-shadow 0.2s ease-out !important;
+    }
+
+    /* Phase 2: Lightweight Door Zoom - ONLY the 434x500 Arch Scales (Zero Fullscreen Memory Overhead!) */
+    .portal-arch-structure.zooming-through {
+      transform: scale(4.8) translate3d(0, 0, 0);
+      transform-origin: 50% 50%;
+      pointer-events: none;
+      transition: transform 0.68s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    }
+
+    /* Door leaves swing slightly wider to clear camera path */
+    .portal-arch-structure.zooming-through .portal-doors-open .photo-door-leaf.left,
+    .portal-arch-structure.zooming-through.door-open .photo-door-leaf.left {
+      transform: rotateY(-118deg) translate3d(0, 0, 0) !important;
+      transition: transform 0.68s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    }
+    .portal-arch-structure.zooming-through .portal-doors-open .photo-door-leaf.right,
+    .portal-arch-structure.zooming-through.door-open .photo-door-leaf.right {
+      transform: rotateY(118deg) translate3d(0, 0, 0) !important;
+      transition: transform 0.68s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    }
+
+    /* Halo glow fades gently during zoom */
+    .portal-arch-structure.zooming-through .portal-arch-glow-backdrop {
+      opacity: 0 !important;
+      transition: opacity 0.25s ease-out !important;
+    }
+
+    /* Stage wrapper itself does NOT scale (prevents 100+ megapixel buffer stall) */
+    .palace-portal-stage.zooming-through {
+      opacity: 0;
+      visibility: visible;
+      pointer-events: none;
+      z-index: 45;
+      transition: opacity 0.32s ease-out 0.32s;
+    }
+
+    .palace-portal-stage.zooming-through::after {
+      opacity: 0 !important;
+      transition: opacity 0.2s ease-out !important;
+    }
+
+    /* Floating entrance texts fade away cleanly */
+    .portal-arch-structure.zooming-through .portal-arch-header,
+    .palace-portal-stage.zooming-through .portal-arch-header {
+      opacity: 0 !important;
+      transform: translateY(-25px) scale(0.92) !important;
+      transition: opacity 0.2s ease-out, transform 0.2s ease-out !important;
+      pointer-events: none !important;
+    }
+
+    .palace-portal-stage.zooming-through .portal-scroll-prompt {
+      opacity: 0 !important;
+      transform: translate(-50%, 20px) !important;
+      transition: opacity 0.2s ease, transform 0.2s ease !important;
+    }
+
+    .palace-portal-stage.hidden-forward {
+      display: none !important;
+      opacity: 0 !important;
+      visibility: hidden !important;
+      pointer-events: none !important;
+      z-index: -999 !important;
+      transition: none !important;
+    }
+
+    .palace-portal-stage.hidden-forward * {
+      display: none !important;
+    }
+
+    /* Seamless doorway reveal for Stage 1 celebration chamber */
+    #chamber-milestone.waiting-depth {
+      transform: translate3d(0, 0, -220px) scale(0.92);
+    }
+
+    #chamber-milestone.entering-from-door {
+      opacity: 1 !important;
+      visibility: visible !important;
+      pointer-events: auto !important;
+      transform: translate3d(0, 0, 0px) scale(1) !important;
+      transition: transform 0.72s cubic-bezier(0.16, 1, 0.3, 1),
+                  opacity 0.55s ease-out,
+                  visibility 0s 0s !important;
+    }
+
+    /* ==========================================================================
+       STAGE 0: REAL MONUMENTAL PALACE ARCH & DOUBLE DOORS
+       (Real Photographic Sunburst Bronze Doors with Central Gold Medallion)
+       ========================================================================== */
+    .portal-arch-structure {
+      width: 434px;
+      height: 500px;
+      position: relative;
+      perspective: 1200px;
+      transform-style: preserve-3d;
+      -webkit-transform-style: preserve-3d;
+      user-select: none;
+      cursor: pointer;
+      will-change: transform;
+      transform: translate3d(0, 0, 0);
+    }
+
+    /* Hardware-accelerated static ambient aura (replaces expensive live raster drop-shadow) */
+    .portal-arch-glow-backdrop {
+      position: absolute;
+      top: 52px;
+      left: 53px;
+      width: 321px;
+      height: 424px;
+      border-radius: 161px 161px 0 0;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.95), 0 0 45px rgba(0, 44, 107, 0.75);
+      pointer-events: none;
+      z-index: 1;
+      transform: translate3d(0, 0, 0);
+    }
+
+    @media (max-width: 480px) {
+      .portal-arch-structure {
+        transform: scale(0.78);
+        transform-origin: center center;
+      }
+    }
+
+    .portal-arch-header {
+      position: absolute;
+      top: -68px;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      z-index: 25;
+      pointer-events: auto;
+      white-space: nowrap;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .portal-arch-logo-wrap {
+      display: none !important;
+    }
+
+    .portal-arch-title[contenteditable="true"],
+    .portal-arch-sub[contenteditable="true"],
+    #portalPromptText[contenteditable="true"],
+    .door-back-seal[contenteditable="true"] {
+      cursor: text;
+      outline: none;
+      transition: all 0.2s ease;
+      border-radius: 4px;
+      padding: 1px 4px;
+    }
+
+    .portal-arch-title[contenteditable="true"]:hover,
+    .portal-arch-sub[contenteditable="true"]:hover,
+    #portalPromptText[contenteditable="true"]:hover,
+    .door-back-seal[contenteditable="true"]:hover {
+      outline: 1px dashed rgba(245, 192, 101, 0.6) !important;
+      background: rgba(245, 192, 101, 0.05);
+    }
+
+    .portal-arch-title[contenteditable="true"]:focus,
+    .portal-arch-sub[contenteditable="true"]:focus,
+    #portalPromptText[contenteditable="true"]:focus,
+    .door-back-seal[contenteditable="true"]:focus {
+      outline: 1.5px solid #f5c065 !important;
+      background: rgba(245, 192, 101, 0.12);
+    }
+
+    .portal-arch-logo-wrap,
+    .portal-arch-logo {
+      display: none !important;
+    }
+
+    .portal-arch-title {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+      font-size: 23px;
+      font-weight: 700 !important;
+      color: #ffe8b5;
+      letter-spacing: 2px;
+      text-shadow: 0 0 22px rgba(245, 192, 101, 0.45), 0 2px 8px rgba(0, 0, 0, 0.9);
+      margin-bottom: 4px;
+      line-height: 1.25;
+    }
+
+    .portal-arch-sub {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--gold-primary);
+      letter-spacing: 2px;
+      margin-top: 3px;
+      text-shadow: 0 1px 6px rgba(0, 0, 0, 0.9);
+      opacity: 0.92;
+    }
+
+    /* Outer stone arch frame from the real photo */
+    .portal-photo-frame {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 434px;
+      height: 500px;
+      background: url('../assets/images/portal/palace_door_frame.png') no-repeat center / contain;
+      z-index: 15;
+      pointer-events: none;
+    }
+
+    /* Doorway Aperture: strictly clipped to 266x374 arched portal opening */
+    .portal-doorway-aperture {
+      position: absolute;
+      top: 80px;
+      left: 80px;
+      width: 266px;
+      height: 374px;
+      border-radius: 133px 133px 0 0;
+      overflow: hidden;
+      background: #060913;
+      z-index: 2;
+      user-select: none;
+      cursor: pointer;
+      will-change: transform;
+      transform: translate3d(0, 0, 0);
+      box-shadow: inset 0 0 45px rgba(0, 0, 0, 0.95);
+    }
+
+    /* Layer 1: Anticipation visual when door is closed */
+    .doorway-anticipation-view {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at 50% 35%, rgba(0, 44, 107, 0.55) 0%, rgba(9, 14, 28, 0.95) 60%, #060913 100%);
+      opacity: 1;
+      visibility: visible;
+      transform: scale(1);
+      transition: opacity 0.5s ease, transform 0.5s ease, visibility 0s 0s;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .doorway-anticipation-glow {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0, 44, 107, 0.8) 0%, transparent 70%);
+      animation: pulseGlow 2.8s infinite alternate ease-in-out;
+    }
+
+    /* When door opens: Anticipation visual fades away! ("under ni visual fade thay javu joie") */
+    .portal-doors-open ~ .portal-doorway-aperture .doorway-anticipation-view,
+    .door-open .doorway-anticipation-view {
+      opacity: 0;
+      visibility: hidden;
+      transform: scale(0.94);
+      transition: opacity 0.45s ease, transform 0.45s ease, visibility 0s 0.45s;
+    }
+
+    /* Layer 2: The Actual Next Screen (Celebration Hall) visible inside the door opening */
+    .doorway-next-screen {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 12px 16px;
+      text-align: center;
+      background: #080d1a;
+      opacity: 0;
+      visibility: hidden;
+      transform: scale(0.93);
+      pointer-events: none;
+      z-index: 2;
+      overflow: hidden;
+      transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+                  visibility 0s 0.65s;
+    }
+
+    /* When door opens: Next screen fades in and blooms through the doorway! ("ane under next screen dekhavi joie") */
+    .portal-doors-open ~ .portal-doorway-aperture .doorway-next-screen,
+    .door-open .doorway-next-screen {
+      opacity: 1;
+      visibility: visible;
+      transform: scale(1);
+      pointer-events: auto;
+      transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.12s,
+                  transform 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.12s,
+                  visibility 0s 0s;
+    }
+
+    /* Perspective hall lighting & atmosphere inside doorway */
+    .doorway-hall-backdrop {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .doorway-hall-spotlight {
+      position: absolute;
+      top: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 220px;
+      height: 260px;
+      background: radial-gradient(ellipse at 50% 0%, rgba(0, 44, 107, 0.85) 0%, rgba(0, 44, 107, 0.25) 50%, transparent 75%);
+      pointer-events: none;
+    }
+
+    .doorway-hall-floor {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 95px;
+      background: linear-gradient(to top, rgba(245, 192, 101, 0.08) 0%, transparent 100%);
+      border-top: none;
+      pointer-events: none;
+    }
+
+    .doorway-journey-svg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      opacity: 0.65;
+    }
+
+    /* Foreground Content of Next Screen inside Doorway */
+    .doorway-next-content {
+      position: relative;
+      z-index: 5;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      gap: 12px;
+    }
+
+    /* Watermark "01" behind the editorial content */
+    .doorway-watermark-01 {
+      position: absolute;
+      top: 165px;
+      right: 4px;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 64px;
+      font-weight: 900;
+      line-height: 0.8;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(245, 192, 101, 0.2);
+      opacity: 0.8;
+      pointer-events: none;
+      user-select: none;
+      z-index: 1;
+    }
+
+    /* Brand Header */
+    .doorway-brand-header {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      margin-bottom: 5px;
+      z-index: 3;
+    }
+
+    .doorway-brand-logo {
+      width: 18px;
+      height: 18px;
+      filter: drop-shadow(0 0 6px rgba(245, 192, 101, 0.5));
+    }
+
+    .doorway-brand-text {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      line-height: 1;
+    }
+
+    .doorway-brand-title {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      color: #ffffff;
+    }
+
+    .doorway-brand-sub {
+      font-family: 'Helvetica', 'Helvetica Neue', Arial, sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1.2px;
+      color: var(--gold-primary);
+    }
+
+    /* Arched Hero Portrait (Commanding 60-70% height presence) */
+    .doorway-portrait-wrap {
+      position: relative;
+      margin-bottom: 6px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      z-index: 3;
+    }
+
+    .doorway-portrait-glow {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 125%;
+      height: 125%;
+      background: radial-gradient(circle, rgba(0, 44, 107, 0.8) 0%, transparent 70%);
+      filter: blur(12px);
+      pointer-events: none;
+    }
+
+    .doorway-portrait-arch {
+      width: 126px;
+      height: 152px;
+      border-radius: 63px 63px 12px 12px;
+      padding: 3px;
+      background: linear-gradient(145deg, rgba(245, 192, 101, 0.7) 0%, rgba(255, 255, 255, 0.2) 50%, rgba(217, 119, 6, 0.5) 100%);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.85), 0 0 18px rgba(245, 192, 101, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .doorway-portrait-img {
+      width: 100%;
+      height: 100%;
+      border-radius: 60px 60px 9px 9px;
+      object-fit: cover;
+      object-position: center 15%;
+      display: block;
+      filter: contrast(1.04) brightness(1.02);
+    }
+
+    .doorway-portrait-badge {
+      margin-top: -11px;
+      position: relative;
+      z-index: 4;
+      background: rgba(8, 13, 26, 0.94);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(245, 192, 101, 0.5);
+      padding: 3px 9px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.7), 0 0 10px rgba(245, 192, 101, 0.25);
+      white-space: nowrap;
+    }
+
+    .doorway-badge-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--gold-primary);
+      box-shadow: 0 0 6px var(--gold-glow);
+    }
+
+    .doorway-badge-years {
+      font-family: 'Helvetica', 'Helvetica Neue', Arial, sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: var(--gold-light);
+    }
+
+    .doorway-badge-sep {
+      color: var(--gold-primary);
+      font-size: 11.5px;
+      opacity: 0.7;
+    }
+
+    .doorway-badge-days {
+      font-family: 'Helvetica', 'Helvetica Neue', Arial, sans-serif;
+      font-size: 12.5px;
+      color: #cbd5e1;
+      letter-spacing: 1px;
+    }
+
+    /* Editorial Details in Doorway */
+    .doorway-editorial-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      z-index: 3;
+      width: 100%;
+      gap: 16px;
+    }
+
+    .doorway-main-title {
+      font-family: 'DM Serif Display', Georgia, serif !important;
+      font-size: 15px;
+      font-weight: 400 !important;
+      line-height: 1.25;
+      color: #ffffff;
+      margin-bottom: 0;
+      letter-spacing: 0.8px;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+      white-space: pre-line;
+    }
+
+    .doorway-main-title span {
+      color: #ffffff !important;
+      background: none !important;
+      -webkit-background-clip: unset !important;
+      -webkit-text-fill-color: #ffffff !important;
+    }
+
+    .doorway-emp-name {
+      font-family: var(--font-calligraphy);
+      font-size: 19px;
+      font-weight: 400;
+      color: var(--gold-light);
+      letter-spacing: 0.6px;
+      margin-bottom: 0;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-shadow: 0 0 12px rgba(245, 192, 101, 0.45), 0 2px 6px rgba(0, 0, 0, 0.9);
+      line-height: 1.2;
+    }
+
+    .doorway-emp-name::before,
+    .doorway-emp-name::after {
+      content: '';
+      width: 18px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold-primary));
+    }
+    .doorway-emp-name::after {
+      background: linear-gradient(90deg, var(--gold-primary), transparent);
+    }
+
+    .doorway-quote-card {
+      position: relative;
+      padding: 5px 10px;
+      border-left: 2px solid var(--gold-primary);
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 0 6px 6px 0;
+      max-width: 236px;
+    }
+
+    .doorway-quote-text {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-style: italic;
+      font-size: 13.5px;
+      line-height: 1.35;
+      color: #cbd5e1;
+      letter-spacing: 0.2px;
+    }
+
+    /* Double Doors Container (Hardware Accelerated 3D Context) */
+    .portal-doors-wrapper {
+      position: absolute;
+      top: 80px;
+      left: 80px;
+      width: 266px;
+      height: 374px;
+      z-index: 8;
+      perspective: 1200px;
+      transform-style: preserve-3d;
+      -webkit-transform-style: preserve-3d;
+      cursor: pointer;
+      will-change: transform;
+      transform: translate3d(0, 0, 0);
+    }
+
+    /* Individual Leaf Containers (Buttery Smooth 60/120fps GPU Texture Promotion) */
+    .photo-door-leaf {
+      position: absolute;
+      top: 0;
+      width: 133px;
+      height: 374px;
+      transform-style: preserve-3d;
+      -webkit-transform-style: preserve-3d;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      will-change: transform;
+      transform: translate3d(0, 0, 0);
+      transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .photo-door-leaf.left {
+      left: 0;
+      transform-origin: left center;
+    }
+
+    .photo-door-leaf.right {
+      left: 133px;
+      transform-origin: right center;
+    }
+
+    .door-face {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      will-change: transform;
+      transform: translate3d(0, 0, 0);
+    }
+
+    .door-face.front.left {
+      background: url('../assets/images/portal/palace_door_left.png') no-repeat 0 0 / contain;
+    }
+
+    .door-face.front.right {
+      background: url('../assets/images/portal/palace_door_right.png') no-repeat 0 0 / contain;
+    }
+
+    .door-face.back {
+      background: linear-gradient(135deg, #1b1612 0%, #0c0a08 100%);
+      border: 1px solid rgba(245, 192, 101, 0.3);
+      transform: rotateY(180deg) translate3d(0, 0, 0);
+      box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      will-change: transform;
+    }
+
+    .door-face.back.left {
+      border-radius: 133px 0 0 0;
+    }
+
+    .door-face.back.right {
+      border-radius: 0 133px 0 0;
+    }
+
+    .door-back-seal {
+      display: none !important;
+    }
+
+    /* Open State with GPU-backed 3D matrix */
+    .portal-doors-open .photo-door-leaf.left {
+      transform: rotateY(-105deg) translate3d(0, 0, 0);
+    }
+
+    .portal-doors-open .photo-door-leaf.right {
+      transform: rotateY(105deg) translate3d(0, 0, 0);
+    }
+
+    .portal-scroll-prompt {
+      position: absolute;
+      top: calc(50% + 265px);
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      z-index: 20;
+      pointer-events: auto;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    @media (max-height: 680px) {
+      .portal-scroll-prompt {
+        top: auto;
+        bottom: 8px;
+      }
+    }
+
+    .prompt-pill {
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid var(--gold-primary);
+      padding: 8px 20px;
+      border-radius: 30px;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--gold-light);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      box-shadow: 0 0 20px var(--gold-glow);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    #portalPromptText {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+      font-weight: 700;
+      letter-spacing: 2px;
+    }
+
+    .mouse-scroll-icon {
+      width: 18px;
+      height: 28px;
+      border: 2px solid var(--gold-primary);
+      border-radius: 12px;
+      position: relative;
+    }
+
+    .mouse-scroll-wheel {
+      width: 4px;
+      height: 6px;
+      background: var(--gold-light);
+      border-radius: 2px;
+      position: absolute;
+      top: 4px;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: wheelRoll 1.4s infinite ease-in-out;
+    }
+
+    @keyframes wheelRoll {
+      0% { transform: translate(-50%, 0); opacity: 1; }
+      100% { transform: translate(-50%, 10px); opacity: 0; }
+    }
+
+

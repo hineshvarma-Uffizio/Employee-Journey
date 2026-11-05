@@ -116,7 +116,7 @@
   "doorWingRight": "2025 → 2026",
   "editorPasscode": "uffizio",
   "entrance": {
-    "logo": "uffizio_logo_white.png",
+    "logo": "assets/images/branding/uffizio_logo_white.png",
     "title": "WELCOME TO YOUR JOURNEY",
     "subtitle": "WALK THROUGH YOUR YEAR • 2025 → 2026",
     "prompt": "Scroll Down or Click Door to Enter"
@@ -125,7 +125,7 @@
     "name": "New Employee",
     "role": "Role / Designation",
     "date": "01 January 2025",
-    "photo": "dhara_profile.jpg",
+    "photo": "assets/images/profiles/dhara_profile.jpg",
     "years": "2025 → 2026"
   },
   "celebration": {
@@ -221,18 +221,18 @@
   "proud": {
     "plaqueTitle": "INNOVATOR OF THE YEAR",
     "plaqueSubtitle": "2025 - 2026 ANNUAL HONORS",
-    "trophyImg": "golden_trophy.png",
+    "trophyImg": "assets/images/chambers/golden_trophy.png",
     "polaroids": [
       {
-        "image": "proud_polaroid_1.png",
+        "image": "assets/images/chambers/proud_polaroid_1.png",
         "caption": "v4.0 Launch Night! 🚀"
       },
       {
-        "image": "proud_polaroid_2.png",
+        "image": "assets/images/chambers/proud_polaroid_2.png",
         "caption": "Hackathon Runners-up 🏆"
       },
       {
-        "image": "proud_polaroid_3.png",
+        "image": "assets/images/chambers/proud_polaroid_3.png",
         "caption": "All-Hands Demo Day 🎤"
       }
     ],
@@ -528,7 +528,7 @@
       }
     }
   ],
-  "chamber2bCommonImage": "creations_showcase_common.png",
+  "chamber2bCommonImage": "assets/images/chambers/creations_showcase_common.png",
   "chamber2bCommonTitle": "Innovation & Systems In Action",
   "chamber2bCommonDesc": "Real-time architecture, proactive incident workflows, and high-impact partner success.",
   "projects": [
@@ -567,7 +567,7 @@
       "title": "",
       "date": "",
       "tag": "",
-      "image": "memories_photo_1.png",
+      "image": "assets/images/memories/memories_photo_1.png",
       "desc": "Stepping into the Uffizio family on Day 1 with excitement, high aspirations, and warm welcomes."
     },
     {
@@ -575,7 +575,7 @@
       "title": "",
       "date": "",
       "tag": "",
-      "image": "memories_photo_2.png",
+      "image": "assets/images/memories/memories_photo_2.png",
       "desc": "Collaborative problem-solving, whiteboard brainstorms, and late-night pizza coding sessions."
     },
     {
@@ -583,7 +583,7 @@
       "title": "",
       "date": "",
       "tag": "",
-      "image": "memories_photo_3.png",
+      "image": "assets/images/memories/memories_photo_3.png",
       "desc": "Unwinding outside the office with laughter, fun activities, and deep conversations."
     },
     {
@@ -591,7 +591,7 @@
       "title": "",
       "date": "",
       "tag": "",
-      "image": "memories_photo_4.png",
+      "image": "assets/images/memories/memories_photo_4.png",
       "desc": "Standing ovations and high fives across the floor when the system went live seamlessly."
     },
     {
@@ -599,7 +599,7 @@
       "title": "",
       "date": "",
       "tag": "",
-      "image": "memories_photo_5.png",
+      "image": "assets/images/memories/memories_photo_5.png",
       "desc": "Traditional attire, vibrant colors, sweets, and celebrating our rich diversity together."
     },
     {
@@ -607,7 +607,7 @@
       "title": "",
       "date": "",
       "tag": "",
-      "image": "memories_photo_6.png",
+      "image": "assets/images/memories/memories_photo_6.png",
       "desc": "Looking back at an incredible year of personal evolution, achievements, and strong bonds."
     },
     {
@@ -615,7 +615,7 @@
       "title": "",
       "date": "",
       "tag": "",
-      "image": "memories_photo_7.png",
+      "image": "assets/images/memories/memories_photo_7.png",
       "desc": "Raising a glass to unforgettable milestones and celebrating our journey ahead together."
     },
     {
@@ -623,7 +623,7 @@
       "title": "",
       "date": "",
       "tag": "",
-      "image": "memories_photo_8.png",
+      "image": "assets/images/memories/memories_photo_8.png",
       "desc": "Engaging in thoughtful project reviews, sharing insights, and refining our strategy together."
     },
     {
@@ -631,19 +631,19 @@
       "title": "",
       "date": "",
       "tag": "",
-      "image": "memories_photo_9.png",
+      "image": "assets/images/memories/memories_photo_9.png",
       "desc": "Analyzing data charts, collaborating across teams, and steering our next milestones forward."
     }
   ],
   "memories2Mode": "uneven",
-  "memories2CollageImage": "memories_collage_part2.png",
+  "memories2CollageImage": "assets/images/memories/memories_collage_part2.png",
   "memories2": [
     {
       "id": 201,
       "title": "Office Celebrations",
       "date": "2025 → 2026",
       "tag": "📸 Celebrations",
-      "image": "memories_photo_1.png",
+      "image": "assets/images/memories/memories_photo_1.png",
       "desc": "Celebrating shared victories, festive joy, and memorable workplace milestones."
     },
     {
@@ -651,7 +651,7 @@
       "title": "Creative Collaboration",
       "date": "2025 → 2026",
       "tag": "📸 Teamwork",
-      "image": "memories_photo_2.png",
+      "image": "assets/images/memories/memories_photo_2.png",
       "desc": "Collaborative problem-solving, whiteboard brainstorms, and cross-functional synergy."
     },
     {
@@ -659,7 +659,7 @@
       "title": "Beyond The Workplace",
       "date": "2025 → 2026",
       "tag": "📸 Moments",
-      "image": "memories_photo_3.png",
+      "image": "assets/images/memories/memories_photo_3.png",
       "desc": "Unwinding outside the office, travel adventures, and creating cherished memories."
     },
     {
@@ -667,7 +667,7 @@
       "title": "Outdoor Strategy & Synergy",
       "date": "2025 → 2026",
       "tag": "📸 Synergy",
-      "image": "memories_photo_4.png",
+      "image": "assets/images/memories/memories_photo_4.png",
       "desc": "Brainstorming amidst nature, sharing vision, and aligning our team goals under open skies."
     },
     {
@@ -675,7 +675,7 @@
       "title": "Music & Park Retreat",
       "date": "2025 → 2026",
       "tag": "📸 Wellness",
-      "image": "memories_photo_5.png",
+      "image": "assets/images/memories/memories_photo_5.png",
       "desc": "Relaxing in the park, recharging energy with favorite tunes, and enjoying peaceful downtime."
     },
     {
@@ -683,7 +683,7 @@
       "title": "Riverside Conversations",
       "date": "2025 → 2026",
       "tag": "📸 Friendship",
-      "image": "memories_photo_6.png",
+      "image": "assets/images/memories/memories_photo_6.png",
       "desc": "Heart-to-heart chats, shared laughter, and meaningful friendships forged along the way."
     },
     {
@@ -691,7 +691,7 @@
       "title": "Cheers to Milestones",
       "date": "2025 → 2026",
       "tag": "📸 Milestones",
-      "image": "memories_photo_7.png",
+      "image": "assets/images/memories/memories_photo_7.png",
       "desc": "Raising a glass with party hats, joyful laughs, and commemorating our year of accomplishments."
     },
     {
@@ -699,7 +699,7 @@
       "title": "Team Alignment & Discussions",
       "date": "2025 → 2026",
       "tag": "📸 Alignment",
-      "image": "memories_photo_8.png",
+      "image": "assets/images/memories/memories_photo_8.png",
       "desc": "Engaging in thoughtful project reviews, sharing insights, and refining our strategy together."
     },
     {
@@ -707,7 +707,7 @@
       "title": "Sprint Planning & Analytics",
       "date": "2025 → 2026",
       "tag": "📸 Planning",
-      "image": "memories_photo_9.png",
+      "image": "assets/images/memories/memories_photo_9.png",
       "desc": "Analyzing data charts, collaborating across teams, and steering our next milestones forward."
     }
   ],
