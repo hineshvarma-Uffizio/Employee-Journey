@@ -21,6 +21,7 @@ window.ASSET_PATH_MAP = {
   'proud_polaroid_2.png': 'assets/images/chambers/proud_polaroid_2.png',
   'proud_polaroid_3.png': 'assets/images/chambers/proud_polaroid_3.png',
   'universe_poster.jpg': 'assets/images/chambers/universe_poster.jpg',
+  'celebration_arch_vector_3yr.png': 'assets/images/chambers/celebration_arch_vector_3yr.png',
 
   // Memories
   'memories_collage_part2.jpg': 'assets/images/memories/memories_collage_part2.jpg',
