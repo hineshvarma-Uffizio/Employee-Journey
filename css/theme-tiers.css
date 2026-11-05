@@ -190,15 +190,58 @@ body.theme-tier-3yr .milestone-track-fill {
   background: linear-gradient(90deg, #0047ab 0%, #f1f5f9 50%, #0047ab 100%) !important;
 }
 
-/* 9. Grand Portal Double Doors in Lustrous Moonlight Platinum Silver */
+/* 9. Grand Neoclassical Portal & Silver Double Doors (Replaced with Custom Arch & Arched Leaves) */
+body.theme-tier-3yr .portal-arch-structure {
+  width: 440px !important;
+  height: 516px !important;
+}
+
+body.theme-tier-3yr .portal-photo-frame {
+  width: 440px !important;
+  height: 516px !important;
+  background: url('../assets/images/portal/palace_door_frame_3yr.png') no-repeat center / contain !important;
+  filter: drop-shadow(0 15px 35px rgba(0, 0, 0, 0.85)) drop-shadow(0 0 25px rgba(0, 71, 171, 0.4)) !important;
+}
+
+body.theme-tier-3yr .portal-doorway-aperture {
+  top: 96px !important;
+  left: 92px !important;
+  width: 252px !important;
+  height: 410px !important;
+  border-radius: 126px 126px 0 0 !important;
+}
+
+body.theme-tier-3yr .portal-doors-wrapper {
+  top: 96px !important;
+  left: 92px !important;
+  width: 252px !important;
+  height: 410px !important;
+  box-shadow: 0 0 45px rgba(0, 71, 171, 0.65), 0 0 25px rgba(241, 245, 249, 0.35) !important;
+}
+
+body.theme-tier-3yr .photo-door-leaf {
+  width: 126px !important;
+  height: 410px !important;
+}
+
+body.theme-tier-3yr .photo-door-leaf.left {
+  left: 0 !important;
+  transform-origin: left center !important;
+}
+
+body.theme-tier-3yr .photo-door-leaf.right {
+  left: 126px !important;
+  transform-origin: right center !important;
+}
+
 body.theme-tier-3yr .door-face.front.left {
-  background: url('../assets/images/portal/palace_door_left_silver.png') no-repeat 0 0 / contain !important;
-  filter: drop-shadow(0 0 12px rgba(241, 245, 249, 0.45)) drop-shadow(0 0 24px rgba(0, 71, 171, 0.55)) !important;
+  background: url('../assets/images/portal/palace_door_left_3yr.png') no-repeat 0 0 / 100% 100% !important;
+  filter: drop-shadow(0 0 10px rgba(241, 245, 249, 0.4)) drop-shadow(0 0 20px rgba(0, 71, 171, 0.5)) !important;
 }
 
 body.theme-tier-3yr .door-face.front.right {
-  background: url('../assets/images/portal/palace_door_right_silver.png') no-repeat 0 0 / contain !important;
-  filter: drop-shadow(0 0 12px rgba(241, 245, 249, 0.45)) drop-shadow(0 0 24px rgba(0, 71, 171, 0.55)) !important;
+  background: url('../assets/images/portal/palace_door_right_3yr.png') no-repeat 0 0 / 100% 100% !important;
+  filter: drop-shadow(0 0 10px rgba(241, 245, 249, 0.4)) drop-shadow(0 0 20px rgba(0, 71, 171, 0.5)) !important;
 }
 
 body.theme-tier-3yr .door-face.back {
@@ -207,11 +250,20 @@ body.theme-tier-3yr .door-face.back {
   box-shadow: inset 0 0 35px rgba(0, 71, 171, 0.75), 0 0 20px rgba(241, 245, 249, 0.3) !important;
 }
 
-body.theme-tier-3yr .portal-doors-wrapper {
-  box-shadow: 0 0 45px rgba(0, 71, 171, 0.65), 0 0 25px rgba(241, 245, 249, 0.35) !important;
+body.theme-tier-3yr .door-face.back.left {
+  border-radius: 126px 0 0 0 !important;
+}
+
+body.theme-tier-3yr .door-face.back.right {
+  border-radius: 0 126px 0 0 !important;
 }
 
 body.theme-tier-3yr .portal-arch-glow-backdrop {
+  top: 70px !important;
+  left: 60px !important;
+  width: 320px !important;
+  height: 440px !important;
+  border-radius: 160px 160px 0 0 !important;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.95), 0 0 50px rgba(0, 71, 171, 0.85), 0 0 25px rgba(241, 245, 249, 0.4) !important;
 }
 
