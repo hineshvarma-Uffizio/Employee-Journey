@@ -28,26 +28,23 @@
 }
 
 /* ==========================================================================
-   TIER 3 (3 YEARS • CORE PILLAR): DARK CHARCOAL (#333333) & MOONLIGHT PLATINUM SILVER
+   TIER 3 (3 YEARS • CORE PILLAR): MOONLIGHT PLATINUM SILVER & DEEP COBALT BLUE
    Classical Architectural Double-Bevel with Fine Damask Wallpaper
    ========================================================================== */
-body.theme-tier-3yr {
-  background-color: #333333 !important;
-}
 
 /* 1. Fine Damask Wallpaper Pattern (Scaled Down & Replaced) */
 body.theme-tier-3yr .royal-ethnic-pattern-layer {
-  opacity: 0.085;
+  opacity: 0.095;
   animation-name: royalPatternGlimmer3Yr;
 }
 
 body.inside-palace-chambers.theme-tier-3yr .royal-ethnic-pattern-layer {
-  opacity: 0.065;
+  opacity: 0.07;
   animation-name: royalPatternGlimmerRooms3Yr;
 }
 
 body.theme-tier-3yr .royal-ethnic-svg-tile {
-  background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 35%, #94a3b8 70%, #475569 100%) !important;
+  background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 35%, #94a3b8 65%, #0047ab 100%) !important;
   -webkit-mask-image: url('../assets/images/branding/damask_mask_3yr.png') !important;
   mask-image: url('../assets/images/branding/damask_mask_3yr.png') !important;
   -webkit-mask-repeat: repeat !important;
@@ -67,16 +64,16 @@ body.theme-tier-3yr .room-wall::before {
   pointer-events: none !important;
 }
 
-/* 3. Dark Charcoal (#333333) Chamber Ambience & Moonlight Silver Vignette */
+/* 3. Deep Cobalt Chamber Ambience & Moonlight Silver Vignette */
 body.theme-tier-3yr .room-wall {
   background: radial-gradient(
     ellipse at 50% 30%,
-    #3f3f3f 0%,
-    #303030 65%,
-    #222222 100%
+    rgba(0, 71, 171, 0.38) 0%,
+    rgba(5, 14, 34, 0.72) 65%,
+    rgba(3, 8, 22, 0.88) 100%
   ) !important;
-  border: 1px solid rgba(241, 245, 249, 0.14) !important;
-  box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.8) !important;
+  border: 1px solid rgba(241, 245, 249, 0.12) !important;
+  box-shadow: inset 0 0 100px rgba(0, 20, 50, 0.85) !important;
 }
 
 body.theme-tier-3yr .royal-ethnic-shimmer-sheen {
@@ -84,49 +81,44 @@ body.theme-tier-3yr .royal-ethnic-shimmer-sheen {
     115deg,
     transparent 0%,
     transparent 44%,
-    rgba(255, 255, 255, 0.18) 48%,
+    rgba(255, 255, 255, 0.22) 48%,
     #ffffff 50%,
-    rgba(203, 213, 225, 0.25) 52%,
+    rgba(0, 71, 171, 0.35) 52%,
     transparent 58%,
     transparent 100%
   ) !important;
-  opacity: 0.18 !important;
+  opacity: 0.22 !important;
 }
 
 body.theme-tier-3yr .royal-ethnic-vignette-overlay {
   background: radial-gradient(
     ellipse 72% 64% at 50% 50%,
-    transparent 22%,
-    rgba(45, 45, 45, 0.35) 50%,
-    #2b2b2b 84%,
-    #222222 100%
+    transparent 18%,
+    rgba(3, 8, 22, 0.35) 50%,
+    #030816 84%,
+    #030816 100%
   ) !important;
 }
 
-body.theme-tier-3yr .room-spotlight {
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, rgba(203, 213, 225, 0.04) 45%, transparent 80%) !important;
-  opacity: 0.65 !important;
-}
-
 @keyframes royalPatternGlimmer3Yr {
-  0% { opacity: 0.07; }
-  50% { opacity: 0.095; }
-  100% { opacity: 0.08; }
+  0% { opacity: 0.08; }
+  50% { opacity: 0.115; }
+  100% { opacity: 0.09; }
 }
 
 @keyframes royalPatternGlimmerRooms3Yr {
-  0% { opacity: 0.055; }
-  50% { opacity: 0.075; }
-  100% { opacity: 0.065; }
+  0% { opacity: 0.06; }
+  50% { opacity: 0.085; }
+  100% { opacity: 0.07; }
 }
 
-/* 4. Headings & Typography: Pure Moonlight Silver Headings & Glowing Cobalt Blue Sub-Headings */
+/* 4. Headings & Typography: Pure Moonlight Silver Headings & Dark Cobalt Blue Sub-Headings */
 body.theme-tier-3yr .placard-title,
 body.theme-tier-3yr .portal-arch-title,
 body.theme-tier-3yr .celebration-main-title,
 body.theme-tier-3yr .chamber-name {
   color: #ffffff !important;
-  text-shadow: 0 0 20px rgba(241, 245, 249, 0.4), 0 2px 10px rgba(0, 0, 0, 0.9) !important;
+  text-shadow: 0 0 25px rgba(0, 71, 171, 0.9), 0 2px 10px rgba(0, 0, 0, 0.8) !important;
 }
 
 body.theme-tier-3yr .placard-sub,
@@ -137,15 +129,15 @@ body.theme-tier-3yr .celebration-sub,
 body.theme-tier-3yr .celebration-employee-name,
 body.theme-tier-3yr .doorway-emp-name,
 body.theme-tier-3yr .thankyou-subtitle {
-  color: #5b9bf8 !important;
-  text-shadow: 0 0 14px rgba(0, 71, 171, 0.8), 0 1px 3px rgba(0, 0, 0, 0.9) !important;
+  color: #0047ab !important;
+  text-shadow: 0 0 16px rgba(0, 71, 171, 0.85), 0 0 28px rgba(0, 71, 171, 0.5), 0 1px 3px rgba(0, 0, 0, 0.9) !important;
 }
 
 body.theme-tier-3yr .doorway-emp-name::before {
-  background: linear-gradient(90deg, transparent, #5b9bf8) !important;
+  background: linear-gradient(90deg, transparent, #0047ab) !important;
 }
 body.theme-tier-3yr .doorway-emp-name::after {
-  background: linear-gradient(90deg, #5b9bf8, transparent) !important;
+  background: linear-gradient(90deg, #0047ab, transparent) !important;
 }
 
 /* 5. Celebration Portrait Frame: Balanced Solid Silver Metal Arch & Clean Baroque Vector */
@@ -243,11 +235,11 @@ body.theme-tier-3yr .project-lightbox-card,
 body.theme-tier-3yr .timeline-camera-hint {
   border: 1.2px solid rgba(226, 232, 240, 0.48) !important;
   outline: none !important;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.65), 0 0 16px rgba(255, 255, 255, 0.08), inset 0 0 12px rgba(241, 245, 249, 0.03) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.65), 0 0 16px rgba(0, 71, 171, 0.32), inset 0 0 12px rgba(241, 245, 249, 0.03) !important;
   position: relative;
 }
 
-/* Background gradient for foundation cards: Dark Charcoal & Slate Glass */
+/* Background gradient for foundation cards */
 body.theme-tier-3yr .celebration-quote-card,
 body.theme-tier-3yr .evolution-pill-card,
 body.theme-tier-3yr .evolution-card,
@@ -258,7 +250,7 @@ body.theme-tier-3yr .creations-common-image-card,
 body.theme-tier-3yr .value-card,
 body.theme-tier-3yr .future-card,
 body.theme-tier-3yr .milestone-narrative-card {
-  background: linear-gradient(135deg, rgba(42, 42, 42, 0.94) 0%, rgba(26, 26, 26, 0.98) 100%) !important;
+  background: linear-gradient(135deg, rgba(6, 17, 38, 0.88) 0%, rgba(3, 10, 24, 0.94) 100%) !important;
 }
 
 /* 7. Hover States: Luminous Moonlight Platinum Highlight */
@@ -275,7 +267,7 @@ body.theme-tier-3yr .value-card:hover,
 body.theme-tier-3yr .future-card:hover,
 body.theme-tier-3yr .sticky-note:hover {
   border-color: rgba(255, 255, 255, 0.88) !important;
-  box-shadow: 0 14px 42px rgba(0, 0, 0, 0.78), 0 0 25px rgba(255, 255, 255, 0.2), 0 0 10px rgba(241, 245, 249, 0.3) !important;
+  box-shadow: 0 14px 42px rgba(0, 0, 0, 0.78), 0 0 25px rgba(0, 71, 171, 0.55), 0 0 10px rgba(241, 245, 249, 0.3) !important;
 }
 
 /* 7b. Chamber Thank You: Completely Open & Floating Monument (No Boxes, Frames, or Outlines) */
@@ -305,7 +297,7 @@ body.theme-tier-3yr .thankyou-avatar-halo {
 
 body.theme-tier-3yr .thankyou-avatar-img {
   border: 3.5px solid #ffffff !important;
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.65), 0 0 28px rgba(241, 245, 249, 0.4), 0 0 12px rgba(241, 245, 249, 0.6) !important;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.65), 0 0 28px rgba(0, 71, 171, 0.85), 0 0 12px rgba(241, 245, 249, 0.6) !important;
 }
 
 body.theme-tier-3yr .thankyou-avatar-glow {
@@ -314,13 +306,13 @@ body.theme-tier-3yr .thankyou-avatar-glow {
 
 body.theme-tier-3yr .thankyou-wreath-icon {
   background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 50%, #94a3b8 100%) !important;
-  color: #1e293b !important;
+  color: #002c6b !important;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6) !important;
 }
 
 body.theme-tier-3yr .thankyou-main-title {
   color: #ffffff !important;
-  text-shadow: 0 0 25px rgba(241, 245, 249, 0.4), 0 2px 10px rgba(0, 0, 0, 0.8) !important;
+  text-shadow: 0 0 25px rgba(0, 71, 171, 0.85), 0 2px 10px rgba(0, 0, 0, 0.8) !important;
 }
 
 body.theme-tier-3yr .thankyou-quote-decor {
@@ -333,7 +325,7 @@ body.theme-tier-3yr .thankyou-letter-text {
 
 body.theme-tier-3yr .thankyou-signature-line {
   color: #f1f5f9 !important;
-  text-shadow: 0 0 18px rgba(241, 245, 249, 0.4) !important;
+  text-shadow: 0 0 18px rgba(0, 71, 171, 0.8) !important;
 }
 
 /* Internal Card Dividers & Coordinated Sub-elements */
@@ -354,40 +346,40 @@ body.theme-tier-3yr .future-card-icon-wrap,
 body.theme-tier-3yr .future-card-icon-wrap.icon-theme-blue,
 body.theme-tier-3yr .future-card-icon-wrap.icon-theme-gold {
   border: 1px solid rgba(226, 232, 240, 0.45) !important;
-  background: linear-gradient(145deg, #383838 0%, #1f1f1f 100%) !important;
+  background: linear-gradient(145deg, #071530 0%, #030a1a 100%) !important;
   color: #e2e8f0 !important;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5), 0 0 12px rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5), 0 0 12px rgba(0, 71, 171, 0.35) !important;
 }
 
 body.theme-tier-3yr .future-card:hover .future-card-icon-wrap {
   border-color: rgba(255, 255, 255, 0.88) !important;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.65), 0 0 18px rgba(255, 255, 255, 0.25) !important;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.65), 0 0 18px rgba(0, 71, 171, 0.6) !important;
 }
 
 body.theme-tier-3yr .value-icon-box {
   border: 1px solid rgba(226, 232, 240, 0.4) !important;
-  background: rgba(241, 245, 249, 0.12) !important;
+  background: rgba(0, 71, 171, 0.25) !important;
   color: #f1f5f9 !important;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.45) !important;
 }
 
 body.theme-tier-3yr .values-avatar-frame {
   border: 2px solid rgba(226, 232, 240, 0.75) !important;
-  box-shadow: 0 0 25px rgba(255, 255, 255, 0.25), 0 0 10px rgba(241, 245, 249, 0.3) !important;
+  box-shadow: 0 0 25px rgba(0, 71, 171, 0.65), 0 0 10px rgba(241, 245, 249, 0.3) !important;
 }
 
 body.theme-tier-3yr .polaroid-img-box {
   border: 1px solid rgba(226, 232, 240, 0.22) !important;
 }
 
-/* 8. Milestone Journey Nodes & Track in Moonlight Platinum & Charcoal Slate */
+/* 8. Milestone Journey Nodes & Track in Moonlight Platinum & Cobalt Blue */
 body.theme-tier-3yr .milestone-node-pin {
   border-radius: 4px;
   border: 2px solid #f1f5f9 !important;
-  outline: 1px solid rgba(226, 232, 240, 0.6) !important;
+  outline: 1px solid rgba(0, 71, 171, 0.7) !important;
   outline-offset: 2px;
-  box-shadow: 0 0 20px rgba(241, 245, 249, 0.5) !important;
-  background: #475569 !important;
+  box-shadow: 0 0 22px rgba(0, 71, 171, 0.9) !important;
+  background: #0047ab !important;
   transform: rotate(45deg);
 }
 
@@ -396,7 +388,7 @@ body.theme-tier-3yr .milestone-node-core {
 }
 
 body.theme-tier-3yr .milestone-track-fill {
-  background: linear-gradient(90deg, #475569 0%, #f1f5f9 50%, #475569 100%) !important;
+  background: linear-gradient(90deg, #0047ab 0%, #f1f5f9 50%, #0047ab 100%) !important;
 }
 
 /* 9. Grand Neoclassical Portal & Silver Double Doors (Replaced with Custom Arch & Arched Leaves) */
@@ -409,7 +401,7 @@ body.theme-tier-3yr .portal-photo-frame {
   width: 440px !important;
   height: 516px !important;
   background: url('../assets/images/portal/palace_door_frame_3yr.png') no-repeat center / contain !important;
-  filter: drop-shadow(0 15px 35px rgba(0, 0, 0, 0.85)) drop-shadow(0 0 25px rgba(241, 245, 249, 0.2)) !important;
+  filter: drop-shadow(0 15px 35px rgba(0, 0, 0, 0.85)) drop-shadow(0 0 25px rgba(0, 71, 171, 0.4)) !important;
 }
 
 body.theme-tier-3yr .portal-doorway-aperture {
@@ -510,14 +502,14 @@ body.theme-tier-3yr .portal-arch-glow-backdrop {
   width: 320px !important;
   height: 440px !important;
   border-radius: 160px 160px 0 0 !important;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.95), 0 0 35px rgba(241, 245, 249, 0.25) !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.95), 0 0 45px rgba(0, 71, 171, 0.8), 0 0 15px rgba(0, 71, 171, 0.4) !important;
 }
 
 body.theme-tier-3yr .prompt-pill {
-  background: rgba(45, 45, 45, 0.92) !important;
+  background: rgba(6, 17, 38, 0.92) !important;
   border: 1.5px solid #f1f5f9 !important;
   color: #ffffff !important;
-  box-shadow: 0 0 22px rgba(0, 0, 0, 0.8), 0 0 10px rgba(241, 245, 249, 0.25) !important;
+  box-shadow: 0 0 22px rgba(0, 71, 171, 0.85), 0 0 10px rgba(241, 245, 249, 0.3) !important;
 }
 
 body.theme-tier-3yr .mouse-scroll-icon {
@@ -526,31 +518,31 @@ body.theme-tier-3yr .mouse-scroll-icon {
 
 body.theme-tier-3yr .mouse-scroll-wheel {
   background: #ffffff !important;
-  box-shadow: 0 0 8px rgba(255, 255, 255, 0.8) !important;
+  box-shadow: 0 0 8px rgba(0, 71, 171, 0.9) !important;
 }
 
 /* 10. Navbar & Active Navigation Pill */
 body.theme-tier-3yr .palace-navbar {
-  background: rgba(36, 36, 36, 0.92) !important;
+  background: rgba(4, 12, 28, 0.88) !important;
   border-bottom: 1px solid rgba(241, 245, 249, 0.22) !important;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.65) !important;
+  box-shadow: 0 10px 30px rgba(0, 71, 171, 0.45) !important;
 }
 
 body.theme-tier-3yr .nav-pill-btn.active {
-  background: linear-gradient(135deg, #475569 0%, #1e293b 100%) !important;
+  background: linear-gradient(135deg, rgba(0, 71, 171, 0.92), rgba(6, 17, 38, 0.96)) !important;
   border: 1px solid #f1f5f9 !important;
   color: #ffffff !important;
-  box-shadow: 0 0 18px rgba(241, 245, 249, 0.4) !important;
+  box-shadow: 0 0 22px rgba(0, 71, 171, 0.9) !important;
 }
 
 /* 11. Buttons & Interactive Controls */
 body.theme-tier-3yr .btn-gold-royal,
 body.theme-tier-3yr .explore-action-btn,
 body.theme-tier-3yr .btn-monument-action {
-  background: linear-gradient(135deg, #475569 0%, #334155 50%, #1e293b 100%) !important;
+  background: linear-gradient(135deg, #0047ab 0%, #1e40af 50%, #002c6b 100%) !important;
   border: 1.5px solid #f1f5f9 !important;
   color: #ffffff !important;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.65), 0 0 15px rgba(241, 245, 249, 0.25) !important;
+  box-shadow: 0 8px 25px rgba(0, 71, 171, 0.75), 0 0 15px rgba(241, 245, 249, 0.35) !important;
 }
 
 /* 12. Mobile Responsive Adjustments */
