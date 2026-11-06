@@ -1741,7 +1741,7 @@
       const singleStage = document.getElementById('memories2SingleStage');
       const unevenStage = document.getElementById('memories2UnevenStage');
       const gridStage = document.getElementById('memories2GridStage');
-      const mode = palaceState.memories2Mode || 'uneven';
+      const mode = (palaceState.memories2Mode === 'uneven' || !palaceState.memories2Mode) ? 'grid' : palaceState.memories2Mode;
 
       if (mode === 'grid') {
         if (singleStage) singleStage.style.display = 'none';
@@ -2073,7 +2073,7 @@
     window.addEventListener('resize', () => {
       clearTimeout(_mem2ResizeDebounce);
       _mem2ResizeDebounce = setTimeout(() => {
-        if (palaceState.memories2Mode === 'uneven' || !palaceState.memories2Mode) {
+        if (palaceState.memories2Mode === 'uneven') {
           renderMemories2Uneven();
         }
       }, 150);

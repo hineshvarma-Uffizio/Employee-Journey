@@ -238,6 +238,8 @@ body.theme-tier-3yr .split-creation-card.theme-emerald,
 body.theme-tier-3yr .split-creation-card.theme-amber,
 body.theme-tier-3yr .creation-visual-card,
 body.theme-tier-3yr .creations-common-image-card,
+body.theme-tier-3yr .collage-photo-card,
+body.theme-tier-3yr .memories2-photo-card,
 body.theme-tier-3yr .memories-uneven-card,
 body.theme-tier-3yr .collage-lightbox-card,
 body.theme-tier-3yr .value-card,
@@ -264,6 +266,8 @@ body.theme-tier-3yr .visual-skill-pill-card,
 body.theme-tier-3yr .split-creation-card,
 body.theme-tier-3yr .creation-visual-card,
 body.theme-tier-3yr .creations-common-image-card,
+body.theme-tier-3yr .collage-photo-card,
+body.theme-tier-3yr .memories2-photo-card,
 body.theme-tier-3yr .value-card,
 body.theme-tier-3yr .future-card,
 body.theme-tier-3yr .milestone-narrative-card {
@@ -279,12 +283,26 @@ body.theme-tier-3yr .split-creation-card.theme-emerald:hover,
 body.theme-tier-3yr .split-creation-card.theme-amber:hover,
 body.theme-tier-3yr .creations-common-image-card:hover,
 body.theme-tier-3yr .polaroid-frame:hover,
+body.theme-tier-3yr .collage-photo-card:hover,
+body.theme-tier-3yr .memories2-photo-card:hover,
 body.theme-tier-3yr .memories-uneven-card:hover,
 body.theme-tier-3yr .value-card:hover,
 body.theme-tier-3yr .future-card:hover,
 body.theme-tier-3yr .sticky-note:hover {
   border-color: rgba(255, 255, 255, 0.92) !important;
   box-shadow: 0 14px 42px rgba(0, 0, 0, 0.85), 0 0 25px rgba(165, 216, 226, 0.45), 0 0 10px rgba(255, 255, 255, 0.3) !important;
+}
+
+body.theme-tier-3yr .collage-pin {
+  background: radial-gradient(circle at 35% 35%, #ffffff 0%, #bce3ee 50%, #4a7587 100%) !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6), 0 0 8px rgba(165, 216, 226, 0.6) !important;
+}
+
+body.theme-tier-3yr .collage-mosaic-grid {
+  scrollbar-color: rgba(186, 230, 253, 0.4) rgba(255, 255, 255, 0.03) !important;
+}
+body.theme-tier-3yr .collage-mosaic-grid::-webkit-scrollbar-thumb {
+  background: rgba(186, 230, 253, 0.4) !important;
 }
 
 /* 7b. Chamber Thank You: Completely Open & Floating Monument (No Boxes, Frames, or Outlines) */

@@ -1208,7 +1208,7 @@
 
     // Dynamic Memories Part 2 Collage Editor in Admin Panel
     window.switchMemories2Mode = function(mode) {
-      palaceState.memories2Mode = 'uneven';
+      palaceState.memories2Mode = 'grid';
       if (!palaceState.memories2 || palaceState.memories2.length === 0) {
         palaceState.memories2 = [
           { id: 201, image: 'assets/images/memories/memories_photo_1.png', title: 'Office Celebrations', desc: '' },
@@ -1228,7 +1228,7 @@
     };
 
     function populateAdminMemories2() {
-      palaceState.memories2Mode = 'uneven';
+      palaceState.memories2Mode = 'grid';
       const btnUneven = document.getElementById('btnMem2ModeUneven');
       const secSingle = document.getElementById('adminMem2SingleSection');
       const secMulti = document.getElementById('adminMem2MultiSection');
@@ -1309,7 +1309,7 @@
         desc: ""
       });
       if (palaceState.memories2Mode !== 'grid') {
-        palaceState.memories2Mode = 'uneven';
+        palaceState.memories2Mode = 'grid';
       }
       persistPalaceState();
       populateAdminMemories2();
@@ -1426,7 +1426,7 @@
             palaceState.memories2 = palaceState.memories2.concat(newItems);
           }
           if (palaceState.memories2Mode !== 'grid') {
-            palaceState.memories2Mode = 'uneven';
+            palaceState.memories2Mode = 'grid';
           }
           persistPalaceState();
           populateAdminMemories2();
@@ -3196,7 +3196,7 @@
         }
 
         // Collect Photo Memories Part 2 Mode (Locked to Mode 2: Uneven White-Frame Collage)
-        palaceState.memories2Mode = 'uneven';
+        palaceState.memories2Mode = 'grid';
 
         // Collect Photo Memories Part 2 Single Ready-made Collage Image
         const mem2CollageInput = document.getElementById('inputMemories2CollageSrc');
