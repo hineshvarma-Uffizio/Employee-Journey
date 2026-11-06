@@ -609,7 +609,7 @@ body.theme-tier-3yr .portal-doors-wrapper {
   width: 252px !important;
   height: 410px !important;
   box-shadow: none !important;
-  perspective: 900px !important;
+  perspective: 750px !important;
   transform-style: preserve-3d !important;
   -webkit-transform-style: preserve-3d !important;
   cursor: pointer !important;
@@ -626,10 +626,9 @@ body.theme-tier-3yr .photo-door-leaf {
   -webkit-transform-style: preserve-3d !important;
   backface-visibility: hidden !important;
   -webkit-backface-visibility: hidden !important;
-  will-change: transform, box-shadow !important;
+  will-change: transform !important;
   transform: translate3d(0, 0, 0) !important;
-  transition: transform 0.95s cubic-bezier(0.2, 0.8, 0.25, 1),
-              box-shadow 0.95s cubic-bezier(0.2, 0.8, 0.25, 1) !important;
+  transition: transform 0.95s cubic-bezier(0.2, 0.8, 0.25, 1) !important;
 }
 
 body.theme-tier-3yr .photo-door-leaf.left {
@@ -666,8 +665,13 @@ body.theme-tier-3yr .door-face.front.right {
   background: url('../assets/images/portal/palace_door_right_3yr.png') no-repeat 0 0 / 100% 100% !important;
 }
 
-body.theme-tier-3yr .portal-doors-open .door-face.front {
-  filter: brightness(0.85) contrast(1.06) !important;
+/* Clear Inward Light & Depth: Subtle contrast and inward directional shadow */
+body.theme-tier-3yr .portal-doors-open .door-face.front.left {
+  filter: brightness(0.92) contrast(1.05) drop-shadow(6px 0 14px rgba(0, 0, 0, 0.75)) !important;
+}
+
+body.theme-tier-3yr .portal-doors-open .door-face.front.right {
+  filter: brightness(0.92) contrast(1.05) drop-shadow(-6px 0 14px rgba(0, 0, 0, 0.75)) !important;
 }
 
 /* Interior Door Leaf (Obsidian & Specular Platinum Bevel) */
@@ -692,42 +696,38 @@ body.theme-tier-3yr .door-face.back.right {
   border-radius: 0 126px 0 0 !important;
 }
 
-/* Inward Opening 3D Mechanics: Visibly swings inward into the palace interior */
+/* Inward Opening 3D Mechanics: Visibly swings inward into the palace interior (Doors Stay Fully Visible!) */
 body.theme-tier-3yr .portal-doors-open .photo-door-leaf.left {
-  transform: rotateY(70deg) translate3d(0, 0, 0) !important;
-  box-shadow: 18px 0 35px rgba(0, 0, 0, 0.85) !important;
-  transition: transform 0.95s cubic-bezier(0.2, 0.8, 0.25, 1),
-              box-shadow 0.95s cubic-bezier(0.2, 0.8, 0.25, 1) !important;
+  transform: rotateY(52deg) translate3d(0, 0, 0) !important;
+  transition: transform 0.95s cubic-bezier(0.2, 0.8, 0.25, 1) !important;
 }
 
 body.theme-tier-3yr .portal-doors-open .photo-door-leaf.right {
-  transform: rotateY(-70deg) translate3d(0, 0, 0) !important;
-  box-shadow: -18px 0 35px rgba(0, 0, 0, 0.85) !important;
-  transition: transform 0.95s cubic-bezier(0.2, 0.8, 0.25, 1),
-              box-shadow 0.95s cubic-bezier(0.2, 0.8, 0.25, 1) !important;
+  transform: rotateY(-52deg) translate3d(0, 0, 0) !important;
+  transition: transform 0.95s cubic-bezier(0.2, 0.8, 0.25, 1) !important;
 }
 
 body.theme-tier-3yr .portal-arch-structure.zooming-through .portal-doors-open .photo-door-leaf.left,
 body.theme-tier-3yr .portal-arch-structure.zooming-through.door-open .photo-door-leaf.left {
-  transform: rotateY(88deg) translate3d(0, 0, 0) !important;
+  transform: rotateY(86deg) translate3d(0, 0, 0) !important;
   transition: transform 0.72s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
 body.theme-tier-3yr .portal-arch-structure.zooming-through .portal-doors-open .photo-door-leaf.right,
 body.theme-tier-3yr .portal-arch-structure.zooming-through.door-open .photo-door-leaf.right {
-  transform: rotateY(-88deg) translate3d(0, 0, 0) !important;
+  transform: rotateY(-86deg) translate3d(0, 0, 0) !important;
   transition: transform 0.72s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
-/* Palace Hall Reveal: 0.18s delay so doors visibly part and push inward FIRST before hall blooms */
+/* Palace Hall Reveal: 0.16s delay so doors visibly part and push inward FIRST before hall blooms */
 body.theme-tier-3yr .portal-doors-open ~ .portal-doorway-aperture .doorway-next-screen,
 body.theme-tier-3yr .door-open .doorway-next-screen {
   opacity: 1 !important;
   visibility: visible !important;
   transform: scale(1) !important;
   pointer-events: auto !important;
-  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.18s,
-              transform 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.18s,
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.16s,
+              transform 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.16s,
               visibility 0s 0s !important;
 }
 
