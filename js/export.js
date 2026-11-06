@@ -76,15 +76,8 @@
     }
 
     function promptUnlockEditor() {
-      const enteredPin = prompt("🔐 Enter Editor Passcode to unlock editing privileges:");
-      if (enteredPin === null) return;
-      const validPin = palaceState.editorPasscode || "uffizio";
-      if (enteredPin.trim().toLowerCase() === validPin.trim().toLowerCase()) {
-        applyAccessMode('edit');
-        alert("✨ Editor privileges unlocked! You can now edit rooms, profile, and journey details.");
-      } else {
-        alert("❌ Incorrect passcode. Presentation remains locked in View-Only mode.");
-      }
+      // Passcode verification removed per user request: unlocks editing directly
+      applyAccessMode('edit');
     }
 
     // Initialize access mode and payload from URL
@@ -124,33 +117,14 @@
         if (requestedAccess === 'view') {
           applyAccessMode('view');
         } else if (requestedAccess === 'edit') {
-          // If accessing via web (not file: or localhost), prompt for passcode before allowing edit!
-          const isLocal = window.location.protocol === 'file:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-          if (!isLocal) {
-            const entered = prompt("🔐 Enter Editor Passcode to enable Edit Mode:");
-            const validPin = palaceState.editorPasscode || "uffizio";
-            if (entered && entered.trim().toLowerCase() === validPin.trim().toLowerCase()) {
-              applyAccessMode('edit');
-            } else {
-              if (entered !== null) alert("❌ Incorrect passcode. Opening in View-Only Mode.");
-              applyAccessMode('view');
-            }
-          } else {
-            applyAccessMode('edit');
-          }
+          // Passcode verification removed per user request: open directly in Edit Mode
+          applyAccessMode('edit');
         } else if (palaceState.defaultAccessMode === 'view') {
           // Exported presentation opened by recipient -> lock in View Mode
           applyAccessMode('view');
         } else {
-          // If on web (github pages) without access param, default visitors to View Mode
-          const isLocal = window.location.protocol === 'file:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-          if (!isLocal) {
-            applyAccessMode('view');
-          } else {
-            // Local author working on index.html:
-            const savedMode = localStorage.getItem('palace_user_access_mode');
-            applyAccessMode(savedMode === 'view' ? 'view' : 'edit');
-          }
+          // Default directly to Edit Mode for fast testing and changes without passcode
+          applyAccessMode('edit');
         }
       } catch (e) {
         console.warn("Could not init access mode", e);
@@ -422,11 +396,7 @@
       if (palaceModeBadge) {
         palaceModeBadge.addEventListener('click', () => {
           if (palaceAccessMode === 'view') {
-            if (palaceState.defaultAccessMode === 'view') {
-              promptUnlockEditor();
-            } else {
-              applyAccessMode('edit');
-            }
+            applyAccessMode('edit');
           } else {
             if (confirm("Switch to View-Only Presentation Mode?\n(This cleanly hides all admin and edit buttons for presentation).")) {
               applyAccessMode('view');
