@@ -157,7 +157,7 @@
 
       setTimeout(() => {
         isTransitioning = false;
-      }, 450);
+      }, 950);
     }
 
     function closeDoor() {
@@ -178,7 +178,7 @@
 
       setTimeout(() => {
         isTransitioning = false;
-      }, 450);
+      }, 950);
     }
 
     function stepInsidePalace() {

@@ -1582,6 +1582,9 @@ const defaultChambers = [
     if (!savedFullProfile && (!currentEmpSlug || currentEmpSlug === 'dhara')) {
       savedFullProfile = localStorage.getItem('palace_full_profile') || localStorage.getItem('palace_profile_dhara');
     }
+    if (!savedFullProfile && currentEmpSlug && window.BUILTIN_PROFILES && window.BUILTIN_PROFILES[currentEmpSlug]) {
+      savedFullProfile = JSON.stringify(window.BUILTIN_PROFILES[currentEmpSlug]);
+    }
     const _reqAccess = _urlParams.get('access') || _urlParams.get('mode');
     if (savedFullProfile && !palaceState.isStandalone) {
       try {
@@ -1678,6 +1681,8 @@ const defaultChambers = [
         console.warn("Could not parse saved palace profile", e);
       }
     }
+
+    applyThemeTier(palaceState.milestoneTier);
 
     // Secondary restore from IndexedDB if localStorage was cleared or limited
     loadFromIndexedDB().then(idbData => {
@@ -1835,8 +1840,7 @@ const defaultChambers = [
       } catch(e) {}
 
       // 3. Current active palaceState if matches current slug and already has customized data
-      const currentActiveSlug = (currentEmpSlug || 'dhara').toLowerCase().trim();
-      if (s === currentActiveSlug && palaceState && (palaceState.employee || palaceState.chambers)) {
+      if (palaceState && palaceState._activeSlug === s && (palaceState.employee || palaceState.chambers)) {
         return JSON.parse(JSON.stringify(palaceState));
       }
 
@@ -1882,6 +1886,8 @@ const defaultChambers = [
 
       // Explicitly guarantee milestoneTier is cleanly set
       palaceState.milestoneTier = data.milestoneTier || palaceState.milestoneTier || '1yr';
+      palaceState._activeSlug = (currentEmpSlug || 'dhara').toLowerCase().trim();
+      applyThemeTier(palaceState.milestoneTier);
 
       updatePalaceFromState();
       renderPlacards();
