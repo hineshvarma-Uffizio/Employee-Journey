@@ -36,21 +36,21 @@
        Tier 20yr: Imperial Royal Purple & 24K Liquid Gold
        ========================================================================== */
     body.theme-tier-3yr {
-      --bg-palace: #030816;
-      --bg-room: #050e24;
+      --bg-palace: #333333;
+      --bg-room: #2a2a2a;
       --gold-primary: #f1f5f9;
       --gold-light: #ffffff;
       --gold-dark: #94a3b8;
-      --gold-glow: rgba(0, 71, 171, 0.9);
-      --shadow-sapphire: 0 16px 42px rgba(0, 71, 171, 0.65);
-      --shadow-glow: 0 0 32px rgba(0, 71, 171, 0.85);
-      --bg-sapphire-glow: #0047ab;
-      --bg-sapphire-glow-rgba: rgba(0, 71, 171, 0.88);
-      --cyan-accent: #38bdf8;
-      --cyan-glow: rgba(0, 71, 171, 0.85);
+      --gold-glow: rgba(226, 232, 240, 0.45);
+      --shadow-sapphire: 0 16px 42px rgba(0, 0, 0, 0.65);
+      --shadow-glow: 0 0 32px rgba(241, 245, 249, 0.25);
+      --bg-sapphire-glow: #475569;
+      --bg-sapphire-glow-rgba: rgba(71, 85, 105, 0.55);
+      --cyan-accent: #cbd5e1;
+      --cyan-glow: rgba(226, 232, 240, 0.35);
       --glass-gold-border: rgba(241, 245, 249, 0.38);
-      --glass-panel: rgba(6, 17, 38, 0.85);
-      --glass-border: rgba(241, 245, 249, 0.16);
+      --glass-panel: rgba(45, 45, 45, 0.9);
+      --glass-border: rgba(241, 245, 249, 0.18);
     }
 
     body.theme-tier-5yr {
