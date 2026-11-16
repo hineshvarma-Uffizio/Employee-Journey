@@ -383,9 +383,25 @@ body.theme-tier-3yr .thankyou-signature-line {
 }
 
 /* Internal Card Dividers & Coordinated Sub-elements */
-body.theme-tier-3yr .split-card-icon-col {
+body.theme-tier-3yr .split-card-icon-col,
+body.theme-tier-3yr .split-creation-card.theme-blue .split-card-icon-col,
+body.theme-tier-3yr .split-creation-card.theme-purple .split-card-icon-col,
+body.theme-tier-3yr .split-creation-card.theme-emerald .split-card-icon-col,
+body.theme-tier-3yr .split-creation-card.theme-amber .split-card-icon-col {
   border-right: 1px solid rgba(186, 230, 253, 0.28) !important;
-  color: #bce3ee !important;
+  color: #0063A3 !important;
+}
+
+body.theme-tier-3yr .split-card-icon-svg {
+  color: #0063A3 !important;
+  stroke: #0063A3 !important;
+  filter: drop-shadow(0 0 6px rgba(0, 99, 163, 0.55)) !important;
+}
+
+body.theme-tier-3yr .split-creation-card:hover .split-card-icon-svg {
+  color: #0063A3 !important;
+  stroke: #0063A3 !important;
+  filter: drop-shadow(0 0 10px rgba(0, 99, 163, 0.85)) !important;
 }
 
 body.theme-tier-3yr .evolution-pill-line {
@@ -401,13 +417,25 @@ body.theme-tier-3yr .future-card-icon-wrap.icon-theme-blue,
 body.theme-tier-3yr .future-card-icon-wrap.icon-theme-gold {
   border: 1px solid rgba(186, 230, 253, 0.45) !important;
   background: linear-gradient(145deg, #162a36 0%, #09151c 100%) !important;
-  color: #e0f2fe !important;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5), 0 0 12px rgba(165, 216, 226, 0.3) !important;
+  color: #0063A3 !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5), 0 0 12px rgba(0, 99, 163, 0.3) !important;
+}
+
+body.theme-tier-3yr .future-icon-svg {
+  color: #0063A3 !important;
+  stroke: #0063A3 !important;
+  filter: drop-shadow(0 0 6px rgba(0, 99, 163, 0.55)) !important;
 }
 
 body.theme-tier-3yr .future-card:hover .future-card-icon-wrap {
-  border-color: rgba(255, 255, 255, 0.9) !important;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.65), 0 0 18px rgba(165, 216, 226, 0.55) !important;
+  border-color: #0063A3 !important;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.65), 0 0 18px rgba(0, 99, 163, 0.55) !important;
+}
+
+body.theme-tier-3yr .future-card:hover .future-icon-svg {
+  color: #0063A3 !important;
+  stroke: #0063A3 !important;
+  filter: drop-shadow(0 0 10px rgba(0, 99, 163, 0.85)) !important;
 }
 
 body.theme-tier-3yr .value-icon-box {
