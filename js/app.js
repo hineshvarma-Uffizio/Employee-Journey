@@ -166,4 +166,16 @@ document.addEventListener('DOMContentLoaded', async () => {
       populateProfileDropdown();
     }
   }
+
+  // 6. Direct stage navigation via URL param (e.g. ?stage=5 or &stage=5)
+  try {
+    const urlParams = new URLSearchParams(window.location.search);
+    const targetStage = urlParams.get('stage');
+    if (targetStage !== null) {
+      const sIdx = parseInt(targetStage, 10);
+      if (!isNaN(sIdx) && sIdx >= 0 && typeof window.goToStage === 'function') {
+        setTimeout(() => { window.goToStage(sIdx); }, 250);
+      }
+    }
+  } catch(e) {}
 });

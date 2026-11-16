@@ -240,7 +240,6 @@ body.theme-tier-3yr .creation-visual-card,
 body.theme-tier-3yr .creations-common-image-card,
 body.theme-tier-3yr .collage-photo-card,
 body.theme-tier-3yr .memories2-photo-card,
-body.theme-tier-3yr .memories-uneven-card,
 body.theme-tier-3yr .collage-lightbox-card,
 body.theme-tier-3yr .value-card,
 body.theme-tier-3yr .polaroid-frame,
@@ -296,6 +295,17 @@ body.theme-tier-3yr .sticky-note:hover {
 body.theme-tier-3yr .collage-pin {
   background: radial-gradient(circle at 35% 35%, #ffffff 0%, #bce3ee 50%, #4a7587 100%) !important;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6), 0 0 8px rgba(165, 216, 226, 0.6) !important;
+}
+
+body.theme-tier-3yr .memories-uneven-card {
+  border: 1.2px solid rgba(186, 230, 253, 0.45) !important;
+  outline: none !important;
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.85), 0 0 12px rgba(165, 216, 226, 0.2) !important;
+}
+@media (min-width: 769px) {
+  body.theme-tier-3yr .memories-scatter-board:not(.is-scrollable) .memories-uneven-card {
+    position: absolute !important;
+  }
 }
 
 body.theme-tier-3yr .collage-mosaic-grid {

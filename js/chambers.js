@@ -1741,7 +1741,7 @@
       const singleStage = document.getElementById('memories2SingleStage');
       const unevenStage = document.getElementById('memories2UnevenStage');
       const gridStage = document.getElementById('memories2GridStage');
-      const mode = (palaceState.memories2Mode === 'uneven' || !palaceState.memories2Mode) ? 'grid' : palaceState.memories2Mode;
+      const mode = (palaceState.memories2Mode === 'grid') ? 'grid' : ((palaceState.memories2Mode === 'single') ? 'single' : 'uneven');
 
       if (mode === 'grid') {
         if (singleStage) singleStage.style.display = 'none';
@@ -1966,9 +1966,7 @@
 
           if (window.innerWidth > 768) {
             const cx = slot.left + slot.width / 2;
-            // Scale cy so cards stay within board — min 40% ensures no heading overlap
-            const rawCy = slot.top + slot.height / 2;
-            const cy = Math.max(12 + rawCy * 0.68, 40);
+            const cy = slot.top + slot.height / 2;
             card.style.left = `${cx.toFixed(2)}%`;
             card.style.top = `${cy.toFixed(2)}%`;
             card.style.transform = `translate(-50%, -50%) rotate(${slot.rot}deg)`;
