@@ -1761,7 +1761,8 @@ const defaultChambers = [
 
     // Apply Milestone Anniversary Theme Tier
     function applyThemeTier(tier) {
-      const activeTier = tier || (palaceState && palaceState.milestoneTier) || '1yr';
+      const urlTier = (typeof window !== 'undefined' && window.location) ? new URLSearchParams(window.location.search).get('tier') : null;
+      const activeTier = tier || urlTier || (palaceState && palaceState.milestoneTier) || '1yr';
       document.body.classList.remove('theme-tier-1yr', 'theme-tier-3yr', 'theme-tier-5yr', 'theme-tier-10yr', 'theme-tier-15yr', 'theme-tier-20yr');
       if (activeTier && activeTier !== '1yr') {
         document.body.classList.add(`theme-tier-${activeTier}`);
@@ -1771,7 +1772,8 @@ const defaultChambers = [
     function getBuiltinProfilesList() {
       return [
         { slug: 'dhara', name: 'Dhara Patel', isBuiltin: true },
-        { slug: 'rahul', name: 'Rahul Sharma', isBuiltin: true }
+        { slug: 'rahul', name: 'Rahul Sharma', isBuiltin: true },
+        { slug: '5yr', name: '5 Years Milestone', isBuiltin: true }
       ];
     }
 
