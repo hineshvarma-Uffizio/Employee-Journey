@@ -4283,12 +4283,12 @@
        ROOM: YEAR IN MEMORIES (PART 2) - STANDALONE SINGLE READY-MADE COLLAGE
        ========================================================================== */
     #chamber-memories-2 .chamber-placard {
-      top: 14px;
+      top: 104px;
     }
 
     #chamber-memories-2 .chamber-content {
-      height: calc(100% - 95px);
-      margin-top: 76px;
+      height: calc(100% - 245px);
+      margin-top: 168px;
       max-width: 1220px;
       width: 95%;
       display: flex;
@@ -4368,7 +4368,7 @@
       height: 100%;
       max-width: 1140px;
       max-height: 480px;
-      min-height: 320px;
+      min-height: 280px;
       margin: 0 auto;
       box-sizing: border-box;
       overflow: visible;

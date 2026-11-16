@@ -71,7 +71,8 @@
       .chamber-name {
         font-size: clamp(24px, 3.8vw, 36px);
       }
-      .chamber-content {
+      .chamber-content,
+      #chamber-memories-2 .chamber-content {
         margin-top: 75px;
         height: calc(100% - 95px);
         width: 94%;
@@ -1923,8 +1924,8 @@
         max-height: calc(100dvh - 112px) !important;
       }
       #chamber-memories-2 .chamber-content {
-        margin-top: 52px !important;
-        height: calc(100% - 70px) !important;
+        margin-top: 68px !important;
+        height: calc(100% - 75px) !important;
         max-height: calc(100dvh - 120px) !important;
       }
       #chamber-values .chamber-content {
