@@ -1916,12 +1916,16 @@
       #chamber-0 .chamber-content,
       #chamber-1 .chamber-content,
       #chamber-2b .chamber-content,
-      #chamber-memories-2 .chamber-content,
       #chamber-3 .chamber-content,
       #chamber-5 .chamber-content {
         margin-top: 56px !important;
         height: calc(100% - 56px) !important;
         max-height: calc(100dvh - 112px) !important;
+      }
+      #chamber-memories-2 .chamber-content {
+        margin-top: 85px !important;
+        height: calc(100% - 135px) !important;
+        max-height: calc(100dvh - 140px) !important;
       }
       #chamber-values .chamber-content {
         margin-top: 64px !important;
