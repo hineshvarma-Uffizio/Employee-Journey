@@ -139,22 +139,31 @@ body.theme-tier-3yr .chamber-name {
 }
 
 body.theme-tier-3yr .placard-sub,
-body.theme-tier-3yr .portal-arch-sub,
 body.theme-tier-3yr .chamber-desc,
 body.theme-tier-3yr .chamber-sub,
 body.theme-tier-3yr .celebration-sub,
-body.theme-tier-3yr .celebration-employee-name,
-body.theme-tier-3yr .doorway-emp-name,
 body.theme-tier-3yr .thankyou-subtitle {
   color: #bce3ee !important;
   text-shadow: 0 0 10px rgba(165, 216, 226, 0.4), 0 1px 3px rgba(0, 0, 0, 0.95) !important;
 }
 
+/* User-requested #0063A3 branding for Portal Subtitle & Employee Name */
+body.theme-tier-3yr .portal-arch-sub {
+  color: #0063A3 !important;
+  text-shadow: 0 0 12px rgba(0, 99, 163, 0.45), 0 1px 3px rgba(0, 0, 0, 0.95) !important;
+}
+
+body.theme-tier-3yr .celebration-employee-name,
+body.theme-tier-3yr .doorway-emp-name {
+  color: #0063A3 !important;
+  text-shadow: 0 0 16px rgba(0, 99, 163, 0.55), 0 1px 3px rgba(0, 0, 0, 0.95) !important;
+}
+
 body.theme-tier-3yr .doorway-emp-name::before {
-  background: linear-gradient(90deg, transparent, #bce3ee) !important;
+  background: linear-gradient(90deg, transparent, #0063A3) !important;
 }
 body.theme-tier-3yr .doorway-emp-name::after {
-  background: linear-gradient(90deg, #bce3ee, transparent) !important;
+  background: linear-gradient(90deg, #0063A3, transparent) !important;
 }
 
 /* 5. Celebration Portrait Frame: Balanced Solid Silver Metal Arch & Clean Baroque Vector */
@@ -450,14 +459,16 @@ body.theme-tier-3yr .svg-journey-comet {
 body.theme-tier-3yr .milestone-date {
   background: rgba(14, 28, 36, 0.85) !important;
   border: 1px solid rgba(186, 230, 253, 0.35) !important;
-  color: #bce3ee !important;
+  color: #0063A3 !important;
+  font-weight: 600 !important;
 }
 
 body.theme-tier-3yr .horizontal-milestone-item.is-current .milestone-date {
   background: rgba(37, 68, 82, 0.85) !important;
   border-color: #d0f4f4 !important;
-  color: #ffffff !important;
+  color: #0063A3 !important;
   box-shadow: 0 0 16px rgba(165, 216, 226, 0.6) !important;
+  font-weight: 700 !important;
 }
 
 body.theme-tier-3yr .milestone-pulse-aura {
