@@ -1042,29 +1042,43 @@ body.theme-tier-5yr .milestone-narrative-card::after {
   background-size: 38px 38px, 38px 38px !important;
 }
 
-/* Proportional Golden Corner Sizing for Compact Cards */
+/* Proportional Golden Corner Sizing & Card Padding (Ensures zero overlap with text/icons) */
+body.theme-tier-5yr .value-card {
+  padding: 18px 28px 20px 28px !important;
+  box-sizing: border-box !important;
+}
+
+body.theme-tier-5yr .future-card {
+  padding: 16px 28px !important;
+  box-sizing: border-box !important;
+}
+
+body.theme-tier-5yr .celebration-quote-card {
+  padding: 16px 28px !important;
+  box-sizing: border-box !important;
+}
+
+body.theme-tier-5yr .milestone-narrative-card {
+  padding: 16px 26px !important;
+  box-sizing: border-box !important;
+}
+
+body.theme-tier-5yr .value-card::before,
+body.theme-tier-5yr .future-card::before,
 body.theme-tier-5yr .celebration-quote-card::before,
 body.theme-tier-5yr .milestone-narrative-card::before,
-body.theme-tier-5yr .future-card::before {
-  height: 24px !important;
-  background-size: 24px 24px, 24px 24px !important;
+body.theme-tier-5yr .split-creation-card::before {
+  height: 20px !important;
+  background-size: 20px 20px, 20px 20px !important;
 }
 
+body.theme-tier-5yr .value-card::after,
+body.theme-tier-5yr .future-card::after,
 body.theme-tier-5yr .celebration-quote-card::after,
 body.theme-tier-5yr .milestone-narrative-card::after,
-body.theme-tier-5yr .future-card::after {
-  height: 24px !important;
-  background-size: 24px 24px, 24px 24px !important;
-}
-
-body.theme-tier-5yr .split-creation-card::before {
-  height: 28px !important;
-  background-size: 28px 28px, 28px 28px !important;
-}
-
 body.theme-tier-5yr .split-creation-card::after {
-  height: 28px !important;
-  background-size: 28px 28px, 28px 28px !important;
+  height: 20px !important;
+  background-size: 20px 20px, 20px 20px !important;
 }
 
 /* 6. Card Icons: Values, Created & Future */
