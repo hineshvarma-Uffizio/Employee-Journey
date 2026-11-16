@@ -1923,9 +1923,9 @@
         max-height: calc(100dvh - 112px) !important;
       }
       #chamber-memories-2 .chamber-content {
-        margin-top: 85px !important;
-        height: calc(100% - 135px) !important;
-        max-height: calc(100dvh - 140px) !important;
+        margin-top: 52px !important;
+        height: calc(100% - 70px) !important;
+        max-height: calc(100dvh - 120px) !important;
       }
       #chamber-values .chamber-content {
         margin-top: 64px !important;

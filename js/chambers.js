@@ -1821,69 +1821,69 @@
       }
       if (count === 7) {
         return [
-          { left: 4,  top: 3,  width: 29, height: 36, rot: -8.5, z: 2 },
-          { left: 35, top: 4,  width: 31, height: 36, rot: 3.5,  z: 3 },
-          { left: 67, top: 3,  width: 29, height: 36, rot: -7,   z: 2 },
-          { left: 33, top: 33, width: 35, height: 38, rot: -2,   z: 5 },
-          { left: 2,  top: 56, width: 28, height: 36, rot: 5.5,  z: 4 },
-          { left: 35, top: 61, width: 30, height: 36, rot: -4,   z: 6 },
-          { left: 68, top: 56, width: 28, height: 36, rot: 7,    z: 4 }
+          { left: 4,  top: 4,  width: 29, height: 32, rot: -8.5, z: 2 },
+          { left: 35, top: 5,  width: 31, height: 33, rot: 3.5,  z: 3 },
+          { left: 67, top: 4,  width: 29, height: 32, rot: -7,   z: 2 },
+          { left: 33, top: 30, width: 35, height: 34, rot: -2,   z: 5 },
+          { left: 2,  top: 54, width: 28, height: 32, rot: 5.5,  z: 4 },
+          { left: 35, top: 56, width: 30, height: 32, rot: -4,   z: 6 },
+          { left: 68, top: 54, width: 28, height: 32, rot: 7,    z: 4 }
         ];
       }
       if (count === 8) {
         // Exact reference collage layout from media_1789647671540.jpg
         return [
-          { left: 3,  top: 5,  width: 27, height: 34, rot: -9.5, z: 2 },
-          { left: 32, top: 7,  width: 34, height: 34, rot: 3.5,  z: 3 },
-          { left: 67, top: 5,  width: 29, height: 34, rot: -7,   z: 2 },
-          { left: 0,  top: 39, width: 26, height: 33, rot: 2,    z: 4 },
-          { left: 33, top: 35, width: 35, height: 36, rot: -2,   z: 5 },
-          { left: 70, top: 39, width: 28, height: 34, rot: 6.5,  z: 3 },
-          { left: 18, top: 64, width: 28, height: 33, rot: -8,   z: 6 },
-          { left: 49, top: 65, width: 26, height: 33, rot: 3.5,  z: 7 }
+          { left: 3,  top: 4,  width: 27, height: 32, rot: -9.5, z: 2 },
+          { left: 32, top: 5,  width: 34, height: 33, rot: 3.5,  z: 3 },
+          { left: 67, top: 4,  width: 29, height: 32, rot: -7,   z: 2 },
+          { left: 0,  top: 31, width: 26, height: 31, rot: 2,    z: 4 },
+          { left: 33, top: 28, width: 35, height: 34, rot: -2,   z: 5 },
+          { left: 70, top: 31, width: 28, height: 31, rot: 6.5,  z: 3 },
+          { left: 18, top: 52, width: 28, height: 31, rot: -8,   z: 6 },
+          { left: 49, top: 53, width: 26, height: 31, rot: 3.5,  z: 7 }
         ];
       }
       if (count === 9) {
         return [
-          { left: 3,  top: 5,  width: 27, height: 34, rot: -9.5, z: 2 },
-          { left: 32, top: 7,  width: 34, height: 34, rot: 3.5,  z: 3 },
-          { left: 67, top: 5,  width: 29, height: 34, rot: -7,   z: 2 },
-          { left: 0,  top: 39, width: 26, height: 33, rot: 2,    z: 4 },
-          { left: 33, top: 35, width: 35, height: 36, rot: -2,   z: 5 },
-          { left: 70, top: 39, width: 28, height: 34, rot: 6.5,  z: 3 },
-          { left: 16, top: 64, width: 27, height: 33, rot: -8,   z: 6 },
-          { left: 45, top: 65, width: 26, height: 33, rot: 3.5,  z: 7 },
-          { left: 73, top: 62, width: 25, height: 33, rot: -5.5, z: 6 }
+          { left: 3,  top: 4,  width: 27, height: 32, rot: -9.5, z: 2 },
+          { left: 32, top: 5,  width: 34, height: 33, rot: 3.5,  z: 3 },
+          { left: 67, top: 4,  width: 29, height: 32, rot: -7,   z: 2 },
+          { left: 0,  top: 31, width: 26, height: 31, rot: 2,    z: 4 },
+          { left: 33, top: 28, width: 35, height: 34, rot: -2,   z: 5 },
+          { left: 70, top: 31, width: 28, height: 31, rot: 6.5,  z: 3 },
+          { left: 16, top: 50, width: 27, height: 31, rot: -8,   z: 6 },
+          { left: 45, top: 52, width: 26, height: 31, rot: 3.5,  z: 7 },
+          { left: 73, top: 50, width: 25, height: 31, rot: -5.5, z: 6 }
         ];
       }
       if (count === 10) {
         return [
-          { left: 2,  top: 3,  width: 26, height: 34, rot: -9.5, z: 2 },
-          { left: 29, top: 4,  width: 27, height: 34, rot: 3.5,  z: 3 },
-          { left: 57, top: 3,  width: 26, height: 34, rot: -6,   z: 2 },
-          { left: 75, top: 12, width: 24, height: 32, rot: 7,    z: 3 },
-          { left: 0,  top: 36, width: 25, height: 32, rot: 2,    z: 4 },
-          { left: 28, top: 31, width: 32, height: 36, rot: -2,   z: 5 },
-          { left: 63, top: 35, width: 26, height: 32, rot: 5.5,  z: 3 },
-          { left: 12, top: 58, width: 26, height: 34, rot: -8,   z: 6 },
-          { left: 40, top: 60, width: 26, height: 34, rot: 3.5,  z: 7 },
-          { left: 68, top: 57, width: 26, height: 34, rot: -5,   z: 6 }
+          { left: 2,  top: 4,  width: 26, height: 31, rot: -9.5, z: 2 },
+          { left: 29, top: 5,  width: 27, height: 32, rot: 3.5,  z: 3 },
+          { left: 57, top: 4,  width: 26, height: 31, rot: -6,   z: 2 },
+          { left: 75, top: 11, width: 24, height: 30, rot: 7,    z: 3 },
+          { left: 0,  top: 32, width: 25, height: 30, rot: 2,    z: 4 },
+          { left: 28, top: 29, width: 32, height: 34, rot: -2,   z: 5 },
+          { left: 63, top: 32, width: 26, height: 30, rot: 5.5,  z: 3 },
+          { left: 12, top: 54, width: 26, height: 31, rot: -8,   z: 6 },
+          { left: 40, top: 55, width: 26, height: 31, rot: 3.5,  z: 7 },
+          { left: 68, top: 53, width: 26, height: 31, rot: -5,   z: 6 }
         ];
       }
       if (count <= 12) {
         return [
-          { left: 2,  top: 3,  width: 25, height: 32, rot: -9,   z: 2 },
-          { left: 28, top: 4,  width: 26, height: 33, rot: 3,    z: 3 },
-          { left: 55, top: 3,  width: 25, height: 32, rot: -6,   z: 2 },
-          { left: 76, top: 8,  width: 23, height: 31, rot: 7.5,  z: 3 },
-          { left: 0,  top: 34, width: 24, height: 31, rot: 2,    z: 4 },
-          { left: 27, top: 30, width: 31, height: 35, rot: -2,   z: 5 },
-          { left: 61, top: 33, width: 25, height: 31, rot: 5,    z: 4 },
-          { left: 77, top: 39, width: 22, height: 30, rot: -4.5, z: 3 },
-          { left: 8,  top: 57, width: 25, height: 33, rot: -8,   z: 6 },
-          { left: 35, top: 59, width: 25, height: 33, rot: 3.5,  z: 7 },
-          { left: 62, top: 57, width: 25, height: 33, rot: -5.5, z: 6 },
-          { left: 76, top: 62, width: 22, height: 30, rot: 6,    z: 5 }
+          { left: 2,  top: 4,  width: 25, height: 30, rot: -9,   z: 2 },
+          { left: 28, top: 5,  width: 26, height: 31, rot: 3,    z: 3 },
+          { left: 55, top: 4,  width: 25, height: 30, rot: -6,   z: 2 },
+          { left: 76, top: 8,  width: 23, height: 29, rot: 7.5,  z: 3 },
+          { left: 0,  top: 31, width: 24, height: 29, rot: 2,    z: 4 },
+          { left: 27, top: 28, width: 31, height: 33, rot: -2,   z: 5 },
+          { left: 61, top: 30, width: 25, height: 29, rot: 5,    z: 4 },
+          { left: 77, top: 35, width: 22, height: 28, rot: -4.5, z: 3 },
+          { left: 8,  top: 53, width: 25, height: 31, rot: -8,   z: 6 },
+          { left: 35, top: 55, width: 25, height: 31, rot: 3.5,  z: 7 },
+          { left: 62, top: 53, width: 25, height: 31, rot: -5.5, z: 6 },
+          { left: 78, top: 56, width: 21, height: 30, rot: 6,    z: 5 }
         ].slice(0, count);
       }
       // count > 12: Scrollable layout
@@ -1919,12 +1919,10 @@
           targetW = (slotH * 1.15) * ratio;
         }
       } else if (ratio <= 0.85) {
-        // Portrait / Vertical photo: generous height (~1.18 * slotH)
-        const targetH = Math.min(slotH * 1.18, boardH * 0.46);
+        // Portrait / Vertical photo: generous but controlled height
+        const maxH = Math.min(boardH * 0.42, 215);
+        const targetH = Math.min(slotH * 1.15, maxH);
         targetW = targetH * ratio;
-        if (targetW < slotW * 0.62) {
-          targetW = slotW * 0.62;
-        }
       } else {
         // Square or near-square (0.85 < ratio < 1.25)
         targetW = Math.min(slotW * 0.92, slotH * 1.05 * ratio);
