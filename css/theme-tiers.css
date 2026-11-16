@@ -963,17 +963,18 @@ body.theme-tier-5yr .celebration-portrait-frame {
   padding: 5px !important;
 }
 
-/* 5. Chamber Cards Architecture */
+/* 5. Chamber Cards Architecture & Golden Corner Brackets */
 body.theme-tier-5yr .celebration-quote-card,
 body.theme-tier-5yr .evolution-card,
 body.theme-tier-5yr .creation-visual-card,
 body.theme-tier-5yr .creations-common-image-card,
+body.theme-tier-5yr .split-creation-card,
 body.theme-tier-5yr .memories-uneven-card,
 body.theme-tier-5yr .value-card,
 body.theme-tier-5yr .future-card,
 body.theme-tier-5yr .thankyou-card-monument,
 body.theme-tier-5yr .milestone-narrative-card {
-  border-radius: 20px 4px 20px 4px !important;
+  border-radius: 4px !important;
   border: 1.5px solid rgba(245, 173, 5, 0.5) !important;
   box-shadow: 0 16px 45px rgba(0, 0, 0, 0.85), inset 0 0 20px rgba(165, 62, 12, 0.22) !important;
   background: linear-gradient(145deg, rgba(26, 17, 8, 0.94), rgba(13, 8, 4, 0.97)) !important;
@@ -985,9 +986,85 @@ body.theme-tier-5yr .evolution-card:hover,
 body.theme-tier-5yr .creation-visual-card:hover,
 body.theme-tier-5yr .value-card:hover,
 body.theme-tier-5yr .future-card:hover,
-body.theme-tier-5yr .milestone-narrative-card:hover {
+body.theme-tier-5yr .milestone-narrative-card:hover,
+body.theme-tier-5yr .split-creation-card:hover {
   border-color: #F5AD05 !important;
   box-shadow: 0 20px 55px rgba(0, 0, 0, 0.92), 0 0 25px rgba(245, 173, 5, 0.45) !important;
+}
+
+/* Ornamental Golden Corner Brackets - Top Left & Top Right */
+body.theme-tier-5yr .celebration-quote-card::before,
+body.theme-tier-5yr .evolution-card::before,
+body.theme-tier-5yr .creation-visual-card::before,
+body.theme-tier-5yr .creations-common-image-card::before,
+body.theme-tier-5yr .split-creation-card::before,
+body.theme-tier-5yr .memories-uneven-card::before,
+body.theme-tier-5yr .value-card::before,
+body.theme-tier-5yr .future-card::before,
+body.theme-tier-5yr .thankyou-card-monument::before,
+body.theme-tier-5yr .milestone-narrative-card::before {
+  content: '' !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  height: 38px !important;
+  pointer-events: none !important;
+  z-index: 10 !important;
+  background-image: var(--tier5-corner-tl), var(--tier5-corner-tr) !important;
+  background-position: top left, top right !important;
+  background-repeat: no-repeat, no-repeat !important;
+  background-size: 38px 38px, 38px 38px !important;
+}
+
+/* Ornamental Golden Corner Brackets - Bottom Left & Bottom Right */
+body.theme-tier-5yr .celebration-quote-card::after,
+body.theme-tier-5yr .evolution-card::after,
+body.theme-tier-5yr .creation-visual-card::after,
+body.theme-tier-5yr .creations-common-image-card::after,
+body.theme-tier-5yr .split-creation-card::after,
+body.theme-tier-5yr .memories-uneven-card::after,
+body.theme-tier-5yr .value-card::after,
+body.theme-tier-5yr .future-card::after,
+body.theme-tier-5yr .thankyou-card-monument::after,
+body.theme-tier-5yr .milestone-narrative-card::after {
+  content: '' !important;
+  position: absolute !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  height: 38px !important;
+  pointer-events: none !important;
+  z-index: 10 !important;
+  background-image: var(--tier5-corner-bl), var(--tier5-corner-br) !important;
+  background-position: bottom left, bottom right !important;
+  background-repeat: no-repeat, no-repeat !important;
+  background-size: 38px 38px, 38px 38px !important;
+}
+
+/* Proportional Golden Corner Sizing for Compact Cards */
+body.theme-tier-5yr .celebration-quote-card::before,
+body.theme-tier-5yr .milestone-narrative-card::before,
+body.theme-tier-5yr .future-card::before {
+  height: 24px !important;
+  background-size: 24px 24px, 24px 24px !important;
+}
+
+body.theme-tier-5yr .celebration-quote-card::after,
+body.theme-tier-5yr .milestone-narrative-card::after,
+body.theme-tier-5yr .future-card::after {
+  height: 24px !important;
+  background-size: 24px 24px, 24px 24px !important;
+}
+
+body.theme-tier-5yr .split-creation-card::before {
+  height: 28px !important;
+  background-size: 28px 28px, 28px 28px !important;
+}
+
+body.theme-tier-5yr .split-creation-card::after {
+  height: 28px !important;
+  background-size: 28px 28px, 28px 28px !important;
 }
 
 /* 6. Card Icons: Values, Created & Future */

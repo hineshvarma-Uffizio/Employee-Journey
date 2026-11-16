@@ -69,6 +69,10 @@
       --glass-gold-border: rgba(245, 173, 5, 0.45);
       --glass-panel: rgba(22, 14, 7, 0.94);
       --glass-border: rgba(245, 173, 5, 0.22);
+      --tier5-corner-tl: url('../assets/images/branding/tier5_gold_corner_tl.svg');
+      --tier5-corner-tr: url('../assets/images/branding/tier5_gold_corner_tr.svg');
+      --tier5-corner-bl: url('../assets/images/branding/tier5_gold_corner_bl.svg');
+      --tier5-corner-br: url('../assets/images/branding/tier5_gold_corner_br.svg');
     }
 
     body.theme-tier-10yr {
